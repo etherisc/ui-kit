@@ -9,7 +9,8 @@
         "dev": "pnpm --filter @org/ui-kit dev",
         "test": "pnpm -r test",
         "lint": "pnpm -r lint",
-        "format": "prettier --write \"**/*.{ts,tsx,md}\""
+        "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+        "prepare": "husky install"
     },
     "devDependencies": {
         "@changesets/cli": "^2.29.4",
@@ -30,7 +31,7 @@
         "commitlint": "^19.8.1",
         "daisyui": "^5.0.35",
         "eslint": "^9.27.0",
-        "husky": "^9.1.7",
+        "husky": "^8.0.0",
         "lint-staged": "^16.0.0",
         "postcss": "^8.4.35",
         "prettier": "^3.5.3",
