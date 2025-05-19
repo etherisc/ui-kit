@@ -8,7 +8,7 @@ export default tseslint.config(
     eslint.configs.recommended,
     ...tseslint.configs.recommended,
     {
-        files: ['**/*.{ts,tsx}'],
+        files: ['**/*.{js,jsx,ts,tsx}'],
         plugins: {
             'react': reactPlugin,
             'react-hooks': reactHooksPlugin,
@@ -32,6 +32,7 @@ export default tseslint.config(
         rules: {
             'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
             'react/react-in-jsx-scope': 'off',
+            'no-unused-vars': 'error',
         },
     }
 ) 
