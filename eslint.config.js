@@ -6,7 +6,7 @@ import reactRefresh from 'eslint-plugin-react-refresh';
 export default [
     // global ignores – applied before other configs
     {
-        ignores: ['packages/ui-kit/dist/**', '**/node_modules/**']
+        ignores: ['packages/ui-kit/dist/**', '**/node_modules/**', '**/storybook-static/**']
     },
     js.configs.recommended,
     ...tseslint.configs.recommended,

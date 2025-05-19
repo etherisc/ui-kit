@@ -11,6 +11,12 @@ const preview: Preview = {
                 date: /Date$/i,
             },
         },
+        a11y: {
+            // axe-core configuration options
+            element: '#root',
+            config: {},
+            disable: false,
+        },
         layout: 'centered',
     },
     decorators: [
