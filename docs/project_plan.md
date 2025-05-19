@@ -20,17 +20,20 @@ A pragmatic breakdown into **four one‑week sprints** plus a preparatory **Spri
 
 ## Sprint 1 — Core primitives & docs foundation
 
-| #    | Task                                                       | DoD                                                                     | Status |
-| ---- | ---------------------------------------------------------- | ----------------------------------------------------------------------- | ------ |
-| 1.1a | Create basic **Button** component structure.               | Component file exists with basic props and types.                       | ✓      |
-| 1.1b | Complete **Button** implementation with tests and stories. | Vitest unit tests (90 %+ coverage), Storybook MDX story with ArgsTable. |        |
-| 1.1c | Implement **TextInput** wrapper in `/src/core`.            | Vitest unit tests (90 %+ coverage), Storybook MDX story with ArgsTable. |        |
-| 1.2a | Set up basic Storybook configuration.                      | `npm run storybook` starts successfully.                                | ✓      |
-| 1.2b | Install and configure Storybook addon‑docs.                | Documentation tab shows component documentation.                        | ✓      |
-| 1.2c | Configure and verify Storybook addon‑a11y.                 | axe‑a11y addon shows zero violations.                                   |        |
-| 1.3  | Add global theme bridging (`theme.css` ↔ DaisyUI).        | Cypress visual diff (light/dark) matches golden images.                 |        |
-| 1.4  | Create first **AuthShell** layout with logo slot.          | Rendered via Storybook; Playwright snapshot approved.                   |        |
-| 1.5  | Document design tokens (`DESIGN_TOKENS.md`).               | File exists; CI step `tokens-check` verifies presence of each CSS var.  |        |
+| #    | Task                                                                                                  | DoD                                                                      | Status |
+| ---- | ----------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ | ------ |
+| 1.0a | **Folder restructure** – adopt `src/components/primitives`, `layout`, `hooks`, `providers` hierarchy. | `pnpm build` & `pnpm test` pass after move; no unresolved imports in TS. |        |
+| 1.0b | Migrate **Button** files into `components/primitives/Button/`; delete legacy `core/Button`.           | Storybook & unit tests green at the new path.                            |        |
+| 1.0c | Update barrels (`src/components/index.ts`, root `src/index.ts`) and **adjust all imports**.           | `pnpm lint` shows 0 errors; grep finds no `from "./core"`.               |        |
+| 1.1a | Create basic **Button** component structure.                                                          | Component file exists with basic props and types.                        | ✓      |
+| 1.1b | Complete **Button** implementation with tests and stories.                                            | Vitest basic unit tests, Storybook MDX story with ArgsTable.             |        |
+| 1.1c | Implement **TextInput** wrapper in `/src/core`.                                                       | Vitest basic unit tests, Storybook MDX story with ArgsTable.             |        |
+| 1.2a | Set up basic Storybook configuration.                                                                 | `npm run storybook` starts successfully.                                 | ✓      |
+| 1.2b | Install and configure Storybook addon‑docs.                                                           | Documentation tab shows component documentation.                         | ✓      |
+| 1.2c | Configure and verify Storybook addon‑a11y.                                                            | axe‑a11y addon shows zero violations.                                    |        |
+| 1.3  | Add global theme bridging (`theme.css` ↔ DaisyUI).                                                   | Cypress visual diff (light/dark) matches golden images.                  |        |
+| 1.4  | Create first **AuthShell** layout with logo slot.                                                     | Rendered via Storybook; Playwright snapshot approved.                    |        |
+| 1.5  | Document design tokens (`DESIGN_TOKENS.md`).                                                          | File exists; CI step `tokens-check` verifies presence of each CSS var.   |        |
 
 ---
 
