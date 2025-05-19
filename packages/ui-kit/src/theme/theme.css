@@ -1,0 +1,89 @@
+:root {
+    /* DaisyUI HSL tokens → Shadcn variables */
+    /* Base colors */
+    --primary: hsl(var(--p));
+    --primary-foreground: hsl(var(--pc));
+
+    --secondary: hsl(var(--s));
+    --secondary-foreground: hsl(var(--sc));
+
+    --accent: hsl(var(--a));
+    --accent-foreground: hsl(var(--ac));
+
+    --destructive: hsl(var(--er));
+    --destructive-foreground: hsl(var(--erc));
+
+    /* UI elements */
+    --background: hsl(var(--b1));
+    --foreground: hsl(var(--bc));
+    --card: hsl(var(--b1));
+    --card-foreground: hsl(var(--bc));
+    --popover: hsl(var(--b1));
+    --popover-foreground: hsl(var(--bc));
+
+    /* Borders and shadows */
+    --border: hsl(var(--b2));
+    --input: hsl(var(--b2));
+    --ring: hsl(var(--p));
+
+    /* Status colors */
+    --success: hsl(var(--su));
+    --success-foreground: hsl(var(--suc));
+    --warning: hsl(var(--wa));
+    --warning-foreground: hsl(var(--wac));
+    --info: hsl(var(--in));
+    --info-foreground: hsl(var(--inc));
+
+    /* Shadows */
+    --radius: 0.5rem;
+    --shadow-color: 220 3% 15%;
+    --shadow-strength: 1%;
+    --shadow-sm: 0 1px 2px 0 hsl(var(--shadow-color) / calc(var(--shadow-strength) + 9%));
+    --shadow: 0 1px 3px 0 hsl(var(--shadow-color) / calc(var(--shadow-strength) + 10%)),
+        0 1px 2px -1px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 9%));
+    --shadow-md: 0 4px 6px -1px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 9%)),
+        0 2px 4px -2px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 9%));
+    --shadow-lg: 0 10px 15px -3px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 8%)),
+        0 4px 6px -4px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 8%));
+}
+
+.dark {
+    /* DaisyUI HSL tokens → Shadcn variables for dark mode */
+    /* Base colors */
+    --primary: hsl(var(--p));
+    --primary-foreground: hsl(var(--pc));
+
+    --secondary: hsl(var(--s));
+    --secondary-foreground: hsl(var(--sc));
+
+    --accent: hsl(var(--a));
+    --accent-foreground: hsl(var(--ac));
+
+    --destructive: hsl(var(--er));
+    --destructive-foreground: hsl(var(--erc));
+
+    /* UI elements */
+    --background: hsl(var(--n));
+    --foreground: hsl(var(--nc));
+    --card: hsl(var(--n));
+    --card-foreground: hsl(var(--nc));
+    --popover: hsl(var(--n));
+    --popover-foreground: hsl(var(--nc));
+
+    /* Borders and shadows */
+    --border: hsl(var(--b3));
+    --input: hsl(var(--b3));
+    --ring: hsl(var(--p));
+
+    /* Status colors */
+    --success: hsl(var(--su));
+    --success-foreground: hsl(var(--suc));
+    --warning: hsl(var(--wa));
+    --warning-foreground: hsl(var(--wac));
+    --info: hsl(var(--in));
+    --info-foreground: hsl(var(--inc));
+
+    /* Shadows - darker for dark mode */
+    --shadow-color: 220 40% 2%;
+    --shadow-strength: 4%;
+}

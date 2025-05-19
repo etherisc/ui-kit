@@ -31,7 +31,7 @@ A pragmatic breakdown into **four one‑week sprints** plus a preparatory **Spri
 | 1.2a | Set up basic Storybook configuration.                                                                 | `npm run storybook` starts successfully.                                 | ✓      |
 | 1.2b | Install and configure Storybook addon‑docs.                                                           | Documentation tab shows component documentation.                         | ✓      |
 | 1.2c | Configure and verify Storybook addon‑a11y.                                                            | axe‑a11y addon shows zero violations.                                    | ✓      |
-| 1.3  | Add global theme bridging (`theme.css` ↔ DaisyUI).                                                   | Cypress visual diff (light/dark) matches golden images.                  |        |
+| 1.3  | Add global theme bridging (`theme.css` ↔ DaisyUI).                                                   | Cypress visual diff (light/dark) matches golden images.                  | ✓      |
 | 1.4  | Create first **AuthShell** layout with logo slot.                                                     | Rendered via Storybook; Playwright snapshot approved.                    |        |
 | 1.5  | Document design tokens (`DESIGN_TOKENS.md`).                                                          | File exists; CI step `tokens-check` verifies presence of each CSS var.   |        |
 
