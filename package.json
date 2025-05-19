@@ -45,7 +45,7 @@
         "react-dom": "^19.1.0"
     },
     "lint-staged": {
-        "*.{js,jsx,ts,tsx}": [
+        "packages/ui-kit/src/**/*.{js,jsx,ts,tsx}": [
             "eslint --fix"
         ]
     }
