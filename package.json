@@ -1,6 +1,7 @@
 {
   "name": "ui-kit-monorepo",
   "private": true,
+  "type": "module",
   "workspaces": [
     "packages/*"
   ],
@@ -31,12 +32,16 @@
     "commitlint": "^19.8.1",
     "daisyui": "^5.0.35",
     "eslint": "^9.27.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "@eslint/js": "^9.27.0",
     "husky": "^8.0.0",
     "lint-staged": "^16.0.0",
     "postcss": "^8.4.35",
     "prettier": "^3.5.3",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.8.3",
+    "typescript-eslint": "^8.32.1",
     "vite": "^5.1.4",
     "vitest": "^3.1.3"
   },
@@ -45,7 +50,13 @@
     "react-dom": "^19.1.0"
   },
   "lint-staged": {
-    "packages/*/src/**/*.{js,jsx,ts,tsx}": [
+    "packages/ui-kit/src/**/*.{js,jsx,ts,tsx}": [
+      "eslint --fix"
+    ],
+    "packages/ui-kit/{tailwind.config.js,vite.config.ts,postcss.config.js}": [
+      "eslint --fix"
+    ],
+    "eslint.config.js": [
       "eslint --fix"
     ],
     "*.{json,md}": [
