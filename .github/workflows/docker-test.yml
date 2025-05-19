@@ -1,0 +1,21 @@
+name: Docker Test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build Docker image
+        run: docker build -t ui-kit .
+      - name: Run Docker container
+        run: docker run -d -p 80:80 --name ui-kit-container ui-kit
+      - name: Wait for container to start
+        run: sleep 10
+      - name: Check container health
+        run: curl -f http://localhost:80 || exit 1 
