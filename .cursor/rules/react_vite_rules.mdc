@@ -1,0 +1,15 @@
+# Cursor Rule File – React, React Router, Vite
+
+## React hooks
+- No unnamed `useEffect`; always clean up side-effects.
+- Derive state during render; minimal `useState`.
+- Memoize expensive calculations with `useMemo`.
+
+## React Router v7
+- Use data loaders + action where appropriate.
+- Nested routes expressed via outlet; avoid prop-drilling of params.
+
+## Vite
+- Use plugin-react; no CRA config leftovers.
+- Aliases defined in vite.config; avoid deep relative imports.
+- Entry HTML kept minimal; inject script via Vite.

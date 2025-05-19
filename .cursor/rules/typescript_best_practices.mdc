@@ -1,0 +1,11 @@
+# Cursor Rule File – TypeScript Best Practices
+
+- **Strict mode**: `strict: true` in tsconfig.
+- No `any` unless justified with `// TODO` comment.
+- Prefer type aliases & generics; avoid interface/enum overuse.
+- Utility types: use `Partial`, `Pick`, `Record` where appropriate.
+- No namespace or `export =` syntax.
+- All exports are ES modules.
+- Keep type-only imports with `import type`.
+- Enable `noImplicitOverride`, `exactOptionalPropertyTypes`.
+- Prefer readonly arrays/tuples where mutation not intended.

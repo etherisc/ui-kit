@@ -1,0 +1,8 @@
+# Cursor Rule File – State Management
+
+- **Local UI state:** `useState`, `useReducer` only; no derived data in state.
+- **Global session:** Zustand store; strictly side-effect-free actions.
+- **Remote data:** TanStack Query; disable refetchOnWindowFocus if not needed.
+- No direct fetch in components; use query hooks.
+- Forms handled by React Hook Form + Zod; no uncontrolled input hacks.
+- ESLint custom rule enforces named effects & cleanup.

@@ -1,0 +1,8 @@
+# Cursor Rule File – Tailwind, Shadcn, DaisyUI
+
+- Tailwind classes **only inside ui-kit**; no classes in consuming apps.
+- Never override Shadcn component CSS directly; extend via wrapper props.
+- Colours/spacings via CSS vars mapped to DaisyUI tokens.
+- Use `@apply` sparingly inside `theme.css`, never in JSX.
+- Dark-mode via `class="dark"`; avoid media mode.
+- No custom global CSS unless a new token/utility is required.
