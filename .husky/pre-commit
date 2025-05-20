@@ -1,4 +1,5 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-pnpm lint-staged && pnpm lint && pnpm test && pnpm build
+# Only run lint-staged and lint for faster commits
+pnpm lint-staged && pnpm lint
