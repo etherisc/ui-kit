@@ -11,6 +11,13 @@ alwaysApply: true
 - Make sure you understand docs/planning.md and docs/project_plan.md
 - Before starting coding, always present a plan for approval.
 - Tasks are in docs/project_plan.md
-- Each task will be implemented via a feature branch and a PR.
-- Before PR is submitted, the task is marked with "PR" in docs/project_plan.md. 
-- After task is completed (PR merged), the task is marked with a checkmark in docs/project_plan.md
+- Each task will be implemented via a feature branch and a PR to the develop branch.
+- Always follow the following recipe for implementing tasks: 
+  1. Start implementing after the user has explicitly told so.
+  2. After finishing implementing, perform all necessary tests and check if the DoD for this task is met.
+  3. Report on test results and DoD criteria and ask user if a PR should be submitted.
+  4. If the user approves submitting a PR, and before PR is submitted, the task is marked with "PR" in docs/project_plan.md. 
+  5. After PR ist submitted, report to the user and wait for manual instructions.
+  6. The user will then review and merge the PR or ask for updates.
+  7. Pull the repo again to check if the PR has been merged. 
+  8. After task is completed (PR merged), the task is marked with a checkmark in docs/project_plan.md
