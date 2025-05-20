@@ -25,10 +25,16 @@ export function ThemeProvider({
     const { isDarkMode, syncWithSystemPreference } = useTheme();
 
     // Initialize theme based on system preferences if enabled
-    useEffect(() => {
+    useEffect(function setupSystemSync() {
         if (syncWithSystemOnMount) {
             syncWithSystemPreference();
         }
+
+        // Return cleanup function
+        return function cleanupSystemSync() {
+            // This is a no-op, but included to comply with our ESLint rule
+            // In a real-world scenario, you might want to perform cleanup tasks
+        };
     }, [syncWithSystemOnMount, syncWithSystemPreference]);
 
     return (
