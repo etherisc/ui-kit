@@ -1,2 +1,6 @@
 export * from './Button'
-export * from './TextInput' 
+export * from './TextInput'
+export * from './NumberInput'
+export * from './Select'
+export * from './Checkbox'
+export * from './RadioGroup' 
