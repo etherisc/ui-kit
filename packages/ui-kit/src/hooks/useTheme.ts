@@ -12,7 +12,7 @@ export function useTheme() {
     const [systemPrefersDark, setSystemPrefersDark] = useState(false);
 
     // Detect system preference
-    useEffect(() => {
+    useEffect(function setupSystemPreference() {
         // Check for system dark mode preference
         const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
         setSystemPrefersDark(mediaQuery.matches);
@@ -23,7 +23,9 @@ export function useTheme() {
         };
 
         mediaQuery.addEventListener('change', handler);
-        return () => mediaQuery.removeEventListener('change', handler);
+        return function cleanupSystemPreference() {
+            mediaQuery.removeEventListener('change', handler);
+        };
     }, []);
 
     // Helper to sync with system preference
@@ -32,12 +34,18 @@ export function useTheme() {
     };
 
     // Set theme class on document
-    useEffect(() => {
+    useEffect(function applyThemeClass() {
         if (isDarkMode) {
             document.documentElement.classList.add('dark');
         } else {
             document.documentElement.classList.remove('dark');
         }
+
+        // Cleanup function to remove theme class if component unmounts
+        return function cleanupThemeClass() {
+            // This is a no-op in this case, but we include it to comply with our ESLint rule
+            // In a real-world scenario, you might want to restore the previous theme
+        };
     }, [isDarkMode]);
 
     return {
