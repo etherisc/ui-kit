@@ -29,6 +29,14 @@ const FormExample = () => {
         newsletter: false,
     });
 
+    // Generate unique IDs for form elements
+    const ids = {
+        firstName: React.useId(),
+        age: React.useId(),
+        color: React.useId(),
+        newsletter: React.useId(),
+    };
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         alert(JSON.stringify(formState, null, 2));
@@ -42,6 +50,7 @@ const FormExample = () => {
         <form onSubmit={handleSubmit} className="space-y-6 max-w-md">
             <div className="space-y-4">
                 <TextInput
+                    id={ids.firstName}
                     label="First Name"
                     placeholder="Enter your first name"
                     value={formState.firstName}
@@ -49,6 +58,7 @@ const FormExample = () => {
                 />
 
                 <NumberInput
+                    id={ids.age}
                     label="Age"
                     placeholder="Enter your age"
                     min={0}
@@ -58,15 +68,19 @@ const FormExample = () => {
                     description="Must be between 0 and 120"
                 />
 
-                <Select
-                    label="Favorite Color"
-                    placeholder="Select a color"
-                    options={colorOptions}
-                    value={formState.color}
-                    onValueChange={(value) => handleChange('color', value)}
-                />
+                <div>
+                    <label htmlFor={ids.color} className="mb-1 block text-sm font-medium">Favorite Color</label>
+                    <Select
+                        placeholder="Select a color"
+                        options={colorOptions}
+                        value={formState.color}
+                        onValueChange={(value) => handleChange('color', value)}
+                        aria-labelledby={ids.color}
+                    />
+                </div>
 
                 <RadioGroup
+                    name="contactMethod"
                     label="Preferred Contact Method"
                     options={contactOptions}
                     value={formState.contactMethod}
@@ -74,6 +88,7 @@ const FormExample = () => {
                 />
 
                 <Checkbox
+                    id={ids.newsletter}
                     label="Subscribe to newsletter"
                     checked={formState.newsletter}
                     onCheckedChange={(checked) => handleChange('newsletter', !!checked)}
