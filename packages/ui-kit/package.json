@@ -30,7 +30,8 @@
     "theme-screenshots": "cypress run --spec \"cypress/e2e/theme.cy.ts\"",
     "playwright:install": "playwright install",
     "playwright:test": "playwright test",
-    "playwright:update-snapshots": "playwright test --update-snapshots"
+    "playwright:update-snapshots": "playwright test --update-snapshots",
+    "tokens-check": "node scripts/tokens-check.js"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.0.2",
