@@ -27,7 +27,10 @@
     "build-storybook": "storybook build",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
-    "theme-screenshots": "cypress run --spec \"cypress/e2e/theme.cy.ts\""
+    "theme-screenshots": "cypress run --spec \"cypress/e2e/theme.cy.ts\"",
+    "playwright:install": "playwright install",
+    "playwright:test": "playwright test",
+    "playwright:update-snapshots": "playwright test --update-snapshots"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.0.2",
@@ -43,6 +46,7 @@
   "devDependencies": {
     "@chromatic-com/storybook": "^1.9.0",
     "@eslint/js": "^9.27.0",
+    "@playwright/test": "^1.52.0",
     "@storybook/addon-a11y": "^8.6.14",
     "@storybook/addon-docs": "^8.6.14",
     "@storybook/addon-essentials": "^8.6.14",
