@@ -15,6 +15,7 @@ A pragmatic breakdown into **four one‑week sprints** plus a preparatory **Spri
 | 0.4  | Commit Husky hooks (commitlint, lint‑staged).                                                                      | Attempting to commit code with ESLint errors is blocked locally.                                   | ✓      |
 | 0.5  | Seed Changesets & automatic versioning.                                                                            | Merging PR increments `package.json version` and creates a changelog file.                         | ✓      |
 | 0.6  | **Docker/Dokku infra** – Add multi‑stage `Dockerfile`, `Procfile`; CI job builds image & pushes to test Dokku app. | `gh workflow run docker-test` builds & deploys; Dokku reports container running, health‑check 200. | ✓      |
+| 0.7  | **Update GitHub Actions** – Configure CI workflows to run on develop branch and PRs.                               | CI workflows run on both main and develop branches, as well as PRs targeting these branches.       | PR     |
 
 ---
 
