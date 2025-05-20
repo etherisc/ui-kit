@@ -241,7 +241,6 @@ async function runTests(port) {
         const testProcess = spawn('test-storybook', [
             `--url=http://localhost:${port}`,
             '--maxWorkers=2',
-            '--watchAll=false',
             '--ci'
         ], {
             shell: true,
