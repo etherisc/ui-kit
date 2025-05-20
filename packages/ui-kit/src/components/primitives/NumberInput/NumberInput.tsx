@@ -1,7 +1,20 @@
 import * as React from 'react';
 import { Input } from '@/components/ui/input';
-import { cn } from '@/lib/utils';
-import { NumberInputProps } from './types';
+
+export interface NumberInputProps extends React.ComponentPropsWithoutRef<typeof Input> {
+    /** Label text displayed above the input */
+    label?: string;
+    /** Description/help text rendered below */
+    description?: string;
+    /** Marks input as invalid */
+    error?: string;
+    /** Minimum value allowed */
+    min?: number;
+    /** Maximum value allowed */
+    max?: number;
+    /** Step value for incrementing/decrementing */
+    step?: number;
+}
 
 export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
     (
@@ -22,11 +35,8 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
                     max={max}
                     step={step}
                     aria-invalid={!!error}
+                    className={error ? 'border-destructive text-destructive-foreground' : ''}
                     {...props}
-                    className={cn(
-                        error ? 'border-destructive text-destructive-foreground' : '',
-                        props.className
-                    )}
                 />
                 {description && !error && (
                     <p className="mt-1 text-xs text-muted-foreground">{description}</p>

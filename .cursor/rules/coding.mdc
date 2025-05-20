@@ -12,25 +12,38 @@ alwaysApply: true
 - Before starting coding, always present a plan for approval.
 - Tasks are in docs/project_plan.md
 - Each task will be implemented via a feature branch and a PR to the develop branch.
-- Always follow the following recipe for implementing tasks: 
-  1. Only start implementing a task after the user has explicitly told so.
-  2. Before starting coding, create a task planning document (.md) in the docs/task-planning folder.
-  3. The task planning document contains a table with three columns: tasks description, DoD (Definition of Done) and Status. Status is open, working, checking, review, complete. Initially all tasks are "open".
-     1. Open = the task hasn't been worked on.
-     2. Working = the task is currently being implemented.
-     3. Checking = the DoD of the tasks are being checked.
-     4. Review = the user is reviewing the result.
-     5. complete = the user has approved the result and the task is complete.
-  4. After creating the task planning document, let the user review the doc.
-  5. After the user has approved the task planning document, implement each task one after the other.
-  6. After implementing a task, check the criteria for DoD and report the result to the user.
-  7. If DoD is not met, fix the problem until DoD is met.
-  8. Before and after each task, update each task in the table with the right status.
-  9.  After finishing implementing, perform all necessary tests and check if the DoD for this task is met.
-  10. Report on test results and DoD criteria and ask user if a PR should be submitted.
-  11. If the user approves submitting a PR, and before PR is submitted, the task is marked with "PR" in docs/project_plan.md. 
-  12. After PR ist submitted, report to the user and wait for manual instructions.
-  13. The user will then review and merge the PR or ask for updates.
-  14. Pull the repo again to check if the PR has been merged. 
-  15. After task is completed (PR merged), the task is marked with a checkmark in docs/project_plan.md. This change does not warrant a separate PR, it will be included in the next PR. Just do git add for the file.
+
+# Recipe for implementing tasks
+Always follow the following recipe for implementing tasks: 
+1. Only start implementing a task after the user has explicitly told so.
+2. Before starting coding, create a task planning document (.md) in the docs/task-planning folder.
+3. The task planning document contains a table with three columns: tasks description, DoD (Definition of Done) and Status. Status is open, working, checking, review, complete. Initially all tasks are "open".
+   1. Open = the task hasn't been worked on.
+   2. Working = the task is currently being implemented.
+   3. Checking = the DoD of the tasks are being checked.
+   4. Review = the user is reviewing the result.
+   5. complete = the user has approved the result and the task is complete.
+4. After creating the task planning document, let the user review the doc.
+5. After the user has approved the task planning document, implement each task one after the other.
+6. After implementing a task, check the criteria for DoD and report the result to the user.
+7. If DoD is not met, fix the problem until DoD is met.
+8. Before and after each task, update each task in the table with the right status.
+9.  After finishing implementing, perform all necessary tests and check if the DoD for this task is met.
+10. Report on test results and DoD criteria and ask user if a PR should be submitted.
+11. If the user approves submitting a PR, and before PR is submitted, the task is marked with "PR" in docs/project_plan.md. 
+12. After PR ist submitted, report to the user and wait for manual instructions.
+13. The user will then review and merge the PR or ask for updates.
+14. Pull the repo again to check if the PR has been merged. 
+15. After task is completed (PR merged), the task is marked with a checkmark in docs/project_plan.md. This change does not warrant a separate PR, it will be included in the next PR. Just do git add for the file.
+   
+# Instructions to handle error situations:
+- CI Pipeline fails:
+  1. List the last github actions and find out which actions failed.
+  2. Fetch the git actions log with `gh run view --log | cat`
+  3. Analyze the log and make a proposal how to fix it.
+  4. Let the user review / update the proposal, then execute the reviewed/updated proposal.
+- Linter errors:
+  1. Run `pnpm run lint`
+  2. Find the linter errors
+  3. Fix
    

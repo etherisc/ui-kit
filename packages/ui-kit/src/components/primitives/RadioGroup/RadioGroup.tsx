@@ -1,7 +1,25 @@
 import * as React from 'react';
 import { cn } from '@/lib/utils';
 import { RadioGroup as ShadcnRadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { RadioGroupProps } from './types';
+
+export interface RadioOption {
+    value: string;
+    label: string;
+    disabled?: boolean;
+}
+
+export interface RadioGroupProps extends Omit<React.ComponentPropsWithoutRef<typeof ShadcnRadioGroup>, 'children'> {
+    /** Label text displayed above the radio group */
+    label?: string;
+    /** Description/help text rendered below */
+    description?: string;
+    /** Marks input as invalid */
+    error?: string;
+    /** Options for the radio group */
+    options: RadioOption[];
+    /** CSS class name */
+    className?: string;
+}
 
 export const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
     (

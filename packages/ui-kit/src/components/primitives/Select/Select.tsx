@@ -7,7 +7,27 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/components/ui/select';
-import { SelectProps } from './types';
+
+export interface SelectOption {
+    value: string;
+    label: string;
+    disabled?: boolean;
+}
+
+export interface SelectProps extends Omit<React.ComponentPropsWithoutRef<typeof ShadcnSelect>, 'children'> {
+    /** Label text displayed above the select */
+    label?: string;
+    /** Description/help text rendered below */
+    description?: string;
+    /** Marks select as invalid */
+    error?: string;
+    /** Placeholder text */
+    placeholder?: string;
+    /** Options to display in the dropdown */
+    options: SelectOption[];
+    /** CSS class name */
+    className?: string;
+}
 
 export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
     (
