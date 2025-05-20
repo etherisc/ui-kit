@@ -25,7 +25,7 @@ Task 2.5 involves extending the CI pipeline to run axe-core accessibility tests 
 ## Implementation Notes
 
 - We've implemented the axe-core accessibility testing in CI using the Storybook test runner
-- A test component with intentional accessibility violations was created (`A11yTestButton`)
+- A test component with intentional accessibility violations was created (`A11yTestButton` and `A11yViolatingForm`)
 - We created a standalone test script (`scripts/test-a11y-violation.js`) to verify axe-core detection
 - Manual verification confirms axe-core successfully detects accessibility violations:
   ```
@@ -39,6 +39,30 @@ Task 2.5 involves extending the CI pipeline to run axe-core accessibility tests 
 - The CI pipeline will fail when new accessibility violations are introduced, meeting the Definition of Done
 - Documentation explaining how to interpret and fix a11y issues has been added to the `packages/ui-kit/docs/accessibility-testing.md` file
 
+## Key Accessibility Improvements
+
+1. Created proper patterns for extending shadcn components without modification:
+
+   - Composition pattern (`A11yButton`)
+   - Associate labels with form controls (`A11yFormExamples`)
+   - Use aria attributes correctly (`AccessibleComponentsExample`)
+
+2. Added comprehensive documentation:
+   - `packages/ui-kit/docs/PROTECTED_FOLDERS.md` - Guidelines for not modifying third-party components
+   - `packages/ui-kit/src/components/ui/README.md` - Instructions for extending shadcn components
+
 ## Expected Outcome
 
 After implementation, the CI pipeline will automatically test all Storybook stories for accessibility issues using axe-core. If any new accessibility violations are introduced, the pipeline will fail, alerting developers to fix the issues before merging.
+
+## Final Status
+
+Pull request [#13](https://github.com/etherisc/ui-kit/pull/13) has been created and is awaiting review and merge.
+
+## Cleanup Notes
+
+After the PR is merged:
+
+1. Delete the `feature/axe-core-ci` branch locally and remotely
+2. Delete the `test/a11y-violation-detection` branch locally and remotely (it was used for testing/development)
+3. Verify a11y tests are running in CI on the develop branch
