@@ -3,15 +3,40 @@
 
 import { spawn, exec } from 'child_process';
 import { promisify } from 'util';
+import { createServer } from 'net';
 
 const execAsync = promisify(exec);
 
 // Script automatically detects the port Storybook is running on
 
 // Configuration 
-const STORYBOOK_TIMEOUT_MS = 120000; // 2 minutes
+const STORYBOOK_TIMEOUT_MS = 180000; // 3 minutes
 const TEST_TIMEOUT_MS = 120000; // 2 minutes
-const READY_WAIT_MS = 10000; // Additional wait time after port detection
+const READY_WAIT_MS = 15000; // Additional wait time after port detection
+
+// Find an available port
+async function findAvailablePort(startPort = 60000, endPort = 65000) {
+    let port = Math.floor(Math.random() * (endPort - startPort)) + startPort;
+
+    return new Promise((resolve) => {
+        const server = createServer();
+
+        server.once('error', () => {
+            // Port is in use, try another one
+            resolve(findAvailablePort(startPort, endPort));
+        });
+
+        server.once('listening', () => {
+            // Found an available port
+            const foundPort = server.address().port;
+            server.close(() => {
+                resolve(foundPort);
+            });
+        });
+
+        server.listen(port);
+    });
+}
 
 /**
  * Start Storybook and detect the port it's running on
@@ -19,47 +44,115 @@ const READY_WAIT_MS = 10000; // Additional wait time after port detection
 async function startStorybook() {
     console.log('Starting Storybook...');
 
-    // Start Storybook with --ci flag and specify port range
-    // Using a random port in the 60000-65000 range to avoid conflicts
-    const randomPort = Math.floor(Math.random() * 5000) + 60000;
+    // Find an available port
+    const availablePort = await findAvailablePort();
+    console.log(`Using available port: ${availablePort}`);
 
-    const storybookProcess = spawn('storybook', ['dev', '--ci', '--port', randomPort.toString()], {
+    // Start Storybook with --ci flag and specify port range
+    const storybookProcess = spawn('storybook', ['dev', '--ci', '--port', availablePort.toString()], {
         shell: true,
-        stdio: ['pipe', 'pipe', 'pipe']
+        stdio: ['pipe', 'pipe', 'pipe'],
+        env: { ...process.env, FORCE_COLOR: 'true' }
     });
 
     let port = null;
+    let portDetected = false;
+    let logBuffer = '';
 
     // Set up timeout for port detection
     const timeoutPromise = new Promise((_, reject) => {
         setTimeout(() => {
-            reject(new Error(`Timeout waiting for Storybook to start (${STORYBOOK_TIMEOUT_MS / 1000} seconds)`));
+            // Before failing, try to detect the port from lsof
+            tryDetectPortFromLsof(reject);
         }, STORYBOOK_TIMEOUT_MS);
     });
 
+    // Try to detect the port from lsof as a fallback
+    async function tryDetectPortFromLsof(rejectFn) {
+        try {
+            console.log('Attempting to detect Storybook port from system...');
+            // Check for listening Node.js processes
+            const { stdout } = await execAsync('lsof -i -P -n | grep LISTEN | grep node');
+            console.log('Found Node.js listening ports:');
+            console.log(stdout);
+
+            // Log the whole buffer for debugging
+            console.log('---- Storybook Output Log ----');
+            console.log(logBuffer);
+            console.log('---- End Storybook Output Log ----');
+
+            rejectFn(new Error(`Timeout waiting for Storybook to start (${STORYBOOK_TIMEOUT_MS / 1000} seconds)`));
+        } catch (err) {
+            rejectFn(new Error(`Timeout waiting for Storybook to start. Failed to detect from lsof: ${err.message}`));
+        }
+    }
+
     // Create a promise that resolves when we detect the port
     const portDetectionPromise = new Promise((resolve) => {
+        // Function to check output against all known Storybook port patterns
+        const checkForPort = (output) => {
+            // Add to cumulative log buffer for debugging if detection fails
+            logBuffer += output;
+
+            // Various patterns Storybook might use to report its port
+            const patterns = [
+                // Normal patterns
+                /Local:\s*http:\/\/localhost:(\d+)/,
+                /http:\/\/127\.0\.0\.1:(\d+)/,
+                /http:\/\/0\.0\.0\.0:(\d+)/,
+                // CLI output format
+                /╭.*╮.*Local:\s*http:\/\/localhost:(\d+)/s,
+                /╭.*╮.*On your network:\s*http:\/\/[^:]+:(\d+)/s,
+                // Alternative pattern seen in some CI environments
+                /Storybook.*started.*localhost:(\d+)/i,
+                // Direct port mentions
+                /port\s+(\d+)/i,
+                /PORT=(\d+)/i
+            ];
+
+            for (const pattern of patterns) {
+                const match = output.match(pattern);
+                if (match && match[1]) {
+                    const detectedPort = parseInt(match[1], 10);
+                    if (detectedPort > 0) {
+                        console.log(`Detected Storybook running on port: ${detectedPort} (matched pattern: ${pattern})`);
+                        port = detectedPort;
+                        portDetected = true;
+                        resolve(port);
+                        return true;
+                    }
+                }
+            }
+
+            // If the requested port is available and no port detection yet
+            if (output.includes(`${availablePort}`) && !portDetected) {
+                console.log(`Detected Storybook likely running on requested port: ${availablePort}`);
+                port = availablePort;
+                portDetected = true;
+                resolve(port);
+                return true;
+            }
+
+            return false;
+        };
+
         storybookProcess.stdout.on('data', (data) => {
             const output = data.toString();
             console.log(`Storybook: ${output}`);
 
-            // Look for the port in the output - try both patterns that Storybook might use
-            const portMatch = output.match(/Local:\s*http:\/\/localhost:(\d+)/);
-            const altPortMatch = output.match(/http:\/\/127.0.0.1:(\d+)/);
-
-            if (portMatch && portMatch[1]) {
-                port = parseInt(portMatch[1], 10);
-                console.log(`Detected Storybook running on port: ${port}`);
-                resolve(port);
-            } else if (altPortMatch && altPortMatch[1]) {
-                port = parseInt(altPortMatch[1], 10);
-                console.log(`Detected Storybook running on port: ${port}`);
-                resolve(port);
+            if (!portDetected) {
+                checkForPort(output);
             }
         });
 
         storybookProcess.stderr.on('data', (data) => {
-            console.error(`Storybook stderr: ${data}`);
+            const output = data.toString();
+            console.error(`Storybook stderr: ${output}`);
+
+            // Also check stderr for port information
+            if (!portDetected) {
+                checkForPort(output);
+            }
         });
 
         storybookProcess.on('error', (error) => {
@@ -71,6 +164,16 @@ async function startStorybook() {
                 console.error(`Storybook process exited with code ${code}`);
             }
         });
+
+        // As a fallback, assume the port we provided worked if Storybook doesn't exit
+        setTimeout(() => {
+            if (!portDetected) {
+                console.log(`No port detected after 30s. Assuming port ${availablePort} is being used...`);
+                port = availablePort;
+                portDetected = true;
+                resolve(port);
+            }
+        }, 30000);
     });
 
     // Wait for port detection or timeout
@@ -118,7 +221,7 @@ async function runTests(port) {
 
     try {
         // Wait for Storybook server to be ready
-        await execAsync(`wait-on tcp:${port} -t ${TEST_TIMEOUT_MS}`);
+        await execAsync(`wait-on http://localhost:${port} -t ${TEST_TIMEOUT_MS}`);
         console.log('Storybook is ready. Running accessibility tests...');
 
         // List available story IDs for debugging
