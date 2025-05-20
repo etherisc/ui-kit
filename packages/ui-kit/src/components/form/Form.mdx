@@ -1,0 +1,192 @@
+# Form Integration Guide
+
+The UI Kit provides a comprehensive form system that integrates React Hook Form with Zod validation to create type-safe, validated forms with minimal boilerplate.
+
+## Basic Usage
+
+```tsx
+import { z } from 'zod';
+import { Form, TextField, useForm } from '@org/ui-kit';
+
+// Define your form schema with Zod
+const formSchema = z.object({
+  email: z.string().email('Invalid email address'),
+  password: z.string().min(8, 'Password must be at least 8 characters'),
+});
+
+// Infer the type from your schema
+type FormValues = z.infer<typeof formSchema>;
+
+export function LoginForm() {
+  // Initialize the form with your schema and default values
+  const form = useForm(formSchema, {
+    email: '',
+    password: '',
+  });
+
+  const handleSubmit = (data: FormValues) => {
+    console.log('Form submitted:', data);
+    // Handle form submission
+  };
+
+  return (
+    <Form form={form} onSubmit={handleSubmit} className="space-y-4">
+      <TextField 
+        name="email" 
+        label="Email Address" 
+        required 
+        placeholder="your.email@example.com"
+      />
+      <TextField 
+        name="password" 
+        label="Password" 
+        type="password"
+        required 
+        placeholder="Enter your password"
+      />
+      <button type="submit" className="btn btn-primary">
+        Sign In
+      </button>
+    </Form>
+  );
+}
+```
+
+## Form Layout
+
+The UI Kit includes layout components to help structure your forms:
+
+### FormGrid
+
+Use `FormGrid` to create responsive grid layouts for your forms:
+
+```tsx
+<FormGrid columns={2} gap="md">
+  <TextField name="firstName" label="First Name" />
+  <TextField name="lastName" label="Last Name" />
+</FormGrid>
+```
+
+The `columns` prop can be set to 1, 2, 3, or 4, and the grid will be responsive, collapsing to a single column on mobile devices.
+
+### FormGroup
+
+The `FormGroup` component is used to group a form field with its label, error message, and description:
+
+```tsx
+<FormGroup 
+  label="Email Address" 
+  htmlFor="email" 
+  error={formState.errors.email?.message}
+  description="We'll never share your email with anyone else."
+  required
+>
+  <input type="email" id="email" className="input input-bordered w-full" />
+</FormGroup>
+```
+
+Most of the time, you won't need to use `FormGroup` directly, as it's used internally by the field components.
+
+## Available Field Components
+
+The UI Kit provides the following field components:
+
+- `TextField` - For text input
+- `NumberField` - For numeric input
+- `SelectField` - For dropdown select menus
+- `CheckboxField` - For checkboxes
+- `RadioGroupField` - For radio button groups
+
+Each field component wraps a corresponding primitive component from the UI Kit and integrates it with React Hook Form.
+
+## Validation
+
+Validation is handled through Zod schemas, which provide both runtime validation and TypeScript type inference. 
+
+You can define complex validation rules using Zod's chainable API:
+
+```tsx
+const schema = z.object({
+  username: z.string()
+    .min(3, 'Username must be at least 3 characters')
+    .max(20, 'Username must be at most 20 characters')
+    .regex(/^[a-zA-Z0-9_]+$/, 'Username can only contain letters, numbers, and underscores'),
+  age: z.number()
+    .min(18, 'You must be at least 18 years old')
+    .max(120, 'Invalid age'),
+  acceptTerms: z.boolean()
+    .refine(val => val === true, 'You must accept the terms and conditions'),
+});
+```
+
+## Advanced Usage
+
+### Form Context
+
+The `Form` component sets up a React Hook Form context, which allows field components to connect to the form state. You can access the form context directly using React Hook Form's hooks:
+
+```tsx
+import { useFormContext } from 'react-hook-form';
+
+function FormActions() {
+  const { reset, formState } = useFormContext();
+  
+  return (
+    <div className="flex justify-between">
+      <button 
+        type="button" 
+        onClick={() => reset()} 
+        className="btn btn-outline"
+        disabled={!formState.isDirty}
+      >
+        Reset
+      </button>
+      <button 
+        type="submit" 
+        className="btn btn-primary"
+        disabled={formState.isSubmitting}
+      >
+        {formState.isSubmitting ? 'Submitting...' : 'Submit'}
+      </button>
+    </div>
+  );
+}
+```
+
+### Custom Field Components
+
+You can create custom field components using the `FieldWrapper` component:
+
+```tsx
+import { FieldValues, Path } from 'react-hook-form';
+import { FieldWrapper, FieldWrapperProps } from '@org/ui-kit';
+
+export type CustomFieldProps<TFieldValues extends FieldValues> =
+  Omit<MyCustomComponentProps, 'value' | 'onChange'> &
+  Omit<FieldWrapperProps<TFieldValues>, 'render'> & {
+    name: Path<TFieldValues>;
+  };
+
+export function CustomField<TFieldValues extends FieldValues>({
+  name,
+  label,
+  required,
+  ...props
+}: CustomFieldProps<TFieldValues>) {
+  return (
+    <FieldWrapper
+      name={name}
+      label={label}
+      required={required}
+      render={({ field, fieldState }) => (
+        <MyCustomComponent
+          {...props}
+          value={field.value}
+          onChange={field.onChange}
+          error={fieldState.error?.message}
+        />
+      )}
+    />
+  );
+}
+``` 
