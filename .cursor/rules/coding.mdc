@@ -1,0 +1,16 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# General Coding rules
+
+- Before each step, pull/fetch the repo from remote.
+- Default branch is "develop".
+- Always follow the instructions in .cursor/rules
+- Make sure you understand docs/planning.md and docs/project_plan.md
+- Before starting coding, always present a plan for approval.
+- Tasks are in docs/project_plan.md
+- Each task will be implemented via a feature branch and a PR.
+- Before PR is submitted, the task is marked with "PR" in docs/project_plan.md. 
+- After task is completed (PR merged), the task is marked with a checkmark in docs/project_plan.md
