@@ -57,12 +57,16 @@ This document provides an overview of the design tokens used in the UI-Kit. Thes
 
 ### Shadows
 
-| Token         | Description    |
-| ------------- | -------------- |
-| `--shadow-sm` | Small shadow   |
-| `--shadow`    | Default shadow |
-| `--shadow-md` | Medium shadow  |
-| `--shadow-lg` | Large shadow   |
+| Token               | Value                | Description                         |
+| ------------------- | -------------------- | ----------------------------------- |
+| `--shadow-color`    | `220 3% 15%` (light) | Color used for shadow calculations  |
+|                     | `220 40% 2%` (dark)  | Darker in dark mode                 |
+| `--shadow-strength` | `1%` (light)         | Opacity strength for shadow effects |
+|                     | `4%` (dark)          | Stronger in dark mode               |
+| `--shadow-sm`       | Calculated value     | Small shadow                        |
+| `--shadow`          | Calculated value     | Default shadow                      |
+| `--shadow-md`       | Calculated value     | Medium shadow                       |
+| `--shadow-lg`       | Calculated value     | Large shadow                        |
 
 ## Theme Switching
 
