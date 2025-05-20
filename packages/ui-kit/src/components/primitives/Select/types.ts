@@ -1,4 +1,4 @@
-import { SelectProps as ShadcnSelectProps } from '@radix-ui/react-select';
+import { Select as ShadcnSelect } from '@/components/ui/select';
 
 export interface SelectOption {
     value: string;
@@ -6,7 +6,7 @@ export interface SelectOption {
     disabled?: boolean;
 }
 
-export interface SelectProps extends ShadcnSelectProps {
+export interface SelectProps extends React.ComponentPropsWithoutRef<typeof ShadcnSelect> {
     /** Label text displayed above the select */
     label?: string;
     /** Description/help text rendered below */

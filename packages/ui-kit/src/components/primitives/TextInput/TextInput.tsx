@@ -1,14 +1,7 @@
 import * as React from 'react';
-import { Input as ShadcnInput, type InputProps as ShadcnInputProps } from '@/components/ui/input';
-
-export interface TextInputProps extends ShadcnInputProps {
-    /** Label text displayed above the input */
-    label?: string;
-    /** Description/help text rendered below */
-    description?: string;
-    /** Marks input as invalid */
-    error?: string;
-}
+import { Input } from '@/components/ui/input';
+import { cn } from '@/lib/utils';
+import { TextInputProps } from './types';
 
 export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
     (
@@ -22,11 +15,14 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
                         {label}
                     </label>
                 )}
-                <ShadcnInput
+                <Input
                     ref={ref}
                     aria-invalid={!!error}
                     {...props}
-                    className={error ? 'border-destructive text-destructive-foreground' : ''}
+                    className={cn(
+                        error ? 'border-destructive text-destructive-foreground' : '',
+                        props.className
+                    )}
                 />
                 {description && !error && (
                     <p className="mt-1 text-xs text-muted-foreground">{description}</p>

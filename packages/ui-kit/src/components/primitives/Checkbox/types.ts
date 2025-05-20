@@ -1,6 +1,6 @@
-import { CheckboxProps as ShadcnCheckboxProps } from '@radix-ui/react-checkbox';
+import { Checkbox as ShadcnCheckbox } from '@/components/ui/checkbox';
 
-export interface CheckboxProps extends ShadcnCheckboxProps {
+export interface CheckboxProps extends React.ComponentPropsWithoutRef<typeof ShadcnCheckbox> {
     /** Label text displayed next to the checkbox */
     label?: string;
     /** Description/help text rendered below */

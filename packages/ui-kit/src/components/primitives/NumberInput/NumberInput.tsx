@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Input } from '@/components/ui/input';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 import { NumberInputProps } from './types';
 
 export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(

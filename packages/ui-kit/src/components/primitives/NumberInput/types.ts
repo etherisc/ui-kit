@@ -1,6 +1,6 @@
-import { InputProps } from '@/components/ui/input';
+import { Input } from '@/components/ui/input';
 
-export interface NumberInputProps extends Omit<InputProps, 'type'> {
+export interface NumberInputProps extends Omit<React.ComponentPropsWithoutRef<typeof Input>, 'type'> {
     /** Label text displayed above the input */
     label?: string;
     /** Description/help text rendered below */
