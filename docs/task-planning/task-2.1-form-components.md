@@ -13,16 +13,16 @@ These components will follow the established design patterns in the existing cod
 
 ## Task Breakdown
 
-| Task Description                              | Definition of Done (DoD)                                                                                            | Status |
-| --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ------ |
-| Set up directory structure for each component | All four component directories created with appropriate files (component, types, tests, stories)                    | open   |
-| Implement NumberInput component               | Component renders correctly and accepts all required props; Unit tests pass; a11y tests pass                        | open   |
-| Implement Select component                    | Component renders correctly and accepts all required props; Unit tests pass; a11y tests pass                        | open   |
-| Implement Checkbox component                  | Component renders correctly and accepts all required props; Unit tests pass; a11y tests pass                        | open   |
-| Implement RadioGroup component                | Component renders correctly and accepts all required props; Unit tests pass; a11y tests pass                        | open   |
-| Update barrel exports in index.ts             | All components are properly exported and accessible from the package's public API                                   | open   |
-| Create consolidated form story                | Story shows all components working together in a cohesive form; All components render correctly with proper styling | open   |
-| Final review and documentation                | All components are properly documented; Code adheres to project standards; No lint errors; All tests pass           | open   |
+| Task Description                              | Definition of Done (DoD)                                                                                            | Status   |
+| --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | -------- |
+| Set up directory structure for each component | All four component directories created with appropriate files (component, types, tests, stories)                    | complete |
+| Implement NumberInput component               | Component renders correctly and accepts all required props; Unit tests pass; a11y tests pass                        | working  |
+| Implement Select component                    | Component renders correctly and accepts all required props; Unit tests pass; a11y tests pass                        | open     |
+| Implement Checkbox component                  | Component renders correctly and accepts all required props; Unit tests pass; a11y tests pass                        | open     |
+| Implement RadioGroup component                | Component renders correctly and accepts all required props; Unit tests pass; a11y tests pass                        | open     |
+| Update barrel exports in index.ts             | All components are properly exported and accessible from the package's public API                                   | open     |
+| Create consolidated form story                | Story shows all components working together in a cohesive form; All components render correctly with proper styling | open     |
+| Final review and documentation                | All components are properly documented; Code adheres to project standards; No lint errors; All tests pass           | open     |
 
 ## Implementation Strategy
 
