@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import React from 'react';
 import { useTheme } from '../../../hooks/useTheme';
 import { cn } from '../../../utils';
 

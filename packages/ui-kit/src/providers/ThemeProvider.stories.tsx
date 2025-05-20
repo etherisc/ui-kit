@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { ThemeProvider } from './ThemeProvider';
 import { ThemeToggle } from '../components/primitives/ThemeToggle';
-import React from 'react';
 
 const meta: Meta<typeof ThemeProvider> = {
     title: 'Providers/ThemeProvider',
