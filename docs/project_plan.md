@@ -42,7 +42,7 @@ A pragmatic breakdown into **four one‑week sprints** plus a preparatory **Spri
 
 | #   | Task                                                                  | DoD                                                                                     | Status |
 | --- | --------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | ------ |
-| 2.1 | Add NumberInput, Select, Checkbox, RadioGroup components.             | Unit & a11y tests pass; form story displays all.                                        | PR     |
+| 2.1 | Add NumberInput, Select, Checkbox, RadioGroup components.             | Unit & a11y tests pass; form story displays all.                                        | ✓      |
 | 2.2 | Integrate **React Hook Form + Zod**; create `FormGrid` + `FormGroup`. | Story "Form Example" submits & reports validation errors in Storybook interaction test. |        |
 | 2.3 | Implement Zustand session store skeleton with dark‑mode flag.         | Vitest verifies default state + setter actions.                                         |        |
 | 2.4 | ESLint rule enforcing named `useEffect` & cleanup.                    | Failing example in test repo triggers lint error; real code passes.                     |        |
