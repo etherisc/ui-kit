@@ -26,4 +26,6 @@ jobs:
         run: cd packages/ui-kit && npx playwright install --with-deps
       
       - name: Run accessibility tests with Storybook
-        run: cd packages/ui-kit && pnpm test-storybook:ci 
+        run: cd packages/ui-kit && pnpm test-storybook:ci
+        env:
+          CI: true 

@@ -3,7 +3,8 @@ import { injectAxe, checkA11y } from 'axe-playwright'
 import { getStoryContext } from '@storybook/test-runner'
 
 const config: TestRunnerConfig = {
-    async preVisit(page) {
+    async preVisit(page, context) {
+        console.log(`Testing story: ${context.id}`);
         await injectAxe(page)
     },
     async postVisit(page, context) {
@@ -24,8 +25,9 @@ const config: TestRunnerConfig = {
             }, axeConfig)
         }
 
-        // Use the element specified in parameters or default to #root
-        const element = storyContext.parameters?.a11y?.element || '#root'
+        // Use the element specified in parameters or default to #storybook-root
+        // The selector #storybook-root is more reliable than #root
+        const element = storyContext.parameters?.a11y?.element || '#storybook-root'
 
         // Run the accessibility tests
         await checkA11y(page, element, {
