@@ -1,4 +1,3 @@
-import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { ThemeToggle } from './ThemeToggle';
 import { useThemeMock } from '../../../hooks/useTheme.mock';
