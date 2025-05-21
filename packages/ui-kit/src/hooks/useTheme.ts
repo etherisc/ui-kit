@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import { useThemeState } from '../store/sessionStore';
 
 /**
@@ -10,9 +10,13 @@ import { useThemeState } from '../store/sessionStore';
 export function useTheme() {
     const { isDarkMode, setDarkMode, toggleDarkMode } = useThemeState();
     const [systemPrefersDark, setSystemPrefersDark] = useState(false);
+    const systemPrefInitialized = useRef(false);
 
-    // Detect system preference
+    // Detect system preference - only run once to avoid infinite loops
     useEffect(function setupSystemPreference() {
+        if (systemPrefInitialized.current) return;
+        systemPrefInitialized.current = true;
+
         // Check for system dark mode preference
         const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
         setSystemPrefersDark(mediaQuery.matches);
@@ -28,23 +32,22 @@ export function useTheme() {
         };
     }, []);
 
-    // Helper to sync with system preference
-    const syncWithSystemPreference = () => {
+    // Helper to sync with system preference - memoize the function
+    const syncWithSystemPreference = useCallback(() => {
         setDarkMode(systemPrefersDark);
-    };
+    }, [systemPrefersDark, setDarkMode]);
 
     // Set theme class on document
     useEffect(function applyThemeClass() {
+        const html = document.documentElement;
         if (isDarkMode) {
-            document.documentElement.classList.add('dark');
+            html.classList.add('dark');
         } else {
-            document.documentElement.classList.remove('dark');
+            html.classList.remove('dark');
         }
 
-        // Cleanup function to remove theme class if component unmounts
         return function cleanupThemeClass() {
-            // This is a no-op in this case, but we include it to comply with our ESLint rule
-            // In a real-world scenario, you might want to restore the previous theme
+            // No cleanup needed for class modifications
         };
     }, [isDarkMode]);
 

@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { ThemeToggle } from './ThemeToggle';
+import { useThemeMock } from '../../../hooks/useTheme.mock';
 
+// Simplify the stories by using our mock hook
 const meta: Meta<typeof ThemeToggle> = {
     title: 'Components/Primitives/ThemeToggle',
     component: ThemeToggle,
@@ -27,36 +29,54 @@ const meta: Meta<typeof ThemeToggle> = {
             control: 'text',
             description: 'Additional CSS classes',
         },
+        // Hide the internal prop from the docs
+        useThemeHook: {
+            table: {
+                disable: true,
+            },
+        },
     },
 };
 
 export default meta;
 type Story = StoryObj<typeof ThemeToggle>;
 
+// Define common props to avoid repetition
+const commonProps = {
+    useThemeHook: useThemeMock
+};
+
 export const Default: Story = {
-    args: {},
+    args: {
+        ...commonProps
+    }
 };
 
 export const Small: Story = {
     args: {
-        size: 'sm',
-    },
+        ...commonProps,
+        size: 'sm'
+    }
 };
 
 export const Large: Story = {
     args: {
-        size: 'lg',
-    },
+        ...commonProps,
+        size: 'lg'
+    }
 };
 
 export const CustomStyle: Story = {
     args: {
-        className: 'bg-secondary text-secondary-content',
-    },
+        ...commonProps,
+        className: 'bg-secondary text-secondary-content'
+    }
 };
 
 export const WithCallback: Story = {
-    args: {},
+    args: {
+        ...commonProps
+    },
     render: (args) => (
         <ThemeToggle
             {...args}

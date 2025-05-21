@@ -24,7 +24,10 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
         return (
             <div className={className}>
                 {label && (
-                    <label className="mb-1 block text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                    <label
+                        htmlFor={props.id}
+                        className="mb-1 block text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
                         {label}
                     </label>
                 )}

@@ -1,6 +1,9 @@
 import { useTheme } from '../../../hooks/useTheme';
 import { cn } from '../../../utils';
 
+// Define the shape of the useTheme hook return value
+type UseThemeHook = ReturnType<typeof useTheme>;
+
 export interface ThemeToggleProps {
     /**
      * Additional class names to apply to the toggle
@@ -17,6 +20,12 @@ export interface ThemeToggleProps {
      * @default 'md'
      */
     size?: 'sm' | 'md' | 'lg';
+
+    /**
+     * Hook to use for theme state (for testing purposes)
+     * @internal
+     */
+    useThemeHook?: () => UseThemeHook;
 }
 
 /**
@@ -26,8 +35,9 @@ export function ThemeToggle({
     className,
     onToggle,
     size = 'md',
+    useThemeHook = useTheme,
 }: ThemeToggleProps) {
-    const { isDarkMode, toggleDarkMode } = useTheme();
+    const { isDarkMode, toggleDarkMode } = useThemeHook();
 
     const handleToggle = () => {
         toggleDarkMode();

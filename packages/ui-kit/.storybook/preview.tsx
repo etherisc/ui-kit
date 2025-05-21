@@ -25,7 +25,7 @@ const preview: Preview = {
         },
         a11y: {
             // axe-core configuration options
-            element: '#root',
+            element: '#storybook-root',
             config: {},
             disable: false,
         },
