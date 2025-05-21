@@ -11,16 +11,6 @@ export function useTheme() {
     const { isDarkMode, setDarkMode, toggleDarkMode } = useThemeState();
     const [systemPrefersDark, setSystemPrefersDark] = useState(false);
     const systemPrefInitialized = useRef(false);
-    const isDarkModeRef = useRef(isDarkMode);
-
-    // Update ref when isDarkMode changes
-    useEffect(function updateDarkModeRef() {
-        isDarkModeRef.current = isDarkMode;
-
-        return function cleanupDarkModeRef() {
-            // No cleanup needed for a simple ref update
-        };
-    }, [isDarkMode]);
 
     // Detect system preference - only run once to avoid infinite loops
     useEffect(function setupSystemPreference() {

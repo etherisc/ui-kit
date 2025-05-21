@@ -23,7 +23,13 @@
 
 .storybook-page a {
   text-decoration: none;
-  color: #1ea7fd;
+  color: #0a6bb8;
+  font-weight: 500;
+}
+
+.storybook-page .high-contrast {
+  color: #085394;
+  font-weight: 800;
 }
 
 .storybook-page ul {
@@ -41,8 +47,8 @@
   font-size: 11px;
   line-height: 12px;
   font-weight: 700;
-  background: #e7fdd8;
-  color: #66bf3c;
+  background: #e5f5dd;
+  color: #2e7a1a;
   padding: 4px 12px;
   margin-right: 10px;
   vertical-align: top;
@@ -65,5 +71,5 @@
 }
 
 .storybook-page .tip-wrapper svg path {
-  fill: #1ea7fd;
+  fill: #0a6bb8;
 }

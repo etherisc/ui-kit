@@ -1,6 +1,9 @@
 import { ReactNode, useEffect } from 'react';
 import { useTheme } from '../hooks/useTheme';
 
+// Define the shape of the useTheme hook return value
+type UseThemeHook = ReturnType<typeof useTheme>;
+
 export interface ThemeProviderProps {
     /**
      * The content to render within the theme provider
@@ -12,6 +15,12 @@ export interface ThemeProviderProps {
      * @default true
      */
     syncWithSystemOnMount?: boolean;
+
+    /**
+     * Hook to use for theme state (for testing purposes)
+     * @internal
+     */
+    useThemeHook?: () => UseThemeHook;
 }
 
 /**
@@ -21,8 +30,9 @@ export interface ThemeProviderProps {
 export function ThemeProvider({
     children,
     syncWithSystemOnMount = true,
+    useThemeHook = useTheme,
 }: ThemeProviderProps) {
-    const { isDarkMode, syncWithSystemPreference } = useTheme();
+    const { isDarkMode, syncWithSystemPreference } = useThemeHook();
 
     // Initialize theme based on system preferences if enabled
     useEffect(function setupSystemSync() {

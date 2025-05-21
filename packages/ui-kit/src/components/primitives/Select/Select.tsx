@@ -27,6 +27,8 @@ export interface SelectProps extends Omit<React.ComponentPropsWithoutRef<typeof 
     options: SelectOption[];
     /** CSS class name */
     className?: string;
+    /** Unique ID for the select element */
+    id?: string;
 }
 
 export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
@@ -41,14 +43,30 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
             value,
             onValueChange,
             disabled,
+            id,
             ...props
         },
         ref
     ) => {
+        // Generate a unique ID if none is provided
+        const generatedId = React.useId();
+        // Use provided id or fall back to generated one
+        const selectId = id || generatedId;
+
+        // Create IDs for associated elements
+        const descriptionId = description ? `${selectId}-description` : undefined;
+        const errorId = error ? `${selectId}-error` : undefined;
+
+        // Combine aria-describedby values
+        const ariaDescribedBy = [descriptionId, errorId].filter(Boolean).join(' ') || undefined;
+
         return (
             <div className={className} ref={ref}>
                 {label && (
-                    <label className="mb-1 block text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                    <label
+                        htmlFor={selectId}
+                        className="mb-1 block text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
                         {label}
                     </label>
                 )}
@@ -59,10 +77,13 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
                     {...props}
                 >
                     <SelectTrigger
+                        id={selectId}
                         className={cn(
                             error ? 'border-destructive text-destructive-foreground' : '',
                             'w-full'
                         )}
+                        aria-describedby={ariaDescribedBy}
+                        aria-label={!label ? `Select ${placeholder || ''}` : undefined}
                     >
                         <SelectValue placeholder={placeholder} />
                     </SelectTrigger>
@@ -79,10 +100,20 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
                     </SelectContent>
                 </ShadcnSelect>
                 {description && !error && (
-                    <p className="mt-1 text-xs text-muted-foreground">{description}</p>
+                    <p
+                        id={descriptionId}
+                        className="mt-1 text-xs text-muted-foreground"
+                    >
+                        {description}
+                    </p>
                 )}
                 {error && (
-                    <p className="mt-1 text-xs text-destructive-foreground">{error}</p>
+                    <p
+                        id={errorId}
+                        className="mt-1 text-xs text-destructive-foreground"
+                    >
+                        {error}
+                    </p>
                 )}
             </div>
         );
