@@ -54,7 +54,7 @@ A pragmatic breakdown into **four one‑week sprints** plus a preparatory **Spri
 
 | #   | Task                                                                                         | DoD                                                                                                                | Status |
 | --- | -------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ | ------ |
-| 3.1 | Wrap **TanStack Table** into `DataTable` with pagination, resize.                            | Story with 50 rows paginates; Playwright test clicks next page.                                                    | PR     |
+| 3.1 | Wrap **TanStack Table** into `DataTable` with pagination, resize.                            | Story with 50 rows paginates; Playwright test clicks next page.                                                    | ✓      |
 | 3.2 | Build **MainLayout** with TopBar + LeftNav + Breadcrumb.                                     | Storybook viewport test at 1280 & 1024 px shows responsive collapse.                                               |        |
 | 3.3 | Implement Toast system (`useToast`) + StatusBadge.                                           | Vitest renders Toast, axe-core passes.                                                                             |        |
 | 3.4 | Sample showcase: login page + dashboard + customers table route.                             | E2E Playwright run (login → dashboard) green in CI.                                                                |        |
