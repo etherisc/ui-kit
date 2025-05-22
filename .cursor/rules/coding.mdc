@@ -36,7 +36,7 @@ Always follow the following recipe for implementing tasks:
    8. If the user approves submitting a PR, and before PR is submitted, the task is marked with "PR" in docs/project_plan.md. 
 4. PR submission:
    1. Do this only after the user approves submitting a PR.
-   2. Create a temporary markdown file with the PR description. 
+   2. Create a temporary markdown file in /tmp with the PR description. 
    3. Submit the PR, using the temporary markdown file.
    4. After PR ist submitted, report to the user and wait for manual instructions.
    5. The user will then review and merge the PR or ask for updates.
