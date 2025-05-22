@@ -39,8 +39,8 @@ This task involves implementing a DataTable component that wraps TanStack Table 
 | Add pagination functionality                   | Table paginates with configurable page size       | Complete |
 | Create Storybook story with 50 rows            | Story demonstrates pagination working properly    | Complete |
 | Write Playwright test for pagination           | Test verifies clicking next page works            | Complete |
-| Ensure accessibility compliance                | Component passes axe-core tests                   | Open     |
-| Add comprehensive documentation                | Component has full API documentation in Storybook | Open     |
+| Ensure accessibility compliance                | Component passes axe-core tests                   | Complete |
+| Add comprehensive documentation                | Component has full API documentation in Storybook | Complete |
 
 ## Implementation Plan
 
