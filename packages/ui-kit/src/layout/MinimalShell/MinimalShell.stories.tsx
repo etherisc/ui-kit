@@ -29,7 +29,7 @@ export const Error404: Story = {
     args: {
         title: '404 - Page Not Found',
         message: 'The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.',
-        image: <AlertTriangleIcon className="h-16 w-16 text-warning" />,
+        image: <AlertTriangleIcon className="h-16 w-16 text-warning" aria-hidden="true" />,
         logo: <CustomLogo />,
         actions: (
             <>
@@ -44,7 +44,7 @@ export const Error500: Story = {
     args: {
         title: '500 - Server Error',
         message: 'Sorry, something went wrong on our server. We are working to fix the problem. Please try again later.',
-        image: <AlertCircleIcon className="h-16 w-16 text-destructive" />,
+        image: <AlertCircleIcon className="h-16 w-16 text-destructive" aria-hidden="true" />,
         logo: <CustomLogo />,
         actions: (
             <>
@@ -59,7 +59,7 @@ export const Success: Story = {
     args: {
         title: 'Action Completed Successfully',
         message: 'Your request has been processed successfully.',
-        image: <CheckCircleIcon className="h-16 w-16 text-success" />,
+        image: <CheckCircleIcon className="h-16 w-16 text-success" aria-hidden="true" />,
         logo: <CustomLogo />,
         actions: (
             <Button intent="primary">Continue</Button>
@@ -73,11 +73,22 @@ export const WithCustomContent: Story = {
         message: 'Our system is currently undergoing scheduled maintenance. Please check back later.',
         logo: <CustomLogo />,
         children: (
-            <div className="border border-border rounded-md p-4 my-4 bg-muted/30">
-                <h3 className="font-medium mb-2">Estimated Downtime</h3>
-                <p>From: June 15, 2023 22:00 UTC</p>
-                <p>To: June 16, 2023 02:00 UTC</p>
-            </div>
+            <section
+                className="border border-border rounded-md p-4 my-4 bg-muted/30"
+                aria-labelledby="downtime-heading"
+            >
+                <h2 id="downtime-heading" className="font-medium mb-2">Estimated Downtime</h2>
+                <dl className="grid grid-cols-1 gap-1">
+                    <div className="flex">
+                        <dt className="font-medium mr-2">From:</dt>
+                        <dd>June 15, 2023 22:00 UTC</dd>
+                    </div>
+                    <div className="flex">
+                        <dt className="font-medium mr-2">To:</dt>
+                        <dd>June 16, 2023 02:00 UTC</dd>
+                    </div>
+                </dl>
+            </section>
         ),
         actions: (
             <Button intent="primary">Subscribe to Updates</Button>
