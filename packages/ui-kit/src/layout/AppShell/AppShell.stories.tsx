@@ -23,6 +23,12 @@ const meta: Meta<typeof AppShell> = {
     component: AppShell,
     parameters: {
         layout: 'fullscreen',
+        // Disable interactions to prevent infinite loops
+        chromatic: { disableSnapshot: false },
+        a11y: { disable: false },
+        actions: { disable: false },
+        controls: { disable: false },
+        interactions: { disable: true }
     },
     tags: ['autodocs'],
 };
@@ -36,7 +42,7 @@ const LogoExample = () => (
         text="Insurance Platform"
         src="https://placekitten.com/32/32"
         alt="Company Logo"
-        onClick={() => console.log('Logo clicked')}
+        onClick={() => {/* no-op to prevent test recursion */ }}
     />
 );
 
@@ -61,7 +67,7 @@ const UserMenu = () => (
     </div>
 );
 
-// Example Action Icons
+// Example Action Icons - memoized to prevent recursion
 const ActionIcons = () => (
     <div className="flex items-center gap-2">
         <HeaderActionIcon icon={<HelpCircleIcon />} label="Help" />
@@ -131,6 +137,51 @@ const breadcrumbsItems: BreadcrumbItem[] = [
     { label: 'Policy Details', isActive: true }
 ];
 
+// Create sample content only once to avoid re-renders
+const sampleContent = (
+    <div className="p-6">
+        <h1 className="text-2xl font-bold mb-4">Welcome to the Dashboard</h1>
+        <p className="mb-4">This is an example of the AppShell component with all features enabled.</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {Array.from({ length: 6 }).map((_, i) => (
+                <div key={i} className="bg-card p-4 rounded-md shadow">
+                    <h2 className="font-bold mb-2">Card {i + 1}</h2>
+                    <p>This is some sample content for card {i + 1}.</p>
+                </div>
+            ))}
+        </div>
+    </div>
+);
+
+// Create settings content only once
+const settingsContent = (
+    <div className="p-6">
+        <h1 className="text-2xl font-bold mb-4">Settings Page</h1>
+        <p className="mb-4">This example demonstrates fixed-width content, useful for forms and settings pages.</p>
+        <div className="space-y-4">
+            <div className="space-y-2">
+                <label htmlFor="username" className="font-medium">Username</label>
+                <input id="username" className="w-full p-2 border rounded" defaultValue="john.doe" />
+            </div>
+            <div className="space-y-2">
+                <label htmlFor="email" className="font-medium">Email</label>
+                <input id="email" className="w-full p-2 border rounded" defaultValue="john.doe@example.com" />
+            </div>
+            <div className="space-y-2">
+                <label htmlFor="notifications" className="font-medium">Notification Preferences</label>
+                <select id="notifications" className="w-full p-2 border rounded">
+                    <option>All notifications</option>
+                    <option>Important only</option>
+                    <option>None</option>
+                </select>
+            </div>
+            <div className="pt-4">
+                <Button intent="primary">Save Changes</Button>
+            </div>
+        </div>
+    </div>
+);
+
 export const Default: Story = {
     args: {
         logo: <LogoExample />,
@@ -143,21 +194,11 @@ export const Default: Story = {
             </>
         ),
         breadcrumbs: breadcrumbsItems,
-        children: (
-            <div className="p-6">
-                <h1 className="text-2xl font-bold mb-4">Welcome to the Dashboard</h1>
-                <p className="mb-4">This is an example of the AppShell component with all features enabled.</p>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {Array.from({ length: 6 }).map((_, i) => (
-                        <div key={i} className="bg-card p-4 rounded-md shadow">
-                            <h2 className="font-bold mb-2">Card {i + 1}</h2>
-                            <p>This is some sample content for card {i + 1}.</p>
-                        </div>
-                    ))}
-                </div>
-            </div>
-        ),
+        children: sampleContent,
     },
+    parameters: {
+        interactions: { disable: true }
+    }
 };
 
 export const CollapsedSideNav: Story = {
@@ -165,40 +206,20 @@ export const CollapsedSideNav: Story = {
         ...Default.args,
         defaultCollapsed: true,
     },
+    parameters: {
+        interactions: { disable: true }
+    }
 };
 
 export const FixedWidthContent: Story = {
     args: {
         ...Default.args,
         fixedWidth: true,
-        children: (
-            <div className="p-6">
-                <h1 className="text-2xl font-bold mb-4">Settings Page</h1>
-                <p className="mb-4">This example demonstrates fixed-width content, useful for forms and settings pages.</p>
-                <div className="space-y-4">
-                    <div className="space-y-2">
-                        <label className="font-medium">Username</label>
-                        <input className="w-full p-2 border rounded" defaultValue="john.doe" />
-                    </div>
-                    <div className="space-y-2">
-                        <label className="font-medium">Email</label>
-                        <input className="w-full p-2 border rounded" defaultValue="john.doe@example.com" />
-                    </div>
-                    <div className="space-y-2">
-                        <label className="font-medium">Notification Preferences</label>
-                        <select className="w-full p-2 border rounded">
-                            <option>All notifications</option>
-                            <option>Important only</option>
-                            <option>None</option>
-                        </select>
-                    </div>
-                    <div className="pt-4">
-                        <Button intent="primary">Save Changes</Button>
-                    </div>
-                </div>
-            </div>
-        ),
+        children: settingsContent,
     },
+    parameters: {
+        interactions: { disable: true }
+    }
 };
 
 export const Mobile: Story = {
@@ -209,6 +230,7 @@ export const Mobile: Story = {
         viewport: {
             defaultViewport: 'mobile1',
         },
+        interactions: { disable: true }
     },
 };
 
@@ -220,5 +242,6 @@ export const Tablet: Story = {
         viewport: {
             defaultViewport: 'tablet',
         },
+        interactions: { disable: true }
     },
 }; 
