@@ -172,7 +172,7 @@ export function DataTable<TData extends object, TValue = unknown>({
 
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                    <span className="text-sm font-medium">
+                    <span className="text-sm font-medium" id="rows-per-page-label">
                         Rows per page:
                     </span>
                     <select
@@ -181,6 +181,7 @@ export function DataTable<TData extends object, TValue = unknown>({
                             table.setPageSize(Number(e.target.value));
                         }}
                         className="h-8 w-16 rounded-md border border-base-300 bg-base-100 px-2"
+                        aria-labelledby="rows-per-page-label"
                     >
                         {[10, 20, 30, 40, 50].map((pageSize) => (
                             <option key={pageSize} value={pageSize}>

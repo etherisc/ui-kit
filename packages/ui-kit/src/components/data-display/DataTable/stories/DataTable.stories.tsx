@@ -59,9 +59,9 @@ const columns: ColumnDef<Person, unknown>[] = [
         cell: ({ row }) => {
             const status = row.getValue('status') as string;
             return (
-                <div className={`px-2 py-1 rounded-full text-xs inline-flex items-center ${status === 'active' ? 'bg-success/20 text-success' :
-                    status === 'inactive' ? 'bg-error/20 text-error' :
-                        'bg-warning/20 text-warning'
+                <div className={`px-2 py-1 rounded-full text-xs inline-flex items-center font-semibold ${status === 'active' ? 'bg-success/30 text-success-content' :
+                        status === 'inactive' ? 'bg-error/40 text-error-content' :
+                            'bg-warning/40 text-warning-content'
                     }`}>
                     {status.charAt(0).toUpperCase() + status.slice(1)}
                 </div>
