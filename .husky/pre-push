@@ -1,6 +1,15 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
- 
+
+# Get the push arguments
+PUSH_COMMAND="$*"
+
+# Check if it's only a branch deletion (contains --delete or -d)
+if echo "$PUSH_COMMAND" | grep -qE -- "--delete|-d"; then
+  echo "Branch deletion detected, skipping tests..."
+  exit 0
+fi
+
 # Run full test and build suite before pushing
 echo "Running full test and build suite before pushing..."
-pnpm lint && pnpm test && pnpm test:a11y && pnpm build 
+pnpm lint && pnpm test && pnpm build && pnpm test:a11y  
