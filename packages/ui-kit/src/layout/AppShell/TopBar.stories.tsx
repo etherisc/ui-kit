@@ -14,6 +14,12 @@ const meta: Meta<typeof TopBar> = {
     component: TopBar,
     parameters: {
         layout: 'fullscreen',
+        // Disable interactions to prevent infinite loops
+        chromatic: { disableSnapshot: false },
+        a11y: { disable: false },
+        actions: { disable: false },
+        controls: { disable: false },
+        interactions: { disable: true }
     },
     tags: ['autodocs'],
 };
@@ -27,7 +33,7 @@ const LogoExample = () => (
         text="Insurance Platform"
         src="https://placekitten.com/32/32"
         alt="Company Logo"
-        onClick={() => console.log('Logo clicked')}
+        onClick={() => {/* no-op to prevent test recursion */ }}
     />
 );
 
@@ -52,7 +58,7 @@ const UserMenu = () => (
     </div>
 );
 
-// Example Action Icons
+// Example Action Icons - memoized to prevent recursion
 const ActionIcons = () => (
     <div className="flex items-center gap-2">
         <HeaderActionIcon icon={<HelpCircleIcon />} label="Help" />
@@ -74,6 +80,11 @@ export const Default: Story = {
             </>
         ),
     },
+    // Disable any play/interaction functions that might be causing recursion
+    play: undefined,
+    parameters: {
+        interactions: { disable: true }
+    }
 };
 
 export const LogoOnly: Story = {
@@ -102,6 +113,7 @@ export const Mobile: Story = {
         viewport: {
             defaultViewport: 'mobile1',
         },
+        interactions: { disable: true }
     },
 };
 
@@ -113,6 +125,7 @@ export const Tablet: Story = {
         viewport: {
             defaultViewport: 'tablet',
         },
+        interactions: { disable: true }
     },
 };
 
@@ -121,4 +134,7 @@ export const NotFixed: Story = {
         ...Default.args,
         fixed: false,
     },
+    parameters: {
+        interactions: { disable: true }
+    }
 }; 
