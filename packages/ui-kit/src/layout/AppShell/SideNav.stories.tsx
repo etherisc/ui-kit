@@ -10,6 +10,8 @@ const meta: Meta<typeof SideNav> = {
         backgrounds: {
             default: 'light',
         },
+        // Disable interactions to prevent infinite loops
+        interactions: { disable: true }
     },
     tags: ['autodocs'],
     decorators: [
@@ -120,12 +122,20 @@ export const Default: Story = {
         items: navItems,
         collapsed: false,
     },
+    parameters: {
+        a11y: { disable: false },
+        interactions: { disable: true }
+    },
 };
 
 export const Collapsed: Story = {
     args: {
         items: navItems,
         collapsed: true,
+    },
+    parameters: {
+        a11y: { disable: false },
+        interactions: { disable: true }
     },
 };
 
@@ -134,16 +144,28 @@ export const WithPersistence: Story = {
         items: navItems,
         persistCollapsed: true,
     },
+    parameters: {
+        a11y: { disable: false },
+        interactions: { disable: true }
+    },
 };
 
 export const FewItems: Story = {
     args: {
         items: navItems.slice(0, 3),
     },
+    parameters: {
+        a11y: { disable: false },
+        interactions: { disable: true }
+    },
 };
 
 export const NoItems: Story = {
     args: {
         items: [],
+    },
+    parameters: {
+        a11y: { disable: false },
+        interactions: { disable: true }
     },
 }; 

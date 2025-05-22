@@ -210,20 +210,22 @@ export const SideNav: React.FC<SideNavProps> = ({
             data-testid={dataTestId}
         >
             {/* Toggle button for collapsing the sidebar */}
-            <button
-                className={cn(
-                    "flex items-center justify-center h-10 w-10 mt-2 mb-4 mx-auto",
-                    "rounded-full text-foreground hover:bg-accent hover:text-accent-foreground",
-                    "focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
-                    "transition-colors"
-                )}
-                onClick={handleCollapseToggle}
-                aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-                aria-expanded={!collapsed}
-                type="button"
-            >
-                {collapsed ? <ChevronRightIcon size={18} /> : <ChevronLeftIcon size={18} />}
-            </button>
+            <div className="p-2 flex justify-center">
+                <button
+                    className={cn(
+                        "flex items-center justify-center h-10 w-10",
+                        "rounded-full text-foreground hover:bg-accent hover:text-accent-foreground",
+                        "focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
+                        "transition-colors"
+                    )}
+                    onClick={handleCollapseToggle}
+                    aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+                    aria-expanded={!collapsed}
+                    type="button"
+                >
+                    {collapsed ? <ChevronRightIcon size={18} /> : <ChevronLeftIcon size={18} />}
+                </button>
+            </div>
 
             {/* Navigation items */}
             <nav
@@ -232,8 +234,8 @@ export const SideNav: React.FC<SideNavProps> = ({
             >
                 <h2 id="sidenav-heading" className="sr-only">Main Navigation</h2>
                 {items.length > 0 ? renderItems(items) : (
-                    <div className="text-muted-foreground text-center py-4">
-                        No navigation items
+                    <div className="text-muted-foreground text-center py-4" role="region" aria-labelledby="empty-nav-message">
+                        <span id="empty-nav-message" className="text-sm">No navigation items</span>
                     </div>
                 )}
             </nav>
