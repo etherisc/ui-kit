@@ -1,4 +1,3 @@
-import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { TopBar } from './TopBar';
 import { Logo } from '../../components/layout/Logo';

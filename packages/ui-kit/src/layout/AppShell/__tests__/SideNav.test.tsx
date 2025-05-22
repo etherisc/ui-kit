@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { SideNav, NavItem } from '../SideNav';
 import { HomeIcon, SettingsIcon } from 'lucide-react';

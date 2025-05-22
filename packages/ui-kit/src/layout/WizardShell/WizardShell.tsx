@@ -1,91 +1,201 @@
 import React from 'react';
+import { cn } from '../../utils/cn';
+import { Logo } from '../../components/layout/Logo';
+import { CheckIcon, XIcon } from 'lucide-react';
+
+/**
+ * Step interface for wizard steps
+ */
+export interface WizardStep {
+    /**
+     * Unique identifier for the step
+     */
+    id: string;
+    /**
+     * Label to display for the step
+     */
+    label: string;
+    /**
+     * Optional description for the step
+     */
+    description?: string;
+    /**
+     * Whether the step is completed
+     */
+    isCompleted?: boolean;
+}
 
 /**
  * WizardShell component props
  */
 export interface WizardShellProps {
     /**
-     * Current step number (1-based)
+     * Title of the wizard
      */
-    currentStep: number;
+    title: string;
     /**
-     * Total number of steps
+     * Optional subtitle or description
      */
-    totalSteps: number;
+    subtitle?: string;
     /**
-     * Main content to display
+     * Array of steps in the wizard
+     */
+    steps: WizardStep[];
+    /**
+     * Current active step ID
+     */
+    currentStepId: string;
+    /**
+     * Main content of the wizard
      */
     children: React.ReactNode;
     /**
-     * Optional title for the current step
+     * Optional logo element
      */
-    stepTitle?: string;
+    logo?: React.ReactNode;
     /**
-     * Optional callback for when the exit link is clicked
+     * Optional action to execute when cancel/exit is clicked
      */
     onExit?: () => void;
     /**
-     * Optional text for the exit link
+     * Optional label for the exit button
      */
-    exitText?: string;
+    exitLabel?: string;
     /**
-     * Optional additional header content
+     * Optional action buttons to display at the bottom
      */
-    header?: React.ReactNode;
+    actions?: React.ReactNode;
     /**
-     * Optional additional footer content
+     * Optional additional class name
      */
-    footer?: React.ReactNode;
+    className?: string;
 }
 
 /**
- * WizardShell - Multi-step wizard layout with progress indicator
+ * WizardShell - Layout component for multi-step forms and wizards
+ * 
+ * Features:
+ * - Step indicator at the top showing progress
+ * - Exit button to cancel the wizard flow
+ * - Consistent layout for multi-step forms
  */
 export const WizardShell: React.FC<WizardShellProps> = ({
-    currentStep,
-    totalSteps,
+    title,
+    subtitle,
+    steps,
+    currentStepId,
     children,
-    stepTitle,
+    logo,
     onExit,
-    exitText = 'Exit',
-    header,
-    footer,
+    exitLabel = 'Cancel',
+    actions,
+    className,
 }) => {
-    return (
-        <div className="wizard-shell">
-            {/* Header with step indicator */}
-            <header className="wizard-header">
-                {/* Exit link */}
-                {onExit && (
-                    <button
-                        className="wizard-exit"
-                        onClick={onExit}
-                        aria-label={exitText}
-                    >
-                        {exitText}
-                    </button>
-                )}
+    // Find the index of the current step
+    const currentStepIndex = steps.findIndex(step => step.id === currentStepId);
 
-                {/* Step progress */}
-                <div className="wizard-progress">
-                    <div className="wizard-step-indicator">
-                        {`Step ${currentStep} of ${totalSteps}`}
-                    </div>
-                    {/* Progress bar to be implemented */}
+    return (
+        <div className={cn(
+            "min-h-screen flex flex-col bg-background",
+            className
+        )}>
+            {/* Header with logo and exit button */}
+            <header className="border-b border-border p-4 flex justify-between items-center">
+                <div className="flex items-center space-x-2">
+                    {logo || <Logo text="Wizard" />}
                 </div>
 
-                {/* Step title */}
-                {stepTitle && <h1 className="wizard-step-title">{stepTitle}</h1>}
-
-                {/* Additional header content */}
-                {header && <div className="wizard-header-content">{header}</div>}
+                {onExit && (
+                    <button
+                        onClick={onExit}
+                        className="text-muted-foreground hover:text-foreground flex items-center gap-2"
+                    >
+                        <XIcon size={16} />
+                        <span>{exitLabel}</span>
+                    </button>
+                )}
             </header>
 
-            {/* Main content */}
-            <main className="wizard-content">{children}</main>
+            {/* Title and description */}
+            <div className="bg-muted/30 border-b border-border p-6 text-center">
+                <h1 className="text-2xl font-bold">{title}</h1>
+                {subtitle && <p className="text-muted-foreground mt-2">{subtitle}</p>}
+            </div>
 
-            {/* Footer */}
-            {footer && <footer className="wizard-footer">{footer}</footer>}
+            {/* Step indicator */}
+            <div className="border-b border-border p-4">
+                <div className="container max-w-4xl mx-auto">
+                    <ol className="flex items-center w-full">
+                        {steps.map((step, index) => {
+                            const isActive = index === currentStepIndex;
+                            const isPast = index < currentStepIndex || step.isCompleted;
+
+                            return (
+                                <li
+                                    key={step.id}
+                                    className={cn(
+                                        "flex items-center",
+                                        index < steps.length - 1 && "w-full"
+                                    )}
+                                >
+                                    {/* Step circle with number or check */}
+                                    <div
+                                        className={cn(
+                                            "flex items-center justify-center w-8 h-8 rounded-full shrink-0",
+                                            isPast && "bg-primary text-primary-foreground",
+                                            isActive && "bg-primary text-primary-foreground",
+                                            !isActive && !isPast && "bg-muted text-muted-foreground"
+                                        )}
+                                        aria-current={isActive ? "step" : undefined}
+                                    >
+                                        {isPast ? (
+                                            <CheckIcon className="w-4 h-4" />
+                                        ) : (
+                                            <span>{index + 1}</span>
+                                        )}
+                                    </div>
+
+                                    {/* Step label */}
+                                    <span
+                                        className={cn(
+                                            "ml-2",
+                                            (isActive || isPast) ? "text-foreground" : "text-muted-foreground"
+                                        )}
+                                    >
+                                        {step.label}
+                                    </span>
+
+                                    {/* Connector line between steps */}
+                                    {index < steps.length - 1 && (
+                                        <div
+                                            className={cn(
+                                                "flex-1 h-0.5 mx-4",
+                                                index < currentStepIndex ? "bg-primary" : "bg-muted"
+                                            )}
+                                        ></div>
+                                    )}
+                                </li>
+                            );
+                        })}
+                    </ol>
+                </div>
+            </div>
+
+            {/* Main content */}
+            <div className="flex-1 flex flex-col">
+                <div className="container max-w-4xl mx-auto p-6 flex-1">
+                    {children}
+                </div>
+
+                {/* Actions area (buttons) */}
+                {actions && (
+                    <div className="border-t border-border p-4">
+                        <div className="container max-w-4xl mx-auto flex justify-end space-x-4">
+                            {actions}
+                        </div>
+                    </div>
+                )}
+            </div>
         </div>
     );
 };

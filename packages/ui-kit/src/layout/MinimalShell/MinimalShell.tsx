@@ -1,53 +1,96 @@
 import React from 'react';
+import { cn } from '../../utils/cn';
+import { Logo } from '../../components/layout/Logo';
 
 /**
  * MinimalShell component props
  */
 export interface MinimalShellProps {
     /**
-     * Title to display
+     * Main title
      */
-    title?: string;
+    title: string;
     /**
-     * Message/description to display
+     * Optional subtitle or description text
      */
     message?: string;
     /**
-     * Optional image/illustration to display
+     * Optional main content to be displayed
      */
-    image?: React.ReactNode;
+    children?: React.ReactNode;
     /**
-     * Optional action buttons
+     * Optional action buttons or links
      */
     actions?: React.ReactNode;
     /**
-     * Optional additional content
+     * Optional image or icon to display
      */
-    children?: React.ReactNode;
+    image?: React.ReactNode;
+    /**
+     * Optional logo element
+     */
+    logo?: React.ReactNode;
+    /**
+     * Optional additional CSS class name
+     */
+    className?: string;
 }
 
 /**
- * MinimalShell - Simple page shell for error pages, maintenance screens, etc.
+ * MinimalShell - Simple centered layout for error pages and simple screens
+ * 
+ * Features:
+ * - Centered content with logo, title, message, and optional actions
+ * - Useful for error pages (404, 500), maintenance screens, or simple layouts
  */
 export const MinimalShell: React.FC<MinimalShellProps> = ({
     title,
     message,
-    image,
-    actions,
     children,
+    actions,
+    image,
+    logo,
+    className,
 }) => {
     return (
-        <div className="minimal-shell">
-            <div className="minimal-shell-content">
-                {image && <div className="minimal-shell-image">{image}</div>}
+        <div className={cn(
+            "min-h-screen flex flex-col items-center justify-center bg-background p-4",
+            className
+        )}>
+            {/* Logo area */}
+            <div className="mb-6">
+                {logo || <Logo text="Company Name" />}
+            </div>
 
-                {title && <h1 className="minimal-shell-title">{title}</h1>}
+            <div className="max-w-md w-full bg-card rounded-lg shadow-sm p-8 text-center">
+                {/* Image/icon if provided */}
+                {image && (
+                    <div className="flex justify-center mb-4">
+                        {image}
+                    </div>
+                )}
 
-                {message && <p className="minimal-shell-message">{message}</p>}
+                {/* Title */}
+                <h1 className="text-2xl font-bold mb-2">{title}</h1>
 
-                {actions && <div className="minimal-shell-actions">{actions}</div>}
+                {/* Message */}
+                {message && (
+                    <p className="text-muted-foreground mb-6">{message}</p>
+                )}
 
-                {children && <div className="minimal-shell-children">{children}</div>}
+                {/* Main content */}
+                {children && (
+                    <div className="my-4">
+                        {children}
+                    </div>
+                )}
+
+                {/* Action buttons */}
+                {actions && (
+                    <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
+                        {actions}
+                    </div>
+                )}
             </div>
         </div>
     );

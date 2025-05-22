@@ -1,2 +1,2 @@
 export { WizardShell } from './WizardShell';
-export type { WizardShellProps } from './WizardShell'; 
+export type { WizardShellProps, WizardStep } from './WizardShell'; 

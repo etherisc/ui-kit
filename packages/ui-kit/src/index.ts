@@ -1,8 +1,12 @@
 // Core components
 export * from './components'
 
-// Layout components
-export * from './layout'
+// Layout components - using named exports to avoid conflicts
+export {
+    AppShell,
+    MinimalShell,
+    WizardShell
+} from './layout'
 
 // Data components
 export * from './data'

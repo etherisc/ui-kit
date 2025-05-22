@@ -1,4 +1,3 @@
-import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { AppShell } from './AppShell';
 import { Logo } from '../../components/layout/Logo';

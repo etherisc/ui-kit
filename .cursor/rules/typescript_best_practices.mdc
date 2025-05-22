@@ -14,4 +14,4 @@ alwaysApply: true
 - Keep type-only imports with `import type`.
 - Enable `noImplicitOverride`, `exactOptionalPropertyTypes`.
 - Prefer readonly arrays/tuples where mutation not intended.
-- For each use of `import {react} from React`, explicitly check if this is necessary, because it frequently leads to linter errors. 
+- For each use of `import React from react`, explicitly check if this is necessary, because it frequently leads to linter errors. 

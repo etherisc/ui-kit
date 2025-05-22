@@ -1,4 +1,3 @@
-import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { SideNav, NavItem } from './SideNav';
 import { HomeIcon, LayersIcon, SettingsIcon, UsersIcon, BarChartIcon, FileTextIcon } from 'lucide-react';
