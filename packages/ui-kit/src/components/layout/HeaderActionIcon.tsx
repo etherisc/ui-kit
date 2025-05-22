@@ -1,4 +1,6 @@
 import React from 'react';
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
 
 /**
  * HeaderActionIcon component props
@@ -24,6 +26,16 @@ export interface HeaderActionIconProps {
      * Optional custom class name
      */
     className?: string;
+    /**
+     * Optional variant for the button
+     * @default 'ghost'
+     */
+    variant?: 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link';
+    /**
+     * Whether the button is disabled
+     * @default false
+     */
+    disabled?: boolean;
 }
 
 /**
@@ -35,22 +47,39 @@ export const HeaderActionIcon: React.FC<HeaderActionIconProps> = ({
     onClick,
     badgeCount,
     className = '',
+    variant = 'ghost',
+    disabled = false,
 }) => {
     return (
-        <button
-            className={`header-action-icon ${className}`}
-            onClick={onClick}
-            aria-label={label}
-            type="button"
-        >
-            {icon}
+        <div className="relative">
+            <Button
+                variant={variant}
+                size="icon"
+                className={cn(
+                    "h-10 w-10 rounded-full",
+                    className
+                )}
+                onClick={onClick}
+                aria-label={label}
+                disabled={disabled}
+            >
+                {icon}
+            </Button>
+
             {badgeCount !== undefined && badgeCount > 0 && (
-                <span className="badge" aria-label={`${badgeCount} notifications`}>
-                    {badgeCount}
+                <span
+                    className={cn(
+                        "absolute -top-1 -right-1 flex items-center justify-center",
+                        "h-5 min-w-5 rounded-full bg-destructive text-destructive-foreground",
+                        "text-xs font-medium"
+                    )}
+                    aria-label={`${badgeCount} notifications`}
+                >
+                    {badgeCount > 99 ? '99+' : badgeCount}
                 </span>
             )}
-        </button>
+        </div>
     );
 };
 
-HeaderActionIcon.displayName = 'HeaderActionIcon'; 
+HeaderActionIcon.displayName = 'HeaderActionIcon';
