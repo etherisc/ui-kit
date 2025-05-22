@@ -1,5 +1,6 @@
 import React from 'react';
-import { BreadcrumbItem } from './Breadcrumbs';
+import { Breadcrumbs, BreadcrumbItem } from './Breadcrumbs';
+import { cn } from '../../utils/cn';
 
 /**
  * ContentWrapper component props
@@ -25,6 +26,10 @@ export interface ContentWrapperProps {
      * Optional custom footer content
      */
     footer?: React.ReactNode;
+    /**
+     * Optional additional className
+     */
+    className?: string;
 }
 
 /**
@@ -36,24 +41,48 @@ export const ContentWrapper: React.FC<ContentWrapperProps> = ({
     fixed = false,
     header,
     footer,
+    className,
 }) => {
     return (
-        <main className={`content-wrapper ${fixed ? 'fixed-width' : ''}`}>
+        <main
+            className={cn(
+                "flex flex-col flex-1 overflow-auto",
+                className
+            )}
+        >
             {/* Breadcrumbs section */}
             {breadcrumbs && breadcrumbs.length > 0 && (
-                <div className="breadcrumbs-container">
-                    {/* Breadcrumbs component will be used here */}
+                <div className={cn(
+                    "py-2 px-4 border-b border-border",
+                    "bg-muted/40"
+                )}>
+                    <Breadcrumbs items={breadcrumbs} />
                 </div>
             )}
 
             {/* Custom header if provided */}
-            {header && <div className="content-header">{header}</div>}
+            {header && (
+                <div className="content-header border-b border-border">
+                    {header}
+                </div>
+            )}
 
             {/* Main content */}
-            <div className="content-body">{children}</div>
+            <div
+                className={cn(
+                    "flex-1 p-4 md:p-6",
+                    fixed && "container max-w-[960px] mx-auto"
+                )}
+            >
+                {children}
+            </div>
 
             {/* Custom footer if provided */}
-            {footer && <div className="content-footer">{footer}</div>}
+            {footer && (
+                <div className="content-footer border-t border-border mt-auto">
+                    {footer}
+                </div>
+            )}
         </main>
     );
 };

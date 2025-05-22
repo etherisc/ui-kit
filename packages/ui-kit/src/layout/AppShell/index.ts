@@ -1,5 +1,5 @@
 export { AppShell } from './AppShell';
-export type { AppShellProps } from './types';
+export type { AppShellProps } from './AppShell';
 
 export { TopBar } from './TopBar';
 export type { TopBarProps } from './TopBar';
