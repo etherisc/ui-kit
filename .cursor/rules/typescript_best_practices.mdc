@@ -1,3 +1,8 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
 # Cursor Rule File – TypeScript Best Practices
 
 - **Strict mode**: `strict: true` in tsconfig.
@@ -9,3 +14,4 @@
 - Keep type-only imports with `import type`.
 - Enable `noImplicitOverride`, `exactOptionalPropertyTypes`.
 - Prefer readonly arrays/tuples where mutation not intended.
+- For each use of `import {react} from React`, explicitly check if this is necessary, because it frequently leads to linter errors. 
