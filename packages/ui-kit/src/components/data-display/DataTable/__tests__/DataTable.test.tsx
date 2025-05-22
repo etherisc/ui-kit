@@ -1,7 +1,6 @@
 import { render, screen, within } from '@testing-library/react';
 import { DataTable } from '../DataTable';
 import { ColumnDef } from '@tanstack/react-table';
-import React from 'react';
 
 describe('DataTable', () => {
     type TestData = {

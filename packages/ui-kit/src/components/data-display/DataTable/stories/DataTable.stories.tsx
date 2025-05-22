@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { DataTable } from '../DataTable';
 import { ColumnDef } from '@tanstack/react-table';
-import React from 'react';
 
 // Generate mock data
 interface Person {
