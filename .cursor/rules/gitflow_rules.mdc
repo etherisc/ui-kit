@@ -5,9 +5,13 @@ alwaysApply: true
 ---
 # Cursor Rule File – Git / GitFlow
 
+## General
+- Never push with --no-verify
+- Never push --force - if needed, ask for explicit approval by user
+
 ## Branching & commits
 - **Follow GitFlow:** main, develop, feature/*, release/*, hotfix/*.
-- **No direct commits to main or develop.** Create PRs.
+- **No direct commits to main or develop.**. Instead, create PRs.
 - **Commits must follow Conventional Commits** (`feat:`, `fix:`, `docs:`...).
 - Always rebase feature branch onto latest develop before PR.
 
