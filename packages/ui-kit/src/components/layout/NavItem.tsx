@@ -45,6 +45,18 @@ export interface NavItemProps {
      * Optional toggle handler for expanding/collapsing (if has children)
      */
     onToggle?: () => void;
+    /**
+     * Optional ID for the item
+     */
+    id?: string;
+    /**
+     * Optional ARIA role for the item
+     */
+    role?: string;
+    /**
+     * Optional ARIA controls attribute (ID of the controlled element)
+     */
+    'aria-controls'?: string;
 }
 
 /**
@@ -61,6 +73,9 @@ export const NavItem: React.FC<NavItemProps> = ({
     hasChildren = false,
     isExpanded = false,
     onToggle,
+    id,
+    role,
+    'aria-controls': ariaControls,
 }) => {
     const baseClasses = cn(
         "flex items-center gap-3 px-3 py-2 w-full rounded-md transition-colors",
@@ -100,7 +115,9 @@ export const NavItem: React.FC<NavItemProps> = ({
                 <span className={cn(
                     "h-4 w-4 transition-transform",
                     isExpanded && "rotate-90"
-                )}>
+                )}
+                    aria-hidden="true"
+                >
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
                         <path d="m9 18 6-6-6-6" />
                     </svg>
@@ -116,6 +133,9 @@ export const NavItem: React.FC<NavItemProps> = ({
             onClick={handleClick}
             aria-current={isActive ? 'page' : undefined}
             title={isCollapsed ? label : undefined}
+            id={id}
+            role={role}
+            aria-controls={ariaControls}
         >
             {itemContent}
         </a>
@@ -127,6 +147,9 @@ export const NavItem: React.FC<NavItemProps> = ({
             aria-current={isActive ? 'page' : undefined}
             aria-expanded={hasChildren ? isExpanded : undefined}
             title={isCollapsed ? label : undefined}
+            id={id}
+            role={role}
+            aria-controls={ariaControls}
         >
             {itemContent}
         </button>

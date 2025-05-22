@@ -143,7 +143,11 @@ export const SideNav: React.FC<SideNavProps> = ({
     };
 
     // Render navigation items recursively
-    const renderItems = (navItems: NavItem[], level = 0) => {
+    const renderItems = (navItems: NavItem[], level = 0, parentId?: string) => {
+        // Use appropriate ARIA roles based on level
+        const listRole = level === 0 ? "menu" : "menu";
+        const listId = `nav-list-${parentId || 'root'}`;
+
         return (
             <ul
                 className={cn(
@@ -151,34 +155,45 @@ export const SideNav: React.FC<SideNavProps> = ({
                     level === 1 && "pl-6",
                     level === 2 && "pl-10"
                 )}
-                role={level === 0 ? "menu" : "group"}
+                role={listRole}
+                id={listId}
+                aria-label={level === 0 ? "Main navigation" : `Submenu for ${parentId}`}
             >
-                {navItems.map((item) => (
-                    <li key={item.id} role="none">
-                        <NavItemComponent
-                            icon={item.icon}
-                            label={item.label}
-                            href={item.href}
-                            isActive={item.isActive}
-                            onClick={item.onClick}
-                            isExpanded={item.isExpanded}
-                            isCollapsed={collapsed}
-                            hasChildren={Boolean(item.children?.length)}
-                            onToggle={item.children?.length ? () => {
-                                // This would be handled by parent component
-                                // that manages item.isExpanded state
-                                console.log('Toggle item', item.id);
-                            } : undefined}
-                        />
+                {navItems.map((item) => {
+                    const itemId = `nav-item-${item.id}`;
+                    const hasSubmenu = Boolean(item.children?.length);
+                    const submenuId = hasSubmenu ? `nav-list-${item.id}` : undefined;
 
-                        {/* Render children if they exist and either the item is expanded or this is a non-collapsible group */}
-                        {item.children && item.children.length > 0 && (
-                            (!collapsed && item.isExpanded) || (item.isGroup && !collapsed) ? (
-                                renderItems(item.children, level + 1)
-                            ) : null
-                        )}
-                    </li>
-                ))}
+                    return (
+                        <li key={item.id} role="none" className="w-full">
+                            <NavItemComponent
+                                icon={item.icon}
+                                label={item.label}
+                                href={item.href}
+                                isActive={item.isActive}
+                                onClick={item.onClick}
+                                isExpanded={item.isExpanded}
+                                isCollapsed={collapsed}
+                                hasChildren={hasSubmenu}
+                                onToggle={hasSubmenu ? () => {
+                                    // This would be handled by parent component
+                                    // that manages item.isExpanded state
+                                    console.log('Toggle item', item.id);
+                                } : undefined}
+                                aria-controls={submenuId}
+                                id={itemId}
+                                role={level === 0 ? "menuitem" : "menuitem"}
+                            />
+
+                            {/* Render children if they exist and either the item is expanded or this is a non-collapsible group */}
+                            {item.children && item.children.length > 0 && (
+                                (!collapsed && item.isExpanded) || (item.isGroup && !collapsed) ? (
+                                    renderItems(item.children, level + 1, item.id)
+                                ) : null
+                            )}
+                        </li>
+                    );
+                })}
             </ul>
         );
     };
@@ -191,8 +206,7 @@ export const SideNav: React.FC<SideNavProps> = ({
                 "transition-width duration-200 ease-in-out",
                 className
             )}
-            role="navigation"
-            aria-label="Side navigation"
+            aria-label="Main navigation sidebar"
             data-testid={dataTestId}
         >
             {/* Toggle button for collapsing the sidebar */}
@@ -205,7 +219,8 @@ export const SideNav: React.FC<SideNavProps> = ({
                 )}
                 onClick={handleCollapseToggle}
                 aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-                title={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+                aria-expanded={!collapsed}
+                type="button"
             >
                 {collapsed ? <ChevronRightIcon size={18} /> : <ChevronLeftIcon size={18} />}
             </button>
@@ -213,9 +228,14 @@ export const SideNav: React.FC<SideNavProps> = ({
             {/* Navigation items */}
             <nav
                 className="flex-grow overflow-y-auto px-3"
-                aria-label="Main menu"
+                aria-labelledby="sidenav-heading"
             >
-                {items.length > 0 && renderItems(items)}
+                <h2 id="sidenav-heading" className="sr-only">Main Navigation</h2>
+                {items.length > 0 ? renderItems(items) : (
+                    <div className="text-muted-foreground text-center py-4">
+                        No navigation items
+                    </div>
+                )}
             </nav>
         </aside>
     );
