@@ -11,7 +11,7 @@ export interface ThemeState {
 // Other UI state can be added here in the future
 export interface UIState {
     // Reserved for future UI state
-     
+
     __placeholder?: never; // Just a placeholder to make TS happy
 }
 
@@ -39,9 +39,13 @@ export const useSessionStore = create<SessionState>()(
 
 // Export selectors for specific state slices
 export const useThemeState = () => {
-    return useSessionStore((state) => ({
-        isDarkMode: state.isDarkMode,
-        setDarkMode: state.setDarkMode,
-        toggleDarkMode: state.toggleDarkMode,
-    }));
+    const isDarkMode = useSessionStore((state) => state.isDarkMode);
+    const setDarkMode = useSessionStore((state) => state.setDarkMode);
+    const toggleDarkMode = useSessionStore((state) => state.toggleDarkMode);
+
+    return {
+        isDarkMode,
+        setDarkMode,
+        toggleDarkMode,
+    } as const;
 }; 

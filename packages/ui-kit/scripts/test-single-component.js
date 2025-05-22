@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/* eslint-disable no-console, no-undef */
+/* eslint-disable no-undef */
 
 import { spawn, exec } from 'child_process';
 import { promisify } from 'util';

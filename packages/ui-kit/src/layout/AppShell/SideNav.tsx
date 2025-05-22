@@ -172,7 +172,7 @@ export const SideNav: React.FC<SideNavProps> = ({
                                 href={item.href}
                                 isActive={item.isActive}
                                 onClick={item.onClick}
-                                isExpanded={item.isExpanded}
+                                isExpanded={!collapsed && item.isExpanded}
                                 isCollapsed={collapsed}
                                 hasChildren={hasSubmenu}
                                 onToggle={hasSubmenu ? () => {
@@ -223,18 +223,18 @@ export const SideNav: React.FC<SideNavProps> = ({
                     aria-expanded={!collapsed}
                     type="button"
                 >
-                    {collapsed ? <ChevronRightIcon size={18} /> : <ChevronLeftIcon size={18} />}
+                    {collapsed ? <ChevronRightIcon size={18} aria-hidden="true" /> : <ChevronLeftIcon size={18} aria-hidden="true" />}
                 </button>
             </div>
 
             {/* Navigation items */}
             <nav
                 className="flex-grow overflow-y-auto px-3"
-                aria-labelledby="sidenav-heading"
+                aria-label="Sidebar navigation"
             >
-                <h2 id="sidenav-heading" className="sr-only">Main Navigation</h2>
+                <h2 className="sr-only">Sidebar navigation</h2>
                 {items.length > 0 ? renderItems(items) : (
-                    <div className="text-muted-foreground text-center py-4" role="region" aria-labelledby="empty-nav-message">
+                    <div className="text-foreground/80 text-center py-4" role="region" aria-labelledby="empty-nav-message">
                         <span id="empty-nav-message" className="text-sm">No navigation items</span>
                     </div>
                 )}

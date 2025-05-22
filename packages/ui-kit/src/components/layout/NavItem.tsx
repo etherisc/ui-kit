@@ -102,7 +102,9 @@ export const NavItem: React.FC<NavItemProps> = ({
                 <span className={cn(
                     "flex items-center justify-center",
                     isCollapsed ? "w-8 h-8" : "w-5 h-5"
-                )}>
+                )}
+                    aria-hidden="true"
+                >
                     {icon}
                 </span>
             )}
@@ -133,6 +135,7 @@ export const NavItem: React.FC<NavItemProps> = ({
             onClick={handleClick}
             aria-current={isActive ? 'page' : undefined}
             title={isCollapsed ? label : undefined}
+            aria-label={isCollapsed ? label : undefined}
             id={id}
             role={role}
             aria-controls={ariaControls}
@@ -147,6 +150,7 @@ export const NavItem: React.FC<NavItemProps> = ({
             aria-current={isActive ? 'page' : undefined}
             aria-expanded={hasChildren ? isExpanded : undefined}
             title={isCollapsed ? label : undefined}
+            aria-label={isCollapsed ? label : undefined}
             id={id}
             role={role}
             aria-controls={ariaControls}
