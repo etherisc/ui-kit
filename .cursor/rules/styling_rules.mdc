@@ -7,7 +7,6 @@ alwaysApply: false
 
 - Tailwind classes **only inside ui-kit**; no classes in consuming apps.
 - Always use shadcn ui components with the shadcn CLI (npx shadcn@latest <command>)
-- Initialitze 
 - Never override Shadcn component CSS directly; extend via wrapper props.
 - Colours/spacings via CSS vars mapped to DaisyUI tokens.
 - Use `@apply` sparingly inside `theme.css`, never in JSX.
