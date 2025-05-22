@@ -50,9 +50,9 @@ const CustomLogo = () => (
 
 // Example form content for step 2 (Address)
 const AddressFormContent = () => (
-    <div className="space-y-6">
+    <form className="space-y-6" aria-labelledby="address-form-heading">
         <div>
-            <h2 className="text-xl font-semibold mb-4">Address Information</h2>
+            <h2 id="address-form-heading" className="text-xl font-semibold mb-4">Address Information</h2>
             <p className="text-muted-foreground mb-6">
                 Please provide your current residential address information.
             </p>
@@ -60,59 +60,106 @@ const AddressFormContent = () => (
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-                <label className="font-medium">Street Address</label>
-                <input className="w-full p-2 border rounded" placeholder="123 Main St" />
+                <label htmlFor="street-address" className="font-medium">Street Address</label>
+                <input
+                    id="street-address"
+                    name="street-address"
+                    className="w-full p-2 border rounded"
+                    placeholder="123 Main St"
+                    aria-required="true"
+                />
             </div>
 
             <div className="space-y-2">
-                <label className="font-medium">Apartment/Unit</label>
-                <input className="w-full p-2 border rounded" placeholder="Apt 4B (optional)" />
+                <label htmlFor="apartment" className="font-medium">Apartment/Unit</label>
+                <input
+                    id="apartment"
+                    name="apartment"
+                    className="w-full p-2 border rounded"
+                    placeholder="Apt 4B (optional)"
+                    aria-required="false"
+                />
             </div>
 
             <div className="space-y-2">
-                <label className="font-medium">City</label>
-                <input className="w-full p-2 border rounded" placeholder="New York" />
+                <label htmlFor="city" className="font-medium">City</label>
+                <input
+                    id="city"
+                    name="city"
+                    className="w-full p-2 border rounded"
+                    placeholder="New York"
+                    aria-required="true"
+                />
             </div>
 
             <div className="space-y-2">
-                <label className="font-medium">State</label>
-                <select className="w-full p-2 border rounded">
-                    <option>Select State</option>
-                    <option>California</option>
-                    <option>New York</option>
-                    <option>Texas</option>
+                <label htmlFor="state" className="font-medium">State</label>
+                <select
+                    id="state"
+                    name="state"
+                    className="w-full p-2 border rounded"
+                    aria-required="true"
+                >
+                    <option value="">Select State</option>
+                    <option value="CA">California</option>
+                    <option value="NY">New York</option>
+                    <option value="TX">Texas</option>
                 </select>
             </div>
 
             <div className="space-y-2">
-                <label className="font-medium">ZIP Code</label>
-                <input className="w-full p-2 border rounded" placeholder="10001" />
+                <label htmlFor="zipcode" className="font-medium">ZIP Code</label>
+                <input
+                    id="zipcode"
+                    name="zipcode"
+                    className="w-full p-2 border rounded"
+                    placeholder="10001"
+                    aria-required="true"
+                />
             </div>
 
             <div className="space-y-2">
-                <label className="font-medium">Country</label>
-                <select className="w-full p-2 border rounded">
-                    <option>United States</option>
-                    <option>Canada</option>
-                    <option>United Kingdom</option>
+                <label htmlFor="country" className="font-medium">Country</label>
+                <select
+                    id="country"
+                    name="country"
+                    className="w-full p-2 border rounded"
+                    aria-required="true"
+                >
+                    <option value="US">United States</option>
+                    <option value="CA">Canada</option>
+                    <option value="UK">United Kingdom</option>
                 </select>
             </div>
         </div>
 
-        <div className="space-y-2">
-            <label className="font-medium">Address Type</label>
+        <fieldset className="space-y-2">
+            <legend className="font-medium">Address Type</legend>
             <div className="flex space-x-4">
-                <label className="flex items-center space-x-2">
-                    <input type="radio" name="addressType" className="h-4 w-4" defaultChecked />
-                    <span>Residential</span>
-                </label>
-                <label className="flex items-center space-x-2">
-                    <input type="radio" name="addressType" className="h-4 w-4" />
-                    <span>Business</span>
-                </label>
+                <div className="flex items-center space-x-2">
+                    <input
+                        type="radio"
+                        id="residential"
+                        name="addressType"
+                        value="residential"
+                        className="h-4 w-4"
+                        defaultChecked
+                    />
+                    <label htmlFor="residential">Residential</label>
+                </div>
+                <div className="flex items-center space-x-2">
+                    <input
+                        type="radio"
+                        id="business"
+                        name="addressType"
+                        value="business"
+                        className="h-4 w-4"
+                    />
+                    <label htmlFor="business">Business</label>
+                </div>
             </div>
-        </div>
-    </div>
+        </fieldset>
+    </form>
 );
 
 // Actions for step 2 (Address)
@@ -141,9 +188,9 @@ export const Step1Personal: Story = {
         ...Step2Address.args,
         currentStepId: 'personal',
         children: (
-            <div className="space-y-6">
+            <form className="space-y-6" aria-labelledby="personal-form-heading">
                 <div>
-                    <h2 className="text-xl font-semibold mb-4">Personal Information</h2>
+                    <h2 id="personal-form-heading" className="text-xl font-semibold mb-4">Personal Information</h2>
                     <p className="text-muted-foreground mb-6">
                         Please provide your personal details to get started.
                     </p>
@@ -151,26 +198,51 @@ export const Step1Personal: Story = {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                        <label className="font-medium">First Name</label>
-                        <input className="w-full p-2 border rounded" placeholder="John" />
+                        <label htmlFor="first-name" className="font-medium">First Name</label>
+                        <input
+                            id="first-name"
+                            name="firstName"
+                            className="w-full p-2 border rounded"
+                            placeholder="John"
+                            aria-required="true"
+                        />
                     </div>
 
                     <div className="space-y-2">
-                        <label className="font-medium">Last Name</label>
-                        <input className="w-full p-2 border rounded" placeholder="Doe" />
+                        <label htmlFor="last-name" className="font-medium">Last Name</label>
+                        <input
+                            id="last-name"
+                            name="lastName"
+                            className="w-full p-2 border rounded"
+                            placeholder="Doe"
+                            aria-required="true"
+                        />
                     </div>
 
                     <div className="space-y-2">
-                        <label className="font-medium">Email</label>
-                        <input className="w-full p-2 border rounded" type="email" placeholder="john.doe@example.com" />
+                        <label htmlFor="email" className="font-medium">Email</label>
+                        <input
+                            id="email"
+                            name="email"
+                            className="w-full p-2 border rounded"
+                            type="email"
+                            placeholder="john.doe@example.com"
+                            aria-required="true"
+                        />
                     </div>
 
                     <div className="space-y-2">
-                        <label className="font-medium">Phone Number</label>
-                        <input className="w-full p-2 border rounded" placeholder="(555) 123-4567" />
+                        <label htmlFor="phone" className="font-medium">Phone Number</label>
+                        <input
+                            id="phone"
+                            name="phone"
+                            className="w-full p-2 border rounded"
+                            placeholder="(555) 123-4567"
+                            aria-required="true"
+                        />
                     </div>
                 </div>
-            </div>
+            </form>
         ),
     },
 };
@@ -186,15 +258,15 @@ export const FinalStep: Story = {
         children: (
             <div className="space-y-6">
                 <div>
-                    <h2 className="text-xl font-semibold mb-4">Review Your Information</h2>
+                    <h2 id="review-heading" className="text-xl font-semibold mb-4">Review Your Information</h2>
                     <p className="text-muted-foreground mb-6">
                         Please review your application details before submitting.
                     </p>
                 </div>
 
                 <div className="space-y-6">
-                    <div className="bg-muted/30 p-4 rounded border border-border">
-                        <h3 className="font-medium mb-2">Personal Information</h3>
+                    <section className="bg-muted/30 p-4 rounded border border-border" aria-labelledby="personal-section-heading">
+                        <h3 id="personal-section-heading" className="font-medium mb-2">Personal Information</h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-y-2">
                             <div>
                                 <span className="text-muted-foreground">Name:</span>
@@ -209,10 +281,10 @@ export const FinalStep: Story = {
                             </div>
                             <div>(555) 123-4567</div>
                         </div>
-                    </div>
+                    </section>
 
-                    <div className="bg-muted/30 p-4 rounded border border-border">
-                        <h3 className="font-medium mb-2">Address Information</h3>
+                    <section className="bg-muted/30 p-4 rounded border border-border" aria-labelledby="address-section-heading">
+                        <h3 id="address-section-heading" className="font-medium mb-2">Address Information</h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-y-2">
                             <div>
                                 <span className="text-muted-foreground">Street:</span>
@@ -227,10 +299,10 @@ export const FinalStep: Story = {
                             </div>
                             <div>United States</div>
                         </div>
-                    </div>
+                    </section>
 
-                    <div className="bg-muted/30 p-4 rounded border border-border">
-                        <h3 className="font-medium mb-2">Payment Information</h3>
+                    <section className="bg-muted/30 p-4 rounded border border-border" aria-labelledby="payment-section-heading">
+                        <h3 id="payment-section-heading" className="font-medium mb-2">Payment Information</h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-y-2">
                             <div>
                                 <span className="text-muted-foreground">Payment Method:</span>
@@ -241,22 +313,23 @@ export const FinalStep: Story = {
                             </div>
                             <div>Same as residential address</div>
                         </div>
-                    </div>
+                    </section>
                 </div>
 
                 <div className="mt-4 border-t border-border pt-4">
-                    <label className="flex items-center space-x-2">
-                        <input type="checkbox" className="h-4 w-4" />
-                        <span>I confirm that all information provided is accurate and complete.</span>
-                    </label>
+                    <div className="flex items-center space-x-2">
+                        <input
+                            type="checkbox"
+                            id="confirm-checkbox"
+                            name="confirm"
+                            className="h-4 w-4"
+                        />
+                        <label htmlFor="confirm-checkbox">
+                            I confirm that all information provided is accurate and complete.
+                        </label>
+                    </div>
                 </div>
             </div>
-        ),
-        actions: (
-            <>
-                <Button intent="ghost">Back</Button>
-                <Button intent="primary">Submit Application</Button>
-            </>
         ),
     },
 }; 
