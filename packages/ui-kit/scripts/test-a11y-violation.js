@@ -1,6 +1,6 @@
 // Simple script to test that axe-core detects accessibility violations
 // Run with: node scripts/test-a11y-violation.js
-/* eslint-disable no-console, no-undef */
+/* eslint-disable no-undef */
 
 import { chromium } from '@playwright/test';
 import { injectAxe, checkA11y } from 'axe-playwright';

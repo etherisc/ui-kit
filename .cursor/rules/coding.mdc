@@ -43,7 +43,7 @@ Always follow the following recipe for implementing tasks:
 5. Post-PR cleanup:
    1. Do this after the user confirms that the PR has been successfully merged.
    2. Checkout develop and do `git pull` to update the branch with the merged PR.
-   3. After task is completed (PR merged), the task is marked with a checkmark in docs/project_plan.md. This change does not warrant a separate PR, it will be included in the next PR. Just do git add for the file. Delete the feature branch locally and remotely.
+   3. After task is completed (PR merged), the task is marked with a checkmark in docs/project_plan.md. This change does not warrant a separate PR, it will be included in the next PR. Just do git add for the file, don't push it. Delete the feature branch locally and remotely.
    
 # Instructions to handle error situations:
 - CI Pipeline fails:

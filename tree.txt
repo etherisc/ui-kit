@@ -1,0 +1,269 @@
+.
+├── a11y-test-results.log
+├── AGENTS.md
+├── api-server
+├── commitlint.config.cjs
+├── components.json
+├── Dockerfile
+├── docs
+│   ├── AGENTS.md
+│   ├── eslint-rules.md
+│   ├── planning.md
+│   ├── project_plan.md
+│   ├── setup.md
+│   └── task-planning
+│       ├── eslint-rule-useeffect.md
+│       ├── task-2.1a-shadcn-upgrade.md
+│       ├── task-2.1-form-components.md
+│       ├── task-2.1.md
+│       ├── task-2.2.md
+│       ├── task-2.3.md
+│       ├── task-2.5-a11y-fixes.md
+│       ├── task-2.5-axe-core-ci.md
+│       ├── task-3.1-data-table.md
+│       └── task-3.2-build-main-layout.md
+├── eslint.config.js
+├── eslint-plugin-ui-kit-rules
+│   └── test-examples.js
+├── nginx.conf
+├── package.json
+├── packages
+│   ├── api-server
+│   ├── eslint-plugin-ui-kit-rules
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── README.md
+│   ├── showcase
+│   └── ui-kit
+│       ├── CHANGELOG.md
+│       ├── components.json
+│       ├── cypress
+│       │   ├── e2e
+│       │   │   └── theme.cy.ts
+│       │   ├── screenshots
+│       │   │   └── theme.cy.ts
+│       │   │       ├── button-dark-mode.png
+│       │   │       └── button-light-mode.png
+│       │   └── support
+│       │       └── e2e.ts
+│       ├── cypress.config.ts
+│       ├── dist
+│       │   ├── style.css
+│       │   ├── ui-kit.js
+│       │   └── ui-kit.umd.cjs
+│       ├── docs
+│       │   ├── accessibility-testing.md
+│       │   └── PROTECTED_FOLDERS.md
+│       ├── package.json
+│       ├── packages
+│       │   └── ui-kit
+│       │       ├── docs
+│       │       └── src
+│       │           ├── components
+│       │           │   └── test
+│       │           └── lib
+│       ├── playwright
+│       │   └── DataTable.spec.ts
+│       ├── playwright.config.ts
+│       ├── postcss.config.js
+│       ├── scripts
+│       │   ├── run-storybook-test.js
+│       │   ├── test-a11y-violation.js
+│       │   ├── test-component.sh
+│       │   ├── test-single-component.js
+│       │   └── tokens-check.js
+│       ├── src
+│       │   ├── components
+│       │   │   ├── data-display
+│       │   │   │   ├── DataTable
+│       │   │   │   │   ├── DataTable.tsx
+│       │   │   │   │   ├── index.ts
+│       │   │   │   │   ├── stories
+│       │   │   │   │   │   └── DataTable.stories.tsx
+│       │   │   │   │   └── __tests__
+│       │   │   │   │       └── DataTable.test.tsx
+│       │   │   │   └── index.ts
+│       │   │   ├── examples
+│       │   │   │   ├── A11yButton.stories.tsx
+│       │   │   │   ├── A11yButton.tsx
+│       │   │   │   └── AccessibleComponentsExample.tsx
+│       │   │   ├── form
+│       │   │   │   ├── A11yFormExamples.stories.tsx
+│       │   │   │   ├── A11yFormExamples.tsx
+│       │   │   │   ├── CheckboxField.tsx
+│       │   │   │   ├── FieldWrapper.test.tsx
+│       │   │   │   ├── FieldWrapper.tsx
+│       │   │   │   ├── FormExample.stories.tsx
+│       │   │   │   ├── FormGrid.test.tsx
+│       │   │   │   ├── FormGrid.tsx
+│       │   │   │   ├── FormGroup.test.tsx
+│       │   │   │   ├── FormGroup.tsx
+│       │   │   │   ├── Form.mdx
+│       │   │   │   ├── Form.test.tsx
+│       │   │   │   ├── Form.tsx
+│       │   │   │   ├── index.ts
+│       │   │   │   ├── NumberField.tsx
+│       │   │   │   ├── RadioGroupField.tsx
+│       │   │   │   ├── SelectField.tsx
+│       │   │   │   ├── TextField.test.tsx
+│       │   │   │   ├── TextField.tsx
+│       │   │   │   ├── useForm.test.tsx
+│       │   │   │   └── useForm.ts
+│       │   │   ├── FormExample.stories.tsx
+│       │   │   ├── index.ts
+│       │   │   ├── primitives
+│       │   │   │   ├── Button
+│       │   │   │   │   ├── Button.stories.tsx
+│       │   │   │   │   ├── Button.test.tsx
+│       │   │   │   │   ├── Button.tsx
+│       │   │   │   │   ├── index.ts
+│       │   │   │   │   └── types.ts
+│       │   │   │   ├── Checkbox
+│       │   │   │   │   ├── Checkbox.stories.tsx
+│       │   │   │   │   ├── Checkbox.test.tsx
+│       │   │   │   │   ├── Checkbox.tsx
+│       │   │   │   │   ├── index.ts
+│       │   │   │   │   └── types.ts
+│       │   │   │   ├── index.ts
+│       │   │   │   ├── NumberInput
+│       │   │   │   │   ├── index.ts
+│       │   │   │   │   ├── NumberInput.stories.tsx
+│       │   │   │   │   ├── NumberInput.test.tsx
+│       │   │   │   │   ├── NumberInput.tsx
+│       │   │   │   │   └── types.ts
+│       │   │   │   ├── RadioGroup
+│       │   │   │   │   ├── index.ts
+│       │   │   │   │   ├── RadioGroup.stories.tsx
+│       │   │   │   │   ├── RadioGroup.test.tsx
+│       │   │   │   │   ├── RadioGroup.tsx
+│       │   │   │   │   └── types.ts
+│       │   │   │   ├── Select
+│       │   │   │   │   ├── index.ts
+│       │   │   │   │   ├── Select.stories.tsx
+│       │   │   │   │   ├── Select.test.tsx
+│       │   │   │   │   ├── Select.tsx
+│       │   │   │   │   └── types.ts
+│       │   │   │   ├── TextInput
+│       │   │   │   │   ├── index.ts
+│       │   │   │   │   ├── TextInput.stories.tsx
+│       │   │   │   │   ├── TextInput.test.tsx
+│       │   │   │   │   └── TextInput.tsx
+│       │   │   │   └── ThemeToggle
+│       │   │   │       ├── index.ts
+│       │   │   │       ├── __tests__
+│       │   │   │       │   └── ThemeToggle.test.tsx
+│       │   │   │       ├── ThemeToggle.stories.tsx
+│       │   │   │       └── ThemeToggle.tsx
+│       │   │   ├── test
+│       │   │   └── ui
+│       │   │       ├── button.tsx
+│       │   │       ├── button-variants.ts
+│       │   │       ├── checkbox.tsx
+│       │   │       ├── input.tsx
+│       │   │       ├── label.tsx
+│       │   │       ├── radio-group.tsx
+│       │   │       ├── README.md
+│       │   │       └── select.tsx
+│       │   ├── core
+│       │   │   ├── Button
+│       │   │   └── __tests__
+│       │   ├── data
+│       │   │   └── index.ts
+│       │   ├── docs
+│       │   │   └── ThemeSystem.md
+│       │   ├── hooks
+│       │   │   ├── index.ts
+│       │   │   ├── __tests__
+│       │   │   │   └── useTheme.test.tsx
+│       │   │   ├── useTheme.mock.ts
+│       │   │   └── useTheme.ts
+│       │   ├── index.ts
+│       │   ├── layout
+│       │   │   ├── AuthShell
+│       │   │   │   ├── AuthShell.stories.tsx
+│       │   │   │   ├── AuthShell.test.tsx
+│       │   │   │   ├── AuthShell.tsx
+│       │   │   │   ├── index.ts
+│       │   │   │   └── types.ts
+│       │   │   └── index.ts
+│       │   ├── lib
+│       │   │   └── utils.ts
+│       │   ├── providers
+│       │   │   ├── index.ts
+│       │   │   ├── ThemeProvider.stories.tsx
+│       │   │   └── ThemeProvider.tsx
+│       │   ├── store
+│       │   │   ├── sessionStore.ts
+│       │   │   └── __tests__
+│       │   │       ├── persistence.test.ts
+│       │   │       └── sessionStore.test.tsx
+│       │   ├── stories
+│       │   │   ├── assets
+│       │   │   │   ├── accessibility.png
+│       │   │   │   ├── accessibility.svg
+│       │   │   │   ├── addon-library.png
+│       │   │   │   ├── assets.png
+│       │   │   │   ├── avif-test-image.avif
+│       │   │   │   ├── context.png
+│       │   │   │   ├── discord.svg
+│       │   │   │   ├── docs.png
+│       │   │   │   ├── figma-plugin.png
+│       │   │   │   ├── github.svg
+│       │   │   │   ├── share.png
+│       │   │   │   ├── styling.png
+│       │   │   │   ├── testing.png
+│       │   │   │   ├── theming.png
+│       │   │   │   ├── tutorials.svg
+│       │   │   │   └── youtube.svg
+│       │   │   ├── button.css
+│       │   │   ├── Button.jsx
+│       │   │   ├── Button.stories.js
+│       │   │   ├── Configure.mdx
+│       │   │   ├── header.css
+│       │   │   ├── Header.jsx
+│       │   │   ├── Header.stories.js
+│       │   │   ├── page.css
+│       │   │   ├── Page.jsx
+│       │   │   └── Page.stories.js
+│       │   ├── styles
+│       │   │   └── globals.css
+│       │   ├── test
+│       │   │   └── setup.ts
+│       │   ├── theme
+│       │   │   ├── DESIGN_TOKENS.md
+│       │   │   ├── index.ts
+│       │   │   └── theme.css
+│       │   └── utils
+│       │       ├── cn.ts
+│       │       └── index.ts
+│       ├── tailwind.config.js
+│       ├── tests
+│       │   └── visual
+│       │       └── AuthShell.spec.ts
+│       ├── tsconfig.json
+│       ├── tsconfig.node.json
+│       ├── tsconfig.test.json
+│       ├── vite.config.ts
+│       └── vitest.config.ts
+├── pnpm-lock.yaml
+├── pnpm-workspace.yaml
+├── Procfile
+├── README.md
+├── showcase
+├── src
+│   ├── components
+│   │   ├── data-display
+│   │   └── primitives
+│   │       └── ThemeToggle
+│   │           └── ThemeToggle.tsx
+│   ├── hooks
+│   │   └── useTheme.ts
+│   ├── lib
+│   │   └── utils.ts
+│   ├── store
+│   │   └── sessionStore.ts
+│   ├── types
+│   └── utils
+├── test-lint.js
+├── tree.txt
+└── workflow.log

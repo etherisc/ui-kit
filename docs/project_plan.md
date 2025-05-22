@@ -15,7 +15,7 @@ A pragmatic breakdown into **four one‑week sprints** plus a preparatory **Spri
 | 0.4  | Commit Husky hooks (commitlint, lint‑staged).                                                                      | Attempting to commit code with ESLint errors is blocked locally.                                   | ✓      |
 | 0.5  | Seed Changesets & automatic versioning.                                                                            | Merging PR increments `package.json version` and creates a changelog file.                         | ✓      |
 | 0.6  | **Docker/Dokku infra** – Add multi‑stage `Dockerfile`, `Procfile`; CI job builds image & pushes to test Dokku app. | `gh workflow run docker-test` builds & deploys; Dokku reports container running, health‑check 200. | ✓      |
-| 0.7  | **Update GitHub Actions** – Configure CI workflows to run on develop branch and PRs.                               | CI workflows run on both main and develop branches, as well as PRs targeting these branches.       | PR     |
+| 0.7  | **Update GitHub Actions** – Configure CI workflows to run on develop branch and PRs.                               | CI workflows run on both main and develop branches, as well as PRs targeting these branches.       | ✓      |
 
 ---
 
@@ -55,7 +55,7 @@ A pragmatic breakdown into **four one‑week sprints** plus a preparatory **Spri
 | #   | Task                                                                                         | DoD                                                                                                                | Status |
 | --- | -------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ | ------ |
 | 3.1 | Wrap **TanStack Table** into `DataTable` with pagination, resize.                            | Story with 50 rows paginates; Playwright test clicks next page.                                                    | ✓      |
-| 3.2 | Build **MainLayout** with TopBar + LeftNav + Breadcrumb.                                     | Storybook viewport test at 1280 & 1024 px shows responsive collapse.                                               |        |
+| 3.2 | Build **MainLayout** with TopBar + LeftNav + Breadcrumb.                                     | Storybook viewport test at 1280 & 1024 px shows responsive collapse.                                               | PR     |
 | 3.3 | Implement Toast system (`useToast`) + StatusBadge.                                           | Vitest renders Toast, axe-core passes.                                                                             |        |
 | 3.4 | Sample showcase: login page + dashboard + customers table route.                             | E2E Playwright run (login → dashboard) green in CI.                                                                |        |
 | 3.5 | Add i18n infrastructure (`react-i18next`) with `en`, `de` locales.                           | Storybook toolbar allows locale switch; renders German labels.                                                     |        |
