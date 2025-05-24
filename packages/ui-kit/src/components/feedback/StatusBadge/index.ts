@@ -1,0 +1,1 @@
+export { default as StatusBadge, type StatusBadgeProps, type StatusBadgeVariant } from './StatusBadge'; 
