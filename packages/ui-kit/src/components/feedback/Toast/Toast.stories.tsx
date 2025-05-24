@@ -133,31 +133,39 @@ function InteractiveToastDemo() {
         <div className="space-y-4">
             <div className="flex gap-2 flex-wrap">
                 <button
+                    type="button"
                     onClick={() => addToast('success', 'Success!', 'Operation completed successfully')}
-                    className="px-3 py-2 bg-green-600 hover:bg-green-700 text-white rounded font-medium focus:outline-none focus:ring-2 focus:ring-green-500"
+                    className="btn btn-success"
+                    aria-label="Add a success toast notification"
                 >
                     Add Success Toast
                 </button>
                 <button
+                    type="button"
                     onClick={() => addToast('error', 'Error!', 'Something went wrong')}
-                    className="px-3 py-2 bg-red-600 hover:bg-red-700 text-white rounded font-medium focus:outline-none focus:ring-2 focus:ring-red-500"
+                    className="btn btn-error"
+                    aria-label="Add an error toast notification"
                 >
                     Add Error Toast
                 </button>
                 <button
+                    type="button"
                     onClick={() => addToast('warning', 'Warning!', 'Please be careful')}
-                    className="px-3 py-2 bg-yellow-600 hover:bg-yellow-700 text-white rounded font-medium focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                    className="btn btn-warning"
+                    aria-label="Add a warning toast notification"
                 >
                     Add Warning Toast
                 </button>
                 <button
+                    type="button"
                     onClick={() => addToast('info', 'Info', 'Here is some information')}
-                    className="px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="btn btn-info"
+                    aria-label="Add an info toast notification"
                 >
                     Add Info Toast
                 </button>
             </div>
-            <div className="space-y-2">
+            <div className="space-y-2" role="region" aria-label="Toast notifications">
                 {toasts.map((toast) => (
                     <Toast
                         key={toast.id}
