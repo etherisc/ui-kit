@@ -6,12 +6,10 @@
     "module": "ESNext",
     "skipLibCheck": true,
     "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": false,
-    "declaration": true,
-    "declarationMap": true,
-    "outDir": "dist",
+    "noEmit": true,
     "jsx": "react-jsx",
     "strict": true,
     "noUnusedLocals": true,
@@ -19,12 +17,11 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
-    },
-    "types": ["vitest/globals", "@testing-library/jest-dom", "node"]
+      "@/*": ["./src/*"]
+    }
   },
   "include": ["src"],
-  "exclude": ["src/**/*.test.tsx", "src/**/*.stories.tsx", "../../vendors/**"],
+  "exclude": ["../../vendors/**"],
   "references": [
     {
       "path": "./tsconfig.node.json"

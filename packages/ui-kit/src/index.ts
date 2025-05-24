@@ -4,6 +4,7 @@ export * from './components'
 // Layout components - using named exports to avoid conflicts
 export {
     AppShell,
+    AuthShell,
     MinimalShell,
     WizardShell
 } from './layout'
