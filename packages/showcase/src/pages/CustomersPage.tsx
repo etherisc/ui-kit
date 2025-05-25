@@ -269,7 +269,7 @@ export function CustomersPage() {
 
                 {/* Stats Cards */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div className="nexadash-card p-6">
+                    <div className="nexadash-card p-6" data-testid="active-customers">
                         <div className="flex items-center justify-between">
                             <div>
                                 <p className="text-sm font-medium text-gray mb-1">Active Customers</p>
@@ -280,7 +280,7 @@ export function CustomersPage() {
                             </div>
                         </div>
                     </div>
-                    <div className="nexadash-card p-6">
+                    <div className="nexadash-card p-6" data-testid="pending-customers">
                         <div className="flex items-center justify-between">
                             <div>
                                 <p className="text-sm font-medium text-gray mb-1">Pending Approvals</p>
@@ -291,7 +291,7 @@ export function CustomersPage() {
                             </div>
                         </div>
                     </div>
-                    <div className="nexadash-card p-6">
+                    <div className="nexadash-card p-6" data-testid="total-customers">
                         <div className="flex items-center justify-between">
                             <div>
                                 <p className="text-sm font-medium text-gray mb-1">Total Customers</p>
@@ -326,6 +326,7 @@ export function CustomersPage() {
                             <DataTable
                                 data={customers}
                                 columns={columns}
+                                data-testid="customer-table"
                             />
                         )}
                     </div>
