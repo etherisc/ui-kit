@@ -11,8 +11,8 @@ test.describe('Admin Login and Customer Verification', () => {
     await page.goto('/login');
     
     // Fill in admin credentials
-    await page.fill('input[name="username"]', 'admin');
-    await page.fill('input[name="password"]', 'admin');
+    await page.fill('input[type="email"]', 'admin@example.com');
+    await page.fill('input[type="password"]', 'admin');
     
     // Click login button
     await page.click('button[type="submit"]');
@@ -64,9 +64,12 @@ test.describe('Admin Login and Customer Verification', () => {
   test('should display correct customer statistics', async ({ page }) => {
     // Login as admin
     await page.goto('/login');
-    await page.fill('input[name="username"]', 'admin');
-    await page.fill('input[name="password"]', 'admin');
+    await page.fill('input[type="email"]', 'admin@example.com');
+    await page.fill('input[type="password"]', 'admin');
     await page.click('button[type="submit"]');
+    
+    // Wait for redirect to dashboard
+    await expect(page).toHaveURL('/dashboard');
     
     // Navigate to customers page
     await page.goto('/customers');
@@ -103,9 +106,12 @@ test.describe('Admin Login and Customer Verification', () => {
   test('should handle loading state properly', async ({ page }) => {
     // Login as admin
     await page.goto('/login');
-    await page.fill('input[name="username"]', 'admin');
-    await page.fill('input[name="password"]', 'admin');
+    await page.fill('input[type="email"]', 'admin@example.com');
+    await page.fill('input[type="password"]', 'admin');
     await page.click('button[type="submit"]');
+    
+    // Wait for redirect to dashboard
+    await expect(page).toHaveURL('/dashboard');
     
     // Navigate to customers page
     await page.goto('/customers');

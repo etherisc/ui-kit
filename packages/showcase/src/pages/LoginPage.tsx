@@ -9,7 +9,7 @@ import type { LoginCredentials } from '../types/Auth';
 
 const loginSchema = z.object({
     email: z.string().email('Please enter a valid email address'),
-    password: z.string().min(6, 'Password must be at least 6 characters'),
+    password: z.string().min(1, 'Password is required'),
 });
 
 export function LoginPage() {
@@ -78,8 +78,8 @@ export function LoginPage() {
 
                 <div className="text-center text-sm text-gray-600">
                     <p>Demo credentials:</p>
-                    <p>Admin: admin@example.com / admin123</p>
-                    <p>User: user@example.com / user123</p>
+                    <p>Admin: admin@example.com / admin</p>
+                    <p>User: user@example.com / user</p>
                 </div>
             </div>
         </AuthShell>

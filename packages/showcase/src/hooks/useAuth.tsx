@@ -15,14 +15,14 @@ const MOCK_USERS = [
         email: 'admin@example.com',
         name: 'Admin User',
         role: 'admin' as const,
-        password: 'admin123',
+        password: 'admin',
     },
     {
         id: '2',
         email: 'user@example.com',
         name: 'Demo User',
         role: 'user' as const,
-        password: 'user123',
+        password: 'user',
     },
 ];
 

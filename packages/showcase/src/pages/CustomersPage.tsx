@@ -2,8 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { AppShell, Button, DataTable } from '@org/ui-kit';
 import { useAuth } from '../hooks/useAuth';
-import { CustomerQueries } from '../database/queries';
-import type { Customer as DBCustomer } from '../database/types';
+import { MockCustomerQueries, type Customer as DBCustomer } from '../data/mockCustomers';
 import { HomeIcon, UsersIcon, FileTextIcon, SettingsIcon, BarChartIcon, ArrowLeftIcon, UserPlusIcon, DownloadIcon, FilterIcon } from 'lucide-react';
 
 interface Customer {
@@ -38,8 +37,8 @@ export function CustomersPage() {
         const loadCustomers = async () => {
             try {
                 setLoading(true);
-                const result = await CustomerQueries.getCustomers({ page: 1, limit: 100 });
-                const dbCustomers: Customer[] = result.data.map((dbCustomer: DBCustomer) => ({
+                const result = await MockCustomerQueries.getCustomers({ page: 1, limit: 100 });
+                const dbCustomers: Customer[] = result.customers.map((dbCustomer: DBCustomer) => ({
                     id: dbCustomer.id,
                     name: `${dbCustomer.first_name} ${dbCustomer.last_name}`,
                     email: dbCustomer.email,
@@ -323,11 +322,12 @@ export function CustomersPage() {
                                 <div className="text-gray">Loading customers...</div>
                             </div>
                         ) : (
-                            <DataTable
-                                data={customers}
-                                columns={columns}
-                                data-testid="customer-table"
-                            />
+                            <div data-testid="customer-table">
+                                <DataTable
+                                    data={customers}
+                                    columns={columns}
+                                />
+                            </div>
                         )}
                     </div>
                 </div>
