@@ -1,0 +1,107 @@
+{
+  "name": "UI Kit Development",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "ui-kit-dev",
+  "workspaceFolder": "/workspace",
+  "shutdownAction": "stopCompose",
+
+  // Features to install
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "nodeGypDependencies": true,
+      "version": "20"
+    },
+    "ghcr.io/devcontainers/features/git:1": {
+      "ppa": true,
+      "version": "latest"
+    },
+    "ghcr.io/devcontainers/features/github-cli:1": {
+      "installDirectlyFromGitHubRelease": true,
+      "version": "latest"
+    }
+  },
+
+  // Configure tool-specific properties
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        // Essential extensions
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "bradlc.vscode-tailwindcss",
+        "storybook.storybook-vscode",
+
+        // TypeScript & React
+        "ms-vscode.vscode-typescript-next",
+        "ms-vscode.vscode-json",
+        "ms-vscode.vscode-eslint",
+
+        // Testing & Playwright
+        "ms-playwright.playwright",
+        "vitest.explorer",
+
+        // Git & GitHub
+        "github.vscode-pull-request-github",
+        "github.copilot",
+        "github.copilot-chat",
+
+        // Development tools
+        "ms-vscode.vscode-json",
+        "redhat.vscode-yaml",
+        "ms-vscode.vscode-markdown",
+        "yzhang.markdown-all-in-one",
+
+        // UI/UX
+        "formulahendry.auto-rename-tag",
+        "christian-kohler.path-intellisense",
+        "bradlc.vscode-tailwindcss",
+
+        // Package management
+        "arcanis.vscode-zipfs"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "terminal.integrated.profiles.linux": {
+          "bash": {
+            "path": "/bin/bash",
+            "args": ["-l"]
+          }
+        },
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.codeActionsOnSave": {
+          "source.fixAll.eslint": "explicit"
+        },
+        "typescript.preferences.importModuleSpecifier": "relative",
+        "typescript.suggest.autoImports": true,
+        "npm.packageManager": "pnpm",
+        "playwright.reuseBrowser": true,
+        "playwright.showTrace": true
+      }
+    }
+  },
+
+  // Use 'forwardPorts' to make a list of ports inside the container available locally
+  "forwardPorts": [
+    3000, // Storybook
+    5173, // Vite dev server
+    4173, // Vite preview
+    8080 // API server
+  ],
+
+  // Use 'postCreateCommand' to run commands after the container is created
+  "postCreateCommand": ".devcontainer/scripts/post-create.sh",
+
+  // Use 'postStartCommand' to run commands after the container starts
+  "postStartCommand": "pnpm install",
+
+  // Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root
+  "remoteUser": "node",
+
+  // Mount points for better performance and persistence
+  "mounts": [
+    "source=${localWorkspaceFolder}/.devcontainer/bashrc,target=/home/node/.bashrc,type=bind,consistency=cached",
+    "source=ui-kit-node-modules,target=${containerWorkspaceFolder}/node_modules,type=volume",
+    "source=ui-kit-pnpm-store,target=/home/node/.local/share/pnpm,type=volume"
+  ]
+}
