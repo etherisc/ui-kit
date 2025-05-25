@@ -3,6 +3,8 @@ import type { Preview } from '@storybook/react'
 import { themes } from '@storybook/theming'
 import '../src/styles/globals.css'
 import { initializeTheme } from '../src/theme'
+import { I18nProvider } from '../src/providers/I18nProvider'
+import { useTranslation } from 'react-i18next'
 
 // Theme switcher
 const ThemeInitializer = ({ children }: { children: React.ReactNode }) => {
@@ -10,6 +12,19 @@ const ThemeInitializer = ({ children }: { children: React.ReactNode }) => {
         // Initialize theme when component mounts
         initializeTheme()
     }, [])
+
+    return <>{children}</>
+}
+
+// i18n wrapper that responds to locale changes
+const I18nWrapper = ({ children, locale }: { children: React.ReactNode; locale: string }) => {
+    const { i18n } = useTranslation()
+    
+    useEffect(() => {
+        if (i18n.language !== locale) {
+            i18n.changeLanguage(locale)
+        }
+    }, [locale, i18n])
 
     return <>{children}</>
 }
@@ -37,12 +52,16 @@ const preview: Preview = {
         },
     },
     decorators: [
-        (Story) => (
-            <ThemeInitializer>
-                <div className="p-4">
-                    <Story />
-                </div>
-            </ThemeInitializer>
+        (Story, context) => (
+            <I18nProvider>
+                <ThemeInitializer>
+                    <I18nWrapper locale={context.globals.locale || 'en'}>
+                        <div className="p-4">
+                            <Story />
+                        </div>
+                    </I18nWrapper>
+                </ThemeInitializer>
+            </I18nProvider>
         ),
     ],
     globalTypes: {
@@ -66,6 +85,20 @@ const preview: Preview = {
                         document.documentElement.classList.remove('dark')
                     }
                 }
+            },
+        },
+        locale: {
+            name: 'Locale',
+            description: 'Internationalization locale',
+            defaultValue: 'en',
+            toolbar: {
+                icon: 'globe',
+                items: [
+                    { value: 'en', title: 'English', right: '🇺🇸' },
+                    { value: 'de', title: 'Deutsch', right: '🇩🇪' },
+                ],
+                showName: true,
+                dynamicTitle: true,
             },
         },
     },

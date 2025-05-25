@@ -1,0 +1,56 @@
+{
+  "button": {
+    "submit": "Absenden",
+    "cancel": "Abbrechen",
+    "save": "Speichern",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "close": "Schließen",
+    "back": "Zurück",
+    "next": "Weiter",
+    "previous": "Vorherige",
+    "loading": "Lädt...",
+    "login": "Anmelden",
+    "logout": "Abmelden"
+  },
+  "form": {
+    "required": "Dieses Feld ist erforderlich",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "confirmPassword": "Passwort bestätigen",
+    "firstName": "Vorname",
+    "lastName": "Nachname",
+    "search": "Suchen",
+    "filter": "Filter",
+    "clear": "Löschen"
+  },
+  "navigation": {
+    "home": "Startseite",
+    "dashboard": "Dashboard",
+    "customers": "Kunden",
+    "settings": "Einstellungen",
+    "profile": "Profil",
+    "help": "Hilfe"
+  },
+  "table": {
+    "noData": "Keine Daten verfügbar",
+    "loading": "Daten werden geladen...",
+    "rowsPerPage": "Zeilen pro Seite",
+    "of": "von",
+    "page": "Seite",
+    "actions": "Aktionen"
+  },
+  "toast": {
+    "success": "Erfolg",
+    "error": "Fehler",
+    "warning": "Warnung",
+    "info": "Information"
+  },
+  "validation": {
+    "required": "Dieses Feld ist erforderlich",
+    "email": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
+    "minLength": "Muss mindestens {{count}} Zeichen lang sein",
+    "maxLength": "Darf höchstens {{count}} Zeichen lang sein",
+    "passwordMismatch": "Passwörter stimmen nicht überein"
+  }
+}

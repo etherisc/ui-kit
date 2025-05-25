@@ -6,8 +6,13 @@ alwaysApply: true
 # Cursor Rule File – Git / GitFlow
 
 ## General
-- Never push with --no-verify
-- Never push --force - if needed, ask for explicit approval by user
+- **Never push with --no-verify** - hooks must always pass
+- **Never push --force** - if needed, ask for explicit approval by user
+- **For administrative operations**: Use proper git commands that don't trigger hooks:
+  - Delete remote branches: Use GitHub CLI `gh api --method DELETE /repos/:owner/:repo/git/refs/heads/branch-name`
+  - Or delete via GitHub web interface
+  - Avoid git push operations for administrative tasks when possible
+  - If in doubt, **always asks the user** what to do.
 
 ## Branching & commits
 - **Follow GitFlow:** main, develop, feature/*, release/*, hotfix/*.
