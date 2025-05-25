@@ -1,13 +1,24 @@
 # Build stage
 FROM node:20-alpine AS builder
 WORKDIR /app
-COPY package.json pnpm-lock.yaml ./
-RUN npm install -g pnpm && pnpm install
+
+# Copy workspace configuration and root package files
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+
+# Install pnpm
+RUN npm install -g pnpm
+
+# Copy all package.json files to enable proper dependency resolution
 COPY packages/ui-kit/package.json ./packages/ui-kit/
-WORKDIR /app/packages/ui-kit
+COPY packages/showcase/package.json ./packages/showcase/
+
+# Install all dependencies for the workspace
 RUN pnpm install
-WORKDIR /app
+
+# Copy all source code
 COPY . .
+
+# Build all packages
 RUN pnpm build
 
 # Production stage
