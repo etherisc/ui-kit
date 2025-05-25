@@ -1,37 +1,123 @@
+import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Button } from './Button';
+import { useTranslation } from 'react-i18next';
 
-const meta = {
-    title: 'Components/Button',
+const meta: Meta<typeof Button> = {
+    title: 'Primitives/Button',
     component: Button,
-    args: {
-        children: 'Button',
+    parameters: {
+        layout: 'centered',
     },
+    tags: ['autodocs'],
     argTypes: {
         intent: {
             control: { type: 'select' },
-            options: ['default', 'primary', 'secondary', 'danger', 'outline', 'ghost', 'link'],
+            options: ['default', 'primary', 'secondary', 'outline', 'ghost', 'link', 'danger'],
         },
         size: {
             control: { type: 'select' },
             options: ['default', 'sm', 'lg', 'icon'],
         },
+        loading: {
+            control: { type: 'boolean' },
+        },
+        disabled: {
+            control: { type: 'boolean' },
+        },
     },
-    tags: ['autodocs'],
-} satisfies Meta<typeof Button>;
+};
 
 export default meta;
-
 type Story = StoryObj<typeof meta>;
 
+export const Default: Story = {
+    args: {
+        children: 'Button',
+    },
+};
+
 export const Primary: Story = {
-    args: { intent: 'primary' },
+    args: {
+        intent: 'primary',
+        children: 'Primary Button',
+    },
 };
 
 export const Secondary: Story = {
-    args: { intent: 'secondary' },
+    args: {
+        intent: 'secondary',
+        children: 'Secondary Button',
+    },
 };
 
 export const Danger: Story = {
-    args: { intent: 'danger' },
+    args: {
+        intent: 'danger',
+        children: 'Danger Button',
+    },
+};
+
+export const Loading: Story = {
+    args: {
+        loading: true,
+        children: 'Loading Button',
+    },
+};
+
+export const Disabled: Story = {
+    args: {
+        disabled: true,
+        children: 'Disabled Button',
+    },
+};
+
+// i18n Examples
+const I18nButtonExample = ({ translationKey }: { translationKey: string }) => {
+    const { t } = useTranslation();
+    return <Button intent="primary">{t(translationKey)}</Button>;
+};
+
+export const I18nSubmit: Story = {
+    render: () => <I18nButtonExample translationKey="button.submit" />,
+    parameters: {
+        docs: {
+            description: {
+                story: 'Button with internationalized "Submit" text. Switch locale in toolbar to see German translation.',
+            },
+        },
+    },
+};
+
+export const I18nCancel: Story = {
+    render: () => <I18nButtonExample translationKey="button.cancel" />,
+    parameters: {
+        docs: {
+            description: {
+                story: 'Button with internationalized "Cancel" text. Switch locale in toolbar to see German translation.',
+            },
+        },
+    },
+};
+
+export const I18nSave: Story = {
+    render: () => <I18nButtonExample translationKey="button.save" />,
+    parameters: {
+        docs: {
+            description: {
+                story: 'Button with internationalized "Save" text. Switch locale in toolbar to see German translation.',
+            },
+        },
+    },
+};
+
+export const I18nLogin: Story = {
+    render: () => <I18nButtonExample translationKey="button.login" />,
+    parameters: {
+        docs: {
+            description: {
+                story: 'Button with internationalized "Login" text. Switch locale in toolbar to see German translation.',
+            },
+        },
+    },
 }; 
