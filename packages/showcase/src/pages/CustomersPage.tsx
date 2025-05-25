@@ -1,15 +1,17 @@
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import { AppShell, Button, DataTable } from '@org/ui-kit';
 import { useAuth } from '../hooks/useAuth';
+import { MockCustomerQueries, type Customer as DBCustomer } from '../data/mockCustomers';
 import { HomeIcon, UsersIcon, FileTextIcon, SettingsIcon, BarChartIcon, ArrowLeftIcon, UserPlusIcon, DownloadIcon, FilterIcon } from 'lucide-react';
 
 interface Customer {
-    id: string;
+    id: number;
     name: string;
     email: string;
     phone: string;
-    status: 'Active' | 'Inactive' | 'Pending';
-    policies: number;
+    status: 'active' | 'inactive' | 'pending';
+    company: string;
     joinDate: string;
 }
 
@@ -22,11 +24,39 @@ interface TableCellProps {
 export function CustomersPage() {
     const navigate = useNavigate();
     const { user, logout } = useAuth();
+    const [customers, setCustomers] = useState<Customer[]>([]);
+    const [loading, setLoading] = useState(true);
 
     const handleLogout = () => {
         logout();
         navigate('/login');
     };
+
+    // Load customers from database
+    useEffect(() => {
+        const loadCustomers = async () => {
+            try {
+                setLoading(true);
+                const result = await MockCustomerQueries.getCustomers({ page: 1, limit: 100 });
+                const dbCustomers: Customer[] = result.customers.map((dbCustomer: DBCustomer) => ({
+                    id: dbCustomer.id,
+                    name: `${dbCustomer.first_name} ${dbCustomer.last_name}`,
+                    email: dbCustomer.email,
+                    phone: dbCustomer.phone || 'N/A',
+                    status: dbCustomer.status,
+                    company: dbCustomer.company || 'N/A',
+                    joinDate: dbCustomer.created_at,
+                }));
+                setCustomers(dbCustomers);
+            } catch (error) {
+                console.error('Failed to load customers:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        loadCustomers();
+    }, []);
 
     // Navigation items for the sidebar
     const navItems = [
@@ -104,54 +134,7 @@ export function CustomersPage() {
         { label: 'Customers', href: '/customers' },
     ];
 
-    // Sample customer data
-    const customers: Customer[] = [
-        {
-            id: '1',
-            name: 'John Smith',
-            email: 'john.smith@email.com',
-            phone: '+1 (555) 123-4567',
-            status: 'Active',
-            policies: 3,
-            joinDate: '2023-01-15',
-        },
-        {
-            id: '2',
-            name: 'Sarah Johnson',
-            email: 'sarah.j@email.com',
-            phone: '+1 (555) 234-5678',
-            status: 'Active',
-            policies: 2,
-            joinDate: '2023-02-20',
-        },
-        {
-            id: '3',
-            name: 'Michael Brown',
-            email: 'michael.brown@email.com',
-            phone: '+1 (555) 345-6789',
-            status: 'Inactive',
-            policies: 1,
-            joinDate: '2022-11-10',
-        },
-        {
-            id: '4',
-            name: 'Emily Davis',
-            email: 'emily.davis@email.com',
-            phone: '+1 (555) 456-7890',
-            status: 'Active',
-            policies: 4,
-            joinDate: '2023-03-05',
-        },
-        {
-            id: '5',
-            name: 'David Wilson',
-            email: 'david.wilson@email.com',
-            phone: '+1 (555) 567-8901',
-            status: 'Pending',
-            policies: 0,
-            joinDate: '2024-01-12',
-        },
-    ];
+
 
     const columns = [
         {
@@ -184,22 +167,22 @@ export function CustomersPage() {
             cell: ({ row }: TableCellProps) => {
                 const status = row.original.status;
                 const statusColors = {
-                    Active: 'bg-success-light text-success',
-                    Inactive: 'bg-gray-200 text-gray',
-                    Pending: 'bg-light-orange text-warning',
+                    active: 'bg-success-light text-success',
+                    inactive: 'bg-gray-200 text-gray',
+                    pending: 'bg-light-orange text-warning',
                 };
                 return (
                     <span className={`inline-flex items-center px-2 py-1 rounded-lg text-xs font-medium ${statusColors[status]}`}>
-                        {status}
+                        {status.charAt(0).toUpperCase() + status.slice(1)}
                     </span>
                 );
             },
         },
         {
-            header: 'Policies',
-            accessorKey: 'policies',
+            header: 'Company',
+            accessorKey: 'company',
             cell: ({ row }: TableCellProps) => (
-                <span className="text-sm font-medium text-black">{row.original.policies}</span>
+                <span className="text-sm font-medium text-black">{row.original.company}</span>
             ),
         },
         {
@@ -232,9 +215,9 @@ export function CustomersPage() {
         },
     ];
 
-    const activeCustomers = customers.filter(c => c.status === 'Active').length;
-    const pendingCustomers = customers.filter(c => c.status === 'Pending').length;
-    const totalPolicies = customers.reduce((sum, c) => sum + c.policies, 0);
+    const activeCustomers = customers.filter(c => c.status === 'active').length;
+    const pendingCustomers = customers.filter(c => c.status === 'pending').length;
+    const totalCustomers = customers.length;
 
     return (
         <AppShell
@@ -285,7 +268,7 @@ export function CustomersPage() {
 
                 {/* Stats Cards */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div className="nexadash-card p-6">
+                    <div className="nexadash-card p-6" data-testid="active-customers">
                         <div className="flex items-center justify-between">
                             <div>
                                 <p className="text-sm font-medium text-gray mb-1">Active Customers</p>
@@ -296,7 +279,7 @@ export function CustomersPage() {
                             </div>
                         </div>
                     </div>
-                    <div className="nexadash-card p-6">
+                    <div className="nexadash-card p-6" data-testid="pending-customers">
                         <div className="flex items-center justify-between">
                             <div>
                                 <p className="text-sm font-medium text-gray mb-1">Pending Approvals</p>
@@ -307,14 +290,14 @@ export function CustomersPage() {
                             </div>
                         </div>
                     </div>
-                    <div className="nexadash-card p-6">
+                    <div className="nexadash-card p-6" data-testid="total-customers">
                         <div className="flex items-center justify-between">
                             <div>
-                                <p className="text-sm font-medium text-gray mb-1">Total Policies</p>
-                                <p className="text-2xl font-bold text-black">{totalPolicies}</p>
+                                <p className="text-sm font-medium text-gray mb-1">Total Customers</p>
+                                <p className="text-2xl font-bold text-black">{totalCustomers}</p>
                             </div>
                             <div className="p-3 bg-light-blue rounded-lg">
-                                <FileTextIcon className="size-6 text-primary" />
+                                <UsersIcon className="size-6 text-primary" />
                             </div>
                         </div>
                     </div>
@@ -334,10 +317,18 @@ export function CustomersPage() {
                         </div>
                     </div>
                     <div className="p-6">
-                        <DataTable
-                            data={customers}
-                            columns={columns}
-                        />
+                        {loading ? (
+                            <div className="flex items-center justify-center py-8">
+                                <div className="text-gray">Loading customers...</div>
+                            </div>
+                        ) : (
+                            <div data-testid="customer-table">
+                                <DataTable
+                                    data={customers}
+                                    columns={columns}
+                                />
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
