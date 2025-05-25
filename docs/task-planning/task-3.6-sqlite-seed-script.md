@@ -27,7 +27,7 @@
 | **Hook script in showcase package** | `pnpm run seed` command available in showcase package.json and executes successfully                                      | Complete |
 | **Update showcase to use SQLite**   | Showcase app connects to SQLite database and displays customer data from database                                         | Complete |
 | **Create database utilities**       | Helper functions for database connection, queries, and data access in showcase                                            | Complete |
-| **Add Playwright E2E test**         | Test logs in with admin credentials and verifies 100 customers are displayed with pagination                              | Open     |
+| **Add Playwright E2E test**         | Test logs in with admin credentials and verifies 100 customers are displayed with pagination                              | Complete |
 | **Error handling and validation**   | Script handles errors gracefully and validates data before insertion                                                      | Complete |
 
 ## Technical Implementation Plan
