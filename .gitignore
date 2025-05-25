@@ -39,3 +39,7 @@ storybook-static/
 
 # 3rd party
 vendors/
+
+# DevContainer artifacts
+.devcontainer/.env
+.devcontainer/docker-compose.override.yml

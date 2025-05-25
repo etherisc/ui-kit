@@ -59,7 +59,7 @@ A pragmatic breakdown into **four one‑week sprints** plus a preparatory **Spri
 | 3.3 | Implement Toast system (`useToast`) + StatusBadge.                                           | Vitest renders Toast, axe-core passes.                                                                             | ✓      |
 | 3.4 | Sample showcase: login page + dashboard + customers table route.                             | E2E Playwright run (login → dashboard) green in CI.                                                                | ✓      |
 | 3.5 | Add i18n infrastructure (`react-i18next`) with `en`, `de` locales.                           | Storybook toolbar allows locale switch; renders German labels.                                                     | ✓      |
-| 3.6 | **SQLite seed script** – generate 100 customers & 2 users; hook `pnpm run seed` in showcase. | Script executes without error; Playwright test logs in with `admin` credentials, verifies 100 customers paginated. |        |
+| 3.6 | **SQLite seed script** – generate 100 customers & 2 users; hook `pnpm run seed` in showcase. | Script executes without error; Playwright test logs in with `admin` credentials, verifies 100 customers paginated. | ✓      |
 
 ---
 

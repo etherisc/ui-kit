@@ -1,0 +1,66 @@
+# Starship configuration for UI Kit development
+
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Inserts a blank line between shell prompts
+add_newline = true
+
+# Replace the '❯' symbol in the prompt with '➜'
+[character]
+success_symbol = '[➜](bold green)'
+error_symbol = '[➜](bold red)'
+
+# Disable the package module, hiding it from the prompt completely
+[package]
+disabled = false
+format = 'via [🎁 $version](208 bold) '
+
+[nodejs]
+format = 'via [⬢ $version](bold green) '
+detect_files = ['package.json', '.nvmrc']
+detect_folders = ['node_modules']
+
+[git_branch]
+symbol = '🌱 '
+truncation_length = 20
+truncation_symbol = '…'
+
+[git_status]
+ahead = '⇡${count}'
+diverged = '⇕⇡${ahead_count}⇣${behind_count}'
+behind = '⇣${count}'
+
+[directory]
+truncation_length = 3
+truncation_symbol = '…/'
+home_symbol = '~'
+
+[cmd_duration]
+min_time = 2_000
+format = 'took [$duration](bold yellow)'
+
+[memory_usage]
+disabled = false
+threshold = 70
+format = 'via $symbol [${ram}( | ${swap})]($style) '
+
+[time]
+disabled = false
+format = '🕙[\[ $time \]]($style) '
+time_format = '%T'
+utc_time_offset = 'local'
+
+# Custom modules for development
+[custom.pnpm]
+command = 'pnpm --version'
+when = 'test -f pnpm-lock.yaml'
+symbol = '📦 '
+format = 'via [$symbol$output]($style) '
+style = 'bold blue'
+
+[custom.playwright]
+command = 'echo "🎭"'
+when = 'test -d packages/showcase/tests'
+format = '[$output]($style) '
+style = 'bold purple' 
