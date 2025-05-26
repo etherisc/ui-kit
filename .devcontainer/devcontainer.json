@@ -29,16 +29,16 @@
         "dbaeumer.vscode-eslint",
         "esbenp.prettier-vscode",
         "bradlc.vscode-tailwindcss",
-        "storybook.storybook-vscode",
 
         // TypeScript & React
         "ms-vscode.vscode-typescript-next",
-        "ms-vscode.vscode-json",
-        "ms-vscode.vscode-eslint",
 
         // Testing & Playwright
         "ms-playwright.playwright",
         "vitest.explorer",
+
+        // Storybook
+        "joshbolduc.story-explorer",
 
         // Git & GitHub
         "github.vscode-pull-request-github",
@@ -46,15 +46,12 @@
         "github.copilot-chat",
 
         // Development tools
-        "ms-vscode.vscode-json",
         "redhat.vscode-yaml",
-        "ms-vscode.vscode-markdown",
         "yzhang.markdown-all-in-one",
 
         // UI/UX
         "formulahendry.auto-rename-tag",
         "christian-kohler.path-intellisense",
-        "bradlc.vscode-tailwindcss",
 
         // Package management
         "arcanis.vscode-zipfs"
@@ -93,7 +90,7 @@
   "postCreateCommand": ".devcontainer/scripts/post-create.sh",
 
   // Use 'postStartCommand' to run commands after the container starts
-  "postStartCommand": "pnpm install",
+  "postStartCommand": "pnpm install --frozen-lockfile --prefer-offline",
 
   // Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root
   "remoteUser": "node",
