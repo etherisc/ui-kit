@@ -144,7 +144,7 @@ export function MarkdownEditor({
             aria-describedby={ariaDescribedBy}
             aria-disabled={disabled}
             role="region"
-            aria-live="polite"
+            {...(!disabled && { "aria-live": "polite" })}
             tabIndex={disabled ? -1 : 0}
           />
         ) : (
