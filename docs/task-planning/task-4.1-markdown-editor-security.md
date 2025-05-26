@@ -20,6 +20,20 @@ Create a secure MarkdownEditor component that sanitizes user input to prevent XS
 | 4.1.6    | Add accessibility features                                 | Component meets a11y guidelines                        | ✓      |
 | 4.1.7    | Document CSP configuration                                 | CSP setup documented for consumers                     | ✓      |
 
+## PR Status
+
+**PR Created**: [#24 - feat: Implement secure MarkdownEditor component with XSS protection](https://github.com/etherisc/ui-kit/pull/24)
+
+**Status**: Ready for review
+
+All DoD criteria have been met and the implementation is complete. The PR includes:
+
+- Secure MarkdownEditor component with XSS protection
+- Comprehensive test suite with security tests
+- Storybook stories and documentation
+- TypeScript types and accessibility features
+- Basic sanitization implementation
+
 ## Technical Requirements
 
 ### Dependencies to Add
