@@ -44,7 +44,7 @@ describe("MarkdownEditor", () => {
       });
       fireEvent.click(toggleButton);
 
-      expect(screen.getByRole("document")).toBeInTheDocument();
+      expect(screen.getByRole("region")).toBeInTheDocument();
       expect(screen.getByText("Preview")).toBeInTheDocument();
     });
 
@@ -85,7 +85,7 @@ Some content
       });
       fireEvent.click(toggleButton);
 
-      const preview = screen.getByRole("document");
+      const preview = screen.getByRole("region");
       expect(preview.innerHTML).not.toContain("<script>");
       expect(preview.innerHTML).not.toContain("alert('xss')");
     });
@@ -101,7 +101,7 @@ Some content
       });
       fireEvent.click(toggleButton);
 
-      const preview = screen.getByRole("document");
+      const preview = screen.getByRole("region");
       expect(preview.innerHTML).not.toContain("javascript:");
     });
 
@@ -120,7 +120,7 @@ Some content
       });
       fireEvent.click(toggleButton);
 
-      const preview = screen.getByRole("document");
+      const preview = screen.getByRole("region");
       expect(preview.innerHTML).not.toContain("onerror=");
       expect(preview.innerHTML).not.toContain("onclick=");
     });
@@ -138,7 +138,7 @@ Some content
       });
       fireEvent.click(toggleButton);
 
-      const preview = screen.getByRole("document");
+      const preview = screen.getByRole("region");
       // The basic sanitization removes script tags but data URLs remain encoded
       expect(preview.innerHTML).not.toContain("<script>");
     });
@@ -156,7 +156,7 @@ Some content
       });
       fireEvent.click(toggleButton);
 
-      const preview = screen.getByRole("document");
+      const preview = screen.getByRole("region");
       expect(preview.innerHTML).not.toContain("javascript:");
     });
 
@@ -184,7 +184,7 @@ console.log('code block');
       });
       fireEvent.click(toggleButton);
 
-      const preview = screen.getByRole("document");
+      const preview = screen.getByRole("region");
       expect(preview.innerHTML).toContain("<h1>");
       expect(preview.innerHTML).toContain("<strong>");
       expect(preview.innerHTML).toContain("<em>");
@@ -236,7 +236,7 @@ console.log('code block');
       });
       fireEvent.click(toggleButton);
 
-      const preview = screen.getByRole("document");
+      const preview = screen.getByRole("region");
       expect(preview).toHaveAttribute("aria-label", "Markdown preview");
     });
   });
@@ -250,7 +250,7 @@ console.log('code block');
       });
       fireEvent.click(toggleButton);
 
-      const preview = screen.getByRole("document");
+      const preview = screen.getByRole("region");
       expect(preview.innerHTML).toBe("");
     });
 
@@ -265,7 +265,7 @@ console.log('code block');
       fireEvent.click(toggleButton);
 
       // Should not crash and should render something
-      const preview = screen.getByRole("document");
+      const preview = screen.getByRole("region");
       expect(preview).toBeInTheDocument();
     });
   });
