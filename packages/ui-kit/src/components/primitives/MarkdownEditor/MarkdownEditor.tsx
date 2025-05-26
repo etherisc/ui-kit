@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo } from "react";
+import React, { useState, useCallback, useMemo, useEffect } from "react";
 import { marked } from "marked";
 import { cn } from "../../../lib/utils";
 import type { MarkdownEditorProps } from "./types";
@@ -65,6 +65,22 @@ export function MarkdownEditor({
   const togglePreview = useCallback(() => {
     setIsPreview((prev) => !prev);
   }, []);
+
+  // Handle keyboard shortcuts
+  useEffect(
+    function setupKeyboardShortcuts() {
+      const handleKeyDown = (event: KeyboardEvent) => {
+        if (event.ctrlKey && event.key === "p") {
+          event.preventDefault();
+          togglePreview();
+        }
+      };
+
+      document.addEventListener("keydown", handleKeyDown);
+      return () => document.removeEventListener("keydown", handleKeyDown);
+    },
+    [togglePreview],
+  );
 
   const baseClasses = cn(
     "relative w-full rounded-md border border-input bg-background text-sm",
