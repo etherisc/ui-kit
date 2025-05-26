@@ -21,7 +21,7 @@ fi
 # Install dependencies if not already installed
 if [ ! -d "node_modules" ]; then
     echo "📦 Installing dependencies..."
-    pnpm install
+    pnpm install --frozen-lockfile --prefer-offline
 else
     echo "📦 Dependencies already installed, skipping..."
 fi
