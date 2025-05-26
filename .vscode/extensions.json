@@ -3,6 +3,7 @@
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
     "bradlc.vscode-tailwindcss",
-    "joshbolduc.story-explorer"
+    "joshbolduc.story-explorer",
+    "vitest.explorer"
   ]
 }
