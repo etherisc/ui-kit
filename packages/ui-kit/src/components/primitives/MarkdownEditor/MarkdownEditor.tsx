@@ -142,7 +142,7 @@ export function MarkdownEditor({
               disabled ? "Markdown preview (disabled)" : "Markdown preview"
             }
             aria-describedby={ariaDescribedBy}
-            role="region"
+            {...(!disabled && { role: "region" })}
             {...(!disabled && { "aria-live": "polite" })}
             {...(!disabled && { tabIndex: 0 })}
           />

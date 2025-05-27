@@ -228,7 +228,7 @@ console.log('code block');
       expect(editButton).toBeInTheDocument();
     });
 
-    it("preview has proper role", () => {
+    it("preview has proper role when enabled", () => {
       render(<MarkdownEditor {...defaultProps} value="# Test" />);
 
       const toggleButton = screen.getByRole("button", {
@@ -238,6 +238,19 @@ console.log('code block');
 
       const preview = screen.getByRole("region");
       expect(preview).toHaveAttribute("aria-label", "Markdown preview");
+    });
+
+    it("handles disabled state properly", () => {
+      render(<MarkdownEditor {...defaultProps} value="# Test" disabled />);
+
+      // Check that disabled state is handled properly
+      const textarea = screen.getByRole("textbox");
+      expect(textarea).toBeDisabled();
+
+      const toggleButton = screen.getByRole("button", {
+        name: /switch to preview mode/i,
+      });
+      expect(toggleButton).toBeDisabled();
     });
   });
 
