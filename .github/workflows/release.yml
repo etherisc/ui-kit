@@ -60,10 +60,10 @@ jobs:
           echo "Build hash: ${HASH}"
 
       - name: Run tests
-        run: pnpm test
+        run: cd packages/ui-kit && pnpm test
 
       - name: Run linting
-        run: pnpm lint
+        run: cd packages/ui-kit && pnpm lint
 
       - name: Build package
         run: pnpm build
@@ -150,7 +150,7 @@ jobs:
           ### 📦 Installation
 
           \`\`\`bash
-          npm install @org/ui-kit@${VERSION#v}
+          npm install @etherisc/ui-kit@${VERSION#v}
           \`\`\`
 
           ### 🔗 Links
