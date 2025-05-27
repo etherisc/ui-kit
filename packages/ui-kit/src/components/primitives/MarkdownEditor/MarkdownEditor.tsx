@@ -138,13 +138,16 @@ export function MarkdownEditor({
           <div
             className={previewClasses}
             dangerouslySetInnerHTML={{ __html: parsedContent }}
-            aria-label={
-              disabled ? "Markdown preview (disabled)" : "Markdown preview"
-            }
+            {...(!disabled && {
+              "aria-label": "Markdown preview",
+              role: "region",
+              "aria-live": "polite",
+              tabIndex: 0,
+            })}
+            {...(disabled && {
+              "aria-hidden": "true",
+            })}
             aria-describedby={ariaDescribedBy}
-            {...(!disabled && { role: "region" })}
-            {...(!disabled && { "aria-live": "polite" })}
-            {...(!disabled && { tabIndex: 0 })}
           />
         ) : (
           <textarea
