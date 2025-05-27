@@ -36,3 +36,22 @@ pnpm test
 ```
 
 See [setup.md](docs/setup.md) for detailed setup instructions and [.devcontainer/README.md](.devcontainer/README.md) for DevContainer documentation.
+
+## Bundle Size Monitoring
+
+The UI kit includes automated bundle size monitoring to ensure optimal performance:
+
+```bash
+# Check current bundle size
+pnpm run size-limit
+
+# Build and check size in one command
+pnpm build && pnpm run size-limit
+```
+
+### Size Limits
+
+- **ES Module Bundle**: 250 KB gzipped
+- **UMD Bundle**: 250 KB gzipped
+
+The CI pipeline automatically checks bundle sizes on every PR and will fail if the limits are exceeded. This helps prevent bundle bloat and maintains fast loading times for applications using the UI kit.
