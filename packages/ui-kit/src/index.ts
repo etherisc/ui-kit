@@ -34,3 +34,9 @@ export * from "./utils";
 // i18n
 export { i18n } from "./i18n";
 export { useTranslation } from "react-i18next";
+
+// Components
+export * from "./components/primitives";
+
+// Types
+export type { ComponentProps } from "react";
