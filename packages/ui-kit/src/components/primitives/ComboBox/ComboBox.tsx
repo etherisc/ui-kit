@@ -123,8 +123,9 @@ const ComboBox = React.forwardRef<HTMLButtonElement, ComboBoxProps>(
               variant="outline"
               role="combobox"
               aria-expanded={open}
-              aria-labelledby={labelId}
-              aria-label={!label ? "Select option" : undefined}
+              {...(labelId
+                ? { "aria-labelledby": labelId }
+                : { "aria-label": "Select option" })}
               aria-describedby={cn(descriptionId, errorId)}
               aria-invalid={!!error}
               disabled={disabled}

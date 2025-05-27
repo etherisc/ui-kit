@@ -53,6 +53,7 @@ const countryOptions: ComboBoxOption[] = [
 
 export const Default: Story = {
   args: {
+    id: "default-combobox",
     options: sampleOptions,
     placeholder: "Select a framework...",
   },

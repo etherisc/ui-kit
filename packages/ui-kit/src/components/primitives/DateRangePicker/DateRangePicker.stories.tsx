@@ -115,6 +115,7 @@ export const WithError: Story = {
 
 export const Required: Story = {
   args: {
+    id: "required-daterangepicker",
     required: true,
     placeholder: "Pick a date range *",
   },
@@ -275,6 +276,7 @@ export const BookingForm: Story = {
               Check-in Date *
             </label>
             <DateRangePicker
+              id="booking-checkin"
               value={formData.checkIn ? { from: formData.checkIn } : undefined}
               onChange={(range) => handleCheckInChange(range?.from)}
               error={errors.checkIn}
@@ -289,6 +291,7 @@ export const BookingForm: Story = {
               Stay Duration *
             </label>
             <DateRangePicker
+              id="booking-stay"
               value={formData.stayRange}
               onChange={handleStayRangeChange}
               error={errors.stayRange}

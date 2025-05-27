@@ -46,6 +46,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
+    id: "default-spinner",
     value: 10,
   },
 };

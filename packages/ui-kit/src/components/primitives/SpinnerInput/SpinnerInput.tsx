@@ -173,8 +173,9 @@ const SpinnerInput = React.forwardRef<HTMLInputElement, SpinnerInputProps>(
             onBlur={handleInputBlur}
             disabled={disabled}
             placeholder={placeholder}
-            aria-labelledby={labelId}
-            aria-label={!label ? "Numeric input" : undefined}
+            {...(labelId
+              ? { "aria-labelledby": labelId }
+              : { "aria-label": "Numeric input" })}
             aria-describedby={cn(descriptionId, errorId)}
             aria-invalid={!!error}
             className={cn(

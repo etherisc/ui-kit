@@ -61,6 +61,7 @@ type Story = StoryObj<typeof DatePicker>;
 
 export const Default: Story = {
   args: {
+    id: "default-datepicker",
     placeholder: "Pick a date",
   },
 };
@@ -96,6 +97,7 @@ export const WithError: Story = {
 
 export const Required: Story = {
   args: {
+    id: "required-datepicker",
     required: true,
     placeholder: "Pick a date *",
   },
@@ -215,6 +217,7 @@ export const FormExample: Story = {
         <div>
           <label className="block text-sm font-medium mb-2">Start Date *</label>
           <DatePicker
+            id="form-start-date"
             value={formData.startDate}
             onChange={handleStartDateChange}
             error={errors.startDate}
@@ -225,6 +228,7 @@ export const FormExample: Story = {
         <div>
           <label className="block text-sm font-medium mb-2">End Date *</label>
           <DatePicker
+            id="form-end-date"
             value={formData.endDate}
             onChange={handleEndDateChange}
             error={errors.endDate}
