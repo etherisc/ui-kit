@@ -121,6 +121,7 @@
     "@types/react-dom": "^19.1.5",
     "@types/testing-library__react": "^10.2.0",
     "@vitejs/plugin-react": "^4.4.1",
+    "@vitest/coverage-v8": "^1.6.1",
     "autoprefixer": "^10.4.21",
     "axe-playwright": "^2.1.0",
     "concurrently": "^9.1.2",
