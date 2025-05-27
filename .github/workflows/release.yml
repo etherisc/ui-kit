@@ -88,6 +88,7 @@ jobs:
           VERSION_NO_V=${VERSION#v}
 
           cd packages/ui-kit
+          npm pkg set name="@etherisc/ui-kit"
           npm pkg set version="${VERSION_NO_V}"
           npm pkg set private=false
           npm pkg set publishConfig.registry="https://npm.pkg.github.com"
