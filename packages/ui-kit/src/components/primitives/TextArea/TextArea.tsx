@@ -16,6 +16,8 @@ export interface TextAreaProps
   className?: string;
   /** Optional CSS class name for the textarea element */
   textareaClassName?: string;
+  /** Optional ID for the textarea */
+  id?: string;
 }
 
 export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
@@ -27,6 +29,7 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
       size = "default",
       className,
       textareaClassName,
+      id,
       ...props
     },
     ref,
@@ -41,11 +44,18 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
       sizeClass = "min-h-[60px]";
     }
 
+    const labelId = label ? `${id}-label` : undefined;
+    const descriptionId = description ? `${id}-description` : undefined;
+    const errorId = error ? `${id}-error` : undefined;
+    const describedBy =
+      [descriptionId, errorId].filter(Boolean).join(" ") || undefined;
+
     return (
       <div className={className}>
         {label && (
           <label
-            htmlFor={props.id}
+            id={labelId}
+            htmlFor={id}
             className="mb-1 block text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
           >
             {label}
@@ -53,7 +63,10 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
         )}
         <Textarea
           ref={ref}
+          id={id}
           aria-invalid={!!error}
+          aria-describedby={describedBy}
+          {...(labelId ? { "aria-labelledby": labelId } : {})}
           className={cn(
             sizeClass,
             error ? "border-destructive text-destructive-foreground" : "",
@@ -62,10 +75,14 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
           {...props}
         />
         {description && !error && (
-          <p className="mt-1 text-xs text-muted-foreground">{description}</p>
+          <p id={descriptionId} className="mt-1 text-xs text-muted-foreground">
+            {description}
+          </p>
         )}
         {error && (
-          <p className="mt-1 text-xs text-destructive-foreground">{error}</p>
+          <p id={errorId} className="mt-1 text-xs text-destructive-foreground">
+            {error}
+          </p>
         )}
       </div>
     );

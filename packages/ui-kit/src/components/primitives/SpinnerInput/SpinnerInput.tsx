@@ -149,6 +149,8 @@ const SpinnerInput = React.forwardRef<HTMLInputElement, SpinnerInputProps>(
     const labelId = label ? `${id}-label` : undefined;
     const descriptionId = description ? `${id}-description` : undefined;
     const errorId = error ? `${id}-error` : undefined;
+    const describedBy =
+      [descriptionId, errorId].filter(Boolean).join(" ") || undefined;
 
     return (
       <div className={cn("space-y-2", className)}>
@@ -176,7 +178,7 @@ const SpinnerInput = React.forwardRef<HTMLInputElement, SpinnerInputProps>(
             {...(labelId
               ? { "aria-labelledby": labelId }
               : { "aria-label": "Numeric input" })}
-            aria-describedby={cn(descriptionId, errorId)}
+            aria-describedby={describedBy}
             aria-invalid={!!error}
             className={cn(
               sizeClasses[size],

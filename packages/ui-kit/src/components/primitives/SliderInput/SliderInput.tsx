@@ -75,6 +75,8 @@ const SliderInput = React.forwardRef<
     const labelId = label ? `${id}-label` : undefined;
     const descriptionId = description ? `${id}-description` : undefined;
     const errorId = error ? `${id}-error` : undefined;
+    const describedBy =
+      [descriptionId, errorId].filter(Boolean).join(" ") || undefined;
 
     return (
       <div className={cn("space-y-2", className)}>
@@ -107,7 +109,7 @@ const SliderInput = React.forwardRef<
           {...(labelId
             ? { "aria-labelledby": labelId }
             : { "aria-label": "Slider input" })}
-          aria-describedby={cn(descriptionId, errorId)}
+          aria-describedby={describedBy}
           aria-invalid={error ? true : undefined}
           className={cn(
             sizeClasses[size],
