@@ -86,7 +86,7 @@ export function MarkdownEditor({
     "relative w-full rounded-md border border-input bg-background text-sm",
     "focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2",
     {
-      "opacity-50 cursor-not-allowed": disabled,
+      "cursor-not-allowed": disabled,
     },
     className,
   );
@@ -103,15 +103,18 @@ export function MarkdownEditor({
   );
 
   const toolbarClasses = cn(
-    "flex items-center justify-between px-3 py-2 border-b border-border bg-muted/50",
-    "text-xs text-muted-foreground",
+    "flex items-center justify-between px-3 py-2 border-b border-border",
+    disabled ? "bg-muted text-black" : "bg-muted/50 text-muted-foreground",
+    "text-xs",
   );
 
   return (
     <div className={baseClasses} data-testid={dataTestId}>
       {/* Toolbar */}
       <div className={toolbarClasses}>
-        <span>{isPreview ? "Preview" : "Edit"}</span>
+        <span style={disabled ? { color: "#000000" } : undefined}>
+          {isPreview ? "Preview" : "Edit"}
+        </span>
         <button
           type="button"
           onClick={togglePreview}
@@ -119,7 +122,7 @@ export function MarkdownEditor({
           className={cn(
             "px-2 py-1 rounded text-xs font-medium transition-colors",
             "hover:bg-background focus:outline-none focus:ring-1 focus:ring-ring",
-            "disabled:opacity-50 disabled:cursor-not-allowed",
+            "disabled:cursor-not-allowed",
             isPreview
               ? "bg-primary text-primary-foreground"
               : "bg-background text-foreground",
