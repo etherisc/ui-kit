@@ -1,9 +1,14 @@
-# CODEOWNERS
+# CODEOWNERS.example
 # 
-# This file defines code ownership for the UI Kit repository.
+# This is a template for the CODEOWNERS file that defines code ownership for the UI Kit repository.
+# To activate this file, rename it to "CODEOWNERS" and create the GitHub teams referenced below.
+# 
 # Code owners are automatically requested for review when someone opens a pull request that modifies code that they own.
 # 
 # More info: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+#
+# NOTE: The GitHub teams referenced in this file (@ui-kit-maintainers, @devops-team, etc.) 
+# need to be created in the GitHub organization before this file can be activated.
 
 # Global Owners
 # These users are the default owners for everything in the repo unless a later match takes precedence.

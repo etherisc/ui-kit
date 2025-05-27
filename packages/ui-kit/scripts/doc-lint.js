@@ -45,8 +45,8 @@ const requiredFiles = [
     ],
   },
   {
-    path: ".github/CODEOWNERS",
-    name: "Code Owners",
+    path: ".github/CODEOWNERS.example",
+    name: "Code Owners Example",
     requiredPatterns: [
       "* @", // Global ownership pattern
       "/.github/", // GitHub directory ownership
@@ -267,7 +267,7 @@ function main() {
     }
 
     // Special validation for CODEOWNERS
-    if (file.path === ".github/CODEOWNERS") {
+    if (file.path === ".github/CODEOWNERS.example") {
       if (!validateCodeownersFile(file.path)) {
         allPassed = false;
       }
