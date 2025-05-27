@@ -37,7 +37,8 @@
     "playwright:test": "playwright test",
     "playwright:update-snapshots": "playwright test --update-snapshots",
     "tokens-check": "node scripts/tokens-check.js",
-    "size-limit": "size-limit"
+    "size-limit": "size-limit",
+    "doc-lint": "node scripts/doc-lint.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.0.1",
