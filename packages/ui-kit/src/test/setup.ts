@@ -17,6 +17,11 @@ global.ResizeObserver = class ResizeObserver {
 // Add scrollIntoView polyfill for cmdk library
 Element.prototype.scrollIntoView = vi.fn();
 
+// Add pointer capture polyfills for Radix UI slider
+Element.prototype.setPointerCapture = vi.fn();
+Element.prototype.releasePointerCapture = vi.fn();
+Element.prototype.hasPointerCapture = vi.fn().mockReturnValue(false);
+
 // Add other missing DOM methods for cmdk
 Object.defineProperty(window, "matchMedia", {
   writable: true,
