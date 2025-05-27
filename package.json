@@ -8,7 +8,7 @@
   ],
   "scripts": {
     "build": "pnpm -r build",
-    "dev": "pnpm --filter @org/ui-kit dev",
+    "dev": "pnpm --filter @etherisc/ui-kit dev",
     "test": "pnpm -r test",
     "test:a11y": "cd packages/ui-kit && pnpm run test-storybook:ci",
     "lint": "pnpm -r lint",

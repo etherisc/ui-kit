@@ -1,4 +1,4 @@
-# @org/ui-kit
+# @etherisc/ui-kit
 
 ## 0.2.0
 
