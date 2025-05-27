@@ -142,10 +142,9 @@ export function MarkdownEditor({
               disabled ? "Markdown preview (disabled)" : "Markdown preview"
             }
             aria-describedby={ariaDescribedBy}
-            aria-disabled={disabled}
             role="region"
             {...(!disabled && { "aria-live": "polite" })}
-            tabIndex={disabled ? -1 : 0}
+            {...(!disabled && { tabIndex: 0 })}
           />
         ) : (
           <textarea
