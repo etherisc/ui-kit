@@ -69,7 +69,7 @@ A pragmatic breakdown into **four one‑week sprints** plus a preparatory **Spri
 | #   | Task                                                                            | DoD                                                                                          | Status |
 | --- | ------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | ------ |
 | 4.1 | Implement CSP & DOMPurify wrapper in MarkdownEditor.                            | Security unit test feeds XSS payload; output sanitised.                                      | ✓      |
-| 4.2 | Add Sentry ErrorBoundary + tslog logger.                                        | Fake error in story captured by mocked Sentry client in test.                                |        |
+| 4.2 | Add Sentry ErrorBoundary + tslog logger.                                        | Fake error in story captured by mocked Sentry client in test.                                | ✓      |
 | 4.3 | Size‑limit CI check (< 250 KB gz for core bundle).                              | `npm run size-limit` passes.                                                                 |        |
 | 4.4 | Prepare **CONTRIBUTING.md**, PR template, CODEOWNERS.                           | Presence verified by doc‑lint script.                                                        |        |
 | 4.5 | Publish first `v0.1.0-beta` to GitHub Packages; deploy Storybook demo to Pages. | Tag `v0.1.0-beta` exists; npm info returns package; Pages URL accessible & shows build hash. |        |

@@ -36,7 +36,8 @@
     "playwright:install": "playwright install",
     "playwright:test": "playwright test",
     "playwright:update-snapshots": "playwright test --update-snapshots",
-    "tokens-check": "node scripts/tokens-check.js"
+    "tokens-check": "node scripts/tokens-check.js",
+    "size-limit": "size-limit"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.0.1",
@@ -68,10 +69,25 @@
     "zod": "^3.25.7",
     "zustand": "^5.0.4"
   },
+  "size-limit": [
+    {
+      "name": "ES Module Bundle",
+      "path": "dist/ui-kit.js",
+      "limit": "250 KB",
+      "gzip": true
+    },
+    {
+      "name": "UMD Bundle",
+      "path": "dist/ui-kit.umd.cjs",
+      "limit": "250 KB",
+      "gzip": true
+    }
+  ],
   "devDependencies": {
     "@chromatic-com/storybook": "^1.9.0",
     "@eslint/js": "^9.27.0",
     "@playwright/test": "^1.52.0",
+    "@size-limit/preset-small-lib": "^11.2.0",
     "@storybook/addon-a11y": "^8.6.14",
     "@storybook/addon-docs": "^8.6.14",
     "@storybook/addon-essentials": "^8.6.14",
@@ -110,6 +126,7 @@
     "prop-types": "^15.8.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "size-limit": "^11.2.0",
     "storybook": "^8.6.14",
     "tailwindcss": "^3.4.17",
     "typescript-eslint": "^8.32.1",
