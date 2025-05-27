@@ -1,5 +1,6 @@
 export * from "./Button";
 export * from "./TextInput";
+export * from "./TextArea";
 export * from "./NumberInput";
 export * from "./Select";
 export * from "./Checkbox";
