@@ -1,0 +1,174 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to release (e.g., v0.1.0-beta)"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  packages: write
+  pages: write
+  id-token: write
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "pnpm"
+          registry-url: "https://npm.pkg.github.com"
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Extract version
+        id: version
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            VERSION="${{ github.event.inputs.version }}"
+          else
+            VERSION="${GITHUB_REF#refs/tags/}"
+          fi
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
+          echo "Version: ${VERSION}"
+
+      - name: Generate build hash
+        id: build-hash
+        run: |
+          HASH=$(echo "${{ github.sha }}" | cut -c1-8)
+          echo "hash=${HASH}" >> $GITHUB_OUTPUT
+          echo "Build hash: ${HASH}"
+
+      - name: Run tests
+        run: pnpm test
+
+      - name: Run linting
+        run: pnpm lint
+
+      - name: Build package
+        run: pnpm build
+
+      - name: Check bundle size
+        run: cd packages/ui-kit && pnpm run size-limit
+
+      - name: Build Storybook
+        run: cd packages/ui-kit && pnpm run build-storybook
+
+      - name: Add build info to Storybook
+        run: |
+          cd packages/ui-kit
+          echo "window.BUILD_INFO = { version: '${{ steps.version.outputs.version }}', hash: '${{ steps.build-hash.outputs.hash }}', timestamp: '$(date -u +"%Y-%m-%dT%H:%M:%SZ")' };" > storybook-static/build-info.js
+
+          # Inject build info script into index.html
+          sed -i 's|</head>|<script src="./build-info.js"></script></head>|' storybook-static/index.html
+
+      - name: Update package.json for release
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          VERSION_NO_V=${VERSION#v}
+
+          cd packages/ui-kit
+          npm pkg set version="${VERSION_NO_V}"
+          npm pkg set private=false
+          npm pkg set publishConfig.registry="https://npm.pkg.github.com"
+          npm pkg set repository.type="git"
+          npm pkg set repository.url="git+https://github.com/${{ github.repository }}.git"
+
+      - name: Publish to GitHub Packages
+        run: |
+          cd packages/ui-kit
+          npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload to GitHub Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: packages/ui-kit/storybook-static
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Generate release notes
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          BUILD_HASH="${{ steps.build-hash.outputs.hash }}"
+
+          cat > release-notes.md << EOF
+          # UI Kit ${VERSION}
+
+          ## 🎉 First Beta Release
+
+          This is the first beta release of the UI Kit library, featuring:
+
+          ### 🧩 Components
+          - **Form Components**: Button, TextInput, NumberInput, Select, Checkbox, RadioGroup
+          - **Layout Components**: AuthShell, MainLayout with responsive navigation
+          - **Data Components**: DataTable with pagination and sorting
+          - **Feedback Components**: Toast system, StatusBadge, ErrorBoundary
+          - **Security**: MarkdownEditor with XSS protection via DOMPurify
+
+          ### 🛠️ Infrastructure
+          - **TypeScript**: Full type safety and IntelliSense support
+          - **Styling**: Tailwind CSS + DaisyUI theming system
+          - **Testing**: Comprehensive unit tests and accessibility testing
+          - **Documentation**: Interactive Storybook with live examples
+          - **Internationalization**: i18next integration with English and German locales
+          - **Error Handling**: Sentry integration with structured logging
+          - **Performance**: Bundle size monitoring (< 250KB gzipped)
+
+          ### 📚 Documentation
+          - [Storybook Demo](${{ steps.deployment.outputs.page_url }})
+          - [Contributing Guide](https://github.com/${{ github.repository }}/blob/main/CONTRIBUTING.md)
+          - [Design Tokens](https://github.com/${{ github.repository }}/blob/main/DESIGN_TOKENS.md)
+
+          ### 📦 Installation
+
+          \`\`\`bash
+          npm install @org/ui-kit@${VERSION#v}
+          \`\`\`
+
+          ### 🔗 Links
+          - **Package**: [GitHub Packages](https://github.com/${{ github.repository }}/packages)
+          - **Demo**: [Storybook](${{ steps.deployment.outputs.page_url }})
+          - **Build**: \`${BUILD_HASH}\`
+
+          ---
+
+          **Note**: This is a beta release. APIs may change before the stable 1.0 release.
+          EOF
+
+      - name: Create GitHub Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.version.outputs.version }}
+          release_name: UI Kit ${{ steps.version.outputs.version }}
+          body_path: release-notes.md
+          draft: false
+          prerelease: true
