@@ -88,36 +88,63 @@ jobs:
           VERSION_NO_V=${VERSION#v}
 
           cd packages/ui-kit
-          npm pkg set name="@etherisc/ui-kit"
-          npm pkg set version="${VERSION_NO_V}"
-          npm pkg set private=false
-          npm pkg set publishConfig.registry="https://npm.pkg.github.com"
-          npm pkg set repository.type="git"
-          npm pkg set repository.url="git+https://github.com/${{ github.repository }}.git"
+
+          # Create a backup of the original package.json
+          cp package.json package.json.backup
+
+          # Update package.json using jq for reliable JSON manipulation
+          jq --arg name "@etherisc/ui-kit" \
+             --arg version "${VERSION_NO_V}" \
+             --arg repo_url "git+https://github.com/${{ github.repository }}.git" \
+             '.name = $name | 
+              .version = $version | 
+              .private = false | 
+              .publishConfig.registry = "https://npm.pkg.github.com" |
+              .repository.type = "git" |
+              .repository.url = $repo_url' \
+             package.json > package.json.tmp && mv package.json.tmp package.json
+
+          echo "Updated package.json for publishing:"
+          cat package.json | jq '.name, .version, .private, .publishConfig, .repository'
 
       - name: Publish to GitHub Packages
         run: |
           cd packages/ui-kit
           npm publish
+
+          # Restore original package.json
+          mv package.json.backup package.json
+          echo "Restored original package.json"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
+        with:
+          enablement: true
+        continue-on-error: true
 
       - name: Upload to GitHub Pages
         uses: actions/upload-pages-artifact@v3
         with:
           path: packages/ui-kit/storybook-static
+        continue-on-error: true
 
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        continue-on-error: true
 
       - name: Generate release notes
         run: |
           VERSION="${{ steps.version.outputs.version }}"
           BUILD_HASH="${{ steps.build-hash.outputs.hash }}"
+
+          # Set default page URL if deployment failed
+          PAGE_URL="${{ steps.deployment.outputs.page_url }}"
+          if [ -z "$PAGE_URL" ]; then
+            PAGE_URL="https://github.com/${{ github.repository }}/tree/main/packages/ui-kit/storybook-static"
+          fi
 
           cat > release-notes.md << EOF
           # UI Kit ${VERSION}
@@ -143,7 +170,7 @@ jobs:
           - **Performance**: Bundle size monitoring (< 250KB gzipped)
 
           ### 📚 Documentation
-          - [Storybook Demo](${{ steps.deployment.outputs.page_url }})
+          - [Storybook Demo](${PAGE_URL})
           - [Contributing Guide](https://github.com/${{ github.repository }}/blob/main/CONTRIBUTING.md)
           - [Design Tokens](https://github.com/${{ github.repository }}/blob/main/DESIGN_TOKENS.md)
 
@@ -155,7 +182,7 @@ jobs:
 
           ### 🔗 Links
           - **Package**: [GitHub Packages](https://github.com/${{ github.repository }}/packages)
-          - **Demo**: [Storybook](${{ steps.deployment.outputs.page_url }})
+          - **Demo**: [Storybook](${PAGE_URL})
           - **Build**: \`${BUILD_HASH}\`
 
           ---

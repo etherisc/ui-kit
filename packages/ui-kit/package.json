@@ -3,6 +3,7 @@
   "version": "0.1.0-beta",
   "private": true,
   "type": "module",
+  "license": "Apache-2.0",
   "main": "./dist/ui-kit.umd.cjs",
   "module": "./dist/ui-kit.js",
   "types": "./dist/index.d.ts",
