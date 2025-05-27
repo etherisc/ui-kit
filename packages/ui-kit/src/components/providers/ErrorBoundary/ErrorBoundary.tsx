@@ -159,7 +159,8 @@ export class ErrorBoundary extends Component<
         // Add additional context
         if (sentryContext) {
           Object.entries(sentryContext).forEach(([key, value]) => {
-            scope.setContext(key, value);
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            scope.setContext(key, value as any);
           });
         }
 
