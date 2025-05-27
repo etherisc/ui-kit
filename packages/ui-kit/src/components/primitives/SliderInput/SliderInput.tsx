@@ -84,7 +84,6 @@ const SliderInput = React.forwardRef<
           {label && (
             <label
               id={labelId}
-              htmlFor={id}
               className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
             >
               {label}
