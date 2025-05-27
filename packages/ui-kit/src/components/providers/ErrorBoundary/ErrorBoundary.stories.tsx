@@ -91,9 +91,12 @@ const ErrorBoundaryDemo: React.FC<{
 };
 
 /**
- * Custom fallback demo component
+ * Custom fallback demo component - shows the fallback UI without throwing an error
  */
 const CustomFallbackDemo: React.FC = () => {
+  const [showError, setShowError] = useState(false);
+  const [key, setKey] = useState(0);
+
   const customFallback = (error: Error) => (
     <div className="rounded-lg border-2 border-dashed border-orange-300 bg-orange-50 p-8 text-center">
       <div className="mb-4">
@@ -118,26 +121,56 @@ const CustomFallbackDemo: React.FC = () => {
         Custom fallback UI for error: {error.message}
       </p>
       <button
-        onClick={() => window.location.reload()}
+        onClick={() => {
+          setShowError(false);
+          setKey((prev) => prev + 1);
+        }}
         className="rounded bg-orange-500 px-6 py-2 text-white hover:bg-orange-600"
       >
-        Reload Page
+        Reset
       </button>
     </div>
   );
 
+  const handleTriggerError = () => {
+    setShowError(true);
+  };
+
+  const handleReset = () => {
+    setShowError(false);
+    setKey((prev) => prev + 1);
+  };
+
   return (
-    <ErrorBoundary fallback={customFallback}>
-      <ErrorThrowingComponent
-        shouldThrow={true}
-        errorMessage="Custom fallback demo error"
-      />
-    </ErrorBoundary>
+    <div className="space-y-4">
+      <div className="flex gap-2">
+        <button
+          onClick={handleTriggerError}
+          disabled={showError}
+          className="rounded bg-destructive px-4 py-2 text-sm font-medium text-destructive-foreground hover:bg-destructive/90 disabled:opacity-50"
+        >
+          Trigger Custom Fallback
+        </button>
+        <button
+          onClick={handleReset}
+          className="rounded bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
+        >
+          Reset
+        </button>
+      </div>
+
+      <ErrorBoundary key={key} fallback={customFallback}>
+        <ErrorThrowingComponent
+          shouldThrow={showError}
+          errorMessage="Custom fallback demo error"
+        />
+      </ErrorBoundary>
+    </div>
   );
 };
 
 /**
- * HOC demo component
+ * HOC demo component - shows the HOC functionality without throwing an error
  */
 const WrappedErrorComponent = withErrorBoundary(ErrorThrowingComponent, {
   fallbackMessage: "This component is wrapped with withErrorBoundary HOC",
@@ -145,17 +178,47 @@ const WrappedErrorComponent = withErrorBoundary(ErrorThrowingComponent, {
 });
 
 const HOCDemo: React.FC = () => {
+  const [showError, setShowError] = useState(false);
+  const [key, setKey] = useState(0);
+
+  const handleTriggerError = () => {
+    setShowError(true);
+  };
+
+  const handleReset = () => {
+    setShowError(false);
+    setKey((prev) => prev + 1);
+  };
+
   return (
     <div className="space-y-4">
+      <div className="flex gap-2">
+        <button
+          onClick={handleTriggerError}
+          disabled={showError}
+          className="rounded bg-destructive px-4 py-2 text-sm font-medium text-destructive-foreground hover:bg-destructive/90 disabled:opacity-50"
+        >
+          Trigger HOC Error
+        </button>
+        <button
+          onClick={handleReset}
+          className="rounded bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
+        >
+          Reset
+        </button>
+      </div>
+
       <div className="rounded border p-4">
         <p className="mb-4 text-sm text-muted-foreground">
-          This component is wrapped using the withErrorBoundary HOC and will
-          show an error:
+          This component is wrapped using the withErrorBoundary HOC. Click the
+          button above to trigger an error:
         </p>
-        <WrappedErrorComponent
-          shouldThrow={true}
-          errorMessage="HOC demo error"
-        />
+        <div key={key}>
+          <WrappedErrorComponent
+            shouldThrow={showError}
+            errorMessage="HOC demo error"
+          />
+        </div>
       </div>
     </div>
   );
@@ -293,12 +356,6 @@ export const WithErrorDetails: Story = {
  */
 export const CustomFallback: Story = {
   render: () => <CustomFallbackDemo />,
-  parameters: {
-    // Exclude from test runner since this story intentionally throws errors
-    test: {
-      disable: true,
-    },
-  },
 };
 
 /**
@@ -306,10 +363,4 @@ export const CustomFallback: Story = {
  */
 export const WithHOC: Story = {
   render: () => <HOCDemo />,
-  parameters: {
-    // Exclude from test runner since this story intentionally throws errors
-    test: {
-      disable: true,
-    },
-  },
 };
