@@ -7,5 +7,6 @@ export * from "./Checkbox";
 export * from "./RadioGroup";
 export * from "./ComboBox";
 export * from "./SliderInput";
+export * from "./SpinnerInput";
 export * from "./ThemeToggle";
 export * from "./MarkdownEditor";
