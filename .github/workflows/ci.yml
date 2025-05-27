@@ -89,4 +89,4 @@ jobs:
       - name: Build for size check
         run: pnpm build
       - name: Check bundle size
-        run: pnpm run size-limit
+        run: cd packages/ui-kit && pnpm run size-limit
