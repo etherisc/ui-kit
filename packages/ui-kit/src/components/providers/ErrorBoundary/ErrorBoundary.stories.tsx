@@ -293,6 +293,12 @@ export const WithErrorDetails: Story = {
  */
 export const CustomFallback: Story = {
   render: () => <CustomFallbackDemo />,
+  parameters: {
+    // Exclude from test runner since this story intentionally throws errors
+    test: {
+      disable: true,
+    },
+  },
 };
 
 /**
@@ -300,4 +306,10 @@ export const CustomFallback: Story = {
  */
 export const WithHOC: Story = {
   render: () => <HOCDemo />,
+  parameters: {
+    // Exclude from test runner since this story intentionally throws errors
+    test: {
+      disable: true,
+    },
+  },
 };
