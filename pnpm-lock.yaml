@@ -131,15 +131,15 @@ importers:
 
   packages/showcase:
     dependencies:
+      '@etherisc/ui-kit':
+        specifier: workspace:*
+        version: link:../ui-kit
       '@faker-js/faker':
         specifier: ^9.8.0
         version: 9.8.0
       '@hookform/resolvers':
         specifier: ^3.6.1
         version: 3.10.0(react-hook-form@7.56.4(react@19.1.0))
-      '@org/ui-kit':
-        specifier: workspace:*
-        version: link:../ui-kit
       bcryptjs:
         specifier: ^3.0.2
         version: 3.0.2

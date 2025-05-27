@@ -5,4 +5,4 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @org/ui-kit@0.2.0
+  - @etherisc/ui-kit@0.2.0
