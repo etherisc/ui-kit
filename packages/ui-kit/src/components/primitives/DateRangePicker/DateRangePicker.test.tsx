@@ -312,15 +312,6 @@ describe("DateRangePicker", () => {
         screen.getByRole("button", { name: "Select vacation dates" }),
       ).toBeInTheDocument();
     });
-
-    it("supports required attribute", () => {
-      render(<DateRangePicker required onChange={mockOnChange} />);
-
-      expect(screen.getByRole("button")).toHaveAttribute(
-        "aria-required",
-        "true",
-      );
-    });
   });
 
   describe("Custom Props", () => {

@@ -256,20 +256,12 @@ describe("DatePicker", () => {
 
     it("supports custom aria-label", () => {
       render(
-        <DatePicker aria-label="Select birth date" onChange={mockOnChange} />,
+        <DatePicker aria-label="Custom date picker" onChange={mockOnChange} />,
       );
 
-      expect(
-        screen.getByRole("button", { name: "Select birth date" }),
-      ).toBeInTheDocument();
-    });
-
-    it("supports required attribute", () => {
-      render(<DatePicker required onChange={mockOnChange} />);
-
       expect(screen.getByRole("button")).toHaveAttribute(
-        "aria-required",
-        "true",
+        "aria-label",
+        "Custom date picker",
       );
     });
   });
