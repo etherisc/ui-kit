@@ -61,10 +61,6 @@ export interface DatePickerProps
    */
   size?: "sm" | "md" | "lg";
   /**
-   * Whether the field is required
-   */
-  required?: boolean;
-  /**
    * ARIA label for accessibility
    */
   "aria-label"?: string;
@@ -88,7 +84,6 @@ const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(
       format: dateFormat = "PPP",
       className,
       size = "md",
-      required = false,
       "aria-label": ariaLabel,
       "aria-describedby": ariaDescribedBy,
       ...props
@@ -156,7 +151,6 @@ const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(
               disabled={disabled}
               aria-label={ariaLabel || "Choose date"}
               aria-describedby={describedBy}
-              aria-required={required}
               aria-expanded={open}
               aria-haspopup="dialog"
               {...props}

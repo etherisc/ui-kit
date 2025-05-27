@@ -67,10 +67,6 @@ export interface DateRangePickerProps
    */
   size?: "sm" | "md" | "lg";
   /**
-   * Whether the field is required
-   */
-  required?: boolean;
-  /**
    * Maximum number of days between from and to dates
    */
   maxRange?: number;
@@ -101,7 +97,6 @@ const DateRangePicker = React.forwardRef<
       format: dateFormat = "PPP",
       className,
       size = "md",
-      required = false,
       maxRange,
       "aria-label": ariaLabel,
       "aria-describedby": ariaDescribedBy,
@@ -222,7 +217,6 @@ const DateRangePicker = React.forwardRef<
               disabled={disabled}
               aria-label={ariaLabel || "Choose date range"}
               aria-describedby={describedBy}
-              aria-required={required}
               aria-expanded={open}
               aria-haspopup="dialog"
               {...props}
