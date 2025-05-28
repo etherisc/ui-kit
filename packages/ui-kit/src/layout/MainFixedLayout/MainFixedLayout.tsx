@@ -36,7 +36,7 @@ export const MainFixedLayout: React.FC<MainFixedLayoutProps> = ({
     <div className={cn("relative min-h-screen bg-background", className)}>
       {/* Fixed Header */}
       {header && (
-        <div
+        <header
           className={cn(
             "bg-card border-b z-40",
             fixedHeader ? "fixed top-0 left-0 right-0" : "relative",
@@ -44,12 +44,12 @@ export const MainFixedLayout: React.FC<MainFixedLayoutProps> = ({
           style={fixedHeader ? { height: headerHeight } : undefined}
         >
           <div className="h-full flex items-center">{header}</div>
-        </div>
+        </header>
       )}
 
       {/* Fixed Left Sidebar */}
       {sidebar && (
-        <div
+        <aside
           className={cn(
             "bg-card border-r z-30",
             fixedSidebar ? "fixed left-0 top-0 bottom-0" : "relative",
@@ -59,14 +59,15 @@ export const MainFixedLayout: React.FC<MainFixedLayoutProps> = ({
             top: fixedSidebar && fixedHeader && header ? headerHeight : 0,
             bottom: fixedSidebar && fixedFooter && footer ? footerHeight : 0,
           }}
+          aria-label="Main navigation"
         >
           <div className="h-full overflow-y-auto">{sidebar}</div>
-        </div>
+        </aside>
       )}
 
       {/* Fixed Right Sidebar */}
       {rightSidebar && (
-        <div
+        <aside
           className={cn(
             "bg-card border-l z-30",
             fixedRightSidebar ? "fixed right-0 top-0 bottom-0" : "relative",
@@ -77,9 +78,10 @@ export const MainFixedLayout: React.FC<MainFixedLayoutProps> = ({
             bottom:
               fixedRightSidebar && fixedFooter && footer ? footerHeight : 0,
           }}
+          aria-label="Secondary navigation"
         >
           <div className="h-full overflow-y-auto">{rightSidebar}</div>
-        </div>
+        </aside>
       )}
 
       {/* Main Content Area */}
@@ -97,7 +99,7 @@ export const MainFixedLayout: React.FC<MainFixedLayoutProps> = ({
 
       {/* Fixed Footer */}
       {footer && (
-        <div
+        <footer
           className={cn(
             "bg-card border-t z-40",
             fixedFooter ? "fixed bottom-0 left-0 right-0" : "relative",
@@ -105,7 +107,7 @@ export const MainFixedLayout: React.FC<MainFixedLayoutProps> = ({
           style={fixedFooter ? { height: footerHeight } : undefined}
         >
           <div className="h-full flex items-center">{footer}</div>
-        </div>
+        </footer>
       )}
     </div>
   );

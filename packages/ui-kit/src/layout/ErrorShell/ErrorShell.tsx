@@ -69,7 +69,7 @@ export const ErrorShell: React.FC<ErrorShellProps> = ({
         {/* Error Code */}
         {errorCode && (
           <div
-            className="text-6xl font-bold text-muted-foreground/30 mb-2"
+            className="text-6xl font-bold text-muted-foreground mb-2"
             aria-hidden="true"
           >
             {errorCode}

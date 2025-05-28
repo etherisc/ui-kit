@@ -93,7 +93,7 @@ const SampleSidebar = () => (
 
 const SampleRightSidebar = () => (
   <div className="p-4">
-    <h3 className="font-semibold mb-3">Quick Actions</h3>
+    <h2 className="font-semibold mb-3">Quick Actions</h2>
     <div className="space-y-2">
       <Button variant="outline" size="sm" className="w-full justify-start">
         New Project
@@ -106,7 +106,7 @@ const SampleRightSidebar = () => (
       </Button>
     </div>
     <div className="mt-6">
-      <h4 className="font-medium mb-2">Recent Activity</h4>
+      <h3 className="font-medium mb-2">Recent Activity</h3>
       <div className="text-sm text-muted-foreground space-y-1">
         <p>Task completed</p>
         <p>New comment added</p>

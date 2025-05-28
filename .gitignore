@@ -17,6 +17,9 @@ coverage
 playwright-report
 test-results
 
+# Temporary files
+tmp/
+
 # Editor & OS
 .vscode/*
 !.vscode/extensions.json

@@ -85,7 +85,7 @@ export const DataDenseLayout: React.FC<DataDenseLayoutProps> = ({
     >
       {/* Header */}
       {header && (
-        <div
+        <header
           className={cn(
             "bg-card text-card-foreground",
             densityClasses.headerPadding,
@@ -95,19 +95,20 @@ export const DataDenseLayout: React.FC<DataDenseLayoutProps> = ({
           )}
         >
           {header}
-        </div>
+        </header>
       )}
 
       {/* Main content area */}
       <div className="flex flex-1 overflow-hidden">
         {/* Left Sidebar */}
         {sidebar && (
-          <div
+          <aside
             className={cn(
               "bg-card text-card-foreground flex-shrink-0 transition-all duration-200 ease-in-out",
               showBorders && "border-r",
             )}
             style={{ width: currentLeftWidth }}
+            aria-label="Filters and navigation"
           >
             <div className="h-full flex flex-col">
               {/* Sidebar toggle button */}
@@ -151,7 +152,7 @@ export const DataDenseLayout: React.FC<DataDenseLayoutProps> = ({
                 {sidebar}
               </div>
             </div>
-          </div>
+          </aside>
         )}
 
         {/* Main content */}
@@ -168,12 +169,13 @@ export const DataDenseLayout: React.FC<DataDenseLayoutProps> = ({
 
         {/* Right Sidebar */}
         {rightSidebar && (
-          <div
+          <aside
             className={cn(
               "bg-card text-card-foreground flex-shrink-0 transition-all duration-200 ease-in-out",
               showBorders && "border-l",
             )}
             style={{ width: currentRightWidth }}
+            aria-label="Details and actions"
           >
             <div className="h-full flex flex-col">
               {/* Sidebar toggle button */}
@@ -217,13 +219,13 @@ export const DataDenseLayout: React.FC<DataDenseLayoutProps> = ({
                 {rightSidebar}
               </div>
             </div>
-          </div>
+          </aside>
         )}
       </div>
 
       {/* Footer */}
       {footer && (
-        <div
+        <footer
           className={cn(
             "bg-card text-card-foreground",
             densityClasses.footerPadding,
@@ -233,7 +235,7 @@ export const DataDenseLayout: React.FC<DataDenseLayoutProps> = ({
           )}
         >
           {footer}
-        </div>
+        </footer>
       )}
     </div>
   );

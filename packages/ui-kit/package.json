@@ -29,6 +29,7 @@
     "build-storybook": "storybook build",
     "test-storybook": "test-storybook",
     "test-storybook:ci": "node scripts/run-storybook-test.js",
+    "test-storybook:specific": "node scripts/run-storybook-test.js",
     "test-component": "node scripts/test-single-component.js",
     "test:component": "scripts/test-component.sh",
     "cy:open": "cypress open",

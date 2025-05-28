@@ -75,11 +75,16 @@ const DataHeader = () => (
 const FilterSidebar = () => (
   <div className="space-y-4">
     <div>
-      <h3 className="font-medium mb-2">Filters</h3>
+      <h2 className="font-medium mb-2">Filters</h2>
       <div className="space-y-2">
         <div>
-          <label className="text-sm font-medium">Date Range</label>
-          <select className="w-full mt-1 p-1 border rounded text-sm">
+          <label htmlFor="date-range-select" className="text-sm font-medium">
+            Date Range
+          </label>
+          <select
+            id="date-range-select"
+            className="w-full mt-1 p-1 border rounded text-sm"
+          >
             <option>Last 7 days</option>
             <option>Last 30 days</option>
             <option>Last 90 days</option>
@@ -103,8 +108,13 @@ const FilterSidebar = () => (
           </div>
         </div>
         <div>
-          <label className="text-sm font-medium">Category</label>
-          <select className="w-full mt-1 p-1 border rounded text-sm">
+          <label htmlFor="category-select" className="text-sm font-medium">
+            Category
+          </label>
+          <select
+            id="category-select"
+            className="w-full mt-1 p-1 border rounded text-sm"
+          >
             <option>All Categories</option>
             <option>Type A</option>
             <option>Type B</option>
@@ -114,7 +124,7 @@ const FilterSidebar = () => (
       </div>
     </div>
     <div>
-      <h3 className="font-medium mb-2">Quick Actions</h3>
+      <h2 className="font-medium mb-2">Quick Actions</h2>
       <div className="space-y-1">
         <Button
           variant="outline"
@@ -145,7 +155,7 @@ const FilterSidebar = () => (
 const DetailsSidebar = () => (
   <div className="space-y-4">
     <div>
-      <h3 className="font-medium mb-2">Selection Details</h3>
+      <h2 className="font-medium mb-2">Selection Details</h2>
       <div className="text-sm space-y-2">
         <div>
           <span className="font-medium">ID:</span>
@@ -153,7 +163,7 @@ const DetailsSidebar = () => (
         </div>
         <div>
           <span className="font-medium">Status:</span>
-          <span className="ml-2 text-green-600">Active</span>
+          <span className="ml-2 text-green-700">Active</span>
         </div>
         <div>
           <span className="font-medium">Created:</span>
@@ -166,7 +176,7 @@ const DetailsSidebar = () => (
       </div>
     </div>
     <div>
-      <h3 className="font-medium mb-2">Actions</h3>
+      <h2 className="font-medium mb-2">Actions</h2>
       <div className="space-y-1">
         <Button variant="default" size="sm" className="w-full text-xs">
           Edit Item
@@ -183,7 +193,7 @@ const DetailsSidebar = () => (
       </div>
     </div>
     <div>
-      <h3 className="font-medium mb-2">Related Items</h3>
+      <h2 className="font-medium mb-2">Related Items</h2>
       <div className="text-sm space-y-1">
         <div className="p-2 border rounded hover:bg-muted cursor-pointer">
           <div className="font-medium">Item A</div>
