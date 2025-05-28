@@ -262,6 +262,27 @@ export const CodeEditor = ({
             element.setAttribute("tabindex", "-1");
           }
         });
+
+        // Remove aria-label from internal elements to avoid conflicts
+        const elementsWithAriaLabel =
+          editorElement.querySelectorAll("[aria-label]");
+        elementsWithAriaLabel.forEach((element) => {
+          if (element !== editorElement) {
+            element.removeAttribute("aria-label");
+          }
+        });
+
+        // Ensure no duplicate IDs exist
+        const elementsWithId = editorElement.querySelectorAll("[id]");
+        const seenIds = new Set();
+        elementsWithId.forEach((element) => {
+          const id = element.getAttribute("id");
+          if (id && seenIds.has(id)) {
+            element.removeAttribute("id");
+          } else if (id) {
+            seenIds.add(id);
+          }
+        });
       };
 
       // Apply fixes immediately
@@ -276,8 +297,17 @@ export const CodeEditor = ({
         childList: true,
         subtree: true,
         attributes: true,
-        attributeFilter: ["role", "tabindex", "aria-label", "contenteditable"],
+        attributeFilter: [
+          "role",
+          "tabindex",
+          "aria-label",
+          "contenteditable",
+          "id",
+        ],
       });
+
+      // Also set up a periodic check as a fallback
+      const intervalId = setInterval(fixInternalAccessibility, 100);
 
       viewRef.current = view;
       observerRef.current = observer;
@@ -289,6 +319,7 @@ export const CodeEditor = ({
           observerRef.current.disconnect();
           observerRef.current = null;
         }
+        clearInterval(intervalId);
       };
     },
     [
@@ -311,6 +342,11 @@ export const CodeEditor = ({
       onChange,
       onFocus,
       onBlur,
+      ariaLabel,
+      ariaLabelledby,
+      ariaDescribedby,
+      ariaRequired,
+      ariaInvalid,
     ],
   );
 
