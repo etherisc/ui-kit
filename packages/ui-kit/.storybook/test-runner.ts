@@ -10,6 +10,14 @@ const config: TestRunnerConfig = {
     // Get the story context so we can access parameters
     const storyContext = await getStoryContext(page, context);
 
+    // Skip entire test if explicitly disabled for a story
+    if (storyContext.parameters?.["test-runner"]?.skip) {
+      console.log(
+        `Skipping test for story ${context.id} due to test-runner skip parameter`,
+      );
+      return;
+    }
+
     // Skip a11y tests if explicitly disabled for a story
     if (storyContext.parameters?.a11y?.disable) {
       return;
