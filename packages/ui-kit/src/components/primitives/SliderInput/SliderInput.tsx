@@ -105,17 +105,15 @@ const SliderInput = React.forwardRef<
           max={max}
           step={step}
           disabled={disabled}
-          {...(labelId
-            ? { "aria-labelledby": labelId }
-            : { "aria-label": "Slider input" })}
-          aria-describedby={describedBy}
-          aria-invalid={error ? true : undefined}
           className={cn(
             sizeClasses[size],
             error &&
               "[&_[role=slider]]:border-destructive [&_[role=slider]]:focus-visible:ring-destructive",
             sliderClassName,
           )}
+          aria-labelledby={labelId}
+          aria-describedby={describedBy}
+          aria-invalid={error ? true : undefined}
           {...props}
         />
 

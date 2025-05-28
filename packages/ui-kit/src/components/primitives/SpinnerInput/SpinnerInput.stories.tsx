@@ -233,7 +233,7 @@ const ReactHookFormExampleComponent = () => {
 
       <div className="rounded-md bg-muted p-3">
         <div className="text-sm font-medium">Order Summary</div>
-        <div className="text-sm text-muted-foreground">
+        <div className="text-sm text-foreground">
           {quantity} × ${price.toFixed(2)} ={" "}
           <strong>${total.toFixed(2)}</strong>
         </div>

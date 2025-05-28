@@ -30,14 +30,24 @@ const config: TestRunnerConfig = {
     const element = storyContext.parameters?.a11y?.element || "#storybook-root";
 
     // Run the accessibility tests
-    await checkA11y(page, element, {
-      detailedReport: true,
-      detailedReportOptions: {
-        html: true,
-      },
-      // If any violations are found, the test will fail
-      includedImpacts: ["critical", "serious", "moderate", "minor"],
-    });
+    try {
+      await checkA11y(page, element, {
+        detailedReport: true,
+        detailedReportOptions: {
+          html: true,
+        },
+        // If any violations are found, the test will fail
+        includedImpacts: ["critical", "serious", "moderate", "minor"],
+      });
+    } catch (error) {
+      // Log detailed violation information before re-throwing
+      const violations = await page.evaluate(() => {
+        return window.axe.run();
+      });
+      console.error(`Accessibility violations for story ${context.id}:`);
+      console.error(JSON.stringify(violations.violations, null, 2));
+      throw error;
+    }
   },
 };
 

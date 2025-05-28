@@ -178,8 +178,8 @@ const SpinnerInput = React.forwardRef<HTMLInputElement, SpinnerInputProps>(
             {...(labelId
               ? { "aria-labelledby": labelId }
               : { "aria-label": "Numeric input" })}
-            aria-describedby={describedBy}
-            aria-invalid={!!error}
+            {...(describedBy ? { "aria-describedby": describedBy } : {})}
+            {...(error ? { "aria-invalid": true } : {})}
             className={cn(
               sizeClasses[size],
               showButtons && "pr-16",
