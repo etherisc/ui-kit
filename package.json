@@ -11,6 +11,7 @@
     "dev": "pnpm --filter @etherisc/ui-kit dev",
     "test": "pnpm -r test",
     "test:a11y": "cd packages/ui-kit && pnpm run test-storybook:ci",
+    "test:a11y:specific": "cd packages/ui-kit && pnpm run test-storybook:specific",
     "lint": "pnpm -r lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "prepare": "husky install"
