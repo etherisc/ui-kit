@@ -42,6 +42,37 @@ const config: TestRunnerConfig = {
       // Log detailed violation information before re-throwing
       console.error(`Accessibility violations for story ${context.id}:`);
       console.error(`Error message: ${error.message}`);
+
+      // Get detailed violation information
+      try {
+        const results = await page.evaluate(async () => {
+          return await window.axe.run();
+        });
+
+        if (results.violations.length > 0) {
+          console.error("Detailed violations:");
+          results.violations.forEach((violation, index) => {
+            console.error(
+              `\n${index + 1}. ${violation.id}: ${violation.description}`,
+            );
+            console.error(`   Impact: ${violation.impact}`);
+            violation.nodes.forEach((node, nodeIndex) => {
+              console.error(`   Node ${nodeIndex + 1}:`);
+              console.error(`     Target: ${JSON.stringify(node.target)}`);
+              console.error(`     HTML: ${node.html}`);
+              if (node.failureSummary) {
+                console.error(`     Failure: ${node.failureSummary}`);
+              }
+            });
+          });
+        }
+      } catch (detailError) {
+        console.error(
+          "Could not get detailed violation info:",
+          detailError.message,
+        );
+      }
+
       throw error;
     }
   },

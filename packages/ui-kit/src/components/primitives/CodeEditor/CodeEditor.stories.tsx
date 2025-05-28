@@ -17,7 +17,7 @@ const meta: Meta<typeof CodeEditor> = {
   },
   argTypes: {
     language: {
-      control: "select",
+      control: { type: "select" },
       options: [
         "javascript",
         "typescript",
@@ -30,7 +30,7 @@ const meta: Meta<typeof CodeEditor> = {
       description: "Programming language for syntax highlighting",
     },
     theme: {
-      control: "select",
+      control: { type: "select" },
       options: ["light", "dark"],
       description: "Editor theme",
     },
@@ -51,8 +51,17 @@ const meta: Meta<typeof CodeEditor> = {
       description: "Enable line wrapping",
     },
     height: {
-      control: "text",
+      control: { type: "text" },
       description: "Height of the editor",
+    },
+    minHeight: {
+      control: { type: "text" },
+    },
+    maxHeight: {
+      control: { type: "text" },
+    },
+    tabSize: {
+      control: { type: "number", min: 1, max: 8 },
     },
   },
 };

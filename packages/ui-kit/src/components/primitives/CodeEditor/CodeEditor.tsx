@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { EditorView, basicSetup } from "codemirror";
 import { EditorState, Extension } from "@codemirror/state";
 import { javascript } from "@codemirror/lang-javascript";
@@ -62,7 +62,7 @@ export const CodeEditor = ({
 }: CodeEditorProps) => {
   const editorRef = useRef<HTMLDivElement>(null);
   const viewRef = useRef<EditorView | null>(null);
-  const [isFocused, setIsFocused] = useState(false);
+  const observerRef = useRef<MutationObserver | null>(null);
 
   useEffect(
     function setupEditor() {
@@ -90,6 +90,7 @@ export const CodeEditor = ({
               'ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace',
             lineHeight: "1.5",
             color: "hsl(var(--foreground))",
+            backgroundColor: "hsl(var(--background))",
           },
           ".cm-focused": {
             outline: "2px solid hsl(var(--ring))",
@@ -113,6 +114,21 @@ export const CodeEditor = ({
           "&.cm-editor.cm-readonly .cm-content": {
             backgroundColor: "hsl(var(--muted) / 0.5)",
           },
+          // Ensure proper contrast for line numbers
+          ".cm-lineNumbers": {
+            color: "hsl(var(--muted-foreground))",
+            backgroundColor: "hsl(var(--background))",
+          },
+          ".cm-lineNumbers .cm-gutterElement": {
+            color: "hsl(var(--muted-foreground))",
+          },
+          // Ensure proper contrast for selection
+          ".cm-selectionBackground": {
+            backgroundColor: "hsl(var(--accent) / 0.3)",
+          },
+          "&.cm-focused .cm-selectionBackground": {
+            backgroundColor: "hsl(var(--accent) / 0.3)",
+          },
         }),
         EditorView.updateListener.of((update) => {
           if (update.docChanged && onChange) {
@@ -120,7 +136,6 @@ export const CodeEditor = ({
           }
           if (update.focusChanged) {
             const focused = update.view.hasFocus;
-            setIsFocused(focused);
             if (focused && onFocus) {
               onFocus();
             } else if (!focused && onBlur) {
@@ -187,11 +202,93 @@ export const CodeEditor = ({
         parent: editorRef.current,
       });
 
+      // Comprehensive accessibility setup
+      // We need to ensure CodeMirror's editor is properly accessible
+      const editorElement = view.dom;
+
+      // Remove any existing accessibility attributes that might conflict
+      editorElement.removeAttribute("role");
+      editorElement.removeAttribute("aria-label");
+      editorElement.removeAttribute("tabindex");
+
+      // Set proper accessibility attributes
+      editorElement.setAttribute("role", "textbox");
+      editorElement.setAttribute("aria-label", ariaLabel || "Code editor");
+      editorElement.setAttribute("aria-multiline", "true");
+      editorElement.setAttribute("tabindex", disabled ? "-1" : "0");
+
+      if (ariaLabelledby)
+        editorElement.setAttribute("aria-labelledby", ariaLabelledby);
+      if (ariaDescribedby)
+        editorElement.setAttribute("aria-describedby", ariaDescribedby);
+      if (ariaRequired !== undefined)
+        editorElement.setAttribute("aria-required", ariaRequired.toString());
+      if (ariaInvalid !== undefined)
+        editorElement.setAttribute("aria-invalid", ariaInvalid.toString());
+      editorElement.setAttribute("aria-disabled", disabled.toString());
+      editorElement.setAttribute("aria-readonly", readOnly.toString());
+
+      // Fix CodeMirror's internal accessibility issues
+      // Use a more robust approach with MutationObserver to handle dynamic changes
+      const fixInternalAccessibility = () => {
+        // Find and fix all problematic elements
+        const contentElement = editorElement.querySelector(".cm-content");
+        if (contentElement) {
+          // Remove conflicting roles and attributes
+          contentElement.removeAttribute("role");
+          contentElement.removeAttribute("tabindex");
+          contentElement.removeAttribute("aria-label");
+          contentElement.removeAttribute("contenteditable");
+
+          // Ensure it's not focusable
+          contentElement.setAttribute("tabindex", "-1");
+        }
+
+        // Remove roles from any other elements that might have them
+        const elementsWithRole =
+          editorElement.querySelectorAll('[role="textbox"]');
+        elementsWithRole.forEach((element) => {
+          if (element !== editorElement) {
+            element.removeAttribute("role");
+          }
+        });
+
+        // Remove tabindex from internal elements
+        const focusableElements = editorElement.querySelectorAll(
+          '[tabindex]:not([tabindex="-1"])',
+        );
+        focusableElements.forEach((element) => {
+          if (element !== editorElement) {
+            element.setAttribute("tabindex", "-1");
+          }
+        });
+      };
+
+      // Apply fixes immediately
+      fixInternalAccessibility();
+
+      // Set up MutationObserver to handle dynamic changes
+      const observer = new MutationObserver(() => {
+        fixInternalAccessibility();
+      });
+
+      observer.observe(editorElement, {
+        childList: true,
+        subtree: true,
+        attributes: true,
+        attributeFilter: ["role", "tabindex", "aria-label", "contenteditable"],
+      });
+
       viewRef.current = view;
+      observerRef.current = observer;
 
       return () => {
         view.destroy();
         viewRef.current = null;
+        if (observerRef.current) {
+          observerRef.current.disconnect();
+          observerRef.current = null;
+        }
       };
     },
     [
@@ -238,29 +335,14 @@ export const CodeEditor = ({
 
   return (
     <div
-      className={cn(
-        "relative",
-        disabled && "pointer-events-none opacity-50",
-        className,
-      )}
+      className={cn("relative", disabled && "pointer-events-none opacity-50")}
       data-testid={dataTestId}
     >
       <div
         ref={editorRef}
-        role="textbox"
-        aria-multiline="true"
-        aria-label={ariaLabel || "Code editor"}
-        aria-labelledby={ariaLabelledby}
-        aria-describedby={ariaDescribedby}
-        aria-required={ariaRequired}
-        aria-invalid={ariaInvalid}
-        aria-disabled={disabled}
-        aria-readonly={readOnly}
-        tabIndex={disabled ? -1 : 0}
         className={cn(
           "min-h-[100px] w-full rounded-md border border-input bg-background text-sm",
-          isFocused && "ring-2 ring-ring ring-offset-2",
-          disabled && "cursor-not-allowed opacity-50",
+          className,
         )}
       />
     </div>
