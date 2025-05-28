@@ -2,7 +2,15 @@
 export * from "./components";
 
 // Layout components - using named exports to avoid conflicts
-export { AppShell, AuthShell, MinimalShell, WizardShell } from "./layout";
+export {
+  AppShell,
+  AuthShell,
+  MinimalShell,
+  WizardShell,
+  ErrorShell,
+  MainFixedLayout,
+  DataDenseLayout,
+} from "./layout";
 
 // Data components
 export * from "./data";
