@@ -1,6 +1,5 @@
 import React from "react";
-import { render, screen, waitFor, act } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { render, screen, act } from "@testing-library/react";
 import {
   vi,
   beforeEach,
@@ -38,7 +37,7 @@ beforeAll(() => {
         [Symbol.iterator]: function* () {
           yield this[0];
         },
-      }) as any,
+      }) as DOMRectList,
   );
 
   Range.prototype.getBoundingClientRect = vi.fn(() => ({
@@ -103,7 +102,7 @@ beforeAll(() => {
           y: 0,
           toJSON: () => ({}),
         })),
-      }) as any,
+      }) as Range,
   );
 });
 
