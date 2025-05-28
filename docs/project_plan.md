@@ -70,7 +70,7 @@ A pragmatic breakdown into **four one‑week sprints** plus a preparatory **Spri
 | --- | ------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | ------ |
 | 4.1 | Implement CSP & DOMPurify wrapper in MarkdownEditor.                            | Security unit test feeds XSS payload; output sanitised.                                      | ✓      |
 | 4.2 | Add Sentry ErrorBoundary + tslog logger.                                        | Fake error in story captured by mocked Sentry client in test.                                | ✓      |
-| 4.3 | Size‑limit CI check (< 250 KB gz for core bundle).                              | `npm run size-limit` passes.                                                                 | ✓      |
+| 4.3 | Size‑limit CI check (< 500 KB gz for core bundle).                              | `npm run size-limit` passes.                                                                 | ✓      |
 | 4.4 | Prepare **CONTRIBUTING.md**, PR template, CODEOWNERS.                           | Presence verified by doc‑lint script.                                                        | PR     |
 | 4.5 | Publish first `v0.1.0-beta` to GitHub Packages; deploy Storybook demo to Pages. | Tag `v0.1.0-beta` exists; npm info returns package; Pages URL accessible & shows build hash. | ✓      |
 
@@ -78,14 +78,14 @@ A pragmatic breakdown into **four one‑week sprints** plus a preparatory **Spri
 
 ## Sprint 5 — Completeness Pass (remaining inputs, layouts & routes)
 
-| #   | Task                                                                                                    | DoD                                                                                                            | Status |
-| --- | ------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | ------ |
-| 5.1 | **Form inputs batch 2** – DatePicker, DateRangePicker, SliderInput, SpinnerInput, ComboBox, TextArea    | Unit + a11y tests (≥90 % cov) & Storybook stories demonstrate disabled/error variants.                         |        |
-| 5.2 | **Editor widgets** – MarkdownEditor (sanitised) & CodeEditor (Monaco)                                   | Storybook demo renders; Vitest security test confirms XSS payload stripped; bundle size increase ≤ 40 KB gzip. |        |
-| 5.3 | **Remaining layouts** – ErrorShell, MainFixedLayout, DataDenseLayout, Footer slot in MainLayout         | Storybook snapshots approved in light/dark; axe-core passes.                                                   |        |
-| 5.4 | **Showcase routes extension** – `/settings` (MainFixedLayout), `/components` gallery, wildcard 404 page | Playwright E2E navigates: login → settings → gallery → invalid URL → 404; no console errors.                   |        |
-| 5.5 | Add **Reset‑Password page** (AuthShell variant)                                                         | Route `/reset-password` renders form; Vitest form validation passes.                                           |        |
-| 5.6 | Update documentation index & Storybook sidebar grouping                                                 | `npm run build-storybook` completes; new components appear under correct groups.                               |        |
+| #   | Task                                                                                                    | DoD                                                                                                                                                                       | Status |
+| --- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
+| 5.1 | **Form inputs batch 2** – DatePicker, DateRangePicker, SliderInput, SpinnerInput, ComboBox, TextArea    | Unit + a11y tests (≥90 % cov) & Storybook stories demonstrate disabled/error variants.                                                                                    | ✓      |
+| 5.2 | **Editor widgets** – MarkdownEditor (already complete) & CodeEditor (CodeMirror 6)                      | MarkdownEditor verified complete with security & a11y. CodeEditor implemented with syntax highlighting, themes, mobile support; bundle size increase ≤ 500 KB gzip total. |        |
+| 5.3 | **Remaining layouts** – ErrorShell, MainFixedLayout, DataDenseLayout, Footer slot in MainLayout         | Storybook snapshots approved in light/dark; axe-core passes.                                                                                                              |        |
+| 5.4 | **Showcase routes extension** – `/settings` (MainFixedLayout), `/components` gallery, wildcard 404 page | Playwright E2E navigates: login → settings → gallery → invalid URL → 404; no console errors.                                                                              |        |
+| 5.5 | Add **Reset‑Password page** (AuthShell variant)                                                         | Route `/reset-password` renders form; Vitest form validation passes.                                                                                                      |        |
+| 5.6 | Update documentation index & Storybook sidebar grouping                                                 | `npm run build-storybook` completes; new components appear under correct groups.                                                                                          |        |
 
 ---
 

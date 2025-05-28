@@ -10,6 +10,14 @@ const config: TestRunnerConfig = {
     // Get the story context so we can access parameters
     const storyContext = await getStoryContext(page, context);
 
+    // Skip entire test if explicitly disabled for a story
+    if (storyContext.parameters?.["test-runner"]?.skip) {
+      console.log(
+        `Skipping test for story ${context.id} due to test-runner skip parameter`,
+      );
+      return;
+    }
+
     // Skip a11y tests if explicitly disabled for a story
     if (storyContext.parameters?.a11y?.disable) {
       return;
@@ -42,6 +50,37 @@ const config: TestRunnerConfig = {
       // Log detailed violation information before re-throwing
       console.error(`Accessibility violations for story ${context.id}:`);
       console.error(`Error message: ${error.message}`);
+
+      // Get detailed violation information
+      try {
+        const results = await page.evaluate(async () => {
+          return await window.axe.run();
+        });
+
+        if (results.violations.length > 0) {
+          console.error("Detailed violations:");
+          results.violations.forEach((violation, index) => {
+            console.error(
+              `\n${index + 1}. ${violation.id}: ${violation.description}`,
+            );
+            console.error(`   Impact: ${violation.impact}`);
+            violation.nodes.forEach((node, nodeIndex) => {
+              console.error(`   Node ${nodeIndex + 1}:`);
+              console.error(`     Target: ${JSON.stringify(node.target)}`);
+              console.error(`     HTML: ${node.html}`);
+              if (node.failureSummary) {
+                console.error(`     Failure: ${node.failureSummary}`);
+              }
+            });
+          });
+        }
+      } catch (detailError) {
+        console.error(
+          "Could not get detailed violation info:",
+          detailError.message,
+        );
+      }
+
       throw error;
     }
   },
