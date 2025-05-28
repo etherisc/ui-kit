@@ -3,8 +3,7 @@ import { injectAxe, checkA11y } from "axe-playwright";
 import { getStoryContext } from "@storybook/test-runner";
 
 const config: TestRunnerConfig = {
-  async preVisit(page, context) {
-    console.log(`Testing story: ${context.id}`);
+  async preVisit(page) {
     await injectAxe(page);
   },
   async postVisit(page, context) {
@@ -26,8 +25,8 @@ const config: TestRunnerConfig = {
     }
 
     // Use the element specified in parameters or default to #storybook-root
-    // The selector #storybook-root is more reliable than #root
-    const element = storyContext.parameters?.a11y?.element || "#storybook-root";
+    // The selector #storybook-root is the default container for Storybook stories
+    const element = storyContext.parameters?.a11y?.element ?? "#storybook-root";
 
     // Run the accessibility tests
     try {
@@ -41,11 +40,8 @@ const config: TestRunnerConfig = {
       });
     } catch (error) {
       // Log detailed violation information before re-throwing
-      const violations = await page.evaluate(() => {
-        return window.axe.run();
-      });
       console.error(`Accessibility violations for story ${context.id}:`);
-      console.error(JSON.stringify(violations.violations, null, 2));
+      console.error(`Error message: ${error.message}`);
       throw error;
     }
   },

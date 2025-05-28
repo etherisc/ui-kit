@@ -16,15 +16,10 @@ describe("SliderInput", () => {
   it("renders with label", () => {
     render(<SliderInput label="Volume" id="volume-slider" value={30} />);
     const label = screen.getByText("Volume");
-    const sliderRoot = screen
-      .getByRole("slider")
-      .closest('[id="volume-slider"]');
+    const slider = screen.getByRole("slider");
 
     expect(label).toBeInTheDocument();
-    expect(sliderRoot).toHaveAttribute(
-      "aria-labelledby",
-      "volume-slider-label",
-    );
+    expect(slider).toHaveAttribute("aria-labelledby", "volume-slider-label");
   });
 
   it("renders with description", () => {
@@ -36,12 +31,10 @@ describe("SliderInput", () => {
       />,
     );
     const description = screen.getByText("Adjust the volume level");
-    const sliderRoot = screen
-      .getByRole("slider")
-      .closest('[id="volume-slider"]');
+    const slider = screen.getByRole("slider");
 
     expect(description).toBeInTheDocument();
-    expect(sliderRoot).toHaveAttribute(
+    expect(slider).toHaveAttribute(
       "aria-describedby",
       "volume-slider-description",
     );
@@ -52,16 +45,11 @@ describe("SliderInput", () => {
       <SliderInput error="Value is too high" id="volume-slider" value={30} />,
     );
     const error = screen.getByText("Value is too high");
-    const sliderRoot = screen
-      .getByRole("slider")
-      .closest('[id="volume-slider"]');
+    const slider = screen.getByRole("slider");
 
     expect(error).toBeInTheDocument();
-    expect(sliderRoot).toHaveAttribute("aria-invalid", "true");
-    expect(sliderRoot).toHaveAttribute(
-      "aria-describedby",
-      "volume-slider-error",
-    );
+    expect(slider).toHaveAttribute("aria-invalid", "true");
+    expect(slider).toHaveAttribute("aria-describedby", "volume-slider-error");
   });
 
   it("displays current value", () => {
@@ -157,9 +145,9 @@ describe("SliderInput", () => {
 
   it("handles error state with proper styling", () => {
     render(<SliderInput value={50} error="Invalid value" id="test-slider" />);
-    const sliderRoot = screen.getByRole("slider").closest('[id="test-slider"]');
+    const slider = screen.getByRole("slider");
 
-    expect(sliderRoot).toHaveAttribute("aria-invalid", "true");
+    expect(slider).toHaveAttribute("aria-invalid", "true");
     expect(screen.getByText("Invalid value")).toBeInTheDocument();
   });
 

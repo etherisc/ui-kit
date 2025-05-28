@@ -82,12 +82,12 @@ const SliderInput = React.forwardRef<
       <div className={cn("space-y-2", className)}>
         <div className="flex items-center justify-between">
           {label && (
-            <label
+            <span
               id={labelId}
               className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
             >
               {label}
-            </label>
+            </span>
           )}
           {showValue && (
             <span className="text-sm text-muted-foreground">
@@ -111,9 +111,12 @@ const SliderInput = React.forwardRef<
               "[&_[role=slider]]:border-destructive [&_[role=slider]]:focus-visible:ring-destructive",
             sliderClassName,
           )}
-          aria-labelledby={labelId}
-          aria-describedby={describedBy}
-          aria-invalid={error ? true : undefined}
+          thumbProps={{
+            "aria-labelledby": labelId,
+            "aria-label": !labelId ? "Slider input" : undefined,
+            "aria-describedby": describedBy,
+            "aria-invalid": error ? true : undefined,
+          }}
           {...props}
         />
 
