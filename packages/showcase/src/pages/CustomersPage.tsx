@@ -107,10 +107,17 @@ export function CustomersPage() {
       isActive: false,
     },
     {
+      id: "components",
+      label: "Components",
+      icon: <UsersIcon size={18} />,
+      href: "/components",
+      isActive: false,
+    },
+    {
       id: "settings",
       label: "Settings",
       icon: <SettingsIcon size={18} />,
-      href: "#",
+      href: "/settings",
       isActive: false,
     },
   ];

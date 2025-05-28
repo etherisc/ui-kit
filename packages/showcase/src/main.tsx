@@ -7,6 +7,9 @@ import "./index.css";
 import { LoginPage } from "./pages/LoginPage";
 import { DashboardPage } from "./pages/DashboardPage";
 import { CustomersPage } from "./pages/CustomersPage";
+import { SettingsPage } from "./pages/SettingsPage";
+import { ComponentsPage } from "./pages/ComponentsPage";
+import { NotFoundPage } from "./pages/NotFoundPage";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 
 // Set DaisyUI theme on HTML element
@@ -36,6 +39,26 @@ const router = createBrowserRouter([
         <CustomersPage />
       </ProtectedRoute>
     ),
+  },
+  {
+    path: "/settings",
+    element: (
+      <ProtectedRoute>
+        <SettingsPage />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/components",
+    element: (
+      <ProtectedRoute>
+        <ComponentsPage />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "*",
+    element: <NotFoundPage />,
   },
 ]);
 
