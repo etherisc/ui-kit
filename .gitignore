@@ -19,6 +19,7 @@ test-results
 
 # Temporary files
 tmp/
+*.tmp
 
 # Editor & OS
 .vscode/*
@@ -37,6 +38,10 @@ logs
 npm-debug.log*
 pnpm-debug.log* 
 *storybook.log
+test-output.log
+storybook-test-output.log
+workflow.log
+a11y-test-output*.log
 
 # Storybook build output
 storybook-static/
@@ -47,3 +52,6 @@ vendors/
 # DevContainer artifacts
 .devcontainer/.env
 .devcontainer/docker-compose.override.yml
+
+# Test files (temporary)
+test-lint.js
