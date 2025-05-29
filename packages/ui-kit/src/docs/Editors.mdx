@@ -1,0 +1,141 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Editors/Overview" />
+
+# ✏️ Editors
+
+Advanced text editing components for rich content creation and code editing.
+
+## Overview
+
+Editor components provide sophisticated text editing capabilities beyond basic input fields. They're designed for scenarios requiring syntax highlighting, rich formatting, or specialized content editing.
+
+## Components
+
+### Code Editing
+
+- **[CodeEditor](/docs/editors-codeeditor--docs)** - Syntax-highlighted code editor with multiple language support
+
+### Rich Text Editing
+
+- **[MarkdownEditor](/docs/editors-markdowneditor--docs)** - WYSIWYG markdown editor with live preview
+
+## Features
+
+### CodeEditor
+- **Syntax Highlighting** - Support for JavaScript, TypeScript, CSS, HTML, JSON, and Markdown
+- **Theme Support** - Light and dark themes
+- **Accessibility** - Full keyboard navigation and screen reader support
+- **Customizable** - Configurable height, line numbers, and wrapping
+- **Performance** - Optimized for large files and real-time editing
+
+### MarkdownEditor
+- **Live Preview** - Real-time markdown rendering
+- **Security** - XSS protection with content sanitization
+- **Accessibility** - ARIA labels and keyboard shortcuts
+- **Toggle Mode** - Switch between edit and preview modes
+
+## Usage Examples
+
+### Basic CodeEditor
+```tsx
+import { CodeEditor } from "@etherisc/ui-kit";
+
+function CodeExample() {
+  const [code, setCode] = useState('console.log("Hello, World!");');
+
+  return (
+    <CodeEditor
+      value={code}
+      onChange={setCode}
+      language="javascript"
+      theme="dark"
+      height="300px"
+    />
+  );
+}
+```
+
+### MarkdownEditor with Validation
+```tsx
+import { MarkdownEditor } from "@etherisc/ui-kit";
+
+function DocumentEditor() {
+  const [content, setContent] = useState("# Welcome\n\nStart writing...");
+
+  return (
+    <MarkdownEditor
+      value={content}
+      onChange={setContent}
+      placeholder="Enter markdown content..."
+      aria-label="Document editor"
+    />
+  );
+}
+```
+
+## Best Practices
+
+### Performance
+- Use appropriate height constraints for large content
+- Implement debounced onChange handlers for real-time features
+- Consider lazy loading for multiple editors on one page
+
+### Accessibility
+- Provide clear labels and descriptions
+- Ensure keyboard navigation works properly
+- Test with screen readers
+
+### User Experience
+- Provide clear visual feedback for different modes
+- Include helpful keyboard shortcuts
+- Show loading states for large content
+
+## Security Considerations
+
+### MarkdownEditor
+- Content is automatically sanitized to prevent XSS attacks
+- Script tags and event handlers are removed
+- Safe HTML elements and attributes are preserved
+
+### CodeEditor
+- Code content is treated as plain text
+- No automatic code execution
+- Safe for displaying user-generated code
+
+## Integration
+
+### Form Libraries
+Both editors work seamlessly with popular form libraries:
+
+```tsx
+// React Hook Form example
+import { useForm, Controller } from "react-hook-form";
+import { CodeEditor } from "@etherisc/ui-kit";
+
+function FormWithCodeEditor() {
+  const { control, handleSubmit } = useForm();
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Controller
+        name="code"
+        control={control}
+        render={({ field }) => (
+          <CodeEditor
+            value={field.value}
+            onChange={field.onChange}
+            language="javascript"
+          />
+        )}
+      />
+    </form>
+  );
+}
+```
+
+## Related Documentation
+
+- **[Form Controls](/docs/form-controls-overview--docs)** - Basic input components
+- **[Theme System](/docs/theme-system--docs)** - Customizing editor appearance
+- **[Accessibility Guidelines](/docs/accessibility--docs)** - Making editors accessible 

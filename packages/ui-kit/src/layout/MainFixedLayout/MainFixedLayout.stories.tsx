@@ -4,7 +4,7 @@ import { MainFixedLayout } from "./MainFixedLayout";
 import { Button } from "../../components/primitives/Button";
 
 const meta: Meta<typeof MainFixedLayout> = {
-  title: "Layout/MainFixedLayout",
+  title: "Layout/Content Layouts/MainFixedLayout",
   component: MainFixedLayout,
   parameters: {
     layout: "fullscreen",

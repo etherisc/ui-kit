@@ -4,7 +4,7 @@ import { useState } from "react";
 import { DateRangePicker, type DateRange } from "./DateRangePicker";
 
 const meta: Meta<typeof DateRangePicker> = {
-  title: "Components/Primitives/DateRangePicker",
+  title: "Form Controls/DateRangePicker",
   component: DateRangePicker,
   parameters: {
     layout: "centered",

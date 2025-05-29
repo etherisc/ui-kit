@@ -1,8 +1,9 @@
+import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { NavItem } from './NavItem';
 
 const meta = {
-    title: 'Layout/NavItem',
+    title: 'Layout/Navigation/NavItem',
     component: NavItem,
     tags: ['autodocs'],
     argTypes: {

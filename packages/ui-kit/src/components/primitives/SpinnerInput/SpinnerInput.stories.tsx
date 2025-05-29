@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { SpinnerInput } from "./SpinnerInput";
 
 const meta: Meta<typeof SpinnerInput> = {
-  title: "Primitives/SpinnerInput",
+  title: "Form Controls/SpinnerInput",
   component: SpinnerInput,
   parameters: {
     layout: "centered",

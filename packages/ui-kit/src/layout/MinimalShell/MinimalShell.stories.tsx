@@ -5,7 +5,7 @@ import { Logo } from '../../components/layout/Logo';
 import { AlertTriangleIcon, AlertCircleIcon, CheckCircleIcon } from 'lucide-react';
 
 const meta: Meta<typeof MinimalShell> = {
-    title: 'Layout/MinimalShell',
+    title: 'Layout/Shells/MinimalShell',
     component: MinimalShell,
     parameters: {
         layout: 'fullscreen',

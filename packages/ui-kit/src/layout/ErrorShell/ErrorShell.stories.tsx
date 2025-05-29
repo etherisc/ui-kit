@@ -4,7 +4,7 @@ import { ErrorShell } from "./ErrorShell";
 import { Button } from "../../components/primitives/Button";
 
 const meta: Meta<typeof ErrorShell> = {
-  title: "Layout/ErrorShell",
+  title: "Layout/Shells/ErrorShell",
   component: ErrorShell,
   parameters: {
     layout: "fullscreen",

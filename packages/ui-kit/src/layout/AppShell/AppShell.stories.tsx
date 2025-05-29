@@ -24,7 +24,7 @@ import type { NavItem } from "./SideNav";
 import type { BreadcrumbItem } from "./Breadcrumbs";
 
 const meta: Meta<typeof AppShell> = {
-  title: "Layout/AppShell/AppShell",
+  title: "Layout/Shells/AppShell",
   component: AppShell,
   parameters: {
     layout: "fullscreen",

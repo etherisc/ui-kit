@@ -4,7 +4,7 @@ import { Button } from '../../components/primitives/Button/Button';
 import { Logo } from '../../components/layout/Logo';
 
 const meta: Meta<typeof WizardShell> = {
-    title: 'Layout/WizardShell',
+    title: 'Layout/Shells/WizardShell',
     component: WizardShell,
     parameters: {
         layout: 'fullscreen',

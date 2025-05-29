@@ -9,7 +9,7 @@ const options = [
 ];
 
 const meta = {
-    title: 'Components/Form/RadioGroup',
+    title: 'Form Controls/RadioGroup',
     component: RadioGroup,
     args: {
         options,

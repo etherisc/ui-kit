@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { A11yFormExamples } from './A11yFormExamples';
 
 const meta = {
-    title: 'Form/AccessibleExamples',
+    title: 'Form Components/A11y Examples',
     component: A11yFormExamples,
     parameters: {
         layout: 'centered',

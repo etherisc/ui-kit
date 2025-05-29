@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { TextInput } from './TextInput';
 
 const meta = {
-    title: 'Components/TextInput',
+    title: 'Form Controls/TextInput',
     component: TextInput,
     args: {
         placeholder: 'Type here',

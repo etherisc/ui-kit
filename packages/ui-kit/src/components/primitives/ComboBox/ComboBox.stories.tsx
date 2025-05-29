@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { ComboBox, type ComboBoxOption } from "./ComboBox";
 
 const meta: Meta<typeof ComboBox> = {
-  title: "Primitives/ComboBox",
+  title: "Form Controls/ComboBox",
   component: ComboBox,
   parameters: {
     layout: "centered",

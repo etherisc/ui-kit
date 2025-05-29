@@ -4,7 +4,7 @@ import { useThemeMock } from '../../../hooks/useTheme.mock';
 
 // Simplify the stories by using our mock hook
 const meta: Meta<typeof ThemeToggle> = {
-    title: 'Components/Primitives/ThemeToggle',
+    title: 'Providers/ThemeToggle',
     component: ThemeToggle,
     tags: ['autodocs'],
     parameters: {

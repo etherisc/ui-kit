@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { MarkdownEditor } from "./MarkdownEditor";
 
 const meta: Meta<typeof MarkdownEditor> = {
-  title: "Primitives/MarkdownEditor",
+  title: "Editors/MarkdownEditor",
   component: MarkdownEditor,
   parameters: {
     layout: "padded",
