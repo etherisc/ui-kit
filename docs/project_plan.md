@@ -85,7 +85,7 @@ A pragmatic breakdown into **four one‑week sprints** plus a preparatory **Spri
 | 5.3 | **Remaining layouts** – ErrorShell, MainFixedLayout, DataDenseLayout, Footer slot in MainLayout         | Storybook snapshots approved in light/dark; axe-core passes.                                                                                                              | ✓      |
 | 5.4 | **Showcase routes extension** – `/settings` (MainFixedLayout), `/components` gallery, wildcard 404 page | Playwright E2E navigates: login → settings → gallery → invalid URL → 404; no console errors.                                                                              | ✓      |
 | 5.5 | Add **Reset‑Password page** (AuthShell variant)                                                         | Route `/reset-password` renders form; Vitest form validation passes.                                                                                                      | ✓      |
-| 5.6 | Update documentation index & Storybook sidebar grouping **PR**                                          | `npm run build-storybook` completes; new components appear under correct groups.                                                                                          | PR     |
+| 5.6 | Update documentation index & Storybook sidebar grouping **PR**                                          | `npm run build-storybook` completes; new components appear under correct groups.                                                                                          | ✓      |
 
 ---
 
