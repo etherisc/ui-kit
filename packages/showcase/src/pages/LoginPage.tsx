@@ -67,6 +67,16 @@ export function LoginPage() {
             {...register("password")}
           />
 
+          <div className="text-right">
+            <button
+              type="button"
+              onClick={() => navigate("/reset-password")}
+              className="text-sm text-primary hover:underline focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded"
+            >
+              Forgot Password?
+            </button>
+          </div>
+
           <Button type="submit" className="w-full" disabled={isLoading}>
             {isLoading ? "Signing in..." : "Sign In"}
           </Button>

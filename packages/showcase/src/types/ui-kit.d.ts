@@ -77,6 +77,10 @@ declare module "@etherisc/ui-kit" {
 
   export interface AuthShellProps {
     children: ReactNode;
+    logo?: ReactNode;
+    footer?: ReactNode;
+    className?: string;
+    width?: "sm" | "md" | "lg";
   }
 
   export interface ToastProviderProps {
