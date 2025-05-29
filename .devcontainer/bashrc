@@ -1,0 +1,136 @@
+# ~/.bashrc: executed by bash(1) for non-login shells.
+
+# If not running interactively, don't do anything
+case $- in
+    *i*) ;;
+      *) return;;
+esac
+
+# don't put duplicate lines or lines starting with space in the history.
+HISTCONTROL=ignoreboth
+
+# append to the history file, don't overwrite it
+shopt -s histappend
+
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+HISTSIZE=1000
+HISTFILESIZE=2000
+
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+# set variable identifying the chroot you work in (used in the prompt below)
+if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
+fi
+
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+# some more ls aliases
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+# UI Kit specific aliases
+alias pn='pnpm'
+alias pnr='pnpm run'
+alias pnd='pnpm run dev'
+alias pnb='pnpm run build'
+alias pnt='pnpm run test'
+alias pnl='pnpm run lint'
+alias pns='pnpm run seed'
+
+# Git aliases
+alias g='git'
+alias gs='git status'
+alias ga='git add'
+alias gc='git commit'
+alias gp='git push'
+alias gl='git pull'
+alias gco='git checkout'
+alias gb='git branch'
+alias gd='git diff'
+alias glog='git log --oneline --graph --decorate'
+
+# Development aliases
+alias dev='pnpm run dev'
+alias build='pnpm run build'
+alias test='pnpm run test'
+alias lint='pnpm run lint'
+alias format='pnpm run format'
+alias storybook='pnpm --filter @org/ui-kit run storybook'
+alias showcase='pnpm --filter @org/showcase run dev'
+alias e2e='pnpm --filter @org/showcase run test:e2e'
+alias seed='pnpm --filter @org/showcase run seed'
+
+# Playwright aliases
+alias pw='playwright'
+alias pwtest='playwright test'
+alias pwui='playwright test --ui'
+alias pwshow='playwright show-report'
+
+# Docker aliases
+alias dc='docker-compose'
+alias dcu='docker-compose up'
+alias dcd='docker-compose down'
+alias dcr='docker-compose restart'
+
+# Utility functions
+mkcd() {
+    mkdir -p "$1" && cd "$1"
+}
+
+# Find and kill process by port
+killport() {
+    if [ -z "$1" ]; then
+        echo "Usage: killport <port>"
+        return 1
+    fi
+    lsof -ti:$1 | xargs kill -9
+}
+
+# Quick project navigation
+alias ui='cd /workspace/packages/ui-kit'
+alias show='cd /workspace/packages/showcase'
+alias docs='cd /workspace/docs'
+alias root='cd /workspace'
+
+# Initialize starship prompt
+eval "$(starship init bash)"
+
+# Add pnpm to PATH if it exists
+if [ -d "/home/node/.local/share/pnpm" ]; then
+    export PNPM_HOME="/home/node/.local/share/pnpm"
+    export PATH="$PNPM_HOME:$PATH"
+fi
+
+# Node.js optimization
+export NODE_OPTIONS="--max-old-space-size=4096"
+
+# Welcome message
+echo "🚀 UI Kit Development Environment Ready!"
+echo "📦 pnpm version: $(pnpm --version)"
+echo "⬢ Node.js version: $(node --version)"
+echo "🎭 Playwright installed: $(playwright --version 2>/dev/null || echo 'Not found')"
+echo ""
+echo "Quick commands:"
+echo "  storybook - Start Storybook (UI Kit development)"
+echo "  showcase  - Start Showcase app development server"
+echo "  build     - Build all packages"
+echo "  test      - Run tests"
+echo "  e2e       - Run E2E tests"
+echo "  seed      - Seed database"
+echo "  ui        - Navigate to UI Kit package"
+echo "  show      - Navigate to Showcase package"
+echo "" 

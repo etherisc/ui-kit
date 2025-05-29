@@ -2,11 +2,12 @@ import js from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
+import uiKitRules from './packages/eslint-plugin-ui-kit-rules/index.js';
 
 export default [
     // global ignores – applied before other configs
     {
-        ignores: ['packages/ui-kit/dist/**', '**/node_modules/**', '**/storybook-static/**']
+        ignores: ['packages/ui-kit/dist/**', '**/node_modules/**', '**/storybook-static/**', 'vendors/**', 'packages/showcase/dist/**', '**/dist/**']
     },
     js.configs.recommended,
     ...tseslint.configs.recommended,
@@ -28,7 +29,8 @@ export default [
         },
         plugins: {
             'react-hooks': reactHooks,
-            'react-refresh': reactRefresh
+            'react-refresh': reactRefresh,
+            'ui-kit-rules': uiKitRules
         },
         rules: {
             'react-hooks/rules-of-hooks': 'error',
@@ -38,6 +40,8 @@ export default [
                 { allowConstantExport: true }
             ],
             '@typescript-eslint/no-require-imports': 'off',
+            // Custom rules
+            'ui-kit-rules/named-effect-with-cleanup': 'error'
             // 'no-undef': 'off' // Let's remove this for now and see if globals cover it.
         }
     }

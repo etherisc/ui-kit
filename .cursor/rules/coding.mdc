@@ -1,0 +1,58 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# General Coding rules
+
+- Before each step, pull/fetch the repo from remote.
+- Default branch is "develop".
+- Always follow the instructions in .cursor/rules
+- Make sure you understand docs/planning.md and docs/project_plan.md
+- Before starting coding, always present a plan for approval.
+- Tasks are in docs/project_plan.md
+- Each task will be implemented via a feature branch and a PR to the develop branch.
+
+# Recipe for implementing tasks
+Always follow the following recipe for implementing tasks: 
+1. Task planning:
+   1. Only start implementing a task after the user has explicitly told so.
+   2. Before starting coding, create a task planning document (.md) in the docs/task-planning folder.
+   3. The task planning document contains a table with three columns: tasks description, DoD (Definition of Done) and Status. Status is open, working, checking, review, complete. Initially all tasks are "open".
+      - Open = the task hasn't been worked on.
+      - Working = the task is currently being implemented.
+      - Checking = the DoD of the tasks are being checked.
+      - Review = the user is reviewing the result.
+      - complete = the user has approved the result and the task is complete.
+   4. After creating the task planning document, let the user review the doc.
+3. Task implementation: 
+   1. Do this only after the user has approved the task planning document.
+   2. Implement each task in the task-planning document one after the other.
+   3. After implementing a task, check the criteria for DoD and report the result to the user.
+   4. If DoD is not met, fix the problem until DoD is met.
+   5. Before and after each task, update each task in the table with the right status.
+   6. After finishing implementing, perform all necessary tests and check if the DoD for this task is met.
+   7. Report on test results and DoD criteria and ask user if a PR should be submitted.
+   8. If the user approves submitting a PR, and before PR is submitted, the task is marked with "PR" in docs/project_plan.md. 
+4. PR submission:
+   1. Do this only after the user approves submitting a PR.
+   2. Create a temporary markdown file in /tmp with the PR description. 
+   3. Submit the PR, using the temporary markdown file.
+   4. After PR ist submitted, report to the user and wait for manual instructions.
+   5. The user will then review and merge the PR or ask for updates.
+5. Post-PR cleanup:
+   1. Do this after the user confirms that the PR has been successfully merged.
+   2. Checkout develop and do `git pull` to update the branch with the merged PR.
+   3. After task is completed (PR merged), the task is marked with a checkmark in docs/project_plan.md. This change does not warrant a separate PR, it will be included in the next PR. Just do git add for the file, don't push it. Delete the feature branch locally and remotely.
+   
+# Instructions to handle error situations:
+- CI Pipeline fails:
+  1. List the last github actions and find out which actions failed.
+  2. Fetch the git actions log with `gh run view --log | cat`
+  3. Analyze the log and make a proposal how to fix it.
+  4. Let the user review / update the proposal, then execute the reviewed/updated proposal.
+- Linter errors:
+  1. Run `pnpm run lint`
+  2. Find the linter errors
+  3. Fix
+   

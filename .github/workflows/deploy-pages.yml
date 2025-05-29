@@ -1,0 +1,208 @@
+name: Deploy Storybook to Pages
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Environment to deploy"
+        required: true
+        default: "production"
+        type: choice
+        options:
+          - production
+          - staging
+  push:
+    branches:
+      - main
+      - develop
+    paths:
+      - "packages/ui-kit/**"
+      - ".github/workflows/deploy-pages.yml"
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 10
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Extract version and build info
+        id: build-info
+        run: |
+          # Get version from package.json or use branch name
+          if [ -f "packages/ui-kit/package.json" ]; then
+            VERSION=$(jq -r '.version' packages/ui-kit/package.json)
+          else
+            VERSION="dev-${GITHUB_REF_NAME}"
+          fi
+
+          # Get commit hash
+          HASH=$(git rev-parse HEAD | cut -c1-8)
+
+          # Set outputs
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
+          echo "hash=${HASH}" >> $GITHUB_OUTPUT
+          echo "timestamp=$(date -u +"%Y-%m-%dT%H:%M:%SZ")" >> $GITHUB_OUTPUT
+
+          echo "Building Storybook for version: ${VERSION}"
+          echo "Commit hash: ${HASH}"
+
+      - name: Build Storybook
+        run: |
+          cd packages/ui-kit
+          pnpm run build-storybook
+        env:
+          NODE_ENV: production
+
+      - name: Add build info to Storybook
+        run: |
+          cd packages/ui-kit
+
+          # Create build info script
+          cat > storybook-static/build-info.js << EOF
+          window.BUILD_INFO = {
+            version: '${{ steps.build-info.outputs.version }}',
+            hash: '${{ steps.build-info.outputs.hash }}',
+            timestamp: '${{ steps.build-info.outputs.timestamp }}',
+            branch: '${GITHUB_REF_NAME}',
+            environment: '${{ github.event.inputs.environment || 'production' }}',
+            repository: '${GITHUB_REPOSITORY}',
+            workflow: '${GITHUB_WORKFLOW}',
+            runId: '${GITHUB_RUN_ID}'
+          };
+
+          // Log build info to console
+          console.log('🚀 UI Kit Storybook Build Info:', window.BUILD_INFO);
+          EOF
+
+          # Inject build info script into index.html
+          sed -i 's|</head>|<script src="./build-info.js"></script></head>|' storybook-static/index.html
+
+          # Add a build info page
+          cat > storybook-static/build-info.html << EOF
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <title>Build Information - UI Kit Storybook</title>
+            <style>
+              body { font-family: system-ui, sans-serif; max-width: 800px; margin: 2rem auto; padding: 0 1rem; }
+              .info-card { background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 8px; padding: 1.5rem; margin: 1rem 0; }
+              .info-item { margin: 0.5rem 0; }
+              .label { font-weight: 600; color: #495057; }
+              .value { font-family: monospace; background: #e9ecef; padding: 0.25rem 0.5rem; border-radius: 4px; }
+              .back-link { display: inline-block; margin-top: 1rem; color: #007bff; text-decoration: none; }
+              .back-link:hover { text-decoration: underline; }
+            </style>
+          </head>
+          <body>
+            <h1>🚀 UI Kit Storybook - Build Information</h1>
+            
+            <div class="info-card">
+              <h2>Build Details</h2>
+              <div class="info-item">
+                <span class="label">Version:</span>
+                <span class="value">${{ steps.build-info.outputs.version }}</span>
+              </div>
+              <div class="info-item">
+                <span class="label">Commit Hash:</span>
+                <span class="value">${{ steps.build-info.outputs.hash }}</span>
+              </div>
+              <div class="info-item">
+                <span class="label">Build Time:</span>
+                <span class="value">${{ steps.build-info.outputs.timestamp }}</span>
+              </div>
+              <div class="info-item">
+                <span class="label">Branch:</span>
+                <span class="value">${GITHUB_REF_NAME}</span>
+              </div>
+              <div class="info-item">
+                <span class="label">Environment:</span>
+                <span class="value">${{ github.event.inputs.environment || 'production' }}</span>
+              </div>
+            </div>
+            
+            <div class="info-card">
+              <h2>Repository Information</h2>
+              <div class="info-item">
+                <span class="label">Repository:</span>
+                <span class="value">${GITHUB_REPOSITORY}</span>
+              </div>
+              <div class="info-item">
+                <span class="label">Workflow:</span>
+                <span class="value">${GITHUB_WORKFLOW}</span>
+              </div>
+              <div class="info-item">
+                <span class="label">Run ID:</span>
+                <span class="value">${GITHUB_RUN_ID}</span>
+              </div>
+            </div>
+            
+            <a href="./" class="back-link">← Back to Storybook</a>
+            
+            <script src="./build-info.js"></script>
+          </body>
+          </html>
+          EOF
+
+          echo "✅ Build info added to Storybook"
+          echo "📁 Storybook static files:"
+          ls -la storybook-static/ | head -10
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload to GitHub Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: packages/ui-kit/storybook-static
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Summary
+        run: |
+          echo "## 🚀 Storybook Deployment Successful!" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 📋 Build Information" >> $GITHUB_STEP_SUMMARY
+          echo "- **Version:** \`${{ steps.build-info.outputs.version }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **Commit:** \`${{ steps.build-info.outputs.hash }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **Branch:** \`${GITHUB_REF_NAME}\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **Environment:** \`${{ github.event.inputs.environment || 'production' }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **Build Time:** \`${{ steps.build-info.outputs.timestamp }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 🔗 Links" >> $GITHUB_STEP_SUMMARY
+          echo "- **Storybook:** ${{ steps.deployment.outputs.page_url }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Build Info:** ${{ steps.deployment.outputs.page_url }}build-info.html" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 📦 Package Information" >> $GITHUB_STEP_SUMMARY
+          echo "- **NPM Package:** \`@etherisc/ui-kit@${{ steps.build-info.outputs.version }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **Registry:** \`https://npm.pkg.github.com\`" >> $GITHUB_STEP_SUMMARY

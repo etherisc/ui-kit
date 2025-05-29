@@ -1,0 +1,192 @@
+import { Meta } from "@storybook/blocks";
+import { EtheriscLogo } from "./components/brand/EtheriscLogo";
+
+<Meta title="Welcome" />
+
+<div
+  style={{
+    display: "flex",
+    alignItems: "center",
+    gap: "1rem",
+    marginBottom: "2rem",
+  }}
+>
+  <EtheriscLogo size="xl" />
+</div>
+
+# 🚀 Etherisc UI Kit
+
+Welcome to the **Etherisc UI Kit** - a comprehensive React component library built with modern web standards and accessibility in mind.
+
+## 📦 Installation
+
+Install the UI Kit in your project:
+
+```bash
+npm install @etherisc/ui-kit
+```
+
+Or with pnpm:
+
+```bash
+pnpm add @etherisc/ui-kit
+```
+
+## 🎯 Quick Start
+
+```tsx
+import { Button, ThemeProvider } from "@etherisc/ui-kit";
+import "@etherisc/ui-kit/dist/style.css";
+
+function App() {
+  return (
+    <ThemeProvider>
+      <Button variant="primary">Hello Etherisc!</Button>
+    </ThemeProvider>
+  );
+}
+```
+
+## 🧩 Component Categories
+
+### 🧱 **Form Controls**
+
+Essential form input components:
+
+- **Button** - Various button styles and states
+- **TextInput** - Text input with validation
+- **NumberInput** - Numeric input with constraints
+- **TextArea** - Multi-line text input
+- **Select** - Dropdown selection component
+- **ComboBox** - Searchable dropdown with autocomplete
+- **Checkbox** - Accessible checkbox components
+- **RadioGroup** - Radio button groups
+- **SliderInput** - Range slider input
+- **SpinnerInput** - Numeric spinner input
+- **DatePicker** - Date selection component
+- **DateRangePicker** - Date range selection
+
+### ✏️ **Editors**
+
+Advanced text editing components:
+
+- **CodeEditor** - Syntax-highlighted code editor
+- **MarkdownEditor** - WYSIWYG markdown editor
+
+### 🏗️ **Layout**
+
+Structure your application with organized layout components:
+
+#### **Shells**
+- **AppShell** - Complete application layout
+- **AuthShell** - Authentication page layouts
+- **WizardShell** - Multi-step wizard layouts
+- **MinimalShell** - Minimal page layouts
+- **ErrorShell** - Error page layouts
+
+#### **Content Layouts**
+- **MainFixedLayout** - Fixed-width main content layout
+- **DataDenseLayout** - Dense data presentation layout
+- **ContentWrapper** - Content area management
+
+#### **Navigation**
+- **TopBar** - Application top navigation
+- **SideNav** - Sidebar navigation
+- **NavItem** - Individual navigation items
+- **Breadcrumbs** - Navigation breadcrumbs
+- **HeaderActionIcon** - Header action buttons
+
+### 🎨 **Feedback**
+
+User feedback and status components:
+
+- **Toast** - Notification toast messages
+- **StatusBadge** - Status indicator badges
+
+### 📊 **Data Display**
+
+Components for displaying structured data:
+
+- **DataTable** - Feature-rich data tables
+
+### 🔧 **Form Components**
+
+Complete form building patterns:
+
+- **Form Examples** - Comprehensive form patterns
+- **A11y Examples** - Accessibility-focused examples
+
+### 🛡️ **Providers**
+
+Context providers for global functionality:
+
+- **ErrorBoundary** - Error handling and recovery
+- **ThemeProvider** - Theme and dark mode management
+- **ThemeToggle** - Dark/light mode switcher
+
+### 🎯 **Brand**
+
+Official Etherisc branding elements:
+
+- **Logo** - Generic logo component
+- **EtheriscLogo** - Official Etherisc logo with multiple variants
+
+### 📝 **Examples**
+
+Demonstration and example components:
+
+- **A11yButton** - Accessibility demonstration
+- **Component Gallery** - Showcase of all components
+
+## ✨ Key Features
+
+- **🎨 Modern Design System** - Built with Tailwind CSS and DaisyUI
+- **♿ Accessibility First** - WCAG 2.1 AA compliant components
+- **🌙 Dark Mode Support** - Seamless theme switching
+- **📱 Responsive Design** - Mobile-first approach
+- **🔧 TypeScript** - Full type safety and IntelliSense
+- **📚 Comprehensive Documentation** - Detailed examples and API docs
+- **🧪 Thoroughly Tested** - Unit tests and accessibility testing
+- **📦 Tree Shakeable** - Import only what you need
+
+## 🎨 Design Tokens
+
+The UI Kit uses a consistent design system with:
+
+- **Colors** - Primary, secondary, accent, and semantic colors
+- **Typography** - Consistent font scales and weights
+- **Spacing** - Harmonious spacing scale
+- **Shadows** - Subtle depth and elevation
+- **Border Radius** - Consistent corner rounding
+
+## 🔍 Explore Components
+
+Use the sidebar to explore all available components. Each component includes:
+
+- **📖 Documentation** - Usage guidelines and best practices
+- **🎮 Interactive Examples** - Live component playground
+- **⚙️ Props API** - Complete property documentation
+- **♿ Accessibility Notes** - ARIA patterns and keyboard navigation
+
+## 🚀 Getting Started
+
+1. **Browse Components** - Explore the component library in the sidebar
+2. **Read Documentation** - Check the "Docs" tab for each component
+3. **Try Examples** - Interact with components in the "Canvas" tab
+4. **Copy Code** - Use the code examples in your project
+
+## 📚 Additional Resources
+
+- **GitHub Repository** - [etherisc/ui-kit](https://github.com/etherisc/ui-kit)
+- **NPM Package** - [@etherisc/ui-kit](https://www.npmjs.com/package/@etherisc/ui-kit)
+- **Build Information** - [Build Details](/build-info.html)
+
+## 🤝 Contributing
+
+We welcome contributions! Please see our contributing guidelines in the repository.
+
+---
+
+**Version:** {window.BUILD_INFO?.version || '0.1.0-beta'} | **Build:** {window.BUILD_INFO?.hash || 'latest'}
+
+Built with ❤️ by the Etherisc team

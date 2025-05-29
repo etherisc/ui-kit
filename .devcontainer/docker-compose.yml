@@ -1,0 +1,62 @@
+services:
+  ui-kit-dev:
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+      args:
+        # Use Node 20 LTS
+        NODE_VERSION: "20"
+        # Install pnpm globally
+        INSTALL_PNPM: "true"
+        # User configuration
+        USER_UID: 1000
+        USER_GID: 1000
+    
+    volumes:
+      # Mount the workspace
+      - ..:/workspace:cached
+      
+      # Persist node_modules for better performance
+      - ui-kit-node-modules:/workspace/node_modules
+      - ui-kit-showcase-node-modules:/workspace/packages/showcase/node_modules
+      - ui-kit-ui-kit-node-modules:/workspace/packages/ui-kit/node_modules
+      
+      # Persist pnpm store
+      - pnpm-store:/home/node/.local/share/pnpm
+      
+      # Persist git config and SSH keys (optional)
+      # - ~/.gitconfig:/home/node/.gitconfig:ro
+      # - ~/.ssh:/home/node/.ssh:ro
+      
+      # Persist bash history
+      - bash-history:/home/node/.bash_history
+      
+      # Persist Playwright browsers
+      - playwright-browsers:/home/node/.cache/ms-playwright
+
+    # Forward ports for development
+    ports:
+      - "3000:3000"   # Storybook
+      - "5173:5173"   # Vite dev server
+      - "4173:4173"   # Vite preview
+      - "8080:8080"   # API server
+      - "9323:9323"   # Playwright UI mode
+
+    # Keep container running
+    command: sleep infinity
+    
+    # Environment variables
+    environment:
+      - NODE_ENV=development
+      - PLAYWRIGHT_BROWSERS_PATH=/home/node/.cache/ms-playwright
+
+    # Use init to handle signals properly
+    init: true
+
+volumes:
+  ui-kit-node-modules:
+  ui-kit-showcase-node-modules:
+  ui-kit-ui-kit-node-modules:
+  pnpm-store:
+  bash-history:
+  playwright-browsers: 

@@ -1,0 +1,31 @@
+name: Accessibility Tests
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  a11y-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 10
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+      
+      - name: Install dependencies
+        run: pnpm install
+      
+      - name: Install Playwright browsers
+        run: cd packages/ui-kit && npx playwright install --with-deps
+      
+      - name: Run accessibility tests with Storybook
+        run: cd packages/ui-kit && pnpm test-storybook:ci
+        env:
+          CI: true 

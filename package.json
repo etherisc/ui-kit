@@ -2,13 +2,16 @@
   "name": "ui-kit-monorepo",
   "private": true,
   "type": "module",
+  "license": "Apache-2.0",
   "workspaces": [
     "packages/*"
   ],
   "scripts": {
     "build": "pnpm -r build",
-    "dev": "pnpm --filter @org/ui-kit dev",
+    "dev": "pnpm --filter @etherisc/ui-kit dev",
     "test": "pnpm -r test",
+    "test:a11y": "cd packages/ui-kit && pnpm run test-storybook:ci",
+    "test:a11y:specific": "cd packages/ui-kit && pnpm run test-storybook:specific",
     "lint": "pnpm -r lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "prepare": "husky install"
@@ -17,8 +20,10 @@
     "@changesets/cli": "^2.29.4",
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
+    "@eslint/js": "^9.27.0",
     "@storybook/addon-a11y": "8.6.14",
     "@storybook/addon-docs": "8.6.14",
+    "@storybook/addon-toolbars": "^8.6.14",
     "@storybook/builder-vite": "8.6.14",
     "@storybook/react": "8.6.14",
     "@storybook/react-vite": "8.6.14",
@@ -34,7 +39,6 @@
     "eslint": "^9.27.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
-    "@eslint/js": "^9.27.0",
     "husky": "^8.0.0",
     "lint-staged": "^16.0.0",
     "postcss": "^8.4.35",
@@ -46,6 +50,12 @@
     "vitest": "^3.1.3"
   },
   "dependencies": {
+    "@radix-ui/react-checkbox": "^1.3.1",
+    "@radix-ui/react-radio-group": "^1.3.6",
+    "@radix-ui/react-select": "^2.2.4",
+    "@tanstack/react-table": "^8.21.3",
+    "lucide-react": "^0.511.0",
+    "nanoid": "^5.1.5",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },

@@ -1,0 +1,434 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Brand/Overview" />
+
+# 🎯 Brand
+
+Brand identity components for consistent visual representation and logo management across applications.
+
+## Overview
+
+Brand components ensure consistent visual identity and branding across your applications. They provide flexible, accessible logo implementations that work across different contexts while maintaining brand guidelines and visual consistency.
+
+## Components
+
+### Logo Components
+
+- **[Logo](/docs/brand-logo--docs)** - Generic logo component with text and image support
+- **[EtheriscLogo](/docs/brand-etherisclogo--docs)** - Etherisc-specific brand logo implementation
+
+## Key Features
+
+### Logo Management
+- **Flexible Display** - Support for text, image, or combined logo formats
+- **Responsive Design** - Scales appropriately across different screen sizes
+- **Accessibility** - Proper alt text and ARIA labels for screen readers
+- **Click Handling** - Optional click handlers for navigation
+- **Theming Support** - Adapts to light/dark themes automatically
+
+### Brand Consistency
+- **Style Guidelines** - Follows established brand guidelines
+- **Color Management** - Consistent color usage across themes
+- **Typography** - Brand-appropriate font choices and weights
+- **Spacing** - Consistent spacing and proportions
+- **Asset Management** - Centralized logo asset handling
+
+### Technical Features
+- **Performance** - Optimized loading and rendering
+- **Fallback Support** - Graceful fallbacks when images fail
+- **Format Support** - Multiple image formats (SVG, PNG, JPG, WebP)
+- **Lazy Loading** - Optional lazy loading for performance
+- **Preloading** - Strategic preloading of critical brand assets
+
+## Usage Examples
+
+### Basic Logo Usage
+```tsx
+import { Logo } from "@etherisc/ui-kit";
+
+function Header() {
+  return (
+    <header>
+      <Logo
+        text="My Company"
+        src="/assets/logo.svg"
+        alt="My Company Logo"
+        onClick={() => window.location.href = "/"}
+      />
+    </header>
+  );
+}
+```
+
+### Text-Only Logo
+```tsx
+import { Logo } from "@etherisc/ui-kit";
+
+function SimpleHeader() {
+  return (
+    <Logo
+      text="Brand Name"
+      className="text-2xl font-bold"
+      onClick={() => navigate("/")}
+    />
+  );
+}
+```
+
+### Image-Only Logo
+```tsx
+import { Logo } from "@etherisc/ui-kit";
+
+function ImageLogo() {
+  return (
+    <Logo
+      src="/assets/logo.svg"
+      alt="Company Logo"
+      width={120}
+      height={40}
+      onClick={() => navigate("/")}
+    />
+  );
+}
+```
+
+### Responsive Logo
+```tsx
+import { Logo } from "@etherisc/ui-kit";
+
+function ResponsiveLogo() {
+  return (
+    <Logo
+      text="Company Name"
+      src="/assets/logo.svg"
+      alt="Company Logo"
+      className="w-auto h-8 md:h-10 lg:h-12"
+      responsive={true}
+    />
+  );
+}
+```
+
+### Etherisc Brand Logo
+```tsx
+import { EtheriscLogo } from "@etherisc/ui-kit";
+
+function EtheriscHeader() {
+  return (
+    <header className="border-b">
+      <div className="container mx-auto px-4 py-3">
+        <EtheriscLogo
+          variant="full" // "full" | "icon" | "text"
+          size="medium"  // "small" | "medium" | "large"
+          onClick={() => navigate("/")}
+        />
+      </div>
+    </header>
+  );
+}
+```
+
+### Logo with Loading State
+```tsx
+import { Logo } from "@etherisc/ui-kit";
+import { useState } from "react";
+
+function LogoWithLoading() {
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageError, setImageError] = useState(false);
+
+  return (
+    <Logo
+      text="Company"
+      src="/assets/logo.svg"
+      alt="Company Logo"
+      onLoad={() => setImageLoaded(true)}
+      onError={() => setImageError(true)}
+      className={`transition-opacity ${imageLoaded ? 'opacity-100' : 'opacity-50'}`}
+      fallback={imageError ? <span>Company</span> : undefined}
+    />
+  );
+}
+```
+
+## Design Guidelines
+
+### Logo Principles
+- **Clarity** - Logos should be clear and readable at all sizes
+- **Consistency** - Use consistent proportions and spacing
+- **Accessibility** - Ensure adequate contrast and alt text
+- **Scalability** - Design for various sizes and contexts
+- **Context Awareness** - Adapt appropriately to different backgrounds
+
+### Usage Guidelines
+- **Clear Space** - Maintain adequate spacing around logos
+- **Minimum Size** - Respect minimum size requirements for readability
+- **Color Variations** - Provide appropriate color variations for different backgrounds
+- **Placement** - Follow consistent placement patterns
+- **Proportion** - Maintain aspect ratios and proportional relationships
+
+### Brand Compliance
+- **Asset Usage** - Use approved brand assets only
+- **Color Accuracy** - Maintain brand color fidelity
+- **Typography** - Use brand-approved fonts and weights
+- **Modification** - Avoid unauthorized modifications
+- **Context Appropriateness** - Use appropriate variants for context
+
+## Implementation Patterns
+
+### Navigation Integration
+```tsx
+import { Logo, TopBar } from "@etherisc/ui-kit";
+
+function ApplicationHeader() {
+  return (
+    <TopBar
+      logo={
+        <Logo
+          text="My App"
+          src="/logo.svg"
+          alt="My App Logo"
+          onClick={() => navigate("/")}
+        />
+      }
+      navigationItems={<Navigation />}
+      userActions={<UserMenu />}
+    />
+  );
+}
+```
+
+### Authentication Pages
+```tsx
+import { Logo, AuthShell } from "@etherisc/ui-kit";
+
+function LoginPage() {
+  return (
+    <AuthShell
+      logo={
+        <Logo
+          text="My Company"
+          src="/logo.svg"
+          alt="My Company"
+          className="mb-8"
+        />
+      }
+    >
+      <LoginForm />
+    </AuthShell>
+  );
+}
+```
+
+### Footer Usage
+```tsx
+import { Logo } from "@etherisc/ui-kit";
+
+function Footer() {
+  return (
+    <footer className="bg-gray-100 py-8">
+      <div className="container mx-auto px-4">
+        <div className="flex items-center justify-between">
+          <Logo
+            text="Company"
+            src="/logo.svg"
+            alt="Company Logo"
+            size="small"
+          />
+          <p className="text-sm text-gray-600">
+            © 2024 Company Name. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+  );
+}
+```
+
+### Multi-Brand Support
+```tsx
+import { Logo } from "@etherisc/ui-kit";
+
+interface BrandConfig {
+  name: string;
+  logo: string;
+  colors: {
+    primary: string;
+    secondary: string;
+  };
+}
+
+function MultiBrandLogo({ brand }: { brand: BrandConfig }) {
+  return (
+    <Logo
+      text={brand.name}
+      src={brand.logo}
+      alt={`${brand.name} Logo`}
+      style={{
+        '--logo-primary': brand.colors.primary,
+        '--logo-secondary': brand.colors.secondary,
+      }}
+    />
+  );
+}
+```
+
+## Accessibility Features
+
+### Screen Reader Support
+```tsx
+<Logo
+  text="Company Name"
+  src="/logo.svg"
+  alt="Company Name - Home page"
+  aria-label="Company Name, click to return to homepage"
+  role="img"
+/>
+```
+
+### Keyboard Navigation
+```tsx
+<Logo
+  text="Company"
+  src="/logo.svg"
+  alt="Company Logo"
+  onClick={() => navigate("/")}
+  onKeyDown={(e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      navigate("/");
+    }
+  }}
+  tabIndex={0}
+/>
+```
+
+### High Contrast Support
+```tsx
+<Logo
+  text="Company"
+  src="/logo.svg"
+  alt="Company Logo"
+  className="high-contrast:filter-none"
+  highContrastSrc="/logo-high-contrast.svg"
+/>
+```
+
+## Performance Optimization
+
+### Image Optimization
+```tsx
+import { Logo } from "@etherisc/ui-kit";
+
+function OptimizedLogo() {
+  return (
+    <Logo
+      text="Company"
+      src="/logo.svg"
+      alt="Company Logo"
+      // Preload critical logo
+      preload={true}
+      // Lazy load non-critical logos
+      loading="lazy"
+      // Provide multiple formats
+      srcSet="/logo.svg, /logo.webp, /logo.png"
+      // Optimize for different densities
+      sizes="(max-width: 768px) 100px, 150px"
+    />
+  );
+}
+```
+
+### Asset Management
+```tsx
+// Centralized logo asset management
+const logoAssets = {
+  main: {
+    svg: "/assets/logo.svg",
+    png: "/assets/logo.png",
+    webp: "/assets/logo.webp",
+  },
+  icon: {
+    svg: "/assets/icon.svg",
+    png: "/assets/icon.png",
+  },
+  wordmark: {
+    svg: "/assets/wordmark.svg",
+    png: "/assets/wordmark.png",
+  },
+};
+
+function SmartLogo({ variant = "main", format = "svg" }) {
+  const src = logoAssets[variant]?.[format];
+  
+  return (
+    <Logo
+      src={src}
+      alt="Company Logo"
+      fallback={<span>Company</span>}
+    />
+  );
+}
+```
+
+## Testing Brand Components
+
+### Visual Testing
+```tsx
+import { render, screen } from "@testing-library/react";
+import { Logo } from "@etherisc/ui-kit";
+
+test("renders logo with text and image", () => {
+  render(
+    <Logo
+      text="Test Company"
+      src="/test-logo.svg"
+      alt="Test Company Logo"
+    />
+  );
+
+  expect(screen.getByText("Test Company")).toBeInTheDocument();
+  expect(screen.getByAltText("Test Company Logo")).toBeInTheDocument();
+});
+
+test("handles image load error gracefully", () => {
+  render(
+    <Logo
+      text="Test Company"
+      src="/nonexistent-logo.svg"
+      alt="Test Company Logo"
+    />
+  );
+
+  const img = screen.getByAltText("Test Company Logo");
+  fireEvent.error(img);
+
+  // Should still show text fallback
+  expect(screen.getByText("Test Company")).toBeInTheDocument();
+});
+```
+
+### Accessibility Testing
+```tsx
+test("logo is accessible", () => {
+  render(
+    <Logo
+      text="Company"
+      src="/logo.svg"
+      alt="Company Logo"
+      onClick={() => {}}
+    />
+  );
+
+  const logo = screen.getByRole("button");
+  expect(logo).toHaveAttribute("aria-label");
+  expect(logo).toBeInTheDocument();
+});
+```
+
+## Related Documentation
+
+- **[Layout](/docs/layout-overview--docs)** - Layout components that use brand elements
+- **[Theme System](/docs/theming--docs)** - How branding adapts to themes
+- **[Design System](/docs/design-system--docs)** - Overall design guidelines
+- **[Assets Management](/docs/assets--docs)** - Managing brand assets efficiently 

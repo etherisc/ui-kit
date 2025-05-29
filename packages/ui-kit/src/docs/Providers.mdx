@@ -1,0 +1,448 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Providers/Overview" />
+
+# 🛡️ Providers
+
+Context providers and system-level components that manage application-wide state and behavior.
+
+## Overview
+
+Providers are foundational components that wrap your application to provide essential functionality like error handling, theming, internationalization, and other cross-cutting concerns. They ensure consistent behavior and state management across your entire application.
+
+## Components
+
+### Error Management
+
+- **[ErrorBoundary](/docs/providers-errorboundary--docs)** - React error boundary for graceful error handling and recovery
+
+### Theme System
+
+- **[ThemeProvider](/docs/providers-themeprovider--docs)** - Manages light/dark theme state and CSS custom properties
+- **[ThemeToggle](/docs/providers-themetoggle--docs)** - Interactive component for theme switching
+
+### Additional Providers
+
+- **I18nProvider** - Internationalization and localization support
+- **ToastProvider** - Global toast notification management
+- **AuthProvider** - Authentication state management
+
+## Key Features
+
+### Error Boundary
+- **Error Catching** - Catches JavaScript errors anywhere in the component tree
+- **Fallback UI** - Displays custom error fallback components
+- **Error Reporting** - Integrates with error reporting services (Sentry, etc.)
+- **Recovery Options** - Provides ways for users to recover from errors
+- **Development Mode** - Enhanced error display for development
+
+### Theme Management
+- **Theme Persistence** - Remembers user theme preference across sessions
+- **System Theme Detection** - Respects user's OS theme preference
+- **CSS Custom Properties** - Dynamic theme switching via CSS variables
+- **Component Integration** - All components automatically respect theme changes
+- **Dark Mode Support** - Full dark mode implementation
+
+### Internationalization
+- **Multi-language Support** - Support for multiple languages and locales
+- **Dynamic Loading** - Load translations on demand
+- **Pluralization** - Handle plural forms correctly
+- **Date/Time Formatting** - Locale-aware date and time formatting
+- **Number Formatting** - Currency and number formatting per locale
+
+## Usage Examples
+
+### Basic Provider Setup
+```tsx
+import {
+  ThemeProvider,
+  ErrorBoundary,
+  I18nProvider,
+  ToastProvider
+} from "@etherisc/ui-kit";
+
+function App() {
+  return (
+    <ErrorBoundary>
+      <ThemeProvider>
+        <I18nProvider>
+          <ToastProvider>
+            <YourApp />
+          </ToastProvider>
+        </I18nProvider>
+      </ThemeProvider>
+    </ErrorBoundary>
+  );
+}
+```
+
+### Advanced Error Boundary Configuration
+```tsx
+import { ErrorBoundary } from "@etherisc/ui-kit";
+
+function App() {
+  const handleError = (error: Error, errorInfo: React.ErrorInfo) => {
+    // Log to error reporting service
+    console.error("Application error:", error, errorInfo);
+    
+    // Report to Sentry, LogRocket, etc.
+    if (process.env.NODE_ENV === "production") {
+      Sentry.captureException(error, {
+        contexts: {
+          react: {
+            componentStack: errorInfo.componentStack,
+          },
+        },
+      });
+    }
+  };
+
+  const ErrorFallback = ({ error, retry }: { error: Error; retry: () => void }) => (
+    <div className="error-boundary">
+      <h1>Something went wrong</h1>
+      <details>
+        <summary>Error details</summary>
+        <pre>{error.message}</pre>
+      </details>
+      <button onClick={retry}>Try again</button>
+    </div>
+  );
+
+  return (
+    <ErrorBoundary
+      onError={handleError}
+      fallback={ErrorFallback}
+      isolate={true}
+    >
+      <App />
+    </ErrorBoundary>
+  );
+}
+```
+
+### Theme Provider with Custom Configuration
+```tsx
+import { ThemeProvider } from "@etherisc/ui-kit";
+
+function App() {
+  return (
+    <ThemeProvider
+      defaultTheme="system" // "light" | "dark" | "system"
+      storageKey="ui-theme"
+      enableTransitions={true}
+      respectMotionPreference={true}
+    >
+      <YourApp />
+      
+      {/* Theme toggle can be used anywhere in the tree */}
+      <ThemeToggle />
+    </ThemeProvider>
+  );
+}
+```
+
+### Custom Theme Toggle
+```tsx
+import { useTheme } from "@etherisc/ui-kit";
+
+function CustomThemeToggle() {
+  const { theme, setTheme, systemTheme } = useTheme();
+
+  return (
+    <div className="theme-selector">
+      <button
+        onClick={() => setTheme("light")}
+        className={theme === "light" ? "active" : ""}
+      >
+        Light
+      </button>
+      <button
+        onClick={() => setTheme("dark")}
+        className={theme === "dark" ? "active" : ""}
+      >
+        Dark
+      </button>
+      <button
+        onClick={() => setTheme("system")}
+        className={theme === "system" ? "active" : ""}
+      >
+        System ({systemTheme})
+      </button>
+    </div>
+  );
+}
+```
+
+### Internationalization Setup
+```tsx
+import { I18nProvider } from "@etherisc/ui-kit";
+
+const resources = {
+  en: {
+    translation: {
+      welcome: "Welcome",
+      button: {
+        submit: "Submit",
+        cancel: "Cancel",
+      },
+    },
+  },
+  de: {
+    translation: {
+      welcome: "Willkommen",
+      button: {
+        submit: "Senden",
+        cancel: "Abbrechen",
+      },
+    },
+  },
+};
+
+function App() {
+  return (
+    <I18nProvider
+      resources={resources}
+      defaultLanguage="en"
+      fallbackLanguage="en"
+      detectBrowserLanguage={true}
+    >
+      <YourApp />
+    </I18nProvider>
+  );
+}
+
+// Usage in components
+function MyComponent() {
+  const { t, i18n } = useTranslation();
+
+  return (
+    <div>
+      <h1>{t("welcome")}</h1>
+      <button onClick={() => i18n.changeLanguage("de")}>
+        Deutsch
+      </button>
+    </div>
+  );
+}
+```
+
+## Provider Composition Patterns
+
+### HOC Pattern
+```tsx
+import { withErrorBoundary } from "@etherisc/ui-kit";
+
+const SafeComponent = withErrorBoundary(MyComponent, {
+  fallback: ({ error, retry }) => (
+    <div>
+      <p>Error in MyComponent: {error.message}</p>
+      <button onClick={retry}>Retry</button>
+    </div>
+  ),
+  onError: (error) => console.error(error),
+});
+```
+
+### Hook-based Usage
+```tsx
+import { useTheme, useErrorHandler } from "@etherisc/ui-kit";
+
+function MyComponent() {
+  const { theme, setTheme } = useTheme();
+  const handleError = useErrorHandler();
+
+  const handleAsyncOperation = async () => {
+    try {
+      await someAsyncOperation();
+    } catch (error) {
+      handleError(error);
+    }
+  };
+
+  return (
+    <div data-theme={theme}>
+      <button onClick={() => setTheme(theme === "light" ? "dark" : "light")}>
+        Toggle Theme
+      </button>
+      <button onClick={handleAsyncOperation}>
+        Async Action
+      </button>
+    </div>
+  );
+}
+```
+
+### Context Composition
+```tsx
+import { 
+  ThemeProvider, 
+  ErrorBoundary, 
+  I18nProvider,
+  AuthProvider,
+  ToastProvider 
+} from "@etherisc/ui-kit";
+
+// Create a composite provider
+function AppProviders({ children }: { children: React.ReactNode }) {
+  return (
+    <ErrorBoundary>
+      <ThemeProvider>
+        <I18nProvider>
+          <AuthProvider>
+            <ToastProvider>
+              {children}
+            </ToastProvider>
+          </AuthProvider>
+        </I18nProvider>
+      </ThemeProvider>
+    </ErrorBoundary>
+  );
+}
+
+function App() {
+  return (
+    <AppProviders>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/profile" element={<Profile />} />
+        </Routes>
+      </Router>
+    </AppProviders>
+  );
+}
+```
+
+## Performance Considerations
+
+### Provider Optimization
+- **Context Splitting** - Split contexts to minimize re-renders
+- **Memoization** - Use useMemo and useCallback for provider values
+- **Selective Updates** - Only update relevant parts of context
+- **Provider Composition** - Compose providers efficiently
+
+### Error Boundary Performance
+```tsx
+import { memo } from "react";
+
+const OptimizedErrorBoundary = memo(({ children, ...props }) => (
+  <ErrorBoundary {...props}>
+    {children}
+  </ErrorBoundary>
+));
+
+// Use multiple boundaries for isolation
+function App() {
+  return (
+    <ErrorBoundary fallback={AppErrorFallback}>
+      <Header />
+      <ErrorBoundary fallback={ContentErrorFallback}>
+        <MainContent />
+      </ErrorBoundary>
+      <ErrorBoundary fallback={SidebarErrorFallback}>
+        <Sidebar />
+      </ErrorBoundary>
+    </ErrorBoundary>
+  );
+}
+```
+
+## Testing Providers
+
+### Error Boundary Testing
+```tsx
+import { render, screen } from "@testing-library/react";
+import { ErrorBoundary } from "@etherisc/ui-kit";
+
+const ThrowError = ({ shouldThrow }: { shouldThrow: boolean }) => {
+  if (shouldThrow) {
+    throw new Error("Test error");
+  }
+  return <div>No error</div>;
+};
+
+test("catches and displays error", () => {
+  const onError = jest.fn();
+  
+  render(
+    <ErrorBoundary onError={onError}>
+      <ThrowError shouldThrow={true} />
+    </ErrorBoundary>
+  );
+
+  expect(screen.getByText(/something went wrong/i)).toBeInTheDocument();
+  expect(onError).toHaveBeenCalledWith(
+    expect.any(Error),
+    expect.any(Object)
+  );
+});
+```
+
+### Theme Provider Testing
+```tsx
+import { render, screen, fireEvent } from "@testing-library/react";
+import { ThemeProvider, useTheme } from "@etherisc/ui-kit";
+
+const ThemeConsumer = () => {
+  const { theme, setTheme } = useTheme();
+  return (
+    <div>
+      <span>Current theme: {theme}</span>
+      <button onClick={() => setTheme("dark")}>Set Dark</button>
+    </div>
+  );
+};
+
+test("provides theme context", () => {
+  render(
+    <ThemeProvider defaultTheme="light">
+      <ThemeConsumer />
+    </ThemeProvider>
+  );
+
+  expect(screen.getByText("Current theme: light")).toBeInTheDocument();
+  
+  fireEvent.click(screen.getByText("Set Dark"));
+  
+  expect(screen.getByText("Current theme: dark")).toBeInTheDocument();
+});
+```
+
+## Security Considerations
+
+### Error Information Exposure
+```tsx
+const ProductionErrorBoundary = ({ children }) => {
+  const isProduction = process.env.NODE_ENV === "production";
+  
+  const fallback = ({ error }) => (
+    <div>
+      <h1>Something went wrong</h1>
+      {!isProduction && (
+        <details>
+          <summary>Error details (dev only)</summary>
+          <pre>{error.stack}</pre>
+        </details>
+      )}
+    </div>
+  );
+
+  return (
+    <ErrorBoundary fallback={fallback}>
+      {children}
+    </ErrorBoundary>
+  );
+};
+```
+
+### Theme Security
+- **CSS Injection Prevention** - Validate theme values
+- **XSS Protection** - Sanitize custom theme properties
+- **Local Storage Security** - Validate stored theme preferences
+
+## Related Documentation
+
+- **[Theme System](/docs/theming--docs)** - Complete theming documentation
+- **[Error Handling](/docs/error-handling--docs)** - Error handling strategies
+- **[Internationalization](/docs/i18n--docs)** - I18n implementation guide
+- **[Performance](/docs/performance--docs)** - Performance optimization techniques 

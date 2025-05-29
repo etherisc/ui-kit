@@ -1,0 +1,10 @@
+{
+  "name": "@org/eslint-plugin-ui-kit-rules",
+  "version": "1.0.0",
+  "description": "Custom ESLint rules for UI Kit",
+  "main": "index.js",
+  "type": "module",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {}
+}

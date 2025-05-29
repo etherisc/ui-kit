@@ -1,0 +1,202 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to release (e.g., v0.1.0-beta)"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  packages: write
+  pages: write
+  id-token: write
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 10
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "pnpm"
+          registry-url: "https://npm.pkg.github.com"
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Extract version
+        id: version
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            VERSION="${{ github.event.inputs.version }}"
+          else
+            VERSION="${GITHUB_REF#refs/tags/}"
+          fi
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
+          echo "Version: ${VERSION}"
+
+      - name: Generate build hash
+        id: build-hash
+        run: |
+          HASH=$(echo "${{ github.sha }}" | cut -c1-8)
+          echo "hash=${HASH}" >> $GITHUB_OUTPUT
+          echo "Build hash: ${HASH}"
+
+      - name: Run tests
+        run: cd packages/ui-kit && pnpm test
+
+      - name: Run linting
+        run: cd packages/ui-kit && pnpm lint
+
+      - name: Build package
+        run: pnpm build
+
+      - name: Check bundle size
+        run: cd packages/ui-kit && pnpm run size-limit
+
+      - name: Build Storybook
+        run: cd packages/ui-kit && pnpm run build-storybook
+
+      - name: Add build info to Storybook
+        run: |
+          cd packages/ui-kit
+          echo "window.BUILD_INFO = { version: '${{ steps.version.outputs.version }}', hash: '${{ steps.build-hash.outputs.hash }}', timestamp: '$(date -u +"%Y-%m-%dT%H:%M:%SZ")' };" > storybook-static/build-info.js
+
+          # Inject build info script into index.html
+          sed -i 's|</head>|<script src="./build-info.js"></script></head>|' storybook-static/index.html
+
+      - name: Update package.json for release
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          VERSION_NO_V=${VERSION#v}
+
+          cd packages/ui-kit
+
+          # Create a backup of the original package.json
+          cp package.json package.json.backup
+
+          # Update package.json using jq for reliable JSON manipulation
+          jq --arg name "@etherisc/ui-kit" \
+             --arg version "${VERSION_NO_V}" \
+             --arg repo_url "git+https://github.com/${{ github.repository }}.git" \
+             '.name = $name | 
+              .version = $version | 
+              .private = false | 
+              .publishConfig.registry = "https://npm.pkg.github.com" |
+              .repository.type = "git" |
+              .repository.url = $repo_url' \
+             package.json > package.json.tmp && mv package.json.tmp package.json
+
+          echo "Updated package.json for publishing:"
+          cat package.json | jq '.name, .version, .private, .publishConfig, .repository'
+
+      - name: Publish to GitHub Packages
+        run: |
+          cd packages/ui-kit
+          npm publish
+
+          # Restore original package.json
+          mv package.json.backup package.json
+          echo "Restored original package.json"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+        with:
+          enablement: true
+        continue-on-error: true
+
+      - name: Upload to GitHub Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: packages/ui-kit/storybook-static
+        continue-on-error: true
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+        continue-on-error: true
+
+      - name: Generate release notes
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          BUILD_HASH="${{ steps.build-hash.outputs.hash }}"
+
+          # Set default page URL if deployment failed
+          PAGE_URL="${{ steps.deployment.outputs.page_url }}"
+          if [ -z "$PAGE_URL" ]; then
+            PAGE_URL="https://github.com/${{ github.repository }}/tree/main/packages/ui-kit/storybook-static"
+          fi
+
+          cat > release-notes.md << EOF
+          # UI Kit ${VERSION}
+
+          ## 🎉 First Beta Release
+
+          This is the first beta release of the UI Kit library, featuring:
+
+          ### 🧩 Components
+          - **Form Components**: Button, TextInput, NumberInput, Select, Checkbox, RadioGroup
+          - **Layout Components**: AuthShell, MainLayout with responsive navigation
+          - **Data Components**: DataTable with pagination and sorting
+          - **Feedback Components**: Toast system, StatusBadge, ErrorBoundary
+          - **Security**: MarkdownEditor with XSS protection via DOMPurify
+
+          ### 🛠️ Infrastructure
+          - **TypeScript**: Full type safety and IntelliSense support
+          - **Styling**: Tailwind CSS + DaisyUI theming system
+          - **Testing**: Comprehensive unit tests and accessibility testing
+          - **Documentation**: Interactive Storybook with live examples
+          - **Internationalization**: i18next integration with English and German locales
+          - **Error Handling**: Sentry integration with structured logging
+          - **Performance**: Bundle size monitoring (< 250KB gzipped)
+
+          ### 📚 Documentation
+          - [Storybook Demo](${PAGE_URL})
+          - [Contributing Guide](https://github.com/${{ github.repository }}/blob/main/CONTRIBUTING.md)
+          - [Design Tokens](https://github.com/${{ github.repository }}/blob/main/DESIGN_TOKENS.md)
+
+          ### 📦 Installation
+
+          \`\`\`bash
+          npm install @etherisc/ui-kit@${VERSION#v}
+          \`\`\`
+
+          ### 🔗 Links
+          - **Package**: [GitHub Packages](https://github.com/${{ github.repository }}/packages)
+          - **Demo**: [Storybook](${PAGE_URL})
+          - **Build**: \`${BUILD_HASH}\`
+
+          ---
+
+          **Note**: This is a beta release. APIs may change before the stable 1.0 release.
+          EOF
+
+      - name: Create GitHub Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.version.outputs.version }}
+          release_name: UI Kit ${{ steps.version.outputs.version }}
+          body_path: release-notes.md
+          draft: false
+          prerelease: true

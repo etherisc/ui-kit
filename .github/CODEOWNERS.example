@@ -1,0 +1,128 @@
+# CODEOWNERS.example
+# 
+# This is a template for the CODEOWNERS file that defines code ownership for the UI Kit repository.
+# To activate this file, rename it to "CODEOWNERS" and create the GitHub teams referenced below.
+# 
+# Code owners are automatically requested for review when someone opens a pull request that modifies code that they own.
+# 
+# More info: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+#
+# NOTE: The GitHub teams referenced in this file (@ui-kit-maintainers, @devops-team, etc.) 
+# need to be created in the GitHub organization before this file can be activated.
+
+# Global Owners
+# These users are the default owners for everything in the repo unless a later match takes precedence.
+* @ui-kit-maintainers
+
+# Root Configuration Files
+# Critical configuration files that affect the entire project
+/.github/ @ui-kit-maintainers @devops-team
+/package.json @ui-kit-maintainers
+/pnpm-lock.yaml @ui-kit-maintainers
+/pnpm-workspace.yaml @ui-kit-maintainers
+/tsconfig*.json @ui-kit-maintainers
+/vite.config.ts @ui-kit-maintainers
+/.eslintrc.cjs @ui-kit-maintainers
+/.prettierrc @ui-kit-maintainers
+/tailwind.config.js @ui-kit-maintainers
+
+# DevContainer and Docker
+/.devcontainer/ @devops-team
+/Dockerfile* @devops-team
+/docker-compose*.yml @devops-team
+
+# CI/CD and Automation
+/.github/workflows/ @devops-team @ui-kit-maintainers
+/.github/actions/ @devops-team
+/.changeset/ @ui-kit-maintainers
+/scripts/ @devops-team @ui-kit-maintainers
+
+# Documentation
+/README.md @docs-team @ui-kit-maintainers
+/CONTRIBUTING.md @docs-team @ui-kit-maintainers
+/CHANGELOG.md @docs-team @ui-kit-maintainers
+/docs/ @docs-team
+/.github/pull_request_template.md @docs-team @ui-kit-maintainers
+/.github/CODEOWNERS @ui-kit-maintainers
+
+# UI Kit Package
+/packages/ui-kit/ @ui-kit-maintainers
+
+# Core Components
+/packages/ui-kit/src/components/primitives/ @component-team @ui-kit-maintainers
+/packages/ui-kit/src/components/layout/ @layout-team @ui-kit-maintainers
+/packages/ui-kit/src/components/form/ @form-team @ui-kit-maintainers
+
+# Providers and Context
+/packages/ui-kit/src/providers/ @architecture-team @ui-kit-maintainers
+
+# Utilities and Hooks
+/packages/ui-kit/src/utils/ @utils-team @ui-kit-maintainers
+/packages/ui-kit/src/hooks/ @hooks-team @ui-kit-maintainers
+
+# Styling and Theming
+/packages/ui-kit/src/styles/ @design-system-team @ui-kit-maintainers
+/packages/ui-kit/src/theme/ @design-system-team @ui-kit-maintainers
+/packages/ui-kit/src/tokens/ @design-system-team @ui-kit-maintainers
+
+# Testing Infrastructure
+/packages/ui-kit/src/**/*.test.* @testing-team @ui-kit-maintainers
+/packages/ui-kit/src/**/*.spec.* @testing-team @ui-kit-maintainers
+/packages/ui-kit/cypress/ @testing-team @ui-kit-maintainers
+/packages/ui-kit/playwright/ @testing-team @ui-kit-maintainers
+/packages/ui-kit/vitest.config.ts @testing-team @ui-kit-maintainers
+/packages/ui-kit/cypress.config.ts @testing-team @ui-kit-maintainers
+/packages/ui-kit/playwright.config.ts @testing-team @ui-kit-maintainers
+
+# Storybook
+/packages/ui-kit/.storybook/ @storybook-team @ui-kit-maintainers
+/packages/ui-kit/src/**/*.stories.* @storybook-team @component-team
+
+# Build and Bundle Configuration
+/packages/ui-kit/vite.config.ts @build-team @ui-kit-maintainers
+/packages/ui-kit/tsconfig*.json @build-team @ui-kit-maintainers
+/packages/ui-kit/package.json @ui-kit-maintainers
+
+# Security and Dependencies
+/packages/ui-kit/pnpm-lock.yaml @security-team @ui-kit-maintainers
+/.nvmrc @devops-team
+/.node-version @devops-team
+
+# Specific Component Ownership Examples
+# Uncomment and modify these as teams are assigned to specific components
+
+# /packages/ui-kit/src/components/primitives/Button/ @button-specialist
+# /packages/ui-kit/src/components/primitives/Input/ @form-specialist
+# /packages/ui-kit/src/components/layout/Grid/ @layout-specialist
+# /packages/ui-kit/src/components/form/DataTable/ @datatable-specialist
+
+# Performance and Bundle Size
+/packages/ui-kit/size-limit.config.js @performance-team @ui-kit-maintainers
+
+# Error Handling and Monitoring
+/packages/ui-kit/src/providers/ErrorBoundary/ @monitoring-team @ui-kit-maintainers
+/packages/ui-kit/src/utils/logger/ @monitoring-team @ui-kit-maintainers
+
+# Accessibility
+/packages/ui-kit/src/**/*a11y* @accessibility-team @ui-kit-maintainers
+/packages/ui-kit/src/**/*accessibility* @accessibility-team @ui-kit-maintainers
+
+# Team Definitions (GitHub teams that should be created)
+# 
+# @ui-kit-maintainers - Core maintainers with full repository access
+# @devops-team - DevOps and infrastructure specialists
+# @docs-team - Documentation specialists
+# @component-team - UI component specialists
+# @layout-team - Layout and responsive design specialists
+# @form-team - Form component specialists
+# @architecture-team - System architecture specialists
+# @utils-team - Utility function specialists
+# @hooks-team - React hooks specialists
+# @design-system-team - Design system and theming specialists
+# @testing-team - Testing infrastructure specialists
+# @storybook-team - Storybook and documentation specialists
+# @build-team - Build and bundling specialists
+# @security-team - Security and dependency management specialists
+# @performance-team - Performance and optimization specialists
+# @monitoring-team - Error handling and monitoring specialists
+# @accessibility-team - Accessibility specialists 
