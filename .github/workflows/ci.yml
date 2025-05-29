@@ -60,6 +60,8 @@ jobs:
           echo "Working directory: $(pwd)"
           echo "Available packages:"
           ls -la packages/
+      - name: Build packages
+        run: pnpm build
       - name: Test
         run: pnpm test --reporter=verbose
 
