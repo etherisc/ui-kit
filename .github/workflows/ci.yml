@@ -52,8 +52,16 @@ jobs:
           cache: "pnpm"
       - name: Install dependencies
         run: pnpm install
+      - name: Debug environment
+        run: |
+          echo "Node version: $(node --version)"
+          echo "pnpm version: $(pnpm --version)"
+          echo "React version: $(pnpm list react --depth=0)"
+          echo "Working directory: $(pwd)"
+          echo "Available packages:"
+          ls -la packages/
       - name: Test
-        run: pnpm test
+        run: pnpm test --reporter=verbose
 
   build:
     runs-on: ubuntu-latest
