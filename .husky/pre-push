@@ -22,7 +22,7 @@ run_check() {
   else
     echo "❌ $check_name failed"
     echo "⚠️  Push blocked due to failing $check_name"
-    echo "💡 Fix the issues above or use --no-verify to bypass (not recommended)"
+    echo "💡 Fix the issues above, don't use --no-verify to bypass!!"
     return 1
   fi
 }
@@ -44,7 +44,7 @@ if ! pnpm test; then
   echo "   • Async timing issues (check waitFor timeouts)"
   echo "   • Mock configuration problems"
   echo "⚠️  Push blocked due to failing tests"
-  echo "💡 Fix the issues above or use --no-verify to bypass (not recommended)"
+  echo "💡 Fix the issues above; don't use --no-verify to bypass!!"
   exit 1
 else
   echo "✅ Tests passed"
