@@ -1,0 +1,389 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Form Components/Overview" />
+
+# 🔧 Form Components
+
+Higher-level form components and patterns for building complex, accessible forms with validation and state management.
+
+## Overview
+
+Form Components provide comprehensive solutions for form handling, validation, and user experience. They combine multiple form controls into cohesive patterns and provide integration with popular form libraries.
+
+## Components
+
+### Form Foundations
+
+- **[Form Examples](/docs/form-components-form-examples--docs)** - Complete form patterns and integration examples
+- **[A11y Examples](/docs/form-components-a11y-examples--docs)** - Accessibility-focused form implementations
+
+### Layout & Organization
+
+- **FormGrid** - Responsive grid system for form layouts
+- **FormGroup** - Logical grouping of related form fields
+- **FieldSet** - Accessible field grouping with legends
+
+## Key Features
+
+### Form Integration
+- **React Hook Form** - Full integration with react-hook-form
+- **Validation** - Built-in validation with Zod schema support
+- **Error Handling** - Comprehensive error display and management
+- **State Management** - Efficient form state and field tracking
+
+### Accessibility Features
+- **Screen Reader Support** - Proper ARIA labels and descriptions
+- **Keyboard Navigation** - Full keyboard accessibility
+- **Error Announcements** - Dynamic error announcements
+- **Focus Management** - Logical focus order and trap patterns
+
+### User Experience
+- **Progressive Enhancement** - Works with and without JavaScript
+- **Real-time Validation** - Immediate feedback on user input
+- **Smart Defaults** - Sensible default behaviors and values
+- **Responsive Design** - Mobile-friendly form layouts
+
+## Form Patterns
+
+### Basic Registration Form
+```tsx
+import { Form, FormGrid, TextField, SelectField, CheckboxField } from "@etherisc/ui-kit";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+
+const schema = z.object({
+  firstName: z.string().min(1, "First name is required"),
+  lastName: z.string().min(1, "Last name is required"),
+  email: z.string().email("Invalid email address"),
+  role: z.enum(["user", "admin", "moderator"]),
+  agreeToTerms: z.boolean().refine(val => val, "You must agree to terms"),
+});
+
+function RegistrationForm() {
+  const form = useForm({
+    resolver: zodResolver(schema),
+  });
+
+  const handleSubmit = (data) => {
+    console.log("Form submitted:", data);
+  };
+
+  return (
+    <Form form={form} onSubmit={handleSubmit}>
+      <FormGrid columns={2}>
+        <TextField name="firstName" label="First Name" required />
+        <TextField name="lastName" label="Last Name" required />
+      </FormGrid>
+      
+      <TextField name="email" label="Email" type="email" required />
+      
+      <SelectField
+        name="role"
+        label="Role"
+        options={[
+          { value: "user", label: "User" },
+          { value: "admin", label: "Administrator" },
+          { value: "moderator", label: "Moderator" },
+        ]}
+        required
+      />
+      
+      <CheckboxField
+        name="agreeToTerms"
+        label="I agree to the terms and conditions"
+        required
+      />
+      
+      <button type="submit">Register</button>
+    </Form>
+  );
+}
+```
+
+### Complex Multi-Step Form
+```tsx
+import { Form, FormGrid, WizardShell } from "@etherisc/ui-kit";
+
+function MultiStepForm() {
+  const [currentStep, setCurrentStep] = useState(0);
+  const form = useForm();
+
+  const steps = [
+    {
+      id: "personal",
+      title: "Personal Information",
+      content: (
+        <FormGrid columns={2}>
+          <TextField name="firstName" label="First Name" required />
+          <TextField name="lastName" label="Last Name" required />
+          <TextField name="email" label="Email" type="email" required />
+          <TextField name="phone" label="Phone" type="tel" />
+        </FormGrid>
+      ),
+    },
+    {
+      id: "address",
+      title: "Address Information",
+      content: (
+        <FormGrid columns={2}>
+          <TextField name="street" label="Street Address" required />
+          <TextField name="city" label="City" required />
+          <TextField name="state" label="State" required />
+          <TextField name="zipCode" label="ZIP Code" required />
+        </FormGrid>
+      ),
+    },
+    {
+      id: "review",
+      title: "Review & Submit",
+      content: <ReviewStep data={form.getValues()} />,
+    },
+  ];
+
+  return (
+    <WizardShell
+      steps={steps}
+      currentStepId={steps[currentStep].id}
+      onNext={() => setCurrentStep(prev => prev + 1)}
+      onPrevious={() => setCurrentStep(prev => prev - 1)}
+    >
+      <Form form={form}>
+        {steps[currentStep].content}
+      </Form>
+    </WizardShell>
+  );
+}
+```
+
+### Dynamic Field Arrays
+```tsx
+import { Form, FormGrid, TextField, Button } from "@etherisc/ui-kit";
+import { useFieldArray } from "react-hook-form";
+
+function DynamicContactForm() {
+  const form = useForm({
+    defaultValues: {
+      contacts: [{ name: "", email: "", phone: "" }],
+    },
+  });
+
+  const { fields, append, remove } = useFieldArray({
+    control: form.control,
+    name: "contacts",
+  });
+
+  return (
+    <Form form={form}>
+      {fields.map((field, index) => (
+        <div key={field.id} className="border p-4 rounded">
+          <h3>Contact {index + 1}</h3>
+          <FormGrid columns={3}>
+            <TextField
+              name={`contacts.${index}.name`}
+              label="Name"
+              required
+            />
+            <TextField
+              name={`contacts.${index}.email`}
+              label="Email"
+              type="email"
+              required
+            />
+            <TextField
+              name={`contacts.${index}.phone`}
+              label="Phone"
+              type="tel"
+            />
+          </FormGrid>
+          
+          {fields.length > 1 && (
+            <Button
+              type="button"
+              variant="destructive"
+              onClick={() => remove(index)}
+            >
+              Remove Contact
+            </Button>
+          )}
+        </div>
+      ))}
+      
+      <Button
+        type="button"
+        variant="outline"
+        onClick={() => append({ name: "", email: "", phone: "" })}
+      >
+        Add Contact
+      </Button>
+    </Form>
+  );
+}
+```
+
+## Validation Patterns
+
+### Schema-Based Validation
+```tsx
+import { z } from "zod";
+
+// Define validation schema
+const userSchema = z.object({
+  username: z.string()
+    .min(3, "Username must be at least 3 characters")
+    .max(20, "Username cannot exceed 20 characters")
+    .regex(/^[a-zA-Z0-9_]+$/, "Username can only contain letters, numbers, and underscores"),
+  
+  password: z.string()
+    .min(8, "Password must be at least 8 characters")
+    .regex(/(?=.*[a-z])/, "Password must contain at least one lowercase letter")
+    .regex(/(?=.*[A-Z])/, "Password must contain at least one uppercase letter")
+    .regex(/(?=.*\d)/, "Password must contain at least one number"),
+  
+  confirmPassword: z.string(),
+  
+  age: z.number()
+    .min(18, "Must be at least 18 years old")
+    .max(120, "Age cannot exceed 120"),
+    
+  interests: z.array(z.string())
+    .min(1, "Please select at least one interest"),
+}).refine((data) => data.password === data.confirmPassword, {
+  message: "Passwords don't match",
+  path: ["confirmPassword"],
+});
+
+type UserFormData = z.infer<typeof userSchema>;
+```
+
+### Custom Validation Rules
+```tsx
+import { Form } from "@etherisc/ui-kit";
+
+function CustomValidationForm() {
+  const form = useForm({
+    resolver: zodResolver(schema),
+    mode: "onChange", // Real-time validation
+  });
+
+  // Custom async validation
+  const validateUsernameUnique = async (username: string) => {
+    const response = await fetch(`/api/users/check/${username}`);
+    const isUnique = await response.json();
+    return isUnique || "Username is already taken";
+  };
+
+  return (
+    <Form form={form}>
+      <TextField
+        name="username"
+        label="Username"
+        validate={validateUsernameUnique}
+        required
+      />
+      {/* Other fields */}
+    </Form>
+  );
+}
+```
+
+## Accessibility Guidelines
+
+### ARIA Labels and Descriptions
+```tsx
+<TextField
+  name="password"
+  label="Password"
+  type="password"
+  required
+  aria-describedby="password-help"
+  description="Password must be at least 8 characters with mixed case and numbers"
+/>
+```
+
+### Error Handling
+```tsx
+<TextField
+  name="email"
+  label="Email Address"
+  type="email"
+  error={errors.email?.message}
+  aria-invalid={!!errors.email}
+  required
+/>
+```
+
+### Field Grouping
+```tsx
+<fieldset>
+  <legend>Contact Preferences</legend>
+  <RadioGroupField
+    name="contactMethod"
+    options={[
+      { value: "email", label: "Email" },
+      { value: "phone", label: "Phone" },
+      { value: "sms", label: "SMS" },
+    ]}
+  />
+</fieldset>
+```
+
+## Performance Optimization
+
+### Form Optimization
+- **Field-level validation** - Validate individual fields instead of entire form
+- **Debounced validation** - Reduce validation calls for real-time feedback
+- **Conditional rendering** - Show/hide fields based on form state
+- **Memoization** - Prevent unnecessary re-renders of form components
+
+### Large Forms
+- **Virtual scrolling** - For forms with many fields
+- **Progressive loading** - Load form sections on demand
+- **State management** - Efficient handling of large form state
+- **Persistence** - Save form progress automatically
+
+## Testing Strategies
+
+### Form Testing
+```tsx
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { RegistrationForm } from "./RegistrationForm";
+
+test("validates required fields", async () => {
+  render(<RegistrationForm />);
+  
+  fireEvent.click(screen.getByRole("button", { name: /register/i }));
+  
+  await waitFor(() => {
+    expect(screen.getByText("First name is required")).toBeInTheDocument();
+    expect(screen.getByText("Email is required")).toBeInTheDocument();
+  });
+});
+
+test("submits form with valid data", async () => {
+  const onSubmit = jest.fn();
+  render(<RegistrationForm onSubmit={onSubmit} />);
+  
+  fireEvent.change(screen.getByLabelText(/first name/i), {
+    target: { value: "John" },
+  });
+  fireEvent.change(screen.getByLabelText(/email/i), {
+    target: { value: "john@example.com" },
+  });
+  
+  fireEvent.click(screen.getByRole("button", { name: /register/i }));
+  
+  await waitFor(() => {
+    expect(onSubmit).toHaveBeenCalledWith({
+      firstName: "John",
+      email: "john@example.com",
+    });
+  });
+});
+```
+
+## Related Documentation
+
+- **[Form Controls](/docs/form-controls-overview--docs)** - Individual input components
+- **[Layout](/docs/layout-overview--docs)** - Form layout components and shells
+- **[Feedback](/docs/feedback-overview--docs)** - Error states and validation feedback
+- **[Accessibility Guide](/docs/accessibility--docs)** - Complete accessibility guidelines 

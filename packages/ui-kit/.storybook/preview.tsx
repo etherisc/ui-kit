@@ -50,6 +50,30 @@ const preview: Preview = {
             light: { ...themes.light },
             current: 'light',
         },
+        options: {
+            storySort: {
+                order: [
+                    'Welcome',
+                    'Form Controls',
+                    ['Overview', 'Button', 'TextInput', 'NumberInput', 'TextArea', 'Select', 'ComboBox', 'Checkbox', 'RadioGroup', 'SliderInput', 'SpinnerInput', 'DatePicker', 'DateRangePicker'],
+                    'Editors', 
+                    ['Overview', 'CodeEditor', 'MarkdownEditor'],
+                    'Layout',
+                    ['Overview', 'Shells', 'Content Layouts', 'Navigation'],
+                    'Feedback',
+                    ['Overview', 'Toast', 'StatusBadge'],
+                    'Data Display',
+                    'Form Components',
+                    ['Overview', 'Form Examples', 'A11y Examples'],
+                    'Providers',
+                    ['Overview', 'ErrorBoundary', 'ThemeProvider', 'ThemeToggle'],
+                    'Brand',
+                    ['Overview', 'Logo', 'EtheriscLogo'],
+                    'Examples',
+                    '*' // Everything else at the end
+                ],
+            },
+        },
     },
     decorators: [
         (Story, context) => (

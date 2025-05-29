@@ -4,7 +4,7 @@ import { CodeEditor } from "./CodeEditor";
 import type { CodeEditorProps } from "./types";
 
 const meta: Meta<typeof CodeEditor> = {
-  title: "Primitives/CodeEditor",
+  title: "Editors/CodeEditor",
   component: CodeEditor,
   tags: ["!test"],
   parameters: {

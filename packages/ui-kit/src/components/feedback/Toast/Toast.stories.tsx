@@ -5,7 +5,7 @@ import { ToastProvider } from '../../../providers/ToastProvider';
 import { type Toast as ToastType } from '../../../providers/ToastProvider/ToastProvider';
 
 const meta: Meta<typeof Toast> = {
-    title: 'Components/Feedback/Toast',
+    title: 'Feedback/Toast',
     component: Toast,
     parameters: {
         layout: 'centered',

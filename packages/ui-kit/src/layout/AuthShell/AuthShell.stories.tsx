@@ -3,7 +3,7 @@ import { AuthShell } from './AuthShell';
 import { Button } from '@/components/primitives/Button';
 
 const meta: Meta<typeof AuthShell> = {
-    title: 'Layout/AuthShell',
+    title: 'Layout/Shells/AuthShell',
     component: AuthShell,
     parameters: {
         layout: 'fullscreen',

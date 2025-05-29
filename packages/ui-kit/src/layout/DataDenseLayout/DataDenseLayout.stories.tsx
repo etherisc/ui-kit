@@ -4,7 +4,7 @@ import { DataDenseLayout } from "./DataDenseLayout";
 import { Button } from "../../components/primitives/Button";
 
 const meta: Meta<typeof DataDenseLayout> = {
-  title: "Layout/DataDenseLayout",
+  title: "Layout/Content Layouts/DataDenseLayout",
   component: DataDenseLayout,
   parameters: {
     layout: "fullscreen",

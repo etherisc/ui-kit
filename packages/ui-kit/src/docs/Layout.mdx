@@ -1,0 +1,192 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Layout/Overview" />
+
+# 🏗️ Layout
+
+Comprehensive layout components for structuring your application's interface and navigation.
+
+## Overview
+
+Layout components provide the structural foundation for your application, from complete page shells to navigation elements and content organization. They're designed to be flexible, responsive, and accessible.
+
+## Component Categories
+
+### Shells
+
+Complete page layout templates for different application contexts:
+
+- **[AppShell](/docs/layout-shells-appshell--docs)** - Full application layout with header, sidebar, and content areas
+- **[AuthShell](/docs/layout-shells-authshell--docs)** - Authentication and login page layouts
+- **[WizardShell](/docs/layout-shells-wizardshell--docs)** - Multi-step wizard and form layouts
+- **[MinimalShell](/docs/layout-shells-minimalshell--docs)** - Simple, minimal page layouts
+- **[ErrorShell](/docs/layout-shells-errorshell--docs)** - Error page and status layouts
+
+### Content Layouts
+
+Specialized layouts for organizing main content areas:
+
+- **[MainFixedLayout](/docs/layout-content-layouts-mainfixedlayout--docs)** - Fixed-width main content layout
+- **[DataDenseLayout](/docs/layout-content-layouts-datadenselayout--docs)** - Dense data presentation layout
+- **[ContentWrapper](/docs/layout-content-layouts-contentwrapper--docs)** - Flexible content area management
+
+### Navigation
+
+Components for application navigation and wayfinding:
+
+- **[TopBar](/docs/layout-navigation-topbar--docs)** - Application top navigation bar
+- **[SideNav](/docs/layout-navigation-sidenav--docs)** - Collapsible sidebar navigation
+- **[NavItem](/docs/layout-navigation-navitem--docs)** - Individual navigation items
+- **[Breadcrumbs](/docs/layout-navigation-breadcrumbs--docs)** - Hierarchical navigation breadcrumbs
+- **[HeaderActionIcon](/docs/layout-navigation-headeractionicon--docs)** - Header action buttons and icons
+
+## Design Principles
+
+### Responsive Design
+- Mobile-first approach with progressive enhancement
+- Flexible layouts that adapt to different screen sizes
+- Touch-friendly navigation on mobile devices
+
+### Accessibility
+- Semantic HTML structure with proper landmarks
+- Keyboard navigation support
+- Screen reader compatibility with ARIA labels
+
+### Performance
+- Efficient rendering with minimal layout shifts
+- Optimized for fast initial page loads
+- Smooth animations and transitions
+
+## Usage Patterns
+
+### Basic Application Layout
+```tsx
+import { AppShell, TopBar, SideNav } from "@etherisc/ui-kit";
+
+function App() {
+  return (
+    <AppShell
+      topBar={
+        <TopBar
+          logo={<Logo />}
+          userActions={<UserMenu />}
+        />
+      }
+      sideNav={
+        <SideNav
+          items={navigationItems}
+          collapsed={false}
+        />
+      }
+    >
+      <main>
+        {/* Your main content */}
+      </main>
+    </AppShell>
+  );
+}
+```
+
+### Authentication Layout
+```tsx
+import { AuthShell } from "@etherisc/ui-kit";
+
+function LoginPage() {
+  return (
+    <AuthShell
+      logo={<Logo />}
+      width="md"
+      footer={<AuthFooter />}
+    >
+      <LoginForm />
+    </AuthShell>
+  );
+}
+```
+
+### Content with Navigation
+```tsx
+import { ContentWrapper, Breadcrumbs } from "@etherisc/ui-kit";
+
+function ProductPage() {
+  const breadcrumbs = [
+    { label: "Home", href: "/" },
+    { label: "Products", href: "/products" },
+    { label: "Laptop", isActive: true }
+  ];
+
+  return (
+    <ContentWrapper
+      breadcrumbs={breadcrumbs}
+      header={<PageHeader />}
+      footer={<PageActions />}
+    >
+      <ProductDetails />
+    </ContentWrapper>
+  );
+}
+```
+
+## Layout Patterns
+
+### Application Shell Pattern
+The AppShell provides a complete application layout with:
+- Fixed header with branding and user actions
+- Collapsible sidebar navigation
+- Main content area with proper spacing
+- Responsive behavior across devices
+
+### Wizard Pattern
+The WizardShell is perfect for multi-step processes:
+- Step indicator showing progress
+- Navigation between steps
+- Consistent layout across steps
+- Accessible form progression
+
+### Error Handling Pattern
+The ErrorShell provides consistent error pages:
+- Clear error messaging
+- Helpful action buttons
+- Consistent branding
+- Accessible error communication
+
+## Responsive Behavior
+
+### Breakpoints
+- **Mobile**: < 768px - Collapsed navigation, stacked layouts
+- **Tablet**: 768px - 1024px - Adaptive navigation, flexible content
+- **Desktop**: > 1024px - Full navigation, optimized layouts
+
+### Navigation Adaptation
+- Mobile: Hamburger menu with overlay navigation
+- Tablet: Collapsible sidebar with icons
+- Desktop: Full sidebar with labels and icons
+
+## Best Practices
+
+### Layout Hierarchy
+- Use semantic HTML elements (header, nav, main, aside)
+- Maintain consistent spacing and alignment
+- Provide clear visual hierarchy
+
+### Navigation Design
+- Keep navigation items organized and logical
+- Use consistent iconography and labeling
+- Provide clear active states and feedback
+
+### Content Organization
+- Use appropriate content layouts for different data types
+- Maintain consistent margins and padding
+- Ensure content is scannable and well-structured
+
+### Performance Optimization
+- Lazy load non-critical layout components
+- Use CSS Grid and Flexbox for efficient layouts
+- Minimize layout shifts during loading
+
+## Related Documentation
+
+- **[Form Controls](/docs/form-controls-overview--docs)** - Input components for forms
+- **[Brand](/docs/brand-overview--docs)** - Logo and branding components
+- **[Theme System](/docs/theme-system--docs)** - Customizing layout appearance
+- **[Accessibility Guidelines](/docs/accessibility--docs)** - Making layouts accessible 

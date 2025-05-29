@@ -14,7 +14,7 @@ import { useForm } from './useForm';
 const FormExample = () => <div />;
 
 const meta = {
-    title: 'Form/FormExample',
+    title: 'Form Components/Form Examples',
     component: FormExample,
     parameters: {
         layout: 'centered',

@@ -1,0 +1,226 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Data Display/Overview" />
+
+# 📊 Data Display
+
+Components for presenting and organizing structured data in clear, accessible formats.
+
+## Overview
+
+Data Display components help users understand and interact with complex datasets. They provide powerful features for sorting, filtering, pagination, and selection while maintaining excellent performance and accessibility.
+
+## Components
+
+### Tables
+
+- **[DataTable](/docs/data-display-datatable--docs)** - Feature-rich data table with sorting, filtering, pagination, and selection
+
+## Features
+
+### DataTable Capabilities
+- **Sorting** - Click column headers to sort data ascending/descending
+- **Filtering** - Built-in search and advanced filtering options
+- **Pagination** - Handle large datasets efficiently with pagination
+- **Selection** - Single or multiple row selection with callbacks
+- **Responsive** - Adapts to different screen sizes gracefully
+- **Accessibility** - Full keyboard navigation and screen reader support
+- **Virtualization** - Handle thousands of rows with smooth scrolling
+- **Export** - Built-in data export functionality
+
+### Performance
+- **Virtual Scrolling** - Render only visible rows for optimal performance
+- **Efficient Updates** - Minimal re-renders when data changes
+- **Lazy Loading** - Load data on demand for large datasets
+- **Memoization** - Optimized rendering with React.memo and useMemo
+
+## Usage Examples
+
+### Basic Data Table
+```tsx
+import { DataTable } from "@etherisc/ui-kit";
+
+const columns = [
+  { accessorKey: 'id', header: 'ID' },
+  { accessorKey: 'name', header: 'Name' },
+  { accessorKey: 'email', header: 'Email' },
+  { accessorKey: 'status', header: 'Status' },
+];
+
+const data = [
+  { id: 1, name: 'John Doe', email: 'john@example.com', status: 'active' },
+  { id: 2, name: 'Jane Smith', email: 'jane@example.com', status: 'inactive' },
+];
+
+function UserTable() {
+  return (
+    <DataTable
+      columns={columns}
+      data={data}
+      enableSorting
+      enableFiltering
+      enablePagination
+    />
+  );
+}
+```
+
+### Advanced Data Table with Selection
+```tsx
+import { DataTable } from "@etherisc/ui-kit";
+
+function AdvancedUserTable() {
+  const [selectedRows, setSelectedRows] = useState<string[]>([]);
+
+  const handleSelectionChange = (newSelection: string[]) => {
+    setSelectedRows(newSelection);
+    console.log('Selected rows:', newSelection);
+  };
+
+  return (
+    <DataTable
+      columns={columns}
+      data={data}
+      enableSorting
+      enableFiltering
+      enablePagination
+      enableRowSelection
+      selectedRows={selectedRows}
+      onSelectionChange={handleSelectionChange}
+      pageSize={10}
+    />
+  );
+}
+```
+
+## Design Principles
+
+### Clarity
+- Clear column headers with appropriate data types
+- Consistent formatting for similar data types
+- Visual hierarchy to guide user attention
+- Proper spacing for easy scanning
+
+### Performance
+- Efficient rendering for large datasets
+- Smooth scrolling and interactions
+- Fast search and filtering responses
+- Optimized for both desktop and mobile
+
+### Accessibility
+- Full keyboard navigation support
+- Screen reader announcements for dynamic content
+- High contrast and readable typography
+- Focus management for complex interactions
+
+## Best Practices
+
+### Data Structure
+- Use consistent data formats across columns
+- Provide meaningful unique identifiers for rows
+- Structure nested data appropriately
+- Handle null/undefined values gracefully
+
+### Column Configuration
+- Use appropriate column types (text, number, date, etc.)
+- Provide helpful header tooltips for complex data
+- Set appropriate default sorting where beneficial
+- Consider column width and responsive behavior
+
+### User Experience
+- Show loading states for async operations
+- Provide clear empty states when no data is available
+- Use progressive disclosure for complex actions
+- Maintain selection state across pagination
+
+### Performance Optimization
+- Implement server-side pagination for large datasets
+- Use debounced search to reduce API calls
+- Cache filtered/sorted results when appropriate
+- Consider virtual scrolling for very large tables
+
+## Integration Patterns
+
+### API Integration
+```tsx
+import { DataTable } from "@etherisc/ui-kit";
+import { useQuery } from "@tanstack/react-query";
+
+function ServerDataTable() {
+  const [pagination, setPagination] = useState({ page: 0, size: 10 });
+  const [sorting, setSorting] = useState([]);
+  const [filtering, setFiltering] = useState('');
+
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['users', pagination, sorting, filtering],
+    queryFn: () => fetchUsers({ pagination, sorting, filtering }),
+  });
+
+  return (
+    <DataTable
+      columns={columns}
+      data={data?.rows || []}
+      loading={isLoading}
+      pageCount={data?.pageCount}
+      pagination={pagination}
+      onPaginationChange={setPagination}
+      sorting={sorting}
+      onSortingChange={setSorting}
+      globalFilter={filtering}
+      onGlobalFilterChange={setFiltering}
+    />
+  );
+}
+```
+
+### Form Integration
+```tsx
+import { DataTable, Button } from "@etherisc/ui-kit";
+
+function EditableDataTable() {
+  const [editingRow, setEditingRow] = useState<string | null>(null);
+
+  const columns = [
+    { accessorKey: 'name', header: 'Name' },
+    { accessorKey: 'email', header: 'Email' },
+    {
+      id: 'actions',
+      header: 'Actions',
+      cell: ({ row }) => (
+        <div className="flex gap-2">
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={() => setEditingRow(row.id)}
+          >
+            Edit
+          </Button>
+          <Button
+            size="sm"
+            variant="destructive"
+            onClick={() => handleDelete(row.id)}
+          >
+            Delete
+          </Button>
+        </div>
+      ),
+    },
+  ];
+
+  return (
+    <DataTable
+      columns={columns}
+      data={data}
+      enableSorting
+      enableFiltering
+    />
+  );
+}
+```
+
+## Related Documentation
+
+- **[Form Controls](/docs/form-controls-overview--docs)** - Input components for table filters
+- **[Feedback](/docs/feedback-overview--docs)** - Loading and status indicators
+- **[Layout](/docs/layout-overview--docs)** - Page layouts for data-heavy interfaces
+- **[Theme System](/docs/theme-system--docs)** - Customizing table appearance 

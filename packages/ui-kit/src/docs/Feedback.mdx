@@ -1,0 +1,190 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Feedback/Overview" />
+
+# 🎨 Feedback
+
+User feedback and status communication components for providing clear system responses and status indicators.
+
+## Overview
+
+Feedback components help communicate system status, user actions results, and important information to users. They're essential for creating responsive and informative user interfaces.
+
+## Components
+
+### Notifications
+
+- **[Toast](/docs/feedback-toast--docs)** - Temporary notification messages with multiple variants
+
+### Status Indicators
+
+- **[StatusBadge](/docs/feedback-statusbadge--docs)** - Visual status indicators with semantic colors
+
+## Design Principles
+
+### Clear Communication
+- Use appropriate colors and icons for different message types
+- Provide concise, actionable messaging
+- Ensure messages are easily scannable
+
+### Accessibility
+- Proper color contrast for all status variants
+- Screen reader announcements for dynamic content
+- Keyboard navigation support where applicable
+
+### Consistent Behavior
+- Standardized timing for temporary notifications
+- Consistent positioning and animation
+- Predictable interaction patterns
+
+## Usage Examples
+
+### Toast Notifications
+```tsx
+import { Toast, useToast } from "@etherisc/ui-kit";
+
+function NotificationExample() {
+  const { addToast } = useToast();
+
+  const showSuccess = () => {
+    addToast({
+      variant: "success",
+      title: "Success!",
+      description: "Your changes have been saved.",
+    });
+  };
+
+  const showError = () => {
+    addToast({
+      variant: "error",
+      title: "Error",
+      description: "Something went wrong. Please try again.",
+    });
+  };
+
+  return (
+    <div>
+      <button onClick={showSuccess}>Show Success</button>
+      <button onClick={showError}>Show Error</button>
+    </div>
+  );
+}
+```
+
+### Status Badges
+```tsx
+import { StatusBadge } from "@etherisc/ui-kit";
+
+function OrderStatus({ status }: { status: string }) {
+  const getStatusVariant = (status: string) => {
+    switch (status) {
+      case "delivered": return "success";
+      case "processing": return "pending";
+      case "cancelled": return "error";
+      default: return "neutral";
+    }
+  };
+
+  return (
+    <StatusBadge variant={getStatusVariant(status)}>
+      {status.charAt(0).toUpperCase() + status.slice(1)}
+    </StatusBadge>
+  );
+}
+```
+
+## Feedback Patterns
+
+### Success Feedback
+- Use green colors and checkmark icons
+- Provide clear confirmation of completed actions
+- Include relevant details about what was accomplished
+
+### Error Feedback
+- Use red colors and warning icons
+- Explain what went wrong in user-friendly terms
+- Provide actionable steps to resolve the issue
+
+### Warning Feedback
+- Use yellow/orange colors and alert icons
+- Highlight potential issues or important information
+- Guide users toward safer or better choices
+
+### Information Feedback
+- Use blue colors and info icons
+- Provide helpful context or additional information
+- Enhance user understanding without being intrusive
+
+## Best Practices
+
+### Toast Notifications
+- Keep messages concise and scannable
+- Use appropriate timing (3-5 seconds for success, longer for errors)
+- Provide dismiss actions for persistent messages
+- Avoid overwhelming users with too many simultaneous toasts
+
+### Status Badges
+- Use consistent color coding across your application
+- Provide clear, descriptive labels
+- Consider icon usage for better visual recognition
+- Ensure badges are appropriately sized for their context
+
+### Accessibility
+- Ensure sufficient color contrast for all variants
+- Provide text alternatives for color-coded information
+- Use ARIA live regions for dynamic status updates
+- Test with screen readers and keyboard navigation
+
+### Performance
+- Implement efficient toast queuing systems
+- Use CSS animations for smooth transitions
+- Avoid blocking the main thread with feedback animations
+
+## Integration Patterns
+
+### Form Validation
+```tsx
+import { StatusBadge, Toast } from "@etherisc/ui-kit";
+
+function FormWithFeedback() {
+  const [status, setStatus] = useState("idle");
+
+  const handleSubmit = async (data) => {
+    setStatus("pending");
+    try {
+      await submitForm(data);
+      setStatus("success");
+      addToast({
+        variant: "success",
+        title: "Form submitted successfully!"
+      });
+    } catch (error) {
+      setStatus("error");
+      addToast({
+        variant: "error",
+        title: "Submission failed",
+        description: error.message
+      });
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      {/* Form fields */}
+      <div className="flex items-center gap-2">
+        <button type="submit">Submit</button>
+        <StatusBadge variant={status}>
+          {status}
+        </StatusBadge>
+      </div>
+    </form>
+  );
+}
+```
+
+## Related Documentation
+
+- **[Form Controls](/docs/form-controls-overview--docs)** - Input components that work with feedback
+- **[Layout](/docs/layout-overview--docs)** - Layout components for organizing feedback
+- **[Theme System](/docs/theme-system--docs)** - Customizing feedback appearance
+- **[Accessibility Guidelines](/docs/accessibility--docs)** - Making feedback accessible 

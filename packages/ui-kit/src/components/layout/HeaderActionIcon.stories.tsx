@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { HeaderActionIcon } from './HeaderActionIcon';
 
 const meta = {
-    title: 'Layout/HeaderActionIcon',
+    title: 'Layout/Navigation/HeaderActionIcon',
     component: HeaderActionIcon,
     tags: ['autodocs'],
     argTypes: {

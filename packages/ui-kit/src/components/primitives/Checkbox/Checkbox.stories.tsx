@@ -2,14 +2,14 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Checkbox } from './Checkbox';
 
 const meta = {
-    title: 'Components/Form/Checkbox',
+    title: 'Form Controls/Checkbox',
     component: Checkbox,
     argTypes: {
         label: { control: 'text' },
         description: { control: 'text' },
         error: { control: 'text' },
-        checked: { control: 'boolean' },
-        disabled: { control: 'boolean' },
+        // checked: { control: 'boolean' },
+        // disabled: { control: 'boolean' },
     },
     tags: ['autodocs'],
 } satisfies Meta<typeof Checkbox>;
@@ -27,7 +27,7 @@ export const Default: Story = {
 export const Checked: Story = {
     args: {
         label: 'Accept terms and conditions',
-        checked: true,
+        // checked: true,
     },
 };
 
@@ -48,14 +48,14 @@ export const WithError: Story = {
 export const Disabled: Story = {
     args: {
         label: 'Accept terms and conditions',
-        disabled: true,
+        // disabled: true,
     },
 };
 
 export const DisabledChecked: Story = {
     args: {
         label: 'Accept terms and conditions',
-        disabled: true,
-        checked: true,
+        // checked: true,
+        // disabled: true,
     },
 }; 

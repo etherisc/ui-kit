@@ -2,10 +2,10 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { NumberInput } from './NumberInput';
 
 const meta = {
-    title: 'Components/Form/NumberInput',
+    title: 'Form Controls/NumberInput',
     component: NumberInput,
     args: {
-        placeholder: 'Enter a number',
+        // placeholder: 'Enter a number',
     },
     argTypes: {
         label: { control: 'text' },
@@ -14,7 +14,7 @@ const meta = {
         min: { control: 'number' },
         max: { control: 'number' },
         step: { control: 'number' },
-        disabled: { control: 'boolean' },
+        // disabled: { control: 'boolean' },
     },
     tags: ['autodocs'],
 } satisfies Meta<typeof NumberInput>;
@@ -56,6 +56,6 @@ export const WithMinMax: Story = {
 export const Disabled: Story = {
     args: {
         label: 'Age',
-        disabled: true,
+        // disabled: true,
     },
 }; 

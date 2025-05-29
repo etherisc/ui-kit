@@ -4,7 +4,7 @@ import { Button } from './Button';
 import { useTranslation } from 'react-i18next';
 
 const meta: Meta<typeof Button> = {
-    title: 'Primitives/Button',
+    title: 'Form Controls/Button',
     component: Button,
     parameters: {
         layout: 'centered',

@@ -9,7 +9,7 @@ const options = [
 ];
 
 const meta = {
-    title: 'Components/Form/Select',
+    title: 'Form Controls/Select',
     component: Select,
     args: {
         placeholder: 'Select an option',

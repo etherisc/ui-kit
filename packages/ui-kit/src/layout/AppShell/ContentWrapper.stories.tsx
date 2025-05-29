@@ -3,7 +3,7 @@ import { ContentWrapper } from './ContentWrapper';
 import type { BreadcrumbItem } from './Breadcrumbs';
 
 const meta: Meta<typeof ContentWrapper> = {
-    title: 'Layout/AppShell/ContentWrapper',
+    title: 'Layout/Content Layouts/ContentWrapper',
     component: ContentWrapper,
     parameters: {
         layout: 'padded',
