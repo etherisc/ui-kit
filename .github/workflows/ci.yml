@@ -53,7 +53,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       - name: Test
-        run: pnpm test || true # Replace with your test command
+        run: pnpm test
 
   build:
     runs-on: ubuntu-latest

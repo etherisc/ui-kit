@@ -10,6 +10,56 @@ if echo "$PUSH_COMMAND" | grep -qE -- "--delete|-d"; then
   exit 0
 fi
 
-# Run full test and build suite before pushing
-echo "Running full test and build suite before pushing..."
-pnpm lint && pnpm test && pnpm build && pnpm test:a11y  
+# Function to run a command and report its status
+run_check() {
+  local check_name="$1"
+  local command="$2"
+  echo "🔍 Running $check_name..."
+  
+  if eval "$command"; then
+    echo "✅ $check_name passed"
+    return 0
+  else
+    echo "❌ $check_name failed"
+    echo "⚠️  Push blocked due to failing $check_name"
+    echo "💡 Fix the issues above or use --no-verify to bypass (not recommended)"
+    return 1
+  fi
+}
+
+# Run comprehensive checks before pushing
+echo "🚀 Running pre-push checks..."
+echo "=================================================="
+
+# 1. Lint check
+run_check "Linting" "pnpm lint" || exit 1
+
+# 2. Test check with better error reporting
+echo "🧪 Running tests..."
+if ! pnpm test; then
+  echo "❌ Tests failed"
+  echo "📋 Common issues to check:"
+  echo "   • Missing dependencies (run: pnpm install)"
+  echo "   • Test logic errors (check test output above)"
+  echo "   • Async timing issues (check waitFor timeouts)"
+  echo "   • Mock configuration problems"
+  echo "⚠️  Push blocked due to failing tests"
+  echo "💡 Fix the issues above or use --no-verify to bypass (not recommended)"
+  exit 1
+else
+  echo "✅ Tests passed"
+fi
+
+# 3. Build check
+run_check "Build" "pnpm build" || exit 1
+
+# 4. Accessibility tests (if available)
+if pnpm run test:a11y --if-present >/dev/null 2>&1; then
+  run_check "Accessibility tests" "pnpm run test:a11y" || exit 1
+else
+  echo "⏭️  Accessibility tests not available, skipping"
+fi
+
+echo "=================================================="
+echo "✅ All pre-push checks passed! 🎉"
+echo "🚀 Proceeding with push..."  

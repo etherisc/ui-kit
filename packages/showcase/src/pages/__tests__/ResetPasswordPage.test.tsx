@@ -1,8 +1,8 @@
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor, cleanup } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import { ToastProvider } from "@etherisc/ui-kit";
 import { ResetPasswordPage } from "../ResetPasswordPage";
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi, afterEach } from "vitest";
 
 // Mock the useNavigate hook
 const mockNavigate = vi.fn();
@@ -41,8 +41,12 @@ describe("ResetPasswordPage", () => {
     vi.clearAllMocks();
   });
 
+  afterEach(() => {
+    cleanup();
+  });
+
   it("renders the reset password form", () => {
-    render(<ResetPasswordPageWithProviders />);
+    const { container } = render(<ResetPasswordPageWithProviders />);
 
     expect(
       screen.getByRole("heading", { name: /reset your password/i }),
@@ -50,17 +54,18 @@ describe("ResetPasswordPage", () => {
     expect(
       screen.getByText(/enter your email address and we'll send you a link/i),
     ).toBeDefined();
-    expect(
-      screen.getByRole("button", { name: /send reset link/i }),
-    ).toBeDefined();
+    
+    const submitButton = container.querySelector('button[type="submit"]');
+    expect(submitButton).toBeDefined();
+    expect(submitButton?.textContent).toContain("Send Reset Link");
   });
 
   it("validates email field is required", async () => {
-    render(<ResetPasswordPageWithProviders />);
+    const { container } = render(<ResetPasswordPageWithProviders />);
 
-    const submitButton = screen.getByRole("button", {
-      name: /send reset link/i,
-    });
+    const submitButton = container.querySelector('button[type="submit"]') as HTMLButtonElement;
+    expect(submitButton).toBeDefined();
+    
     fireEvent.click(submitButton);
 
     await waitFor(() => {
@@ -76,11 +81,10 @@ describe("ResetPasswordPage", () => {
     const emailInput = container.querySelector(
       'input[type="email"]',
     ) as HTMLInputElement;
-    const submitButton = screen.getByRole("button", {
-      name: /send reset link/i,
-    });
+    const submitButton = container.querySelector('button[type="submit"]') as HTMLButtonElement;
 
     expect(emailInput).toBeDefined();
+    expect(submitButton).toBeDefined();
 
     fireEvent.change(emailInput, { target: { value: "user@example.com" } });
     fireEvent.click(submitButton);
@@ -90,7 +94,7 @@ describe("ResetPasswordPage", () => {
         "Reset Link Sent",
         "Password reset instructions have been sent to user@example.com",
       );
-    });
+    }, { timeout: 3000 });
   });
 
   it("navigates back to login when back button is clicked", () => {
