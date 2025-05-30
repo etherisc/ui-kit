@@ -83,7 +83,8 @@
     3000, // Storybook
     5173, // Vite dev server
     4173, // Vite preview
-    8080 // API server
+    8080, // API server
+    9323 // Playwright UI mode
   ],
 
   // Use 'postCreateCommand' to run commands after the container is created

@@ -366,20 +366,31 @@ We use [Changesets](https://github.com/changesets/changesets) for version manage
    pnpm changeset
    ```
 
-2. **Follow the prompts to describe your changes**
+2. **Changesets bot creates release PR**
 
-3. **Commit the changeset file**
-   ```bash
-   git add .changeset/
-   git commit -m "chore: add changeset for feature"
-   ```
+3. **Review and merge release PR to main**
 
-### Release Workflow
+4. **Automated release process**:
+   - Publishes to npm registry (public access)
+   - Publishes to GitHub Packages
+   - Creates GitHub release with release notes
+   - Deploys Storybook to GitHub Pages
 
-1. Changesets bot creates release PR
-2. Review and merge release PR
-3. Automated release to npm and GitHub
-4. Storybook deployment to GitHub Pages
+### Publishing Destinations
+
+The package is automatically published to multiple registries:
+
+- **npm Registry** (recommended for consumers): `npm install @etherisc/ui-kit`
+- **GitHub Packages** (alternative): `npm install @etherisc/ui-kit --registry=https://npm.pkg.github.com`
+
+### Manual Release (Maintainers Only)
+
+For manual releases, use the GitHub Actions workflow:
+
+1. Go to Actions → Release workflow
+2. Click "Run workflow"
+3. Enter the version tag (e.g., `v0.3.0-beta`)
+4. The workflow will build, test, and publish automatically
 
 ## Issue Reporting
 

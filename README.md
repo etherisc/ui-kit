@@ -8,6 +8,65 @@ React component library and showcase admin app built with modern tools:
 - 🏗️ Vite + TypeScript + pnpm
 - 📚 Storybook + Vitest + Playwright
 
+## Installation
+
+### For Consumers (Using the UI Kit)
+
+Install the UI kit package in your React project:
+
+```bash
+# From npm registry (recommended)
+npm install @etherisc/ui-kit
+# or
+pnpm add @etherisc/ui-kit
+# or
+yarn add @etherisc/ui-kit
+
+# From GitHub Packages (alternative)
+npm install @etherisc/ui-kit --registry=https://npm.pkg.github.com
+```
+
+#### Peer Dependencies
+
+Make sure you have the required peer dependencies installed:
+
+```bash
+npm install react@>=18.0.0 react-dom@>=18.0.0
+```
+
+#### Basic Usage
+
+```tsx
+import { Button, TextInput, AppShell } from "@etherisc/ui-kit";
+import "@etherisc/ui-kit/dist/style.css";
+
+function App() {
+  return (
+    <AppShell>
+      <div className="p-4">
+        <h1>My App</h1>
+        <TextInput label="Name" placeholder="Enter your name" />
+        <Button variant="primary">Submit</Button>
+      </div>
+    </AppShell>
+  );
+}
+```
+
+#### Available Components
+
+- **Form Components**: Button, TextInput, NumberInput, Select, Checkbox, RadioGroup, DatePicker
+- **Layout Components**: AppShell, AuthShell, MainLayout
+- **Data Components**: DataTable with pagination and sorting
+- **Feedback Components**: Toast system, StatusBadge, ErrorBoundary
+- **Editor Components**: MarkdownEditor, CodeEditor
+
+For complete documentation and examples, visit our [Storybook](https://etherisc.github.io/ui-kit/).
+
+## Development Setup
+
+### For Contributors (Developing the UI Kit)
+
 ## Quick Start
 
 ### Option 1: DevContainer (Recommended)
