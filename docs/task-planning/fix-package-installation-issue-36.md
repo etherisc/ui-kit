@@ -16,14 +16,14 @@ The `@etherisc/ui-kit` package cannot be installed as a dependency in consumer p
 
 ## Task Breakdown
 
-| Task Description                                                                                                                  | DoD (Definition of Done)                                                                                                                           | Status   |
-| --------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
-| **1. Fix Husky Prepare Script** - Update root package.json prepare script to be conditional and not fail in consumer environments | Root package.json prepare script runs without error when package is installed as dependency; test installation in sample consumer project succeeds | Complete |
-| **2. Make UI Kit Package Publishable** - Remove private flag and configure package.json for npm publishing                        | packages/ui-kit/package.json has private: false; proper peer dependencies defined; package can be published to npm                                 | Complete |
-| **3. Configure npm Publishing** - Update changesets config and GitHub Actions for npm registry publishing                         | .changeset/config.json updated for public access; GitHub Actions workflow can publish to npm registry; npm publish workflow exists                 | Complete |
-| **4. Optimize Package for Consumers** - Clean up package.json scripts and dependencies for consumer use                           | Only essential scripts remain in published package.json; dev dependencies properly separated; bundle size optimized                                | Complete |
-| **5. Test Package Installation** - Create test consumer project and verify installation works                                     | Can install via `pnpm add @etherisc/ui-kit`; can install via `pnpm add github:etherisc/ui-kit`; components import and render correctly             | Complete |
-| **6. Update Documentation** - Add installation instructions and usage examples                                                    | README.md includes clear installation instructions; CONTRIBUTING.md updated with publishing workflow                                               | Complete |
+| Task Description                                       | DoD (Definition of Done)                                                              | Status   |
+| ------------------------------------------------------ | ------------------------------------------------------------------------------------- | -------- |
+| **Task 1**: Fix Husky prepare script to be conditional | Make script only run when `.git` directory exists and handle missing husky gracefully | complete |
+| **Task 2**: Make UI kit package publishable            | Remove `"private": true` and add proper peer dependencies configuration               | complete |
+| **Task 3**: Configure npm publishing infrastructure    | Set up GitHub Actions for dual publishing to npm registry and GitHub Packages         | complete |
+| **Task 4**: Optimize package for consumers             | Ensure only essential files and dependencies are included in published package        | complete |
+| **Task 5**: Test package installation                  | Verify package can be installed and used correctly in consumer projects               | complete |
+| **Task 6**: Update documentation                       | Add installation instructions and publishing workflow documentation                   | complete |
 
 ## Technical Implementation Details
 
