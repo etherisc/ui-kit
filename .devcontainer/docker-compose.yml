@@ -34,13 +34,8 @@ services:
       # Persist Playwright browsers
       - playwright-browsers:/home/node/.cache/ms-playwright
 
-    # Forward ports for development
-    ports:
-      - "3000:3000"   # Storybook
-      - "5173:5173"   # Vite dev server
-      - "4173:4173"   # Vite preview
-      - "8080:8080"   # API server
-      - "9323:9323"   # Playwright UI mode
+    # Note: Port forwarding is handled by VS Code via devcontainer.json forwardPorts
+    # This prevents port conflicts with other containers on the host machine
 
     # Keep container running
     command: sleep infinity

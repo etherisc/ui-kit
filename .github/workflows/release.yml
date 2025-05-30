@@ -101,7 +101,10 @@ jobs:
               .private = false | 
               .publishConfig.registry = "https://npm.pkg.github.com" |
               .repository.type = "git" |
-              .repository.url = $repo_url' \
+              .repository.url = $repo_url |
+              .scripts = {} |
+              del(.devDependencies) |
+              del(.size-limit)' \
              package.json > package.json.tmp && mv package.json.tmp package.json
 
           echo "Updated package.json for publishing:"
@@ -117,6 +120,44 @@ jobs:
           echo "Restored original package.json"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js for npm registry
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Update package.json for npm registry
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          VERSION_NO_V=${VERSION#v}
+
+          cd packages/ui-kit
+
+          # Update package.json for npm registry publishing
+          jq --arg name "@etherisc/ui-kit" \
+             --arg version "${VERSION_NO_V}" \
+             --arg repo_url "git+https://github.com/${{ github.repository }}.git" \
+             '.name = $name | 
+              .version = $version | 
+              .private = false | 
+              del(.publishConfig) |
+              .repository.type = "git" |
+              .repository.url = $repo_url |
+              .scripts = {} |
+              del(.devDependencies) |
+              del(.size-limit)' \
+             package.json > package.json.tmp && mv package.json.tmp package.json
+
+          echo "Updated package.json for npm registry:"
+          cat package.json | jq '.name, .version, .private, .repository'
+
+      - name: Publish to npm registry
+        run: |
+          cd packages/ui-kit
+          npm publish --access=public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -177,11 +218,18 @@ jobs:
           ### 📦 Installation
 
           \`\`\`bash
+          # From npm registry (recommended)
           npm install @etherisc/ui-kit@${VERSION#v}
+          # or
+          pnpm add @etherisc/ui-kit@${VERSION#v}
+
+          # From GitHub Packages (alternative)
+          npm install @etherisc/ui-kit@${VERSION#v} --registry=https://npm.pkg.github.com
           \`\`\`
 
           ### 🔗 Links
-          - **Package**: [GitHub Packages](https://github.com/${{ github.repository }}/packages)
+          - **npm Package**: [npmjs.com](https://www.npmjs.com/package/@etherisc/ui-kit)
+          - **GitHub Package**: [GitHub Packages](https://github.com/${{ github.repository }}/packages)
           - **Demo**: [Storybook](${PAGE_URL})
           - **Build**: \`${BUILD_HASH}\`
 

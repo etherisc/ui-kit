@@ -14,7 +14,7 @@
     "test:a11y:specific": "cd packages/ui-kit && pnpm run test-storybook:specific",
     "lint": "pnpm -r lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "prepare": "husky install"
+    "prepare": "node -e \"try { require('fs').existsSync('.git') && require('husky').install() } catch (e) {}\""
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.4",
