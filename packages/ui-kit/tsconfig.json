@@ -9,6 +9,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": false,
+    "emitDeclarationOnly": false,
     "declaration": true,
     "declarationMap": true,
     "outDir": "dist",
