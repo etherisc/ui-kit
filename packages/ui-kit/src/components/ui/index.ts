@@ -5,3 +5,5 @@ export * from "./Separator/Separator";
 // Export main Breadcrumb component (sub-components can be imported directly)
 export { Breadcrumb } from "./Breadcrumb/Breadcrumb";
 export * from "./Tabs/Tabs";
+export * from "./Alert/Alert";
+export * from "./AlertDialog/AlertDialog";
