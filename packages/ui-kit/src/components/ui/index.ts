@@ -8,3 +8,4 @@ export * from "./Tabs/Tabs";
 export * from "./Alert/Alert";
 export * from "./AlertDialog/AlertDialog";
 export * from "./Progress/Progress";
+export * from "./Skeleton/Skeleton";
