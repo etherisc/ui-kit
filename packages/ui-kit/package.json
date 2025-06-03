@@ -90,14 +90,14 @@
   "size-limit": [
     {
       "name": "ES Module Bundle",
-      "path": "dist/ui-kit.js",
-      "limit": "500 KB",
+      "path": "dist/index.js",
+      "limit": "400 KB",
       "gzip": true
     },
     {
-      "name": "UMD Bundle",
-      "path": "dist/ui-kit.umd.cjs",
-      "limit": "500 KB",
+      "name": "CommonJS Bundle",
+      "path": "dist/index.cjs",
+      "limit": "950 KB",
       "gzip": true
     }
   ],
