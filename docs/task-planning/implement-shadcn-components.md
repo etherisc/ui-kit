@@ -48,7 +48,7 @@ Currently, the ui-kit has several shadcn components but is missing many essentia
 | 2.2 Implement Alert Dialog component    | Component exists, properly exported, supports custom content, includes stories, passes tests                                 | Complete |
 | 2.3 Implement Progress component        | Component exists, properly exported, supports value/indeterminate states, includes stories, passes tests                     | Complete |
 | 2.4 Implement Skeleton component        | Component exists, properly exported, supports different shapes/sizes, includes stories, passes tests                         | Complete |
-| 2.5 Implement Tooltip component         | Component exists, properly exported, supports positioning, includes stories, passes tests                                    | Open     |
+| 2.5 Implement Tooltip component         | Component exists, properly exported, supports positioning, includes stories, passes tests                                    | Complete |
 | **Phase 3: Form Enhancement**           |                                                                                                                              |          |
 | 3.1 Implement Switch component          | Component exists, properly exported, integrates with React Hook Form, includes stories, passes tests                         | Open     |
 | 3.2 Implement Toggle component          | Component exists, properly exported, supports pressed state, includes stories, passes tests                                  | Open     |
