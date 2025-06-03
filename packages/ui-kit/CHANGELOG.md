@@ -1,5 +1,18 @@
 # @etherisc/ui-kit
 
+## 0.3.0
+
+### Minor Changes
+
+- Fix TypeScript declarations generation with tsup
+
+  - Replace complex manual build setup with tsup specialized TypeScript library bundler
+  - Automatic TypeScript declarations generation for all components including Select
+  - Proper React component support with JSX handling
+  - Multiple output formats (ESM + CommonJS) with proper browser compatibility
+  - Simplified build process to single command
+  - Resolves missing TypeScript declaration files in published package (issue #41)
+
 ## 0.2.1
 
 ### Patch Changes
