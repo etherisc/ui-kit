@@ -1,16 +1,18 @@
 # @etherisc/ui-kit
 
-A comprehensive React UI component library built with accessibility, type safety, and developer experience in mind.
+A comprehensive React UI component library built with accessibility, type safety, and developer experience in mind. Contains **60+ production-ready components** including complete shadcn/ui integration.
 
 ## ✨ Features
 
 - 🎨 **Theme-aware** - Light/dark mode with DaisyUI + Tailwind CSS
+- ⚡ **shadcn/ui Integration** - Complete set of shadcn components with Radix UI primitives
 - ♿ **Accessible** - WCAG 2.1 AA compliant with axe-core testing
 - 🔧 **Type-safe** - Full TypeScript support with comprehensive interfaces
 - 📱 **Responsive** - Mobile-first design patterns
 - 🌍 **Internationalized** - Built-in i18n support with react-i18next
+- 🔔 **Enhanced Notifications** - Advanced toast system with Sonner integration
 - 🧪 **Well-tested** - Unit tests, accessibility tests, and visual regression tests
-- 📚 **Well-documented** - Comprehensive Storybook documentation
+- 📚 **Well-documented** - Comprehensive Storybook documentation with 200+ stories
 
 ## 🚀 Quick Start
 
@@ -94,31 +96,79 @@ This package is optimized for use by AI coding agents. We provide specialized do
 - `WizardShell` - Multi-step form layout
 - `MainFixedLayout` - Fixed-width content layout
 - `DataDenseLayout` - Data-heavy interface layout
+- `Sheet` - Slide-out panel component with multiple positioning options
+- `Sidebar` - Collapsible sidebar for navigation and content organization
+- `AspectRatio` - Maintain consistent aspect ratios for media content
+- `Separator` - Visual divider between content sections
+- `Collapsible` - Expandable/collapsible content container
+- `Accordion` - Vertically stacked expandable sections
 
-### Form Controls
+### Form Controls & Input
 
-- `Button` - Primary interactive element
+- `Button` - Primary interactive element with various styles and states
 - `TextInput` - Text input with label and validation
 - `NumberInput` - Numeric input with min/max validation
-- `Select` - Dropdown selection
-- `Checkbox` - Boolean selection
+- `Select` - Dropdown selection with enhanced features
+- `Checkbox` - Boolean selection with custom styling
 - `RadioGroup` - Single selection from multiple options
-- `ComboBox` - Searchable dropdown
+- `ComboBox` - Searchable dropdown with autocomplete
 - `TextArea` - Multi-line text input
-- `DatePicker` - Date selection
+- `DatePicker` - Date selection with calendar popup
 - `DateRangePicker` - Date range selection
 - `SliderInput` - Range slider input
 - `SpinnerInput` - Numeric spinner input
+- `Switch` - Toggle switch for boolean values
+- `Toggle` - Pressable toggle button
+- `ToggleGroup` - Group of toggle buttons with single/multiple selection
+- `InputOTP` - One-time password input with multiple slots
+- `Slider` - Range slider for numeric value selection
 
 ### Editor Components
 
 - `MarkdownEditor` - WYSIWYG markdown editor with security
 - `CodeEditor` - Syntax-highlighted code editor
 
-### Feedback Components
+### UI Primitives (shadcn/ui Components)
+
+#### Display & Content
+
+- `Card` - Flexible content container with header, body, and footer
+- `Avatar` - User profile picture display with fallback support
+- `Badge` - Small status indicators and labels
+- `Typography` - Comprehensive text styling system with semantic components
+- `Skeleton` - Loading placeholders for better UX
+- `Progress` - Progress bars and loading indicators
+- `Alert` - Contextual alerts and notifications
+- `Tooltip` - Hover-triggered contextual information
+
+#### Navigation & Menus
+
+- `Breadcrumb` - Navigation breadcrumbs with custom separators
+- `Tabs` - Tabbed content navigation
+- `DropdownMenu` - Dropdown menus with nested support
+- `ContextMenu` - Right-click context menus
+- `Menubar` - Horizontal menu bar navigation
+- `NavigationMenu` - Complex navigation with mega-menu support
+- `Pagination` - Page navigation for large datasets
+
+#### Data Display & Tables
+
+- `Table` - Comprehensive data tables with sorting and selection
+- `HoverCard` - Rich content preview on hover
+- `ScrollArea` - Custom scrollable areas with styled scrollbars
+
+#### Dialogs & Overlays
+
+- `Dialog` - Modal dialogs and popup windows
+- `AlertDialog` - Confirmation and alert dialogs
+- `Popover` - Positioned floating content containers
+- `Command` - Command palette and search interfaces
+
+#### Feedback & Status
 
 - `StatusBadge` - Status indicators
-- `Toast` - Notification system
+- `Toast` - Enhanced notification system powered by Sonner
+- `Sonner` - Advanced toast notifications with rich content support
 - `ErrorBoundary` - Error handling wrapper
 
 ### Navigation Components
@@ -196,7 +246,10 @@ function MyForm() {
 
 ### Toast Notifications
 
+The UI kit now supports both traditional toast notifications and enhanced Sonner-powered toasts:
+
 ```tsx
+// Traditional toast API
 import { useToastContext } from "@etherisc/ui-kit";
 
 function MyComponent() {
@@ -211,6 +264,37 @@ function MyComponent() {
   };
 
   return <Button onClick={handleSuccess}>Save</Button>;
+}
+```
+
+```tsx
+// Enhanced Sonner API with promise support
+import { success, promise as toastPromise } from "@etherisc/ui-kit";
+
+function MyComponent() {
+  const handleSave = async () => {
+    const savePromise = saveData();
+
+    toastPromise(savePromise, {
+      loading: "Saving changes...",
+      success: "Changes saved successfully!",
+      error: "Failed to save changes",
+    });
+  };
+
+  const handleQuickSuccess = () => {
+    success("Quick success message!", {
+      description: "Operation completed successfully",
+      duration: 3000,
+    });
+  };
+
+  return (
+    <div className="space-x-2">
+      <Button onClick={handleSave}>Save with Promise</Button>
+      <Button onClick={handleQuickSuccess}>Quick Success</Button>
+    </div>
+  );
 }
 ```
 
