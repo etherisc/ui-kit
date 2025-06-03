@@ -16,3 +16,4 @@ export * from "./ToggleGroup/ToggleGroup";
 export * from "./InputOTP/InputOTP";
 export * from "./Accordion/Accordion";
 export * from "./Collapsible/Collapsible";
+export * from "./AspectRatio/AspectRatio";
