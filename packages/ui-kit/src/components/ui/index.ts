@@ -15,3 +15,4 @@ export * from "./Toggle/Toggle";
 export * from "./ToggleGroup/ToggleGroup";
 export * from "./InputOTP/InputOTP";
 export * from "./Accordion/Accordion";
+export * from "./Collapsible/Collapsible";
