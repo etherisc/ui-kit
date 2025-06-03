@@ -7,12 +7,19 @@ export default defineConfig({
   sourcemap: true,
   clean: true,
   external: ["react", "react-dom"],
+  noExternal: ["nanoid"],
   minify: false,
   target: "es2020",
   outDir: "dist",
+  platform: "browser",
   esbuildOptions: (options) => {
     options.jsx = "automatic";
     options.jsxImportSource = "react";
+    // Define globals for browser compatibility
+    options.define = {
+      global: "globalThis",
+      "process.env.NODE_ENV": '"production"',
+    };
   },
   banner: {
     js: '"use client";',
