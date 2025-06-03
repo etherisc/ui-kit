@@ -80,6 +80,7 @@ This package is optimized for use by AI coding agents. We provide specialized do
 ### For Human Developers
 
 - **[📚 Storybook Documentation](https://ui-kit-storybook-url)** - Interactive component explorer
+- **[🎯 Select Component Guide](../../docs/select-component-guide.md)** - Complete guide for using the Select component
 - **[🎨 Design System](./src/docs/)** - Design tokens, patterns, and guidelines
 - **[🔧 Development Guide](./docs/development.md)** - Contributing and development setup
 
