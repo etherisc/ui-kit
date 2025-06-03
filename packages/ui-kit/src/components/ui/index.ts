@@ -12,3 +12,4 @@ export * from "./Skeleton/Skeleton";
 export * from "./Tooltip/Tooltip";
 export * from "./Switch/Switch";
 export * from "./Toggle/Toggle";
+export * from "./ToggleGroup/ToggleGroup";
