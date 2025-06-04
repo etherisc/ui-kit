@@ -1,5 +1,28 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-# Only run lint-staged and lint for faster commits
+# 1. Quick commit message length check (if provided via -m flag)
+echo "🔍 Checking commit message format..."
+COMMIT_MSG=$(ps -ocommand= -p $PPID | grep -o '\-m[[:space:]]*"[^"]*"' | sed 's/-m[[:space:]]*"//' | sed 's/"$//')
+if [ -n "$COMMIT_MSG" ]; then
+  MSG_LENGTH=${#COMMIT_MSG}
+  if [ $MSG_LENGTH -gt 100 ]; then
+    echo "❌ Commit message too long: $MSG_LENGTH characters (max 100)"
+    echo "💡 Current message: $COMMIT_MSG"
+    echo "⚠️  Please shorten your commit message"
+    exit 1
+  elif [ $MSG_LENGTH -lt 10 ]; then
+    echo "❌ Commit message too short: $MSG_LENGTH characters (min 10)"
+    echo "💡 Current message: $COMMIT_MSG"
+    echo "⚠️  Please provide a more descriptive commit message"
+    exit 1
+  else
+    echo "✅ Commit message length OK ($MSG_LENGTH characters)"
+  fi
+else
+  echo "⏭️  Commit message will be entered interactively"
+fi
+
+# 2. Run lint-staged and lint for faster commits
+echo "🔍 Running code quality checks..."
 pnpm lint-staged && pnpm lint
