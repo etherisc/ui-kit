@@ -312,6 +312,7 @@ export const ResponsiveExample: Story = {
         heights, font sizes, and spacing all adjust harmoniously.
       </TypographyP>
 
+      <TypographyH2>Platform Features</TypographyH2>
       <div className="grid gap-4 md:grid-cols-2">
         <div className="p-4 border rounded-lg">
           <TypographyH3>Mobile Optimized</TypographyH3>

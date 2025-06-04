@@ -228,7 +228,7 @@ export const WithSelection: Story = {
           <TableHead>Status</TableHead>
           <TableHead>Method</TableHead>
           <TableHead className="text-right">Amount</TableHead>
-          <TableHead className="w-[50px]"></TableHead>
+          <TableHead className="w-[50px]" aria-label="Actions"></TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -249,7 +249,7 @@ export const WithSelection: Story = {
             <TableCell>{invoice.method}</TableCell>
             <TableCell className="text-right">{invoice.amount}</TableCell>
             <TableCell>
-              <Button variant="ghost" size="sm">
+              <Button variant="ghost" size="sm" aria-label="More actions">
                 <MoreHorizontal className="h-4 w-4" />
               </Button>
             </TableCell>
@@ -271,6 +271,7 @@ export const WithSorting: Story = {
               variant="ghost"
               size="sm"
               className="h-8 p-0 font-medium hover:bg-transparent"
+              aria-label="Sort by Invoice"
             >
               Invoice
               <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -281,6 +282,7 @@ export const WithSorting: Story = {
               variant="ghost"
               size="sm"
               className="h-8 p-0 font-medium hover:bg-transparent"
+              aria-label="Sort by Customer"
             >
               Customer
               <ChevronUp className="ml-2 h-4 w-4" />
@@ -291,6 +293,7 @@ export const WithSorting: Story = {
               variant="ghost"
               size="sm"
               className="h-8 p-0 font-medium hover:bg-transparent"
+              aria-label="Sort by Date"
             >
               Date
               <ArrowUpDown className="ml-2 h-4 w-4" />

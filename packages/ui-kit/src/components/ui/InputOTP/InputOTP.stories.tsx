@@ -38,9 +38,10 @@ const meta: Meta<typeof InputOTP> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default = {
+export const Default: Story = {
+  args: {},
   render: () => (
-    <InputOTP maxLength={6}>
+    <InputOTP maxLength={6} aria-label="Enter 6-digit verification code">
       <InputOTPGroup>
         <InputOTPSlot index={0} />
         <InputOTPSlot index={1} />
@@ -55,7 +56,7 @@ export const Default = {
 
 export const WithSeparator: Story = {
   render: () => (
-    <InputOTP maxLength={6}>
+    <InputOTP maxLength={6} aria-label="Enter 6-digit code with separator">
       <InputOTPGroup>
         <InputOTPSlot index={0} />
         <InputOTPSlot index={1} />

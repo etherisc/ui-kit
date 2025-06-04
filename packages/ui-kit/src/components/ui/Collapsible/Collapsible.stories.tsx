@@ -97,25 +97,27 @@ export const Disabled = {
   render: () => (
     <Collapsible disabled className="w-[350px] space-y-2">
       <div className="flex items-center justify-between space-x-4 px-4">
-        <h4 className="text-sm font-semibold opacity-50">Disabled Section</h4>
+        <h4 className="text-sm font-semibold text-muted-foreground">
+          Disabled Section
+        </h4>
         <CollapsibleTrigger asChild>
           <button
             disabled
-            className="flex h-9 w-9 items-center justify-center rounded-md border border-input bg-background opacity-50 cursor-not-allowed"
+            className="flex h-9 w-9 items-center justify-center rounded-md border border-input bg-background text-muted-foreground cursor-not-allowed"
           >
             <ChevronDown className="h-4 w-4" />
             <span className="sr-only">Toggle (disabled)</span>
           </button>
         </CollapsibleTrigger>
       </div>
-      <div className="rounded-md border px-4 py-3 font-mono text-sm opacity-50">
+      <div className="rounded-md border px-4 py-3 font-mono text-sm text-muted-foreground">
         This content cannot be toggled
       </div>
       <CollapsibleContent className="space-y-2">
-        <div className="rounded-md border px-4 py-3 font-mono text-sm opacity-50">
+        <div className="rounded-md border px-4 py-3 font-mono text-sm text-muted-foreground">
           Hidden content 1
         </div>
-        <div className="rounded-md border px-4 py-3 font-mono text-sm opacity-50">
+        <div className="rounded-md border px-4 py-3 font-mono text-sm text-muted-foreground">
           Hidden content 2
         </div>
       </CollapsibleContent>
