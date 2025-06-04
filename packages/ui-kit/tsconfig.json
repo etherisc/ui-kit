@@ -5,7 +5,9 @@
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": false,
@@ -22,7 +24,7 @@
     "paths": {
       "@/*": ["src/*"]
     },
-    "types": ["vitest/globals", "@testing-library/jest-dom", "node"]
+    "types": ["node"]
   },
   "include": ["src"],
   "exclude": ["src/**/*.test.tsx", "src/**/*.stories.tsx", "../../vendors/**"],
