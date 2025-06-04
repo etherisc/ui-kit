@@ -74,7 +74,12 @@ async function startStorybook() {
     {
       shell: true,
       stdio: ["pipe", "pipe", "pipe"],
-      env: { ...process.env, FORCE_COLOR: "true" },
+      env: {
+        ...process.env,
+        FORCE_COLOR: "true",
+        STORYBOOK_DISABLE_TELEMETRY: "1",
+        CI: "true",
+      },
     },
   );
 
