@@ -1,5 +1,52 @@
 # @etherisc/ui-kit
 
+## 0.4.1
+
+### Patch Changes
+
+- # Fix Release v0.4.1 - TypeScript Declarations & API Standardization
+
+  ## 🔧 Critical Fixes
+
+  ### TypeScript Declaration Issues Resolved
+
+  - **Fixed bundle externalization**: All major dependencies (@radix-ui/_, @codemirror/_, utilities) now properly externalized
+  - **Improved module resolution**: Changed from "bundler" to "node" for better consumer compatibility
+  - **Reduced bundle sizes dramatically**:
+    - ES Module: 335KB (24% reduction)
+    - CommonJS: 356KB (63% reduction)
+  - **Enhanced TypeScript configuration**: Added esModuleInterop and allowSyntheticDefaultImports
+  - **Clean type definitions**: Properly externalized dependencies for better TypeScript IntelliSense
+
+  ### API Consistency Improvements
+
+  - **Standardized Button component**: Now supports both `variant` (recommended) and `intent` (deprecated) props
+  - **Backward compatibility**: All existing `intent` usage continues to work unchanged
+  - **Developer experience**: Clear deprecation warnings guide migration to `variant` prop
+  - **Industry alignment**: `variant` prop aligns with Radix UI, Shadcn/ui standards
+
+  ## 🚀 Benefits for Consumers
+
+  - ✅ TypeScript compilation now works without errors
+  - ✅ Faster npm install (smaller bundles)
+  - ✅ Better tree-shaking and performance
+  - ✅ Consistent API across all components
+  - ✅ Zero breaking changes
+
+  ## 📋 Migration Guide
+
+  **Button Component (Optional Migration)**:
+
+  ```tsx
+  // Before (still works, but deprecated)
+  <Button intent="primary">Submit</Button>
+
+  // After (recommended)
+  <Button variant="primary">Submit</Button>
+  ```
+
+  All other components continue to work exactly as before. This release focuses on fixing critical infrastructure issues while maintaining 100% backward compatibility.
+
 ## 0.4.0
 
 ### Minor Changes
