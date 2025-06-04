@@ -1,5 +1,25 @@
 # @etherisc/ui-kit
 
+## 0.4.3
+
+### Patch Changes
+
+- **Synchronize develop branch with release version**
+
+  ## Version Synchronization Fix
+
+  The develop branch is now ahead of the v0.4.2 release due to the PR merge process. This patch release synchronizes the version to match the current state of the develop branch.
+
+  ### Changes Included
+
+  - All components and fixes from the merged PR #45
+  - Missing dependencies properly included
+  - Full test suite passing (952/952 tests)
+  - Complete shadcn/ui components implementation
+  - API standardization with backward compatibility
+
+  This ensures the published package matches exactly what's in the develop branch.
+
 ## 0.4.2
 
 ### Patch Changes
