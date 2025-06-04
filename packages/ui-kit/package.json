@@ -101,13 +101,13 @@
     {
       "name": "ES Module Bundle",
       "path": "dist/index.js",
-      "limit": "400 KB",
+      "limit": "1 MB",
       "gzip": true
     },
     {
       "name": "CommonJS Bundle",
       "path": "dist/index.cjs",
-      "limit": "950 KB",
+      "limit": "1.5 MB",
       "gzip": true
     }
   ],

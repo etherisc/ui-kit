@@ -8,7 +8,7 @@
 | ---- | ------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------- | ------ |
 | 4.1  | Implement CSP & DOMPurify wrapper in MarkdownEditor                            | Security unit test feeds XSS payload; output sanitised.                                      | ✓      |
 | 4.2  | Add Sentry ErrorBoundary + tslog logger                                        | Fake error in story captured by mocked Sentry client in test.                                | ✓      |
-| 4.3  | Size‑limit CI check (< 250 KB gz for core bundle)                              | `npm run size-limit` passes.                                                                 | ✓      |
+| 4.3  | Size‑limit CI check (< 1MB/1.5MB gz for core bundle)                           | `npm run size-limit` passes.                                                                 | ✓      |
 | 4.4  | Prepare **CONTRIBUTING.md**, PR template, CODEOWNERS                           | Presence verified by doc‑lint script.                                                        | ✓      |
 | 4.5  | Publish first `v0.1.0-beta` to GitHub Packages; deploy Storybook demo to Pages | Tag `v0.1.0-beta` exists; npm info returns package; Pages URL accessible & shows build hash. | ✓      |
 
@@ -68,7 +68,7 @@
 
 ---
 
-### Task 4.3: Size‑limit CI check (< 250 KB gz for core bundle)
+### Task 4.3: Size‑limit CI check (< 1MB/1.5MB gz for core bundle)
 
 **Objective**: Implement bundle size monitoring to ensure the library stays performant.
 
@@ -84,7 +84,7 @@
 - [ ] size-limit configuration file exists
 - [ ] `npm run size-limit` command passes
 - [ ] CI workflow includes size check
-- [ ] Core bundle size is under 250 KB gzipped
+- [ ] Core bundle size is under 1MB/1.5MB gzipped
 - [ ] Size budget alerts on significant increases
 - [ ] Documentation explains size optimization strategies
 

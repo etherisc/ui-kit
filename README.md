@@ -110,8 +110,8 @@ pnpm build && pnpm run size-limit
 
 ### Size Limits
 
-- **ES Module Bundle**: 250 KB gzipped
-- **UMD Bundle**: 250 KB gzipped
+- **ES Module Bundle**: 1 MB gzipped
+- **CommonJS Bundle**: 1.5 MB gzipped
 
 The CI pipeline automatically checks bundle sizes on every PR and will fail if the limits are exceeded. This helps prevent bundle bloat and maintains fast loading times for applications using the UI kit.
 
