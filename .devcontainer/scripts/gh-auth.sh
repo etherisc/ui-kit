@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # GitHub CLI authentication script
-set -e
 
 echo "🔐 GitHub CLI Authentication"
 echo "=============================="
