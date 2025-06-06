@@ -8,6 +8,14 @@ echo "🚀 Setting up UI Kit development environment..."
 # Ensure we're in the workspace directory
 cd /workspace
 
+# Load environment variables from .env file if it exists
+if [ -f ".devcontainer/.env" ]; then
+    echo "📄 Loading environment variables from .devcontainer/.env"
+    set -a  # automatically export all variables
+    source .devcontainer/.env
+    set +a  # disable automatic export
+fi
+
 # Authenticate with GitHub CLI (if token available)
 if [ -n "$GH_TOKEN" ]; then
     echo "🔐 Authenticating with GitHub CLI..."

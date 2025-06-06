@@ -6,6 +6,13 @@ set -e
 echo "🔐 GitHub CLI Authentication"
 echo "=============================="
 
+# Debug: Check if GH_TOKEN is available (without showing the full token)
+if [ -n "$GH_TOKEN" ]; then
+    echo "🔍 GH_TOKEN found (${#GH_TOKEN} characters)"
+else
+    echo "🔍 GH_TOKEN not found in environment"
+fi
+
 # Check if already authenticated
 if gh auth status >/dev/null 2>&1; then
     echo "✅ GitHub CLI is already authenticated"
