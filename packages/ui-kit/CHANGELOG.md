@@ -1,5 +1,16 @@
 # @etherisc/ui-kit
 
+## 0.4.5
+
+### Patch Changes
+
+- e5b4a2b: Fix CSS styles missing from distribution build
+
+  - Include Tailwind CSS utilities in distributed CSS bundle
+  - Distributed CSS now contains both theme variables and utility classes (172.83 KB vs 2.28 KB)
+  - Components are now properly styled when using the distributed CSS
+  - Add clear documentation about CSS import usage
+
 ## 0.4.4
 
 ### Patch Changes
