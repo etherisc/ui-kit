@@ -136,13 +136,49 @@ pwshow      # playwright show-report
 
 ## 🌐 Port Forwarding
 
-The following ports are automatically forwarded from the container to your host machine:
+This devcontainer is optimized to minimize port forwarding and only open ports on-demand when services are actually running:
 
-- **3000**: Storybook development server
-- **5173**: Vite development server (Showcase app)
-- **4173**: Vite preview server
-- **8080**: API server
-- **9323**: Playwright UI mode
+### 🚀 **On-Demand Port Forwarding**
+
+- **No ports are forwarded by default** - this prevents blocking ports on your local machine
+- Ports are automatically detected and forwarded only when services start
+- Ports are automatically closed when services stop
+
+### 🔧 **Automatic Detection**
+
+When you start development services, VS Code will automatically:
+
+| Service                  | Port | Behavior                    |
+| ------------------------ | ---- | --------------------------- |
+| **Vite Dev Server**      | 5173 | Auto-forward & open browser |
+| **Storybook (UI Kit)**   | 6006 | Auto-forward & open browser |
+| **Storybook (Showcase)** | 3000 | Auto-forward & open browser |
+| **Vite Preview**         | 4173 | Auto-forward & open browser |
+| **Playwright UI**        | 9323 | Auto-forward & open browser |
+| **API Server**           | 8080 | Auto-forward & notify only  |
+
+### 💡 **Usage Examples**
+
+```bash
+# Start Storybook - port 6006 will be auto-forwarded
+pnpm --filter @etherisc/ui-kit run storybook
+
+# Start showcase app - port 5173 will be auto-forwarded
+pnpm --filter @org/showcase run dev
+
+# Start Playwright UI - port 9323 will be auto-forwarded
+pnpm --filter @org/showcase run test:e2e --ui
+```
+
+### 🔍 **Manual Port Management**
+
+If you need to manually forward additional ports:
+
+1. Open VS Code Command Palette (`Ctrl+Shift+P`)
+2. Run "Ports: Focus on Ports View"
+3. Click "Forward a Port" to add any custom port
+
+This optimized setup prevents the common issue of having 20+ ports forwarded unnecessarily while still providing seamless development experience.
 
 ## 💾 Persistent Storage
 

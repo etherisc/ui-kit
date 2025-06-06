@@ -1,3 +1,6 @@
+// Import global styles including Tailwind CSS and shadcn component styles
+import "./styles/globals.css";
+
 // Core components
 export * from "./components";
 

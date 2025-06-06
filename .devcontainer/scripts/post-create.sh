@@ -8,6 +8,10 @@ echo "🚀 Setting up UI Kit development environment..."
 # Ensure we're in the workspace directory
 cd /workspace
 
+# Authenticate with GitHub CLI (gh-auth.sh handles .env loading internally)
+echo "🔐 Setting up GitHub CLI authentication..."
+bash .devcontainer/scripts/gh-auth.sh
+
 # Set up git configuration if not already set
 if [ -z "$(git config --global user.name)" ]; then
     echo "⚙️  Setting up git configuration..."
