@@ -1,15 +1,43 @@
 #!/bin/bash
 
 # GitHub CLI authentication script
+# This script directly reads .devcontainer/.env to avoid dependency on shell exports
 
 echo "🔐 GitHub CLI Authentication"
 echo "=============================="
+
+# Function to load environment variables from .env file
+load_env_file() {
+    local env_file=".devcontainer/.env"
+    if [ -f "$env_file" ]; then
+        echo "📄 Loading environment variables from $env_file"
+        # Use a subshell to avoid polluting the current environment permanently
+        while IFS='=' read -r key value; do
+            # Skip empty lines and comments
+            [[ -z "$key" || "$key" =~ ^#.*$ ]] && continue
+            # Remove quotes if present
+            value="${value%\"}"
+            value="${value#\"}"
+            value="${value%\'}"
+            value="${value#\'}"
+            # Export the variable
+            export "$key=$value"
+        done < "$env_file"
+        return 0
+    else
+        echo "ℹ️  No .env file found at $env_file"
+        return 1
+    fi
+}
+
+# Load environment variables from .env file
+load_env_file
 
 # Debug: Check if GH_TOKEN is available (without showing the full token)
 if [ -n "$GH_TOKEN" ]; then
     echo "🔍 GH_TOKEN found (${#GH_TOKEN} characters)"
 else
-    echo "🔍 GH_TOKEN not found in environment"
+    echo "🔍 GH_TOKEN not found in environment or .env file"
 fi
 
 # Check if already authenticated with persistent credentials (not just env var)
