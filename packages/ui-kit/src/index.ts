@@ -23,7 +23,7 @@ export * from "./theme";
 
 // Providers - using explicit exports to avoid naming conflicts
 export { ThemeProvider } from "./providers/ThemeProvider";
-export { ToastProvider, useToastContext } from "./providers/ToastProvider";
+export { ToastProvider } from "./providers/ToastProvider";
 export type {
   ToastVariant,
   Toast as ToastType,
