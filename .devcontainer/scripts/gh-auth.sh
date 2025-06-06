@@ -22,11 +22,10 @@ fi
 
 # If not authenticated, check if GH_TOKEN is available
 if [ -z "$GH_TOKEN" ]; then
-    echo "❌ Not authenticated and GH_TOKEN environment variable not found"
-    echo "   Make sure .devcontainer/.env contains your GitHub token:"
+    echo "ℹ️  No GH_TOKEN found - GitHub CLI authentication will be skipped"
+    echo "   To enable automatic authentication, create .devcontainer/.env with:"
     echo "   GH_TOKEN=your_github_token_here"
-    echo "   Or set the GH_TOKEN environment variable directly"
-    exit 1
+    exit 0
 fi
 
 # Authenticate with GitHub CLI

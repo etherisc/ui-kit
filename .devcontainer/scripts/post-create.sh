@@ -8,13 +8,10 @@ echo "🚀 Setting up UI Kit development environment..."
 # Ensure we're in the workspace directory
 cd /workspace
 
-# Authenticate with GitHub CLI
+# Authenticate with GitHub CLI (if token available)
 if [ -n "$GH_TOKEN" ]; then
     echo "🔐 Authenticating with GitHub CLI..."
     bash .devcontainer/scripts/gh-auth.sh
-else
-    echo "⚠️  No GH_TOKEN found - GitHub CLI authentication skipped"
-    echo "   Create .devcontainer/.env with GH_TOKEN=your_token_here"
 fi
 
 # Set up git configuration
