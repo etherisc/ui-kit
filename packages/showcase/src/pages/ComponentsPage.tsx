@@ -1,14 +1,16 @@
 import React, { useState } from "react";
-import { Button, TextInput } from "@etherisc/ui-kit";
+import { Button, TextInput, useToast } from "@etherisc/ui-kit";
 
 export const ComponentsPage: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const { success, error, warning, info } = useToast();
 
   const componentCategories = [
     { id: "all", name: "All Components" },
     { id: "primitives", name: "Primitives" },
     { id: "form", name: "Form Controls" },
+    { id: "feedback", name: "Feedback" },
     { id: "layout", name: "Layout" },
   ];
 
@@ -43,6 +45,32 @@ export const ComponentsPage: React.FC = () => {
             error="This field is required"
             placeholder="Invalid input"
           />
+        </div>
+      ),
+    },
+    {
+      id: "toast",
+      name: "Toast",
+      category: "feedback",
+      description: "Toast notifications for user feedback",
+      example: (
+        <div className="flex gap-2 flex-wrap">
+          <Button
+            onClick={() =>
+              success("Success!", "Operation completed successfully")
+            }
+          >
+            Success Toast
+          </Button>
+          <Button onClick={() => error("Error!", "Something went wrong")}>
+            Error Toast
+          </Button>
+          <Button onClick={() => warning("Warning!", "Please be careful")}>
+            Warning Toast
+          </Button>
+          <Button onClick={() => info("Info", "Here is some information")}>
+            Info Toast
+          </Button>
         </div>
       ),
     },

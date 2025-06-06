@@ -1,5 +1,33 @@
 # @etherisc/ui-kit
 
+## 0.4.6
+
+### Patch Changes
+
+- Fix critical toast system issues and improve theming consistency
+
+  **Critical Fixes:**
+
+  - **Issue #53**: Fix ToastProvider rendering - toast notifications now display correctly with proper container and positioning
+  - **Issue #52**: Resolve API inconsistency - unified toast hook API with useToast providing intuitive interface
+  - **Issue #51**: Fix hardcoded colors - replaced hardcoded values with CSS variables for proper DaisyUI theme integration
+
+  **Improvements:**
+
+  - **Issue #50**: Updated showcase DashboardPage to demonstrate UI kit component best practices
+  - Enhanced toast system with proper styling, animations, and accessibility
+  - Improved component composition patterns in showcase
+
+  **Technical Details:**
+
+  - ToastProvider now properly renders toast container in DOM with correct z-index and positioning
+  - Unified toast API under useToast hook for consistent developer experience
+  - Replaced hardcoded color values (#e5e7eb, #9ca3af) with CSS variables for theme compatibility
+  - Added comprehensive test coverage for toast functionality
+  - Updated showcase to demonstrate proper Card component usage patterns
+
+  All tests pass and build is successful. Toast notifications now work correctly across all themes.
+
 ## 0.4.5
 
 ### Patch Changes
