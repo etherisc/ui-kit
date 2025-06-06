@@ -8,33 +8,16 @@ echo "🚀 Setting up UI Kit development environment..."
 # Ensure we're in the workspace directory
 cd /workspace
 
-# Load environment variables from .env file if it exists
-if [ -f ".devcontainer/.env" ]; then
-    echo "📄 Loading environment variables from .devcontainer/.env"
-    set -a  # automatically export all variables
-    source .devcontainer/.env
-    set +a  # disable automatic export
-fi
+# Authenticate with GitHub CLI (gh-auth.sh handles .env loading internally)
+echo "🔐 Setting up GitHub CLI authentication..."
+bash .devcontainer/scripts/gh-auth.sh
 
-# Authenticate with GitHub CLI (if token available)
-if [ -n "$GH_TOKEN" ]; then
-    echo "🔐 Authenticating with GitHub CLI..."
-    export GH_TOKEN  # Ensure token is exported to subshells
-    bash .devcontainer/scripts/gh-auth.sh
-fi
-
-# Set up git configuration
-if [ -n "$GIT_USER_NAME" ] && [ -n "$GIT_USER_EMAIL" ]; then
-    echo "⚙️  Setting up git configuration..."
-    export GIT_USER_NAME GIT_USER_EMAIL  # Ensure git vars are exported
-    git config --global user.name "$GIT_USER_NAME"
-    git config --global user.email "$GIT_USER_EMAIL"
-    echo "   ✅ Git configured with provided credentials"
-elif [ -z "$(git config --global user.name)" ]; then
+# Set up git configuration if not already set
+if [ -z "$(git config --global user.name)" ]; then
     echo "⚙️  Setting up git configuration..."
     git config --global user.name "Developer"
     git config --global user.email "developer@example.com"
-    echo "   ⚠️  Git not configured. Update with:"
+    echo "   Note: Update git config with your actual name and email:"
     echo "   git config --global user.name 'Your Name'"
     echo "   git config --global user.email 'your.email@example.com'"
 fi
