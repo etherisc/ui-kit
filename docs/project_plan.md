@@ -120,6 +120,16 @@ A pragmatic breakdown into **four one‑week sprints** plus a preparatory **Spri
 
 ---
 
+## Critical Bug Fixes & Unplanned Tasks
+
+| #    | Task                                                              | DoD                                                                                    | Status |
+| ---- | ----------------------------------------------------------------- | -------------------------------------------------------------------------------------- | ------ |
+| BF.1 | **Issue #46**: Fix TypeScript module resolution for pnpm projects | pnpm users can compile TypeScript without module resolution errors; peer deps resolved | ✓      |
+
+**BF.1 Details**: Moved all Radix UI packages from dependencies to peerDependencies to fix TypeScript compilation failures in pnpm projects due to symlink structure conflicts. Released as v0.4.4.
+
+---
+
 ## Post‑MVP backlog (icebox)
 
 - Add Prometheus metrics endpoint to API stub.

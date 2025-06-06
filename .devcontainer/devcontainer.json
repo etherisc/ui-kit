@@ -73,19 +73,44 @@
         "typescript.suggest.autoImports": true,
         "npm.packageManager": "pnpm",
         "playwright.reuseBrowser": true,
-        "playwright.showTrace": true
+        "playwright.showTrace": true,
+        // Enable automatic port forwarding only when services are detected
+        "remote.autoForwardPorts": true,
+        "remote.autoForwardPortsSource": "process"
       }
     }
   },
 
-  // Use 'forwardPorts' to make a list of ports inside the container available locally
-  "forwardPorts": [
-    3000, // Storybook
-    5173, // Vite dev server
-    4173, // Vite preview
-    8080, // API server
-    9323 // Playwright UI mode
-  ],
+  // No ports forwarded by default - rely on automatic detection
+  "forwardPorts": [],
+
+  // Configure port attributes for automatic forwarding when services start
+  "portsAttributes": {
+    "3000": {
+      "label": "Storybook (Showcase)",
+      "onAutoForward": "openBrowser"
+    },
+    "4173": {
+      "label": "Vite Preview",
+      "onAutoForward": "openBrowser"
+    },
+    "5173": {
+      "label": "Vite Dev Server",
+      "onAutoForward": "openBrowser"
+    },
+    "6006": {
+      "label": "Storybook (UI Kit)",
+      "onAutoForward": "openBrowser"
+    },
+    "8080": {
+      "label": "API Server",
+      "onAutoForward": "notify"
+    },
+    "9323": {
+      "label": "Playwright UI",
+      "onAutoForward": "openBrowser"
+    }
+  },
 
   // Use 'postCreateCommand' to run commands after the container is created
   "postCreateCommand": ".devcontainer/scripts/post-create.sh",
