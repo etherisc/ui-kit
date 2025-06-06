@@ -4,6 +4,7 @@
   "service": "ui-kit-dev",
   "workspaceFolder": "/workspace",
   "shutdownAction": "stopCompose",
+  "runArgs": ["--env-file", ".devcontainer/.env"],
 
   // Features to install
   "features": {
