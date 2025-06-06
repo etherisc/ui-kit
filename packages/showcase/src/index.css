@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,125 +8,126 @@
 
 /* Nexadash-inspired design tokens */
 :root {
-    /* Typography */
-    --font-plus-jakarta: 'Plus Jakarta Sans', sans-serif;
+  /* Typography */
+  --font-plus-jakarta: "Plus Jakarta Sans", sans-serif;
 
-    /* Color palette inspired by nexadash */
-    --color-primary: #335cff;
-    --color-primary-hover: #2A4DD7;
-    --color-black: #171718;
-    --color-white: #ffffff;
+  /* Color palette inspired by nexadash */
+  --color-primary: #335cff;
+  --color-primary-hover: #2a4dd7;
+  --color-black: #171718;
+  --color-white: #ffffff;
 
-    /* Gray palette */
-    --color-gray-100: #fafbfc;
-    --color-gray-200: #f9fafb;
-    --color-gray-300: #e2e8f0;
-    --color-gray-400: #f5f7fa;
-    --color-gray-500: #b9bec6;
-    --color-gray-600: #9ca3af;
-    --color-gray-700: #6b7280;
-    --color-gray: #525866;
+  /* Gray palette */
+  --color-gray-100: #fafbfc;
+  --color-gray-200: #f9fafb;
+  --color-gray-300: #e2e8f0;
+  --color-gray-400: #f5f7fa;
+  --color-gray-500: #b9bec6;
+  --color-gray-600: #9ca3af;
+  --color-gray-700: #6b7280;
+  --color-gray: #525866;
 
-    /* Status colors */
-    --color-success: #22c55e;
-    --color-success-light: #dcfce7;
-    --color-warning: #eab308;
-    --color-danger: #ef4444;
-    --color-danger-light: #fee2e2;
+  /* Status colors */
+  --color-success: #22c55e;
+  --color-success-light: #dcfce7;
+  --color-warning: #eab308;
+  --color-danger: #ef4444;
+  --color-danger-light: #fee2e2;
 
-    /* Theme colors */
-    --color-light-theme: #f4f7ff;
-    --color-light-orange: #ffedd5;
-    --color-light-blue: #e0f2fe;
-    --color-light-purple: #f3e8ff;
+  /* Theme colors */
+  --color-light-theme: #f4f7ff;
+  --color-light-orange: #ffedd5;
+  --color-light-blue: #e0f2fe;
+  --color-light-purple: #f3e8ff;
 
-    /* Shadows */
-    --shadow-3xl: 0 1px 2px 0 rgba(95, 74, 46, 0.08), 0 0 0 1px rgba(227, 225, 222, 0.4);
-    --shadow-sm: 0 1px 2px 0 rgba(113, 116, 152, 0.1);
+  /* Shadows */
+  --shadow-3xl:
+    0 1px 2px 0 rgba(95, 74, 46, 0.08), 0 0 0 1px rgba(227, 225, 222, 0.4);
+  --shadow-sm: 0 1px 2px 0 rgba(113, 116, 152, 0.1);
 
-    /* Shadcn/UI variables mapped to nexadash tokens */
-    --primary: var(--color-primary);
-    --primary-foreground: var(--color-white);
+  /* Shadcn/UI variables mapped to nexadash tokens */
+  --primary: var(--color-primary);
+  --primary-foreground: var(--color-white);
 
-    --secondary: var(--color-gray-200);
-    --secondary-foreground: var(--color-gray);
+  --secondary: var(--color-gray-200);
+  --secondary-foreground: var(--color-gray);
 
-    --accent: var(--color-light-theme);
-    --accent-foreground: var(--color-primary);
+  --accent: var(--color-light-theme);
+  --accent-foreground: var(--color-primary);
 
-    --destructive: var(--color-danger);
-    --destructive-foreground: var(--color-white);
+  --destructive: var(--color-danger);
+  --destructive-foreground: var(--color-white);
 
-    /* UI elements */
-    --background: var(--color-white);
-    --foreground: var(--color-black);
-    --card: var(--color-white);
-    --card-foreground: var(--color-black);
-    --popover: var(--color-white);
-    --popover-foreground: var(--color-black);
+  /* UI elements */
+  --background: var(--color-white);
+  --foreground: var(--color-black);
+  --card: var(--color-white);
+  --card-foreground: var(--color-black);
+  --popover: var(--color-white);
+  --popover-foreground: var(--color-black);
 
-    /* Borders and inputs */
-    --border: var(--color-gray-300);
-    --input: var(--color-gray-300);
-    --ring: var(--color-primary);
+  /* Borders and inputs */
+  --border: var(--color-gray-300);
+  --input: var(--color-gray-300);
+  --ring: var(--color-primary);
 
-    /* Status colors for UI */
-    --success: var(--color-success);
-    --success-foreground: var(--color-white);
-    --warning: var(--color-warning);
-    --warning-foreground: var(--color-white);
+  /* Status colors for UI */
+  --success: var(--color-success);
+  --success-foreground: var(--color-white);
+  --warning: var(--color-warning);
+  --warning-foreground: var(--color-white);
 
-    /* Radius */
-    --radius: 0.5rem;
+  /* Radius */
+  --radius: 0.5rem;
 }
 
 .dark {
-    /* Dark mode adjustments */
-    --background: var(--color-black);
-    --foreground: var(--color-white);
-    --card: #1a1a1b;
-    --card-foreground: var(--color-white);
-    --popover: #1a1a1b;
-    --popover-foreground: var(--color-white);
-    --border: #2a2a2b;
-    --input: #2a2a2b;
+  /* Dark mode adjustments */
+  --background: var(--color-black);
+  --foreground: var(--color-white);
+  --card: #1a1a1b;
+  --card-foreground: var(--color-white);
+  --popover: #1a1a1b;
+  --popover-foreground: var(--color-white);
+  --border: #2a2a2b;
+  --input: #2a2a2b;
 }
 
 @layer base {
-    * {
-        @apply border-border;
-    }
-    
-    body {
-        @apply bg-background text-foreground;
-        font-family: var(--font-plus-jakarta);
-    }
+  * {
+    @apply border-border;
+  }
 
-    button {
-        @apply cursor-pointer;
-    }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-plus-jakarta);
+  }
+
+  button {
+    @apply cursor-pointer;
+  }
 }
 
 /* Nexadash-inspired component styles */
 @layer components {
-    .nexadash-card {
-        @apply bg-white rounded-lg;
-        box-shadow: var(--shadow-3xl);
-    }
+  .nexadash-card {
+    @apply bg-white rounded-lg;
+    box-shadow: var(--shadow-3xl);
+  }
 
-    .nexadash-button-primary {
-        @apply bg-primary text-white hover:bg-[#2A4DD7] px-4 py-2 rounded-lg font-medium text-sm transition-colors duration-300;
-    }
+  .nexadash-button-primary {
+    @apply bg-primary text-white hover:bg-[#2A4DD7] px-4 py-2 rounded-lg font-medium text-sm transition-colors duration-300;
+  }
 
-    .nexadash-button-outline {
-        @apply ring-1 ring-inset ring-primary bg-white text-primary hover:bg-light-theme px-4 py-2 rounded-lg font-medium text-sm transition-colors duration-300;
-    }
+  .nexadash-button-outline {
+    @apply ring-1 ring-inset ring-primary bg-white text-primary hover:bg-light-theme px-4 py-2 rounded-lg font-medium text-sm transition-colors duration-300;
+  }
 
-    .nexadash-sidebar-nav {
-        @apply text-gray flex items-center gap-2.5 px-5 py-2.5 text-sm font-medium leading-tight transition hover:text-black;
-    }
+  .nexadash-sidebar-nav {
+    @apply text-gray flex items-center gap-2.5 px-5 py-2.5 text-sm font-medium leading-tight transition hover:text-black;
+  }
 
-    .nexadash-sidebar-nav.active {
-        @apply !text-black bg-light-theme;
-    }
+  .nexadash-sidebar-nav.active {
+    @apply !text-black bg-light-theme;
+  }
 }

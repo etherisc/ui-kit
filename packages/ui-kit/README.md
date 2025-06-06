@@ -28,8 +28,23 @@ yarn add @etherisc/ui-kit
 
 ### Basic Setup
 
+#### CSS Import - When Do You Need It?
+
+**✅ Import the CSS if:**
+
+- Your app doesn't use Tailwind CSS
+- You're building a vanilla React app
+- You want a quick setup without configuring Tailwind
+
+**❌ Don't import the CSS if:**
+
+- Your app already has Tailwind CSS configured
+- You have your own CSS variables and Tailwind setup
+- You're using DaisyUI with your own theme system
+
 ```tsx
 // Import styles in your main entry file
+// ONLY if your app doesn't have its own Tailwind CSS setup
 import "@etherisc/ui-kit/dist/style.css";
 
 // Wrap your app with providers

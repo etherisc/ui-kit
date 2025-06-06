@@ -4,7 +4,6 @@
   "service": "ui-kit-dev",
   "workspaceFolder": "/workspace",
   "shutdownAction": "stopCompose",
-  "runArgs": ["--env-file", ".devcontainer/.env"],
 
   // Features to install
   "features": {
@@ -75,20 +74,22 @@
         "npm.packageManager": "pnpm",
         "playwright.reuseBrowser": true,
         "playwright.showTrace": true,
-        // Enable automatic port forwarding only when services are detected
-        "remote.autoForwardPorts": true,
-        "remote.autoForwardPortsSource": "process"
+        // Disable automatic port forwarding to prevent excessive port exposure
+        "remote.autoForwardPorts": false
       }
     }
   },
 
-  // No ports forwarded by default - rely on automatic detection
-  "forwardPorts": [],
+  // Forward commonly used development ports
+  "forwardPorts": [3000, 5173, 6006],
 
-  // Configure port attributes for automatic forwarding when services start
+  // Configure port attributes for on-demand forwarding with random port assignment
   "portsAttributes": {
+    "*": {
+      "onAutoForward": "ignore"
+    },
     "3000": {
-      "label": "Storybook (Showcase)",
+      "label": "Additional Dev Server",
       "onAutoForward": "openBrowser"
     },
     "4173": {
@@ -96,7 +97,11 @@
       "onAutoForward": "openBrowser"
     },
     "5173": {
-      "label": "Vite Dev Server",
+      "label": "Showcase App (Vite)",
+      "onAutoForward": "openBrowser"
+    },
+    "5174": {
+      "label": "Vite Dev Server (Alt)",
       "onAutoForward": "openBrowser"
     },
     "6006": {
