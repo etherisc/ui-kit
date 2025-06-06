@@ -19,12 +19,14 @@ fi
 # Authenticate with GitHub CLI (if token available)
 if [ -n "$GH_TOKEN" ]; then
     echo "🔐 Authenticating with GitHub CLI..."
+    export GH_TOKEN  # Ensure token is exported to subshells
     bash .devcontainer/scripts/gh-auth.sh
 fi
 
 # Set up git configuration
 if [ -n "$GIT_USER_NAME" ] && [ -n "$GIT_USER_EMAIL" ]; then
     echo "⚙️  Setting up git configuration..."
+    export GIT_USER_NAME GIT_USER_EMAIL  # Ensure git vars are exported
     git config --global user.name "$GIT_USER_NAME"
     git config --global user.email "$GIT_USER_EMAIL"
     echo "   ✅ Git configured with provided credentials"
