@@ -12,10 +12,10 @@ else
     echo "🔍 GH_TOKEN not found in environment"
 fi
 
-# Check if already authenticated
-if gh auth status >/dev/null 2>&1; then
-    echo "✅ GitHub CLI is already authenticated"
-    echo "👤 Authenticated as: $(gh api user --jq .login)"
+# Check if already authenticated with persistent credentials (not just env var)
+if [ -f "$HOME/.config/gh/hosts.yml" ] && [ -s "$HOME/.config/gh/hosts.yml" ]; then
+    echo "✅ GitHub CLI is already authenticated with persistent credentials"
+    echo "👤 Authenticated as: $(gh api user --jq .login 2>/dev/null || echo 'Unknown')"
 
     # Setup git credential helper
     echo "⚙️  Configuring git credential helper..."
@@ -34,9 +34,12 @@ if [ -z "$GH_TOKEN" ]; then
     exit 0
 fi
 
-# Authenticate with GitHub CLI
+# Authenticate with GitHub CLI and store credentials persistently
 echo "🔑 Authenticating with GitHub CLI using token..."
-echo "$GH_TOKEN" | gh auth login --with-token
+# Temporarily store token and clear environment to force persistent storage
+TEMP_TOKEN="$GH_TOKEN"
+unset GH_TOKEN
+echo "$TEMP_TOKEN" | gh auth login --with-token
 
 # Verify authentication
 if gh auth status >/dev/null 2>&1; then
