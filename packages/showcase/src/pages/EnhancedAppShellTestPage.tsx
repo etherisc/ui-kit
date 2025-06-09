@@ -1,4 +1,3 @@
-import React from "react";
 import { AppShell } from "@etherisc/ui-kit";
 import {
   HomeIcon,

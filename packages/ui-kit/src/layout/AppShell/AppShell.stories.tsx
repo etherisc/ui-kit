@@ -2,6 +2,8 @@ import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { AppShell } from "./AppShell";
 import type { NavigationItem, UserActionItem } from "./AppShellTopBar";
+import type { NavItem } from "./AppShellSidebar";
+import type { BreadcrumbItemData } from "./AppShellBreadcrumbs";
 import { Logo } from "../../components/layout/Logo";
 import { HeaderActionIcon } from "../../components/layout/HeaderActionIcon";
 import { Button } from "../../components/primitives/Button/Button";
@@ -23,10 +25,6 @@ import {
   UserIcon,
   CreditCardIcon,
 } from "lucide-react";
-
-import type { NavItem } from "./SideNav";
-import type { BreadcrumbItem } from "./Breadcrumbs";
-import type { BreadcrumbItemData } from "./AppShellBreadcrumbs";
 
 const meta: Meta<typeof AppShell> = {
   title: "Layout/Shells/AppShell",
@@ -146,7 +144,7 @@ const sideNavItems: NavItem[] = [
 ];
 
 // Example breadcrumbs
-const breadcrumbsItems: BreadcrumbItem[] = [
+const breadcrumbsItems: BreadcrumbItemData[] = [
   { label: "Home", href: "/" },
   { label: "Customers", href: "/customers" },
   { label: "John Smith", href: "/customers/123" },
