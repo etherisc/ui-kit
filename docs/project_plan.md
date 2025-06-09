@@ -125,8 +125,11 @@ A pragmatic breakdown into **four one‑week sprints** plus a preparatory **Spri
 | #    | Task                                                              | DoD                                                                                    | Status |
 | ---- | ----------------------------------------------------------------- | -------------------------------------------------------------------------------------- | ------ |
 | BF.1 | **Issue #46**: Fix TypeScript module resolution for pnpm projects | pnpm users can compile TypeScript without module resolution errors; peer deps resolved | ✓      |
+| BF.2 | **Issues #50-53**: Fix critical toast system and theming issues   | Toast notifications work correctly, API consistency, proper DaisyUI theme integration  | ✓      |
 
 **BF.1 Details**: Moved all Radix UI packages from dependencies to peerDependencies to fix TypeScript compilation failures in pnpm projects due to symlink structure conflicts. Released as v0.4.4.
+
+**BF.2 Details**: Fixed critical toast system rendering issues, unified toast API under useToast hook, replaced hardcoded colors with CSS variables for proper theme integration, and updated showcase to demonstrate best practices. Released as v0.4.6. See [PR #54](https://github.com/etherisc/ui-kit/pull/54) for full details.
 
 ---
 

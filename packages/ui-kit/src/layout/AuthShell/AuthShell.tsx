@@ -1,51 +1,53 @@
-import React from 'react';
-import { cn } from '@/utils/cn';
-import { AuthShellProps } from './types';
+import React from "react";
+import { cn } from "@/utils/cn";
+import {
+  Card,
+  CardHeader,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/Card/Card";
+import { AuthShellProps } from "./types";
 
 /**
  * AuthShell is a layout component for authentication-related pages like login, signup, and password reset.
  * It provides a centered container with optional logo and footer slots.
  */
 export const AuthShell: React.FC<AuthShellProps> = ({
-    logo,
-    children,
-    footer,
-    className,
-    width = 'md',
+  logo,
+  children,
+  footer,
+  className,
+  width = "md",
 }) => {
-    const containerWidthClass = {
-        sm: 'max-w-sm',
-        md: 'max-w-md',
-        lg: 'max-w-lg',
-    }[width];
+  const containerWidthClass = {
+    sm: "max-w-sm",
+    md: "max-w-md",
+    lg: "max-w-lg",
+  }[width];
 
-    return (
-        <div className="min-h-screen bg-background flex flex-col items-center justify-center p-4">
-            <div
-                className={cn(
-                    'w-full flex flex-col items-center p-6 rounded-lg shadow-md bg-card text-card-foreground',
-                    containerWidthClass,
-                    className
-                )}
-            >
-                {logo && (
-                    <div className="flex justify-center mb-6 w-full">
-                        {logo}
-                    </div>
-                )}
+  return (
+    <div className="min-h-screen bg-background flex flex-col items-center justify-center p-4">
+      <Card
+        className={cn(
+          "w-full flex flex-col items-center",
+          containerWidthClass,
+          className,
+        )}
+      >
+        {logo && (
+          <CardHeader className="flex justify-center w-full">{logo}</CardHeader>
+        )}
 
-                <div className="w-full">
-                    {children}
-                </div>
+        <CardContent className="w-full">{children}</CardContent>
 
-                {footer && (
-                    <div className="mt-6 w-full text-center text-sm text-muted-foreground">
-                        {footer}
-                    </div>
-                )}
-            </div>
-        </div>
-    );
+        {footer && (
+          <CardFooter className="w-full justify-center text-center text-sm text-muted-foreground">
+            {footer}
+          </CardFooter>
+        )}
+      </Card>
+    </div>
+  );
 };
 
-AuthShell.displayName = 'AuthShell'; 
+AuthShell.displayName = "AuthShell";
