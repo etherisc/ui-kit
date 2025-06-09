@@ -8,6 +8,7 @@ import {
   CardContent,
   CardFooter,
 } from "@/components/ui/Card/Card";
+import { Typography } from "@/components/ui/Typography/Typography";
 import { ErrorShellProps } from "./types";
 
 /**
@@ -77,16 +78,23 @@ export const ErrorShell: React.FC<ErrorShellProps> = ({
         <CardHeader className="flex flex-col items-center">
           {/* Error Code */}
           {errorCode && (
-            <div
+            <Typography
+              variant="h1"
               className="text-6xl font-bold text-muted-foreground mb-2"
               aria-hidden="true"
             >
               {errorCode}
-            </div>
+            </Typography>
           )}
 
           {/* Icon */}
-          <div className="mb-2">{icon || defaultIcon}</div>
+          <div
+            className="mb-2 flex justify-center"
+            role="img"
+            aria-hidden="true"
+          >
+            {icon || defaultIcon}
+          </div>
 
           {/* Title */}
           <CardTitle

@@ -6,6 +6,7 @@ import {
   CardContent,
   CardFooter,
 } from "@/components/ui/Card/Card";
+import { TypographyMuted } from "@/components/ui/Typography/Typography";
 import { AuthShellProps } from "./types";
 
 /**
@@ -41,8 +42,8 @@ export const AuthShell: React.FC<AuthShellProps> = ({
         <CardContent className="w-full">{children}</CardContent>
 
         {footer && (
-          <CardFooter className="w-full justify-center text-center text-sm text-muted-foreground">
-            {footer}
+          <CardFooter className="w-full justify-center text-center">
+            <TypographyMuted className="text-center">{footer}</TypographyMuted>
           </CardFooter>
         )}
       </Card>

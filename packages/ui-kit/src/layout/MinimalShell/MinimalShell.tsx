@@ -68,15 +68,17 @@ export const MinimalShell: React.FC<MinimalShellProps> = ({
       )}
     >
       {/* Logo area */}
-      <header className="mb-6">{logo || <Logo text="Company Name" />}</header>
+      <header className="mb-6 flex justify-center">
+        {logo || <Logo text="Company Name" />}
+      </header>
 
       <Card className="max-w-md w-full text-center">
         <CardHeader className="flex flex-col items-center">
           {/* Image/icon if provided */}
           {image && (
-            <div className="flex justify-center mb-2" aria-hidden="true">
+            <figure className="flex justify-center mb-2" aria-hidden="true">
               {image}
-            </div>
+            </figure>
           )}
 
           {/* Title */}
