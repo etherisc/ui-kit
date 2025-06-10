@@ -267,9 +267,17 @@ describe("AppShellSidebar", () => {
         </SidebarWrapper>,
       );
 
-      const header = screen.getByTestId("sidebar-header").closest("div");
+      const headerContent = screen.getByTestId("sidebar-header");
       const trigger = screen.getByRole("button");
-      expect(header).toContainElement(trigger);
+
+      // Both header content and trigger should be present
+      expect(headerContent).toBeInTheDocument();
+      expect(trigger).toBeInTheDocument();
+
+      // They should be siblings in the same SidebarHeader container
+      const sidebarHeaderContainer = headerContent.parentElement;
+      expect(sidebarHeaderContainer).toContainElement(headerContent);
+      expect(sidebarHeaderContainer).toContainElement(trigger);
     });
   });
 
