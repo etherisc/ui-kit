@@ -1,7 +1,8 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { ChevronDown, ChevronRight } from "lucide-react";
 import {
   Sidebar,
+  SidebarProvider,
   SidebarContent,
   SidebarHeader,
   SidebarFooter,
@@ -231,55 +232,31 @@ export const AppShellSidebar: React.FC<AppShellSidebarProps> = ({
   header,
   footer,
 }) => {
-  const { isCollapsed, setIsCollapsed } = useSidebar();
-
-  // Use internal state if not controlled externally
-  const [internalCollapsed, setInternalCollapsed] = useState<boolean>(false);
+  // Use internal state for localStorage persistence
+  const [internalCollapsed, setInternalCollapsed] = useState<boolean>(() => {
+    if (persistCollapsed) {
+      try {
+        const savedState = localStorage.getItem(SIDENAV_COLLAPSED_KEY);
+        return savedState ? savedState === "true" : false;
+      } catch (e) {
+        console.error(
+          "Error loading SideNav collapsed state from localStorage",
+          e,
+        );
+        return false;
+      }
+    }
+    return false;
+  });
 
   // Determine if component is controlled or uncontrolled
   const isControlled = controlledCollapsed !== undefined;
-  const collapsed = isControlled ? controlledCollapsed : internalCollapsed;
+  const defaultCollapsed = isControlled
+    ? controlledCollapsed
+    : internalCollapsed;
 
-  // Sync with ui-kit sidebar state
-  useEffect(
-    function syncSidebarState() {
-      if (collapsed !== isCollapsed) {
-        setIsCollapsed(collapsed);
-      }
-      return () => {
-        // Cleanup function (no-op in this case)
-      };
-    },
-    [collapsed, isCollapsed, setIsCollapsed],
-  );
-
-  // Load collapsed state from localStorage on mount
-  useEffect(
-    function loadCollapsedState() {
-      if (!isControlled && persistCollapsed) {
-        try {
-          const savedState = localStorage.getItem(SIDENAV_COLLAPSED_KEY);
-          if (savedState !== null) {
-            const savedCollapsed = savedState === "true";
-            setInternalCollapsed(savedCollapsed);
-            setIsCollapsed(savedCollapsed);
-          }
-        } catch (e) {
-          console.error(
-            "Error loading SideNav collapsed state from localStorage",
-            e,
-          );
-        }
-      }
-      return () => {
-        // Cleanup function (no-op in this case)
-      };
-    },
-    [isControlled, persistCollapsed, setIsCollapsed],
-  );
-
-  // Handle collapse toggle
-  const handleCollapseToggle = useCallback(
+  // Handle collapse state changes
+  const handleCollapseChange = useCallback(
     (newCollapsed: boolean) => {
       // Update internal state if uncontrolled
       if (!isControlled) {
@@ -304,62 +281,55 @@ export const AppShellSidebar: React.FC<AppShellSidebarProps> = ({
     [isControlled, persistCollapsed, onCollapseToggle],
   );
 
-  // Listen to ui-kit sidebar state changes
-  useEffect(
-    function listenToSidebarChanges() {
-      handleCollapseToggle(isCollapsed);
-      return () => {
-        // Cleanup function (no-op in this case)
-      };
-    },
-    [isCollapsed, handleCollapseToggle],
-  );
-
   const handleItemClick = (item: NavItem) => {
     // Additional logic can be added here if needed
     console.log("Navigation item clicked:", item.id);
   };
 
   return (
-    <Sidebar
-      className={cn(className)}
-      data-testid={dataTestId}
-      data-collapsed={collapsed}
-      collapsible={true}
-      overlay={true}
+    <SidebarProvider
+      defaultCollapsed={defaultCollapsed}
+      onCollapsedChange={handleCollapseChange}
     >
-      {/* Header section */}
-      {header && (
-        <SidebarHeader>
-          {header}
-          <SidebarTrigger />
-        </SidebarHeader>
-      )}
-
-      {/* Main content */}
-      <SidebarContent>
-        {/* Toggle button when no header */}
-        {!header && (
-          <div className="p-2 flex justify-center border-b">
+      <Sidebar
+        className={cn(className)}
+        data-testid={dataTestId}
+        collapsible={true}
+        overlay={true}
+      >
+        {/* Header section */}
+        {header && (
+          <SidebarHeader>
+            {header}
             <SidebarTrigger />
-          </div>
+          </SidebarHeader>
         )}
 
-        {/* Navigation */}
-        <SidebarNav className="flex-1 p-2">
-          {items.length > 0 ? (
-            <SidebarNavItems items={items} onItemClick={handleItemClick} />
-          ) : (
-            <div className="text-muted-foreground text-center py-4">
-              <span className="text-sm">No navigation items</span>
+        {/* Main content */}
+        <SidebarContent>
+          {/* Toggle button when no header */}
+          {!header && (
+            <div className="p-2 flex justify-center border-b">
+              <SidebarTrigger />
             </div>
           )}
-        </SidebarNav>
-      </SidebarContent>
 
-      {/* Footer section */}
-      {footer && <SidebarFooter>{footer}</SidebarFooter>}
-    </Sidebar>
+          {/* Navigation */}
+          <SidebarNav className="flex-1 p-2">
+            {items.length > 0 ? (
+              <SidebarNavItems items={items} onItemClick={handleItemClick} />
+            ) : (
+              <div className="text-muted-foreground text-center py-4">
+                <span className="text-sm">No navigation items</span>
+              </div>
+            )}
+          </SidebarNav>
+        </SidebarContent>
+
+        {/* Footer section */}
+        {footer && <SidebarFooter>{footer}</SidebarFooter>}
+      </Sidebar>
+    </SidebarProvider>
   );
 };
 
