@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { ChevronDown, ChevronRight } from "lucide-react";
 import {
   Sidebar,
@@ -279,27 +279,30 @@ export const AppShellSidebar: React.FC<AppShellSidebarProps> = ({
   );
 
   // Handle collapse toggle
-  const handleCollapseToggle = (newCollapsed: boolean) => {
-    // Update internal state if uncontrolled
-    if (!isControlled) {
-      setInternalCollapsed(newCollapsed);
+  const handleCollapseToggle = useCallback(
+    (newCollapsed: boolean) => {
+      // Update internal state if uncontrolled
+      if (!isControlled) {
+        setInternalCollapsed(newCollapsed);
 
-      // Persist to localStorage if enabled
-      if (persistCollapsed) {
-        try {
-          localStorage.setItem(SIDENAV_COLLAPSED_KEY, String(newCollapsed));
-        } catch (e) {
-          console.error(
-            "Error saving SideNav collapsed state to localStorage",
-            e,
-          );
+        // Persist to localStorage if enabled
+        if (persistCollapsed) {
+          try {
+            localStorage.setItem(SIDENAV_COLLAPSED_KEY, String(newCollapsed));
+          } catch (e) {
+            console.error(
+              "Error saving SideNav collapsed state to localStorage",
+              e,
+            );
+          }
         }
       }
-    }
 
-    // Call external handler if provided
-    onCollapseToggle?.(newCollapsed);
-  };
+      // Call external handler if provided
+      onCollapseToggle?.(newCollapsed);
+    },
+    [isControlled, persistCollapsed, onCollapseToggle],
+  );
 
   // Listen to ui-kit sidebar state changes
   useEffect(
