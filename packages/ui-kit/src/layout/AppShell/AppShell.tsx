@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import { TopBar } from "./TopBar";
-import { SideNav } from "./SideNav";
+import { AppShellTopBar } from "./AppShellTopBar";
+import type { NavigationItem, UserActionItem } from "./AppShellTopBar";
+import { AppShellSidebar } from "./AppShellSidebar";
+import { SidebarProvider } from "../../components/ui/Sidebar/Sidebar";
 import { ContentWrapper } from "./ContentWrapper";
 import { cn } from "../../utils/cn";
 import type { NavItem } from "./SideNav";
@@ -24,12 +26,14 @@ export interface AppShellProps {
   navItems?: NavItem[];
   /**
    * Optional navigation elements for the TopBar
+   * Can be React elements (for backward compatibility) or structured NavigationItem array
    */
-  topNavItems?: React.ReactNode;
+  topNavItems?: React.ReactNode | NavigationItem[];
   /**
    * Optional user actions for the TopBar
+   * Can be React elements (for backward compatibility) or structured UserActionItem array
    */
-  userActions?: React.ReactNode;
+  userActions?: React.ReactNode | UserActionItem[];
   /**
    * Optional breadcrumbs items for the ContentWrapper
    */
@@ -58,7 +62,7 @@ export interface AppShellProps {
 
 /**
  * AppShell component serves as the main layout for the application
- * Combines TopBar, SideNav, and ContentWrapper components
+ * Combines AppShellTopBar, AppShellSidebar, and ContentWrapper components
  */
 export const AppShell: React.FC<AppShellProps> = ({
   children,
@@ -86,23 +90,30 @@ export const AppShell: React.FC<AppShellProps> = ({
     <div
       className={cn("flex flex-col h-screen w-full bg-background", className)}
     >
-      {/* TopBar */}
-      <TopBar
+      {/* AppShellTopBar */}
+      <AppShellTopBar
         logo={logo}
         navigationItems={topNavItems}
         userActions={userActions}
         fixed={fixedHeader}
+        data-testid="topbar"
       />
 
-      {/* Main content area with SideNav and ContentWrapper */}
+      {/* Main content area with AppShellSidebar and ContentWrapper */}
       <div className="flex flex-1 overflow-hidden">
-        {/* SideNav */}
-        <SideNav
-          items={navItems}
-          collapsed={sideNavCollapsed}
-          onCollapseToggle={handleCollapseToggle}
-          persistCollapsed={true}
-        />
+        {/* AppShellSidebar wrapped in SidebarProvider */}
+        <SidebarProvider
+          defaultCollapsed={sideNavCollapsed}
+          onCollapsedChange={handleCollapseToggle}
+        >
+          <AppShellSidebar
+            items={navItems}
+            collapsed={sideNavCollapsed}
+            onCollapseToggle={handleCollapseToggle}
+            persistCollapsed={true}
+            data-testid="sidenav"
+          />
+        </SidebarProvider>
 
         {/* ContentWrapper with children */}
         <ContentWrapper breadcrumbs={breadcrumbs} fixed={fixedWidth}>

@@ -1,16 +1,34 @@
-export { AppShell } from './AppShell';
-export type { AppShellProps } from './AppShell';
+export { AppShell } from "./AppShell";
+export type { AppShellProps } from "./AppShell";
 
-export { TopBar } from './TopBar';
-export type { TopBarProps } from './TopBar';
+// New wrapper components
+export { AppShellTopBar } from "./AppShellTopBar";
+export type {
+  AppShellTopBarProps,
+  NavigationItem,
+  UserActionItem,
+} from "./AppShellTopBar";
 
-export { SideNav } from './SideNav';
-export type { SideNavProps, NavItem } from './SideNav';
+export { AppShellSidebar } from "./AppShellSidebar";
+export type { AppShellSidebarProps } from "./AppShellSidebar";
 
-export { Breadcrumbs } from './Breadcrumbs';
-export type { BreadcrumbsProps, BreadcrumbItem } from './Breadcrumbs';
+export { AppShellBreadcrumbs } from "./AppShellBreadcrumbs";
+export type {
+  AppShellBreadcrumbsProps,
+  BreadcrumbItemData,
+} from "./AppShellBreadcrumbs";
 
-export { ContentWrapper } from './ContentWrapper';
-export type { ContentWrapperProps } from './ContentWrapper';
+// Legacy components (for backward compatibility)
+export { TopBar } from "./TopBar";
+export type { TopBarProps } from "./TopBar";
 
-export { BREAKPOINTS, DIMENSIONS, STORAGE_KEYS } from './constants'; 
+export { SideNav } from "./SideNav";
+export type { SideNavProps, NavItem } from "./SideNav";
+
+export { Breadcrumbs } from "./Breadcrumbs";
+export type { BreadcrumbsProps, BreadcrumbItem } from "./Breadcrumbs";
+
+export { ContentWrapper } from "./ContentWrapper";
+export type { ContentWrapperProps } from "./ContentWrapper";
+
+export { BREAKPOINTS, DIMENSIONS, STORAGE_KEYS } from "./constants";

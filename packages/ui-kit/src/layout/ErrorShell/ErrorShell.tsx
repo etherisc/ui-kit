@@ -1,5 +1,14 @@
 import React from "react";
 import { cn } from "@/utils/cn";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/Card/Card";
+import { Typography } from "@/components/ui/Typography/Typography";
 import { ErrorShellProps } from "./types";
 
 /**
@@ -60,53 +69,62 @@ export const ErrorShell: React.FC<ErrorShellProps> = ({
         </div>
       )}
 
-      <div
+      <Card
         className={cn(
-          "relative w-full flex flex-col items-center text-center p-8 rounded-lg bg-card text-card-foreground shadow-sm border",
+          "relative w-full flex flex-col items-center text-center",
           containerSizeClass,
         )}
       >
-        {/* Error Code */}
-        {errorCode && (
+        <CardHeader className="flex flex-col items-center">
+          {/* Error Code */}
+          {errorCode && (
+            <Typography
+              variant="h1"
+              className="text-6xl font-bold text-muted-foreground mb-2"
+              aria-hidden="true"
+            >
+              {errorCode}
+            </Typography>
+          )}
+
+          {/* Icon */}
           <div
-            className="text-6xl font-bold text-muted-foreground mb-2"
+            className="mb-2 flex justify-center"
+            role="img"
             aria-hidden="true"
           >
-            {errorCode}
+            {icon || defaultIcon}
           </div>
-        )}
 
-        {/* Icon */}
-        <div className="mb-6">{icon || defaultIcon}</div>
+          {/* Title */}
+          <CardTitle
+            id="error-title"
+            className="text-2xl font-semibold text-foreground"
+          >
+            {title}
+          </CardTitle>
 
-        {/* Title */}
-        <h1
-          id="error-title"
-          className="text-2xl font-semibold text-foreground mb-4"
-        >
-          {title}
-        </h1>
-
-        {/* Message */}
-        <p
-          id="error-message"
-          className="text-muted-foreground mb-6 leading-relaxed"
-        >
-          {message}
-        </p>
+          {/* Message */}
+          <CardDescription
+            id="error-message"
+            className="text-muted-foreground leading-relaxed"
+          >
+            {message}
+          </CardDescription>
+        </CardHeader>
 
         {/* Actions */}
         {actions && (
-          <div className="flex flex-col sm:flex-row gap-3 mb-6 w-full justify-center">
+          <CardContent className="flex flex-col sm:flex-row gap-3 w-full justify-center">
             {actions}
-          </div>
+          </CardContent>
         )}
 
         {/* Additional Content */}
         {children && (
-          <div className="w-full border-t pt-6 mt-6">{children}</div>
+          <CardFooter className="w-full border-t pt-6">{children}</CardFooter>
         )}
-      </div>
+      </Card>
     </div>
   );
 };

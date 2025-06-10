@@ -1,6 +1,9 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { AppShell } from "./AppShell";
+import type { NavigationItem, UserActionItem } from "./AppShellTopBar";
+import type { NavItem } from "./AppShellSidebar";
+import type { BreadcrumbItemData } from "./AppShellBreadcrumbs";
 import { Logo } from "../../components/layout/Logo";
 import { HeaderActionIcon } from "../../components/layout/HeaderActionIcon";
 import { Button } from "../../components/primitives/Button/Button";
@@ -18,10 +21,10 @@ import {
   BellIcon,
   HelpCircleIcon,
   BarChartIcon,
+  LogOutIcon,
+  UserIcon,
+  CreditCardIcon,
 } from "lucide-react";
-
-import type { NavItem } from "./SideNav";
-import type { BreadcrumbItem } from "./Breadcrumbs";
 
 const meta: Meta<typeof AppShell> = {
   title: "Layout/Shells/AppShell",
@@ -141,7 +144,7 @@ const sideNavItems: NavItem[] = [
 ];
 
 // Example breadcrumbs
-const breadcrumbsItems: BreadcrumbItem[] = [
+const breadcrumbsItems: BreadcrumbItemData[] = [
   { label: "Home", href: "/" },
   { label: "Customers", href: "/customers" },
   { label: "John Smith", href: "/customers/123" },
@@ -229,6 +232,112 @@ const SampleFooter = () => (
     </div>
   </div>
 );
+
+// Enhanced Navigation Items using NavigationItem interface
+const enhancedNavigationItems: NavigationItem[] = [
+  {
+    id: "home",
+    label: "Home",
+    href: "/",
+    icon: <HomeIcon className="h-4 w-4" />,
+    isActive: true,
+  },
+  {
+    id: "products",
+    label: "Products",
+    children: [
+      {
+        id: "insurance-products",
+        label: "Insurance Products",
+        href: "/products/insurance",
+        icon: <FileTextIcon className="h-4 w-4" />,
+      },
+      {
+        id: "claims",
+        label: "Claims Management",
+        href: "/products/claims",
+        icon: <BarChartIcon className="h-4 w-4" />,
+      },
+      {
+        id: "reporting",
+        label: "Reporting Tools",
+        href: "/products/reporting",
+        icon: <BarChartIcon className="h-4 w-4" />,
+      },
+    ],
+  },
+  {
+    id: "about",
+    label: "About",
+    href: "/about",
+    external: true,
+  },
+];
+
+// Enhanced User Actions using UserActionItem interface
+const enhancedUserActions: UserActionItem[] = [
+  {
+    id: "account-header",
+    label: "Account",
+    isLabel: true,
+    separator: true,
+  },
+  {
+    id: "profile",
+    label: "Profile",
+    href: "/profile",
+    icon: <UserIcon className="h-4 w-4" />,
+  },
+  {
+    id: "billing",
+    label: "Billing",
+    href: "/billing",
+    icon: <CreditCardIcon className="h-4 w-4" />,
+  },
+  {
+    id: "settings",
+    label: "Settings",
+    href: "/settings",
+    icon: <SettingsIcon className="h-4 w-4" />,
+    separator: true,
+  },
+  {
+    id: "logout",
+    label: "Log out",
+    onClick: () => alert("Logging out..."),
+    icon: <LogOutIcon className="h-4 w-4" />,
+  },
+];
+
+// Enhanced breadcrumbs using BreadcrumbItemData interface
+const enhancedBreadcrumbs: BreadcrumbItemData[] = [
+  { label: "Insurance Portal", href: "/" },
+  { label: "Customer Management", href: "/customers" },
+  { label: "John Smith", href: "/customers/123" },
+  { label: "Policy Details", href: "/customers/123/policy/456" },
+  { label: "Claims History", isActive: true },
+];
+
+// Long breadcrumbs to demonstrate truncation
+const longBreadcrumbs: BreadcrumbItemData[] = [
+  { label: "Home", href: "/" },
+  { label: "Insurance Products", href: "/products" },
+  { label: "Commercial Insurance", href: "/products/commercial" },
+  { label: "Property & Casualty", href: "/products/commercial/property" },
+  {
+    label: "Buildings Insurance",
+    href: "/products/commercial/property/buildings",
+  },
+  {
+    label: "Policy Configuration",
+    href: "/products/commercial/property/buildings/config",
+  },
+  {
+    label: "Coverage Details",
+    href: "/products/commercial/property/buildings/config/coverage",
+  },
+  { label: "Risk Assessment", isActive: true },
+];
 
 export const Default: Story = {
   args: {
@@ -338,6 +447,60 @@ export const WithFooterFixedWidth: Story = {
     ...WithFooter.args,
     fixedWidth: true,
     children: settingsContent,
+  },
+  parameters: {
+    interactions: { disable: true },
+  },
+};
+
+/**
+ * Enhanced AppShell with structured navigation and user actions
+ * Showcases new NavigationItem[] and UserActionItem[] interfaces
+ */
+export const Enhanced: Story = {
+  args: {
+    logo: <LogoExample />,
+    navItems: sideNavItems,
+    topNavItems: enhancedNavigationItems,
+    userActions: enhancedUserActions,
+    breadcrumbs: enhancedBreadcrumbs,
+    children: sampleContent,
+  },
+  parameters: {
+    interactions: { disable: true },
+  },
+};
+
+/**
+ * Enhanced AppShell with dropdown navigation
+ * Demonstrates nested navigation menus
+ */
+export const EnhancedWithDropdowns: Story = {
+  args: {
+    logo: <LogoExample />,
+    navItems: sideNavItems,
+    topNavItems: enhancedNavigationItems,
+    userActions: enhancedUserActions,
+    breadcrumbs: enhancedBreadcrumbs,
+    children: sampleContent,
+  },
+  parameters: {
+    interactions: { disable: true },
+  },
+};
+
+/**
+ * Enhanced AppShell with breadcrumb truncation
+ * Shows how long breadcrumb paths are handled
+ */
+export const EnhancedWithTruncation: Story = {
+  args: {
+    logo: <LogoExample />,
+    navItems: sideNavItems,
+    topNavItems: enhancedNavigationItems,
+    userActions: enhancedUserActions,
+    breadcrumbs: longBreadcrumbs,
+    children: sampleContent,
   },
   parameters: {
     interactions: { disable: true },

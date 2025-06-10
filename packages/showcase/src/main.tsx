@@ -10,6 +10,7 @@ import { DashboardPage } from "./pages/DashboardPage";
 import { CustomersPage } from "./pages/CustomersPage";
 import { SettingsPage } from "./pages/SettingsPage";
 import { ComponentsPage } from "./pages/ComponentsPage";
+import { EnhancedAppShellTestPage } from "./pages/EnhancedAppShellTestPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 
@@ -58,6 +59,14 @@ const router = createBrowserRouter([
     element: (
       <ProtectedRoute>
         <ComponentsPage />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/enhanced-test",
+    element: (
+      <ProtectedRoute>
+        <EnhancedAppShellTestPage />
       </ProtectedRoute>
     ),
   },

@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { AppShell, Button } from "@etherisc/ui-kit";
+import { AppShell } from "@etherisc/ui-kit";
 import { useAuth } from "../hooks/useAuth";
 import {
   HomeIcon,
@@ -14,6 +14,7 @@ import {
   Download,
   Ellipsis,
   TrendingDown,
+  LogOutIcon,
 } from "lucide-react";
 
 export function DashboardPage() {
@@ -24,6 +25,9 @@ export function DashboardPage() {
     logout();
     navigate("/login");
   };
+
+  // These enhanced features will be available once the ui-kit package is updated
+  // For now, demonstrating the enhanced UI with improved styling and behavior
 
   // Navigation items for the sidebar
   const navItems = [
@@ -63,6 +67,13 @@ export function DashboardPage() {
       isActive: false,
     },
     {
+      id: "enhanced-test",
+      label: "Enhanced Test",
+      icon: <BarChartIcon size={18} />,
+      href: "/enhanced-test",
+      isActive: false,
+    },
+    {
       id: "settings",
       label: "Settings",
       icon: <SettingsIcon size={18} />,
@@ -71,33 +82,15 @@ export function DashboardPage() {
     },
   ];
 
-  // User actions for the top bar
-  const userActions = (
-    <div className="flex items-center gap-3">
-      <div className="hidden md:flex items-center gap-2 px-3 py-2 bg-light-theme text-primary rounded-lg text-sm font-medium">
-        <div className="w-2 h-2 bg-primary rounded-full"></div>
-        Welcome, {user?.name || "Demo User"}!
-      </div>
-      <Button
-        variant="outline"
-        onClick={handleLogout}
-        size="sm"
-        className="ring-1 ring-inset ring-gray-300 bg-white text-gray hover:bg-gray-200 border-0"
-      >
-        Logout
-      </Button>
-    </div>
-  );
-
   // Logo for the top bar
   const logo = (
     <div className="flex items-center gap-3">
-      <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center shadow-sm">
-        <span className="text-white font-bold text-lg">UI</span>
+      <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center shadow-lg">
+        <span className="text-white font-bold text-lg">E</span>
       </div>
       <div className="hidden sm:block">
-        <span className="font-bold text-xl text-black">Insurance Portal</span>
-        <div className="text-xs text-gray -mt-1">Dashboard Overview</div>
+        <span className="font-bold text-xl text-black">Enhanced Portal</span>
+        <div className="text-xs text-gray -mt-1">Dashboard with Dropdowns</div>
       </div>
     </div>
   );
@@ -142,7 +135,25 @@ export function DashboardPage() {
   ];
 
   return (
-    <AppShell logo={logo} navItems={navItems} userActions={userActions}>
+    <AppShell
+      logo={logo}
+      navItems={navItems}
+      userActions={
+        <div className="flex items-center gap-3">
+          <div className="hidden md:flex items-center gap-2 px-3 py-2 bg-light-theme text-primary rounded-lg text-sm font-medium">
+            <div className="w-2 h-2 bg-primary rounded-full"></div>
+            Welcome, {user?.name || "Demo User"}!
+          </div>
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1"
+          >
+            <LogOutIcon className="h-4 w-4" />
+            Sign Out
+          </button>
+        </div>
+      }
+    >
       <div className="space-y-4">
         {/* Page Heading */}
         <div className="mb-6">

@@ -7,12 +7,26 @@ export * from "./components";
 // Layout components - using named exports to avoid conflicts
 export {
   AppShell,
+  AppShellTopBar,
+  AppShellSidebar,
+  AppShellBreadcrumbs,
   AuthShell,
   MinimalShell,
   WizardShell,
   ErrorShell,
   MainFixedLayout,
   DataDenseLayout,
+} from "./layout";
+
+// AppShell component interfaces
+export type {
+  AppShellProps,
+  AppShellTopBarProps,
+  AppShellSidebarProps,
+  AppShellBreadcrumbsProps,
+  NavigationItem,
+  UserActionItem,
+  BreadcrumbItemData,
 } from "./layout";
 
 // Data components
