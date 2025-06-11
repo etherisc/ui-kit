@@ -1,5 +1,22 @@
 # @etherisc/ui-kit
 
+## 0.6.0
+
+### Minor Changes
+
+- Implement comprehensive pagination architecture for DataTable component
+
+  This release introduces enterprise-grade pagination features for the DataTable component while maintaining 100% backward compatibility:
+
+  - **TanStack Table Integration**: Added missing props (`manualPagination`, `pageCount`, `rowCount`, `onPaginationChange`) for full server-side pagination support
+  - **Smart Pagination Defaults**: Automatic pagination strategy based on data size (≤15 items = no pagination, >15 items = auto pagination)
+  - **Rich Navigation Controls**: Fast navigation (±5 pages), jump-to-page functionality, boundary navigation, and page size selector
+  - **Keyboard Shortcuts**: Arrow keys, Home/End, PageUp/PageDown, Ctrl+G for jump-to-page input
+  - **Enhanced UX**: Loading states, accessibility improvements, and comprehensive documentation
+  - **Performance Optimized**: Strategic memoization and controlled re-renders for large datasets
+
+  All existing DataTable implementations continue to work without any changes, while new features are available via opt-in configuration.
+
 ## 0.4.6
 
 ### Patch Changes
