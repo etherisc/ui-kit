@@ -289,7 +289,7 @@ export const DataTablePagination = <TData = unknown,>({
     <div
       ref={containerRef}
       className={cn(
-        "flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between",
+        "flex flex-row items-center justify-between gap-4 md:flex-col md:items-stretch",
         className,
       )}
     >
