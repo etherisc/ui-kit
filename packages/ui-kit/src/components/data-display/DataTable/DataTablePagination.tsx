@@ -72,6 +72,10 @@ export const DataTablePagination = <TData = unknown,>({
   const canPreviousPage = table.getCanPreviousPage();
   const canNextPage = table.getCanNextPage();
 
+  // Extract values for stable dependencies
+  const pageIndex = table.getState().pagination.pageIndex;
+  const totalRowCount = table.getRowCount();
+
   // Ensure current pageSize is always available in options
   const availableOptions = useMemo(() => {
     const baseOptions = config.pageSizeOptions || [10, 25, 50, 100];
@@ -81,14 +85,11 @@ export const DataTablePagination = <TData = unknown,>({
 
   // Calculate pagination info
   const paginationInfo = useMemo(() => {
-    const totalRows = rowCount ?? table.getRowCount();
-    const startRow = table.getState().pagination.pageIndex * pageSize + 1;
-    const endRow = Math.min(
-      (table.getState().pagination.pageIndex + 1) * pageSize,
-      totalRows,
-    );
+    const totalRows = rowCount ?? totalRowCount;
+    const startRow = pageIndex * pageSize + 1;
+    const endRow = Math.min((pageIndex + 1) * pageSize, totalRows);
     return { totalRows, startRow, endRow };
-  }, [rowCount, table, pageSize]);
+  }, [rowCount, totalRowCount, pageIndex, pageSize]);
 
   // Generate visible page numbers
   const getVisiblePageNumbers = useCallback(() => {
