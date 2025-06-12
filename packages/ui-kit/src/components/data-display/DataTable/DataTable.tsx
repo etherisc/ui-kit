@@ -166,10 +166,9 @@ export const DataTable = React.memo(
         const defaultOptions = [10, 25, 50, 100];
         const options = pagination.pageSizeOptions ?? defaultOptions;
 
-        // If pageSize is not in options, add it and sort
-        const pageSizeOptions = options.includes(configPageSize)
-          ? options
-          : [...options, configPageSize].sort((a, b) => a - b);
+        // Deduplicate and ensure pageSize is in options
+        const uniqueOptions = [...new Set([...options, configPageSize])];
+        const pageSizeOptions = uniqueOptions.sort((a, b) => a - b);
 
         return {
           ...pagination,
@@ -183,11 +182,10 @@ export const DataTable = React.memo(
         return false; // No pagination for small datasets
       }
 
-      // Ensure default pageSize is in options
+      // Ensure default pageSize is in options and deduplicate
       const defaultOptions = [10, 25, 50, 100];
-      const pageSizeOptions = defaultOptions.includes(pageSize)
-        ? defaultOptions
-        : [...defaultOptions, pageSize].sort((a, b) => a - b);
+      const uniqueOptions = [...new Set([...defaultOptions, pageSize])];
+      const pageSizeOptions = uniqueOptions.sort((a, b) => a - b);
 
       return {
         pageSize: pageSize,
