@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback, useEffect } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 import {
   ColumnDef,
   ColumnResizeMode,
@@ -223,13 +223,17 @@ export const DataTable = React.memo(
     const tableKey = useMemo(() => {
       if (isControlledPagination) return "controlled";
 
-      // For uncontrolled tables, include pageSize in key to force recreation
+      // For uncontrolled tables, only include pageSize in key (not full config)
       const keyPageSize =
         smartPaginationConfig !== false
           ? smartPaginationConfig.pageSize
           : pageSize;
-      return `uncontrolled-${keyPageSize}-${JSON.stringify(smartPaginationConfig)}`;
-    }, [isControlledPagination, smartPaginationConfig, pageSize]);
+      return `uncontrolled-${keyPageSize}`;
+    }, [
+      isControlledPagination,
+      smartPaginationConfig === false ? null : smartPaginationConfig?.pageSize,
+      pageSize,
+    ]);
 
     // For controlled pagination, use the provided state and change handler
     // For uncontrolled pagination, let TanStack Table manage it with initialState
@@ -287,23 +291,8 @@ export const DataTable = React.memo(
       columnResizeMode,
     });
 
-    // Sync pageSize when configuration changes for uncontrolled pagination
-    useEffect(
-      function syncPageSizeWithConfig() {
-        if (!isControlledPagination && smartPaginationConfig !== false) {
-          const currentPageSize = table.getState().pagination.pageSize;
-          const targetPageSize = smartPaginationConfig.pageSize;
-
-          if (targetPageSize && currentPageSize !== targetPageSize) {
-            table.setPageSize(targetPageSize);
-          }
-        }
-
-        // No cleanup needed for this sync operation
-        return () => {};
-      },
-      [table, isControlledPagination, smartPaginationConfig],
-    );
+    // Note: Removed sync effect that was causing state conflicts
+    // For uncontrolled pagination, let TanStack Table manage its own state
 
     // Don't render pagination if disabled
     const shouldShowPagination = smartPaginationConfig !== false;

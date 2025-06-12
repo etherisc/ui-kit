@@ -282,6 +282,9 @@ export const DataTablePagination = React.memo(
         config.enableFastNavigation,
         config.enableJumpToPage,
         table,
+        jumpToPage,
+        handleFastPrevious,
+        handleFastNext,
       ],
     );
 
