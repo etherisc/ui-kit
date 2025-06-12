@@ -112,7 +112,9 @@ export function MarkdownEditor({
     <div className={baseClasses} data-testid={dataTestId}>
       {/* Toolbar */}
       <div className={toolbarClasses}>
-        <span style={disabled ? { color: "#000000" } : undefined}>
+        <span
+          style={disabled ? { color: "hsl(var(--foreground))" } : undefined}
+        >
           {isPreview ? "Preview" : "Edit"}
         </span>
         <button
