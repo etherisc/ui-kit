@@ -1,6 +1,4 @@
-import React from "react";
 import { render, screen } from "@testing-library/react";
-import "@testing-library/jest-dom";
 import { describe, it, expect } from "vitest";
 import { StatusBadge } from "./StatusBadge";
 
@@ -55,8 +53,8 @@ describe("StatusBadge", () => {
     render(<StatusBadge variant="pending">Pending</StatusBadge>);
 
     const badge = screen.getByText("Pending");
-    expect(badge).toHaveClass("bg-[hsl(var(--muted))]");
-    expect(badge).toHaveClass("text-[hsl(var(--muted-foreground))]");
+    expect(badge).toHaveClass("bg-[hsl(var(--base-300))]");
+    expect(badge).toHaveClass("text-[hsl(var(--base-content))]");
   });
 
   it("should apply base styling classes", () => {

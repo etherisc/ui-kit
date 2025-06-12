@@ -34,7 +34,7 @@ export function StatusBadge({
         variant === "info" &&
           "bg-[hsl(var(--info))] text-[hsl(var(--info-content))]",
         variant === "pending" &&
-          "bg-[hsl(var(--muted))] text-[hsl(var(--muted-foreground))]",
+          "bg-[hsl(var(--base-300))] text-[hsl(var(--base-content))]",
         variant === "neutral" &&
           "bg-[hsl(var(--neutral))] text-[hsl(var(--neutral-content))]",
         className,

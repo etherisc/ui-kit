@@ -1,88 +1,38 @@
-/*
- * =============================================================================
- * THEME.CSS - DaisyUI ↔ Shadcn CSS Variable Bridge
- * =============================================================================
- * 
- * PURPOSE:
- * This file serves as the dynamic bridge between DaisyUI design tokens and 
- * Shadcn CSS variables, enabling theme switching while providing fallback values.
- * 
- * CSS CASCADE POSITION:
- * 1. ✅ IMPORTED FIRST by globals.css
- * 2. ⬇️  Then Tailwind @base layer applies hardcoded fallbacks
- * 3. ⬇️  Then Tailwind @components and @utilities
- * 
- * WHAT THIS FILE DOES:
- * - Maps DaisyUI variables (--p, --b1, --bc) to Shadcn names (--primary, --background, --foreground)
- * - Provides fallback values when DaisyUI variables are missing: hsl(var(--b2, 0 0% 90%))
- * - Handles light/dark mode switching via .dark selector
- * - Prevents black borders by ensuring --border always has a value
- * 
- * WHAT THIS FILE SHOULD NOT CONTAIN:
- * ❌ Tailwind directives (@tailwind, @apply)
- * ❌ Hardcoded final fallback values (those go in globals.css)
- * ❌ Base element styles (*, body, etc.)
- * ❌ Component-specific styles
- * 
- * VARIABLE NAMING CONVENTION:
- * - Use Shadcn naming: --primary, --background, --border, --muted
- * - NOT DaisyUI naming: --p, --b1, --bc (those are source tokens)
- * 
- * FALLBACK STRATEGY:
- * - Always provide fallback: hsl(var(--source-token, fallback-value))
- * - Fallback values should be reasonable defaults for the semantic meaning
- * - Light mode fallbacks: bright backgrounds (90%+), dark text (10%-)
- * - Dark mode fallbacks: dark backgrounds (15%-), light text (85%+)
- * 
- * CONFLICT PREVENTION:
- * 🚨 NEVER override variables defined in globals.css @layer base
- * 🚨 NEVER use @layer directives here (conflicts with Tailwind)
- * 🚨 NEVER define variables without fallbacks
- * ✅ Always test both with and without DaisyUI loaded
- * ✅ Variables here should be DYNAMIC, globals.css should be STATIC
- * 
- * =============================================================================
- */
-
 :root {
-  /* DaisyUI HSL tokens → Shadcn variables with fallbacks */
+  /* DaisyUI HSL tokens → Shadcn variables */
   /* Base colors */
-  --primary: hsl(var(--p, 220 100% 50%));
-  --primary-foreground: hsl(var(--pc, 0 0% 100%));
+  --primary: hsl(var(--p));
+  --primary-foreground: hsl(var(--pc));
 
-  --secondary: hsl(var(--s, 210 40% 96%));
-  --secondary-foreground: hsl(var(--sc, 0 0% 9%));
+  --secondary: hsl(var(--s));
+  --secondary-foreground: hsl(var(--sc));
 
-  --accent: hsl(var(--a, 210 40% 96%));
-  --accent-foreground: hsl(var(--ac, 0 0% 9%));
+  --accent: hsl(var(--a));
+  --accent-foreground: hsl(var(--ac));
 
-  --destructive: hsl(var(--er, 0 84% 60%));
-  --destructive-foreground: hsl(var(--erc, 0 0% 98%));
+  --destructive: hsl(var(--er));
+  --destructive-foreground: hsl(var(--erc));
 
-  /* UI elements with fallbacks */
-  --background: hsl(var(--b1, 0 0% 100%));
-  --foreground: hsl(var(--bc, 0 0% 4%));
-  --card: hsl(var(--b1, 0 0% 100%));
-  --card-foreground: hsl(var(--bc, 0 0% 4%));
-  --popover: hsl(var(--b1, 0 0% 100%));
-  --popover-foreground: hsl(var(--bc, 0 0% 4%));
+  /* UI elements */
+  --background: hsl(var(--b1));
+  --foreground: hsl(var(--bc));
+  --card: hsl(var(--b1));
+  --card-foreground: hsl(var(--bc));
+  --popover: hsl(var(--b1));
+  --popover-foreground: hsl(var(--bc));
 
-  /* Borders and inputs with fallbacks - using direct HSL values to prevent black borders */
-  --border: hsl(var(--b2, 0 0% 90%));
-  --input: hsl(var(--b2, 0 0% 90%));
-  --ring: hsl(var(--p, 220 100% 50%));
+  /* Borders and shadows */
+  --border: hsl(var(--b2));
+  --input: hsl(var(--b2));
+  --ring: hsl(var(--p));
 
-  /* Muted colors with fallbacks */
-  --muted: hsl(var(--b2, 0 0% 96%));
-  --muted-foreground: hsl(var(--bc, 0 0% 45%));
-
-  /* Status colors with fallbacks */
-  --success: hsl(var(--su, 142 76% 36%));
-  --success-foreground: hsl(var(--suc, 0 0% 98%));
-  --warning: hsl(var(--wa, 43 96% 56%));
-  --warning-foreground: hsl(var(--wac, 0 0% 9%));
-  --info: hsl(var(--in, 198 93% 60%));
-  --info-foreground: hsl(var(--inc, 0 0% 98%));
+  /* Status colors */
+  --success: hsl(var(--su));
+  --success-foreground: hsl(var(--suc));
+  --warning: hsl(var(--wa));
+  --warning-foreground: hsl(var(--wac));
+  --info: hsl(var(--in));
+  --info-foreground: hsl(var(--inc));
 
   /* Shadows */
   --radius: 0.5rem;
@@ -103,44 +53,40 @@
 }
 
 .dark {
-  /* DaisyUI HSL tokens → Shadcn variables for dark mode with fallbacks */
+  /* DaisyUI HSL tokens → Shadcn variables for dark mode */
   /* Base colors */
-  --primary: hsl(var(--p, 220 100% 50%));
-  --primary-foreground: hsl(var(--pc, 0 0% 9%));
+  --primary: hsl(var(--p));
+  --primary-foreground: hsl(var(--pc));
 
-  --secondary: hsl(var(--s, 215 28% 17%));
-  --secondary-foreground: hsl(var(--sc, 0 0% 98%));
+  --secondary: hsl(var(--s));
+  --secondary-foreground: hsl(var(--sc));
 
-  --accent: hsl(var(--a, 215 28% 17%));
-  --accent-foreground: hsl(var(--ac, 0 0% 98%));
+  --accent: hsl(var(--a));
+  --accent-foreground: hsl(var(--ac));
 
-  --destructive: hsl(var(--er, 0 63% 31%));
-  --destructive-foreground: hsl(var(--erc, 0 0% 98%));
+  --destructive: hsl(var(--er));
+  --destructive-foreground: hsl(var(--erc));
 
-  /* UI elements with fallbacks */
-  --background: hsl(var(--n, 0 0% 4%));
-  --foreground: hsl(var(--nc, 0 0% 98%));
-  --card: hsl(var(--n, 0 0% 4%));
-  --card-foreground: hsl(var(--nc, 0 0% 98%));
-  --popover: hsl(var(--n, 0 0% 4%));
-  --popover-foreground: hsl(var(--nc, 0 0% 98%));
+  /* UI elements */
+  --background: hsl(var(--n));
+  --foreground: hsl(var(--nc));
+  --card: hsl(var(--n));
+  --card-foreground: hsl(var(--nc));
+  --popover: hsl(var(--n));
+  --popover-foreground: hsl(var(--nc));
 
-  /* Borders and inputs with fallbacks - using direct HSL values to prevent black borders */
-  --border: hsl(var(--b3, 0 0% 15%));
-  --input: hsl(var(--b3, 0 0% 15%));
-  --ring: hsl(var(--p, 220 100% 50%));
+  /* Borders and shadows */
+  --border: hsl(var(--b3));
+  --input: hsl(var(--b3));
+  --ring: hsl(var(--p));
 
-  /* Muted colors with fallbacks */
-  --muted: hsl(var(--b3, 0 0% 15%));
-  --muted-foreground: hsl(var(--nc, 0 0% 65%));
-
-  /* Status colors with fallbacks */
-  --success: hsl(var(--su, 142 76% 36%));
-  --success-foreground: hsl(var(--suc, 0 0% 98%));
-  --warning: hsl(var(--wa, 43 96% 56%));
-  --warning-foreground: hsl(var(--wac, 0 0% 9%));
-  --info: hsl(var(--in, 198 93% 60%));
-  --info-foreground: hsl(var(--inc, 0 0% 98%));
+  /* Status colors */
+  --success: hsl(var(--su));
+  --success-foreground: hsl(var(--suc));
+  --warning: hsl(var(--wa));
+  --warning-foreground: hsl(var(--wac));
+  --info: hsl(var(--in));
+  --info-foreground: hsl(var(--inc));
 
   /* Shadows - darker for dark mode */
   --shadow-color: 220 40% 2%;

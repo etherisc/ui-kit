@@ -57,13 +57,10 @@ export function ThemeToggle({
       type="button"
       onClick={handleToggle}
       className={cn(
-        "rounded-md border border-input bg-transparent text-foreground shadow-sm transition-colors",
-        "hover:bg-accent hover:text-accent-foreground",
-        "focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring",
-        "disabled:pointer-events-none disabled:opacity-50",
+        "rounded-full p-2 flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-primary",
         isDarkMode
           ? "text-primary-content bg-primary"
-          : "text-foreground bg-muted",
+          : "text-base-content bg-base-200",
         sizeClasses[size],
         className,
       )}

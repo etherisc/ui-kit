@@ -33,7 +33,7 @@ export function FormGroup({
       )}
       {children}
       {description && !error && (
-        <p className="text-xs text-muted-foreground">{description}</p>
+        <p className="text-xs text-base-content/70">{description}</p>
       )}
       {error && <p className="text-xs text-error">{error}</p>}
     </div>

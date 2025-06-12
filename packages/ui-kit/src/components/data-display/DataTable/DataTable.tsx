@@ -296,7 +296,6 @@ export const DataTable = React.memo(
 
     // Extract values that should trigger row re-renders
     const currentRows = table.getRowModel().rows;
-    const paginationStateKey = `${table.getState().pagination.pageIndex}-${table.getState().pagination.pageSize}`;
 
     // Memoize the table rows to prevent unnecessary re-renders
     const tableRows = useMemo(() => {
@@ -322,7 +321,7 @@ export const DataTable = React.memo(
           ))}
         </tr>
       ));
-    }, [currentRows, memoizedColumns.length, paginationStateKey]);
+    }, [currentRows, memoizedColumns.length]);
 
     // Memoize header groups to prevent unnecessary re-renders
     const headerGroups = useMemo(() => {
