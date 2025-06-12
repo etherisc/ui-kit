@@ -1,5 +1,19 @@
 # @etherisc/ui-kit
 
+## 0.6.1
+
+### Patch Changes
+
+- Fix DataTable pagination dropdown sync and AppShell border styling issues
+
+  - **DataTable**: Fixed pagination dropdown synchronization where custom page sizes weren't included in dropdown options
+  - **DataTable**: Enhanced smart pagination configuration with automatic deduplication and proper sorting
+  - **AppShell**: Replaced hard-coded colors with design system tokens for consistent theming
+  - **AppShell**: Updated all components (AppShell, AppShellTopBar, ContentWrapper) for proper dark/light mode support
+  - **MarkdownEditor**: Fixed text color consistency using design system tokens
+
+  Closes #60, #61
+
 ## 0.6.0
 
 ### Minor Changes
