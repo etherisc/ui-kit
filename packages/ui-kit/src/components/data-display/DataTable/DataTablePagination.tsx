@@ -317,7 +317,7 @@ export const DataTablePagination = <TData = unknown,>({
             onChange={(e) => {
               table.setPageSize(Number(e.target.value));
             }}
-            className="h-8 w-20 rounded-md border border-base-300 bg-base-100 px-2 text-sm"
+            className="h-8 w-20 rounded-md border bg-background px-2 text-sm"
             aria-labelledby="rows-per-page-label"
             disabled={loading}
           >
@@ -462,7 +462,7 @@ export const DataTablePagination = <TData = unknown,>({
       <div className="flex items-center gap-4">
         {/* Page info */}
         {config.showPageInfo && (
-          <div className="text-sm text-base-content">
+          <div className="text-sm text-foreground">
             Showing {paginationInfo.totalRows > 0 ? paginationInfo.startRow : 0}
             -{paginationInfo.endRow} of {paginationInfo.totalRows} entries
           </div>
@@ -479,7 +479,7 @@ export const DataTablePagination = <TData = unknown,>({
               max={pageCount}
               value={jumpToPage}
               onChange={(e) => setJumpToPage(e.target.value)}
-              className="h-8 w-16 rounded-md border border-base-300 bg-base-100 px-2 text-sm text-center"
+              className="h-8 w-16 rounded-md border bg-background px-2 text-sm text-center"
               placeholder={currentPage.toString()}
               disabled={loading}
               title={
@@ -491,7 +491,7 @@ export const DataTablePagination = <TData = unknown,>({
             />
             <button
               type="submit"
-              className="h-8 px-3 rounded-md border border-base-300 bg-base-100 text-sm hover:bg-base-200 disabled:opacity-50"
+              className="h-8 px-3 rounded-md border bg-background text-sm hover:bg-muted disabled:opacity-50"
               disabled={loading || !jumpToPage}
             >
               Go

@@ -313,7 +313,7 @@ export const DataTable = React.memo(
       return currentRows.map((row) => (
         <tr
           key={row.id}
-          className="border-b transition-colors hover:bg-base-100/50"
+          className="border-b transition-colors hover:bg-muted/50"
         >
           {row.getVisibleCells().map((cell) => (
             <td key={cell.id} className="p-4">
@@ -335,7 +335,7 @@ export const DataTable = React.memo(
                 width: header.getSize(),
                 position: "relative",
               }}
-              className="h-12 px-4 text-left align-middle font-medium text-base-content"
+              className="h-12 px-4 text-left align-middle font-medium text-foreground"
             >
               {header.isPlaceholder ? null : (
                 <div
@@ -361,9 +361,7 @@ export const DataTable = React.memo(
                   onTouchStart={header.getResizeHandler()}
                   className={cn(
                     "absolute right-0 top-0 h-full w-1 cursor-col-resize",
-                    header.column.getIsResizing()
-                      ? "bg-primary"
-                      : "bg-base-300",
+                    header.column.getIsResizing() ? "bg-primary" : "bg-border",
                   )}
                 />
               )}
@@ -378,7 +376,7 @@ export const DataTable = React.memo(
         <div className="rounded-md border overflow-hidden">
           <div className="relative w-full overflow-auto">
             <table className={cn("w-full caption-bottom text-sm", className)}>
-              <thead className="border-b bg-base-200">{headerGroups}</thead>
+              <thead className="border-b bg-muted">{headerGroups}</thead>
               <tbody>{tableRows}</tbody>
             </table>
           </div>
