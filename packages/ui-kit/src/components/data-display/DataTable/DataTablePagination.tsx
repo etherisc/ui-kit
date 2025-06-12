@@ -330,174 +330,184 @@ export const DataTablePagination = <TData = unknown,>({
         </div>
       )}
 
-      {/* Center: Navigation controls */}
-      {config.showNavigation && pageCount > 1 && (
-        <div className="flex items-center gap-2">
-          <Pagination>
-            <PaginationContent>
-              {/* First page */}
-              <PaginationItem>
-                <PaginationLink
-                  onClick={() => table.setPageIndex(0)}
-                  className={cn(
-                    "cursor-pointer",
-                    !canPreviousPage && "pointer-events-none opacity-50",
-                  )}
-                  aria-disabled={!canPreviousPage}
-                  title={
-                    enableKeyboardShortcuts ? "First page (Home)" : "First page"
-                  }
-                >
-                  First
-                </PaginationLink>
-              </PaginationItem>
-
-              {/* Fast previous (if enabled) */}
-              {config.enableFastNavigation && currentPage > 5 && (
+      {/* Center and Right side: Navigation controls and info */}
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-8">
+        {/* Center: Navigation controls */}
+        {config.showNavigation && pageCount > 1 && (
+          <div className="flex items-center justify-center">
+            <Pagination>
+              <PaginationContent>
+                {/* First page */}
                 <PaginationItem>
                   <PaginationLink
-                    onClick={handleFastPrevious}
-                    className="cursor-pointer"
-                    aria-label="Go back 5 pages"
+                    onClick={() => table.setPageIndex(0)}
+                    className={cn(
+                      "cursor-pointer",
+                      !canPreviousPage && "pointer-events-none opacity-50",
+                    )}
+                    aria-disabled={!canPreviousPage}
                     title={
                       enableKeyboardShortcuts
-                        ? "Go back 5 pages (PageUp)"
-                        : "Go back 5 pages"
+                        ? "First page (Home)"
+                        : "First page"
                     }
                   >
-                    &laquo;
+                    First
                   </PaginationLink>
                 </PaginationItem>
-              )}
 
-              {/* Previous */}
-              <PaginationItem>
-                <PaginationPrevious
-                  onClick={() => table.previousPage()}
-                  className={cn(
-                    "cursor-pointer",
-                    !canPreviousPage && "pointer-events-none opacity-50",
-                  )}
-                  aria-disabled={!canPreviousPage}
-                  title={
-                    enableKeyboardShortcuts
-                      ? "Previous page (←)"
-                      : "Previous page"
-                  }
-                />
-              </PaginationItem>
-
-              {/* Page numbers */}
-              {visiblePageNumbers.map((page, index) => (
-                <PaginationItem key={index}>
-                  {page === "ellipsis" ? (
-                    <PaginationEllipsis />
-                  ) : (
+                {/* Fast previous (if enabled) */}
+                {config.enableFastNavigation && currentPage > 5 && (
+                  <PaginationItem>
                     <PaginationLink
-                      onClick={() => table.setPageIndex(page - 1)}
-                      isActive={page === currentPage}
+                      onClick={handleFastPrevious}
                       className="cursor-pointer"
+                      aria-label="Go back 5 pages"
+                      title={
+                        enableKeyboardShortcuts
+                          ? "Go back 5 pages (PageUp)"
+                          : "Go back 5 pages"
+                      }
                     >
-                      {page}
+                      &laquo;
                     </PaginationLink>
-                  )}
-                </PaginationItem>
-              ))}
+                  </PaginationItem>
+                )}
 
-              {/* Next */}
-              <PaginationItem>
-                <PaginationNext
-                  onClick={() => table.nextPage()}
-                  className={cn(
-                    "cursor-pointer",
-                    !canNextPage && "pointer-events-none opacity-50",
-                  )}
-                  aria-disabled={!canNextPage}
-                  title={
-                    enableKeyboardShortcuts ? "Next page (→)" : "Next page"
-                  }
-                />
-              </PaginationItem>
-
-              {/* Fast next (if enabled) */}
-              {config.enableFastNavigation && currentPage <= pageCount - 5 && (
+                {/* Previous */}
                 <PaginationItem>
-                  <PaginationLink
-                    onClick={handleFastNext}
-                    className="cursor-pointer"
-                    aria-label="Go forward 5 pages"
+                  <PaginationPrevious
+                    onClick={() => table.previousPage()}
+                    className={cn(
+                      "cursor-pointer",
+                      !canPreviousPage && "pointer-events-none opacity-50",
+                    )}
+                    aria-disabled={!canPreviousPage}
                     title={
                       enableKeyboardShortcuts
-                        ? "Go forward 5 pages (PageDown)"
-                        : "Go forward 5 pages"
+                        ? "Previous page (←)"
+                        : "Previous page"
+                    }
+                  />
+                </PaginationItem>
+
+                {/* Page numbers */}
+                {visiblePageNumbers.map((page, index) => (
+                  <PaginationItem key={index}>
+                    {page === "ellipsis" ? (
+                      <PaginationEllipsis />
+                    ) : (
+                      <PaginationLink
+                        onClick={() => table.setPageIndex(page - 1)}
+                        isActive={page === currentPage}
+                        className="cursor-pointer"
+                      >
+                        {page}
+                      </PaginationLink>
+                    )}
+                  </PaginationItem>
+                ))}
+
+                {/* Next */}
+                <PaginationItem>
+                  <PaginationNext
+                    onClick={() => table.nextPage()}
+                    className={cn(
+                      "cursor-pointer",
+                      !canNextPage && "pointer-events-none opacity-50",
+                    )}
+                    aria-disabled={!canNextPage}
+                    title={
+                      enableKeyboardShortcuts ? "Next page (→)" : "Next page"
+                    }
+                  />
+                </PaginationItem>
+
+                {/* Fast next (if enabled) */}
+                {config.enableFastNavigation &&
+                  currentPage <= pageCount - 5 && (
+                    <PaginationItem>
+                      <PaginationLink
+                        onClick={handleFastNext}
+                        className="cursor-pointer"
+                        aria-label="Go forward 5 pages"
+                        title={
+                          enableKeyboardShortcuts
+                            ? "Go forward 5 pages (PageDown)"
+                            : "Go forward 5 pages"
+                        }
+                      >
+                        &raquo;
+                      </PaginationLink>
+                    </PaginationItem>
+                  )}
+
+                {/* Last page */}
+                <PaginationItem>
+                  <PaginationLink
+                    onClick={() => table.setPageIndex(pageCount - 1)}
+                    className={cn(
+                      "cursor-pointer",
+                      !canNextPage && "pointer-events-none opacity-50",
+                    )}
+                    aria-disabled={!canNextPage}
+                    title={
+                      enableKeyboardShortcuts ? "Last page (End)" : "Last page"
                     }
                   >
-                    &raquo;
+                    Last
                   </PaginationLink>
                 </PaginationItem>
-              )}
-
-              {/* Last page */}
-              <PaginationItem>
-                <PaginationLink
-                  onClick={() => table.setPageIndex(pageCount - 1)}
-                  className={cn(
-                    "cursor-pointer",
-                    !canNextPage && "pointer-events-none opacity-50",
-                  )}
-                  aria-disabled={!canNextPage}
-                  title={
-                    enableKeyboardShortcuts ? "Last page (End)" : "Last page"
-                  }
-                >
-                  Last
-                </PaginationLink>
-              </PaginationItem>
-            </PaginationContent>
-          </Pagination>
-        </div>
-      )}
-
-      {/* Right side: Page info and jump-to-page */}
-      <div className="flex items-center gap-4">
-        {/* Page info */}
-        {config.showPageInfo && (
-          <div className="text-sm text-foreground">
-            Showing {paginationInfo.totalRows > 0 ? paginationInfo.startRow : 0}
-            -{paginationInfo.endRow} of {paginationInfo.totalRows} entries
+              </PaginationContent>
+            </Pagination>
           </div>
         )}
 
-        {/* Jump to page */}
-        {config.enableJumpToPage && pageCount > 10 && (
-          <form onSubmit={handleJumpToPage} className="flex items-center gap-2">
-            <span className="text-sm">Go to:</span>
-            <input
-              ref={jumpInputRef}
-              type="number"
-              min="1"
-              max={pageCount}
-              value={jumpToPage}
-              onChange={(e) => setJumpToPage(e.target.value)}
-              className="h-8 w-16 rounded-md border bg-background px-2 text-sm text-center"
-              placeholder={currentPage.toString()}
-              disabled={loading}
-              title={
-                enableKeyboardShortcuts
-                  ? "Jump to page (Ctrl+G to focus)"
-                  : "Jump to page"
-              }
-              aria-label="Jump to page number"
-            />
-            <button
-              type="submit"
-              className="h-8 px-3 rounded-md border bg-background text-sm hover:bg-muted disabled:opacity-50"
-              disabled={loading || !jumpToPage}
+        {/* Right side: Page info and jump-to-page */}
+        <div className="flex items-center gap-4">
+          {/* Page info */}
+          {config.showPageInfo && (
+            <div className="text-sm text-foreground">
+              Showing{" "}
+              {paginationInfo.totalRows > 0 ? paginationInfo.startRow : 0}-
+              {paginationInfo.endRow} of {paginationInfo.totalRows} entries
+            </div>
+          )}
+
+          {/* Jump to page */}
+          {config.enableJumpToPage && pageCount > 10 && (
+            <form
+              onSubmit={handleJumpToPage}
+              className="flex items-center gap-2"
             >
-              Go
-            </button>
-          </form>
-        )}
+              <span className="text-sm">Go to:</span>
+              <input
+                ref={jumpInputRef}
+                type="number"
+                min="1"
+                max={pageCount}
+                value={jumpToPage}
+                onChange={(e) => setJumpToPage(e.target.value)}
+                className="h-8 w-16 rounded-md border bg-background px-2 text-sm text-center"
+                placeholder={currentPage.toString()}
+                disabled={loading}
+                title={
+                  enableKeyboardShortcuts
+                    ? "Jump to page (Ctrl+G to focus)"
+                    : "Jump to page"
+                }
+                aria-label="Jump to page number"
+              />
+              <button
+                type="submit"
+                className="h-8 px-3 rounded-md border bg-background text-sm hover:bg-muted disabled:opacity-50"
+                disabled={loading || !jumpToPage}
+              >
+                Go
+              </button>
+            </form>
+          )}
+        </div>
       </div>
     </div>
   );
