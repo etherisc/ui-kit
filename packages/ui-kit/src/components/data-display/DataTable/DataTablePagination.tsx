@@ -331,7 +331,7 @@ export const DataTablePagination = <TData = unknown,>({
       )}
 
       {/* Center and Right side: Navigation controls and info */}
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-8">
+      <div className="flex flex-row gap-4 sm:flex-col sm:items-center sm:gap-8">
         {/* Center: Navigation controls */}
         {config.showNavigation && pageCount > 1 && (
           <div className="flex items-center justify-center">
