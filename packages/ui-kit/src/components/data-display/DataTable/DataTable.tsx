@@ -160,19 +160,39 @@ export const DataTable = React.memo(
     // Smart pagination defaults based on data size
     const smartPaginationConfig = useMemo((): PaginationConfig | false => {
       if (pagination === false) return false;
-      if (pagination) return pagination;
+      if (pagination) {
+        // Ensure pageSize is in pageSizeOptions to prevent dropdown sync issues
+        const configPageSize = pagination.pageSize ?? pageSize;
+        const defaultOptions = [10, 25, 50, 100];
+        const options = pagination.pageSizeOptions ?? defaultOptions;
+
+        // Deduplicate and ensure pageSize is in options
+        const uniqueOptions = [...new Set([...options, configPageSize])];
+        const pageSizeOptions = uniqueOptions.sort((a, b) => a - b);
+
+        return {
+          ...pagination,
+          pageSize: configPageSize,
+          pageSizeOptions,
+        };
+      }
 
       // Auto-detect pagination strategy
       if (data.length <= 15) {
         return false; // No pagination for small datasets
       }
 
+      // Ensure default pageSize is in options and deduplicate
+      const defaultOptions = [10, 25, 50, 100];
+      const uniqueOptions = [...new Set([...defaultOptions, pageSize])];
+      const pageSizeOptions = uniqueOptions.sort((a, b) => a - b);
+
       return {
         pageSize: pageSize,
         showSizeSelector: true,
         showPageInfo: true,
         showNavigation: true,
-        pageSizeOptions: [10, 25, 50, 100],
+        pageSizeOptions,
         enableFastNavigation: data.length > 100,
         enableJumpToPage: data.length > 200,
       };

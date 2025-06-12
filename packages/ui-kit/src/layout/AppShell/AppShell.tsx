@@ -123,7 +123,10 @@ export const AppShell: React.FC<AppShellProps> = ({
 
       {/* Footer */}
       {footer && (
-        <div className="mt-auto p-4 bg-background border-t border-gray-200">
+        <div
+          className="mt-auto p-4 bg-background border-t border-border"
+          style={{ borderColor: "hsl(var(--border))" }}
+        >
           {footer}
         </div>
       )}
