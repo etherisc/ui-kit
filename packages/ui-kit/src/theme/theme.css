@@ -1,3 +1,49 @@
+/*
+ * =============================================================================
+ * THEME.CSS - DaisyUI ↔ Shadcn CSS Variable Bridge
+ * =============================================================================
+ * 
+ * PURPOSE:
+ * This file serves as the dynamic bridge between DaisyUI design tokens and 
+ * Shadcn CSS variables, enabling theme switching while providing fallback values.
+ * 
+ * CSS CASCADE POSITION:
+ * 1. ✅ IMPORTED FIRST by globals.css
+ * 2. ⬇️  Then Tailwind @base layer applies hardcoded fallbacks
+ * 3. ⬇️  Then Tailwind @components and @utilities
+ * 
+ * WHAT THIS FILE DOES:
+ * - Maps DaisyUI variables (--p, --b1, --bc) to Shadcn names (--primary, --background, --foreground)
+ * - Provides fallback values when DaisyUI variables are missing: hsl(var(--b2, 0 0% 90%))
+ * - Handles light/dark mode switching via .dark selector
+ * - Prevents black borders by ensuring --border always has a value
+ * 
+ * WHAT THIS FILE SHOULD NOT CONTAIN:
+ * ❌ Tailwind directives (@tailwind, @apply)
+ * ❌ Hardcoded final fallback values (those go in globals.css)
+ * ❌ Base element styles (*, body, etc.)
+ * ❌ Component-specific styles
+ * 
+ * VARIABLE NAMING CONVENTION:
+ * - Use Shadcn naming: --primary, --background, --border, --muted
+ * - NOT DaisyUI naming: --p, --b1, --bc (those are source tokens)
+ * 
+ * FALLBACK STRATEGY:
+ * - Always provide fallback: hsl(var(--source-token, fallback-value))
+ * - Fallback values should be reasonable defaults for the semantic meaning
+ * - Light mode fallbacks: bright backgrounds (90%+), dark text (10%-)
+ * - Dark mode fallbacks: dark backgrounds (15%-), light text (85%+)
+ * 
+ * CONFLICT PREVENTION:
+ * 🚨 NEVER override variables defined in globals.css @layer base
+ * 🚨 NEVER use @layer directives here (conflicts with Tailwind)
+ * 🚨 NEVER define variables without fallbacks
+ * ✅ Always test both with and without DaisyUI loaded
+ * ✅ Variables here should be DYNAMIC, globals.css should be STATIC
+ * 
+ * =============================================================================
+ */
+
 :root {
   /* DaisyUI HSL tokens → Shadcn variables with fallbacks */
   /* Base colors */
