@@ -294,11 +294,13 @@ export const DataTable = React.memo(
     // Don't render pagination if disabled
     const shouldShowPagination = smartPaginationConfig !== false;
 
+    // Extract values that should trigger row re-renders
+    const currentRows = table.getRowModel().rows;
+    const paginationStateKey = `${table.getState().pagination.pageIndex}-${table.getState().pagination.pageSize}`;
+
     // Memoize the table rows to prevent unnecessary re-renders
     const tableRows = useMemo(() => {
-      const rows = table.getRowModel().rows;
-
-      if (!rows.length) {
+      if (!currentRows.length) {
         return (
           <tr>
             <td colSpan={memoizedColumns.length} className="h-24 text-center">
@@ -308,7 +310,7 @@ export const DataTable = React.memo(
         );
       }
 
-      return rows.map((row) => (
+      return currentRows.map((row) => (
         <tr
           key={row.id}
           className="border-b transition-colors hover:bg-base-100/50"
@@ -320,7 +322,7 @@ export const DataTable = React.memo(
           ))}
         </tr>
       ));
-    }, [table, memoizedColumns.length]);
+    }, [currentRows, memoizedColumns.length, paginationStateKey]);
 
     // Memoize header groups to prevent unnecessary re-renders
     const headerGroups = useMemo(() => {

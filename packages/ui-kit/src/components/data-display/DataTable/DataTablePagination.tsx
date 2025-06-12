@@ -80,7 +80,9 @@ export const DataTablePagination = <TData = unknown,>({
   const availableOptions = useMemo(() => {
     const baseOptions = config.pageSizeOptions || [10, 25, 50, 100];
     const uniqueOptions = [...new Set([...baseOptions, pageSize])];
-    return uniqueOptions.sort((a, b) => a - b);
+    const sortedOptions = uniqueOptions.sort((a, b) => a - b);
+
+    return sortedOptions;
   }, [config.pageSizeOptions, pageSize]);
 
   // Calculate pagination info
