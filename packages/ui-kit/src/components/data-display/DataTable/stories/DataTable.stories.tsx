@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import React, { useState, useCallback } from "react";
-import { DataTable } from "../DataTable";
+import { DataTable, PaginationConfig } from "../DataTable";
 import { ColumnDef, PaginationState } from "@tanstack/react-table";
 
 // Generate mock data
@@ -538,6 +538,161 @@ export const KeyboardNavigationDisabled: Story = {
       description: {
         story:
           "DataTable with keyboard shortcuts disabled. Users must rely on mouse/touch interactions.",
+      },
+    },
+  },
+};
+
+// Component for testing pagination dropdown synchronization
+function PaginationSyncTestDemo() {
+  const [testData] = useState(() => {
+    // Generate test data with > 100 entries
+    const departments = [
+      "Engineering",
+      "Marketing",
+      "Sales",
+      "HR",
+      "Finance",
+      "Operations",
+    ];
+    return Array.from({ length: 150 }, (_, i) => ({
+      id: i + 1,
+      firstName: `User${i + 1}`,
+      lastName: `Lastname${i + 1}`,
+      age: 20 + (i % 50),
+      email: `user${i + 1}@company.com`,
+      status: ["active", "inactive", "pending"][i % 3] as Person["status"],
+      department: departments[i % departments.length],
+    }));
+  });
+
+  const [currentTest, setCurrentTest] = useState<string>("missingPageSize");
+
+  const testScenarios: Record<
+    string,
+    { title: string; config: PaginationConfig }
+  > = {
+    missingPageSize: {
+      title: "🐛 Bug: Page Size NOT in Options (35)",
+      config: {
+        pageSize: 35,
+        showSizeSelector: true,
+        showPageInfo: true,
+        showNavigation: true,
+        pageSizeOptions: [10, 25, 50, 100], // 35 is NOT in this list
+      },
+    },
+    edgeCasePageSize: {
+      title: "🐛 Edge Case: Page Size 1 (not in default options)",
+      config: {
+        pageSize: 1,
+        showSizeSelector: true,
+        showPageInfo: true,
+        showNavigation: true,
+        pageSizeOptions: [10, 25, 50, 100],
+      },
+    },
+    duplicateOptions: {
+      title: "✅ Working: Duplicate Page Size Options",
+      config: {
+        pageSize: 20,
+        showSizeSelector: true,
+        showPageInfo: true,
+        showNavigation: true,
+        pageSizeOptions: [10, 20, 25, 20, 50, 100, 25], // Duplicates should be handled
+      },
+    },
+    customPageSize: {
+      title: "✅ Working: Custom Page Size (15) - In dropdown",
+      config: {
+        pageSize: 15,
+        showSizeSelector: true,
+        showPageInfo: true,
+        showNavigation: true,
+        pageSizeOptions: [10, 15, 25, 50, 100],
+      },
+    },
+  };
+
+  return (
+    <div className="w-full space-y-6">
+      <div className="bg-yellow-50 border border-yellow-200 rounded-md p-4">
+        <h3 className="font-semibold text-yellow-800 mb-2">
+          Pagination Dropdown Sync Test
+        </h3>
+        <p className="text-sm text-yellow-700">
+          <strong>Instructions:</strong> Test each scenario below. Look for:
+        </p>
+        <ul className="text-sm text-yellow-700 list-disc list-inside mt-2">
+          <li>Does the dropdown show the correct current page size?</li>
+          <li>Does changing the dropdown update the table immediately?</li>
+          <li>Are there console errors or infinite re-renders?</li>
+          <li>Does the table state stay synchronized with the dropdown?</li>
+        </ul>
+      </div>
+
+      <div className="flex flex-wrap gap-2">
+        {Object.entries(testScenarios).map(([key, scenario]) => (
+          <button
+            key={key}
+            onClick={() => setCurrentTest(key)}
+            className={`px-3 py-2 rounded-md text-sm font-medium ${
+              currentTest === key
+                ? "bg-blue-600 text-white"
+                : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+            }`}
+          >
+            {scenario.title}
+          </button>
+        ))}
+      </div>
+
+      <div className="bg-gray-50 border rounded-md p-3">
+        <h4 className="font-medium mb-2">
+          Current Test: {testScenarios[currentTest].title}
+        </h4>
+        <details className="text-sm text-gray-600">
+          <summary className="cursor-pointer">Debug Config</summary>
+          <pre className="mt-2 text-xs bg-white p-2 rounded border">
+            {JSON.stringify(testScenarios[currentTest].config, null, 2)}
+          </pre>
+        </details>
+      </div>
+
+      <DataTable
+        data={testData}
+        columns={columns}
+        pagination={testScenarios[currentTest].config}
+        enableKeyboardShortcuts={true}
+      />
+    </div>
+  );
+}
+
+export const PaginationSyncTest: Story = {
+  name: "🔧 Debug: Pagination Dropdown Sync",
+  render: () => <PaginationSyncTestDemo />,
+  parameters: {
+    docs: {
+      description: {
+        story: `**DEBUGGING TOOL**: Test pagination dropdown synchronization issues.
+
+This story tests various edge cases where the pagination dropdown might become out of sync with the table state:
+
+1. **Page Size NOT in Options**: When \`pageSize\` is not included in \`pageSizeOptions\`
+2. **Edge Case Page Sizes**: Testing with unusual page sizes like 1
+3. **Duplicate Options**: Testing with duplicate values in \`pageSizeOptions\`
+
+**Expected Behavior**: The component should automatically add missing page sizes to the options array and handle duplicates gracefully.
+
+**How to Test**:
+1. Switch between test scenarios using the buttons
+2. Check if the dropdown shows the correct current page size
+3. Try changing the page size via the dropdown
+4. Verify the table updates correctly
+5. Check browser console for errors
+
+**Issue #61**: If the dropdown doesn't sync properly or throws errors, this indicates the bug we're fixing.`,
       },
     },
   },

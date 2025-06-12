@@ -228,7 +228,7 @@ export const DataTable = React.memo(
         smartPaginationConfig !== false
           ? smartPaginationConfig.pageSize
           : pageSize;
-      return `uncontrolled-${keyPageSize}-${JSON.stringify(smartPaginationConfig)}`;
+      return `uncontrolled-${keyPageSize}`;
     }, [isControlledPagination, smartPaginationConfig, pageSize]);
 
     // For controlled pagination, use the provided state and change handler
@@ -398,7 +398,7 @@ export const DataTable = React.memo(
 
         {shouldShowPagination && (
           <DataTablePagination
-            key={`pagination-${smartPaginationConfig.pageSize}-${table.getState().pagination.pageSize}`}
+            key={`pagination-${table.getState().pagination.pageSize}`}
             table={table as Table<unknown>}
             config={smartPaginationConfig}
             loading={loading}

@@ -73,6 +73,13 @@ export const DataTablePagination = React.memo(
     const canPreviousPage = table.getCanPreviousPage();
     const canNextPage = table.getCanNextPage();
 
+    // Ensure current pageSize is always available in options
+    const availableOptions = useMemo(() => {
+      const baseOptions = config.pageSizeOptions || [10, 25, 50, 100];
+      const uniqueOptions = [...new Set([...baseOptions, pageSize])];
+      return uniqueOptions.sort((a, b) => a - b);
+    }, [config.pageSizeOptions, pageSize]);
+
     // Calculate pagination info
     const paginationInfo = useMemo(() => {
       const totalRows = rowCount ?? table.getRowCount();
@@ -305,6 +312,7 @@ export const DataTablePagination = React.memo(
               Rows per page:
             </span>
             <select
+              key={`pagesize-select-${pageSize}`}
               value={pageSize}
               onChange={(e) => {
                 table.setPageSize(Number(e.target.value));
@@ -313,7 +321,7 @@ export const DataTablePagination = React.memo(
               aria-labelledby="rows-per-page-label"
               disabled={loading}
             >
-              {(config.pageSizeOptions || [10, 25, 50, 100]).map((size) => (
+              {availableOptions.map((size) => (
                 <option key={size} value={size}>
                   {size}
                 </option>
