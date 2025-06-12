@@ -88,12 +88,7 @@ export const DataTablePagination = <TData = unknown,>({
       totalRows,
     );
     return { totalRows, startRow, endRow };
-  }, [
-    rowCount,
-    table.getRowCount(),
-    table.getState().pagination.pageIndex,
-    pageSize,
-  ]);
+  }, [rowCount, table, pageSize]);
 
   // Generate visible page numbers
   const getVisiblePageNumbers = useCallback(() => {

@@ -216,24 +216,21 @@ export const DataTable = React.memo(
             pageSize,
         },
       }),
-      [initialState, smartPaginationConfig, pageSize],
+      [initialState, pageSize, smartPaginationConfig],
     );
+
+    // Extract config pageSize for dependency array
+    const configPageSize =
+      smartPaginationConfig !== false ? smartPaginationConfig.pageSize : null;
 
     // Create table key for forcing recreation when essential config changes
     const tableKey = useMemo(() => {
       if (isControlledPagination) return "controlled";
 
       // For uncontrolled tables, only include pageSize in key (not full config)
-      const keyPageSize =
-        smartPaginationConfig !== false
-          ? smartPaginationConfig.pageSize
-          : pageSize;
+      const keyPageSize = configPageSize ?? pageSize;
       return `uncontrolled-${keyPageSize}`;
-    }, [
-      isControlledPagination,
-      smartPaginationConfig === false ? null : smartPaginationConfig?.pageSize,
-      pageSize,
-    ]);
+    }, [isControlledPagination, configPageSize, pageSize]);
 
     // For controlled pagination, use the provided state and change handler
     // For uncontrolled pagination, let TanStack Table manage it with initialState
@@ -323,7 +320,7 @@ export const DataTable = React.memo(
           ))}
         </tr>
       ));
-    }, [table.getRowModel().rows, memoizedColumns.length]);
+    }, [table, memoizedColumns.length]);
 
     // Memoize header groups to prevent unnecessary re-renders
     const headerGroups = useMemo(() => {
@@ -372,7 +369,7 @@ export const DataTable = React.memo(
           ))}
         </tr>
       ));
-    }, [table.getHeaderGroups(), enableResizing]);
+    }, [table, enableResizing]);
 
     return (
       <div key={tableKey} className="w-full flex flex-col gap-4">
