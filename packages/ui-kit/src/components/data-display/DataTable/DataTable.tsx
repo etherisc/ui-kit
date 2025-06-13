@@ -12,6 +12,7 @@ import {
   PaginationState,
   Updater,
 } from "@tanstack/react-table";
+import { ChevronUp, ChevronDown, ChevronsUpDown } from "lucide-react";
 import { cn } from "../../../utils";
 import { DataTablePagination } from "./DataTablePagination";
 
@@ -24,6 +25,11 @@ export interface PaginationConfig {
   pageSizeOptions?: number[];
   enableFastNavigation?: boolean;
   enableJumpToPage?: boolean;
+}
+
+// Extended meta interface for column definitions
+interface ColumnMeta {
+  className?: string;
 }
 
 export interface DataTableProps<TData extends object, TValue = unknown> {
@@ -154,6 +160,7 @@ export const DataTable = React.memo(
     enableKeyboardShortcuts = true,
   }: DataTableProps<TData, TValue>) => {
     const [sorting, setSorting] = useState<SortingState>([]);
+    const [columnSizing, setColumnSizing] = useState({});
 
     // Memoize columns to prevent re-renders when parent re-renders
     const memoizedColumns = useMemo(() => columns, [columns]);
@@ -272,10 +279,14 @@ export const DataTable = React.memo(
       // State management (used for controlled state)
       state: {
         sorting,
+        columnSizing,
         ...(isControlledPagination && smartPaginationConfig !== false
           ? { pagination: paginationState }
           : {}),
       },
+
+      // Column sizing callbacks
+      onColumnSizingChange: setColumnSizing,
 
       // Callbacks
       ...(isControlledPagination && smartPaginationConfig !== false
@@ -315,7 +326,13 @@ export const DataTable = React.memo(
           className="border-b transition-colors hover:bg-muted/50"
         >
           {row.getVisibleCells().map((cell) => (
-            <td key={cell.id} className="p-4">
+            <td
+              key={cell.id}
+              className={cn(
+                "p-4",
+                (cell.column.columnDef.meta as ColumnMeta)?.className,
+              )}
+            >
               {flexRender(cell.column.columnDef.cell, cell.getContext())}
             </td>
           ))}
@@ -323,52 +340,58 @@ export const DataTable = React.memo(
       ));
     }, [currentRows, memoizedColumns.length]);
 
-    // Memoize header groups to prevent unnecessary re-renders
-    const headerGroups = useMemo(() => {
-      return table.getHeaderGroups().map((headerGroup) => (
-        <tr key={headerGroup.id}>
-          {headerGroup.headers.map((header) => (
-            <th
-              key={header.id}
-              style={{
-                width: header.getSize(),
-                position: "relative",
-              }}
-              className="h-12 px-4 text-left align-middle font-medium text-foreground"
-            >
-              {header.isPlaceholder ? null : (
-                <div
-                  className={cn(
-                    "flex items-center gap-2",
-                    header.column.getCanSort() && "cursor-pointer select-none",
-                  )}
-                  onClick={header.column.getToggleSortingHandler()}
-                >
-                  {flexRender(
-                    header.column.columnDef.header,
-                    header.getContext(),
-                  )}
-                  {{
-                    asc: <ArrowUpIcon className="h-4 w-4" />,
-                    desc: <ArrowDownIcon className="h-4 w-4" />,
-                  }[header.column.getIsSorted() as string] ?? null}
-                </div>
-              )}
-              {enableResizing && header.column.getCanResize() && (
-                <div
-                  onMouseDown={header.getResizeHandler()}
-                  onTouchStart={header.getResizeHandler()}
-                  className={cn(
-                    "absolute right-0 top-0 h-full w-1 cursor-col-resize",
-                    header.column.getIsResizing() ? "bg-primary" : "bg-border",
-                  )}
-                />
-              )}
-            </th>
-          ))}
-        </tr>
-      ));
-    }, [table, enableResizing]);
+    // Generate header groups (not memoized to ensure sorting indicators update)
+    const headerGroups = table.getHeaderGroups().map((headerGroup) => (
+      <tr key={headerGroup.id}>
+        {headerGroup.headers.map((header) => (
+          <th
+            key={header.id}
+            style={{
+              width: header.getSize(),
+              position: "relative",
+            }}
+            className="h-12 px-4 text-left align-middle font-medium text-foreground"
+          >
+            {header.isPlaceholder ? null : (
+              <div
+                className={cn(
+                  "flex items-center gap-2",
+                  header.column.getCanSort() && "cursor-pointer select-none",
+                )}
+                onClick={header.column.getToggleSortingHandler()}
+              >
+                {flexRender(
+                  header.column.columnDef.header,
+                  header.getContext(),
+                )}
+                {header.column.getCanSort() && (
+                  <>
+                    {{
+                      asc: <ChevronUp className="h-4 w-4" />,
+                      desc: <ChevronDown className="h-4 w-4" />,
+                    }[header.column.getIsSorted() as string] ?? (
+                      <ChevronsUpDown className="h-4 w-4 opacity-50" />
+                    )}
+                  </>
+                )}
+              </div>
+            )}
+            {enableResizing && header.column.getCanResize() && (
+              <div
+                onMouseDown={header.getResizeHandler()}
+                onTouchStart={header.getResizeHandler()}
+                className={cn(
+                  "absolute right-0 top-0 h-full w-2 cursor-col-resize select-none",
+                  "bg-muted-foreground/20 hover:bg-primary/70 active:bg-primary transition-colors",
+                  header.column.getIsResizing() && "bg-primary",
+                )}
+                style={{ userSelect: "none" }}
+              />
+            )}
+          </th>
+        ))}
+      </tr>
+    ));
 
     return (
       <div key={tableKey} className="w-full flex flex-col gap-4">
@@ -397,44 +420,3 @@ export const DataTable = React.memo(
 ) as <TData extends object, TValue = unknown>(
   props: DataTableProps<TData, TValue> & { ref?: React.Ref<HTMLDivElement> },
 ) => React.JSX.Element;
-
-// Icons for the table
-function ArrowUpIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}
-    >
-      <path d="m5 12 7-7 7 7" />
-      <path d="M12 19V5" />
-    </svg>
-  );
-}
-
-function ArrowDownIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}
-    >
-      <path d="M12 5v14" />
-      <path d="m19 12-7 7-7-7" />
-    </svg>
-  );
-}

@@ -1,5 +1,12 @@
 # @org/showcase
 
+## 0.1.15
+
+### Patch Changes
+
+- Updated dependencies [35e2fbf]
+  - @etherisc/ui-kit@0.7.7
+
 ## 0.1.14
 
 ### Patch Changes
