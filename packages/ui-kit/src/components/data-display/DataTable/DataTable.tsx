@@ -393,7 +393,7 @@ export const DataTable = React.memo(
           ))}
         </tr>
       ));
-    }, [table, enableResizing, sorting, columnSizing]);
+    }, [table.getHeaderGroups(), enableResizing]);
 
     return (
       <div key={tableKey} className="w-full flex flex-col gap-4">
