@@ -50,7 +50,7 @@ export const ContentWrapper: React.FC<ContentWrapperProps> = ({
       {breadcrumbs && breadcrumbs.length > 0 && (
         <div
           className={cn("py-2 px-4 border-b bg-muted/40", "border-border")}
-          style={{ borderColor: "hsl(var(--border))" }}
+          // style={{ borderColor: "hsl(var(--border))" }}
         >
           <AppShellBreadcrumbs items={breadcrumbs} />
         </div>
@@ -60,7 +60,7 @@ export const ContentWrapper: React.FC<ContentWrapperProps> = ({
       {header && (
         <div
           className="content-header border-b border-border"
-          style={{ borderColor: "hsl(var(--border))" }}
+          // style={{ borderColor: "hsl(var(--border))" }}
         >
           {header}
         </div>
@@ -80,7 +80,7 @@ export const ContentWrapper: React.FC<ContentWrapperProps> = ({
       {footer && (
         <div
           className="content-footer border-t border-border mt-auto"
-          style={{ borderColor: "hsl(var(--border))" }}
+          // style={{ borderColor: "hsl(var(--border))" }}
         >
           {footer}
         </div>

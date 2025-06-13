@@ -125,7 +125,7 @@ export const AppShell: React.FC<AppShellProps> = ({
       {footer && (
         <div
           className="mt-auto p-4 bg-background border-t border-border"
-          style={{ borderColor: "hsl(var(--border))" }}
+          // style={{ borderColor: "hsl(var(--border))" }}
         >
           {footer}
         </div>

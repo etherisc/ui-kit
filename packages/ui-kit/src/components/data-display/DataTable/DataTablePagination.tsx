@@ -289,7 +289,7 @@ export const DataTablePagination = <TData = unknown,>({
     <div
       ref={containerRef}
       className={cn(
-        "flex flex-row items-center justify-between gap-4 md:flex-col md:items-stretch",
+        "flex flex-col items-center justify-between gap-4 sm:flex-row sm:items-stretch",
         className,
       )}
     >
@@ -331,7 +331,7 @@ export const DataTablePagination = <TData = unknown,>({
       )}
 
       {/* Center and Right side: Navigation controls and info */}
-      <div className="flex flex-row gap-4 sm:flex-col sm:items-center sm:gap-8">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-8">
         {/* Center: Navigation controls */}
         {config.showNavigation && pageCount > 1 && (
           <div className="flex items-center justify-center">
