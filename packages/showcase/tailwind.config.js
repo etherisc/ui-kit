@@ -19,45 +19,44 @@ export default {
     {
       pattern: /^text-(primary|secondary|accent)-foreground$/,
     },
-    // Custom/Nexadash-specific tokens
-    {
-      pattern: /^(bg-light-theme|text-gray|shadow-3xl)$/,
-    },
     // responsive classes
     {
       pattern:
         /^(flex|inline-flex|grid|col-span|row-span|gap[xy]?|place-(items|content))-/,
-      variants: ["sm", "md", "lg", "xl", "2xl"],
+      variants: ["sm", "md", "lg"],
     },
     {
       pattern: /^(items|justify|content|self)-/,
-      variants: ["sm", "md", "lg", "xl", "2xl"],
+      variants: ["sm", "md", "lg"],
     },
     {
       pattern: /^-?m[trblxy]?-/,
-      variants: ["sm", "md", "lg", "xl", "2xl"],
+      variants: ["sm", "md", "lg"],
     },
     {
       pattern: /^p[trblxy]?-/,
-      variants: ["sm", "md", "lg", "xl", "2xl"],
+      variants: ["sm", "md", "lg"],
     },
     {
       pattern: /^(w|h|min-w|max-w|min-h|max-h|z)-/,
-      variants: ["sm", "md", "lg", "xl", "2xl"],
+      variants: ["sm", "md", "lg"],
     },
     {
-      pattern: /^(text|font|leading|tracking|line-clamp)-/,
-      variants: ["sm", "md", "lg", "xl", "2xl"],
-    },
-    {
-      pattern: /^(border|rounded|ring|shadow)/,
-      variants: ["sm", "md", "lg", "xl", "2xl"],
+      pattern: /^(rounded|font|leading|tracking|line-clamp)-/,
+      variants: ["sm", "md", "lg"],
     },
     {
       pattern:
-        /^(block|inline|inline-block|hidden|visible|invisible|relative|absolute|fixed|sticky)/,
-      variants: ["sm", "md", "lg", "xl", "2xl"],
+        /^((border|text|ring|shadow)(-(t|b|l|r|x|y|0|2|4|8|solid|dashed|dotted|none))?)$/,
+      variants: ["sm", "md", "lg"],
     },
+    /*
+    {
+      pattern:
+        /^(block|inline|inline-block|hidden|visible|invisible|relative|absolute|fixed|sticky)/,
+      variants: ["sm", "md", "lg"],
+    },
+    */
   ],
   darkMode: ["class", "class"],
   theme: {
