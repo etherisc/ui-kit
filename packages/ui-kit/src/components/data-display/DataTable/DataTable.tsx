@@ -12,6 +12,7 @@ import {
   PaginationState,
   Updater,
 } from "@tanstack/react-table";
+import { ChevronUp, ChevronDown, ChevronsUpDown } from "lucide-react";
 import { cn } from "../../../utils";
 import { DataTablePagination } from "./DataTablePagination";
 
@@ -348,10 +349,16 @@ export const DataTable = React.memo(
                     header.column.columnDef.header,
                     header.getContext(),
                   )}
-                  {{
-                    asc: <ArrowUpIcon className="h-4 w-4" />,
-                    desc: <ArrowDownIcon className="h-4 w-4" />,
-                  }[header.column.getIsSorted() as string] ?? null}
+                  {header.column.getCanSort() && (
+                    <>
+                      {{
+                        asc: <ChevronUp className="h-4 w-4" />,
+                        desc: <ChevronDown className="h-4 w-4" />,
+                      }[header.column.getIsSorted() as string] ?? (
+                        <ChevronsUpDown className="h-4 w-4 opacity-50" />
+                      )}
+                    </>
+                  )}
                 </div>
               )}
               {enableResizing && header.column.getCanResize() && (
@@ -397,44 +404,3 @@ export const DataTable = React.memo(
 ) as <TData extends object, TValue = unknown>(
   props: DataTableProps<TData, TValue> & { ref?: React.Ref<HTMLDivElement> },
 ) => React.JSX.Element;
-
-// Icons for the table
-function ArrowUpIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}
-    >
-      <path d="m5 12 7-7 7 7" />
-      <path d="M12 19V5" />
-    </svg>
-  );
-}
-
-function ArrowDownIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}
-    >
-      <path d="M12 5v14" />
-      <path d="m19 12-7 7-7-7" />
-    </svg>
-  );
-}
