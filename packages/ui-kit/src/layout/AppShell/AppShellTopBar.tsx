@@ -320,7 +320,7 @@ export const AppShellTopBar: React.FC<AppShellTopBarProps> = ({
         fixed && "sticky top-0 z-40",
         className,
       )}
-      style={{ borderColor: "hsl(var(--border))" }}
+      // style={{ borderColor: "hsl(var(--border))" }} --border is for border with, not color
       role="banner"
       aria-label="Top navigation bar"
       data-testid={dataTestId}

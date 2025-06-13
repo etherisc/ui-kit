@@ -68,7 +68,7 @@
   --popover-foreground: hsl(var(--bc));
 
   /* Borders and shadows */
-  --border: hsl(var(--b2));
+  /* --border: hsl(var(--b2)); --border is for border with, not color  */
   --input: hsl(var(--b2));
   --ring: hsl(var(--p));
 
@@ -122,7 +122,7 @@
   --popover-foreground: hsl(var(--nc));
 
   /* Borders and shadows */
-  --border: hsl(var(--b3));
+  /* --border: hsl(var(--b3)); --border is for border with, not color  */
   --input: hsl(var(--b3));
   --ring: hsl(var(--p));
 
