@@ -1,11 +1,65 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  safelist: [
+    // Ensure DaisyUI component classes are always generated
+    // DaisyUI + component-specific blocks
+    {
+      pattern:
+        /^(btn|input|card|modal|drawer|navbar)(-(primary|secondary|accent|neutral|body|title|actions|box|backdrop|content|side))?$/,
+    },
+    // Base and utility background/text/border classes
+    {
+      pattern:
+        /^(bg|text|border)-(base-\d{3}|primary|secondary|accent|neutral)$/,
+    },
+    {
+      pattern: /^text-(primary|secondary|accent)-foreground$/,
+    },
+    // responsive classes
+    {
+      pattern:
+        /^(flex|inline-flex|grid|col-span|row-span|gap[xy]?|place-(items|content))-/,
+      variants: ["sm", "md", "lg"],
+    },
+    {
+      pattern: /^(items|justify|content|self)-/,
+      variants: ["sm", "md", "lg"],
+    },
+    {
+      pattern: /^-?m[trblxy]?-/,
+      variants: ["sm", "md", "lg"],
+    },
+    {
+      pattern: /^p[trblxy]?-/,
+      variants: ["sm", "md", "lg"],
+    },
+    {
+      pattern: /^(w|h|min-w|max-w|min-h|max-h|z)-/,
+      variants: ["sm", "md", "lg"],
+    },
+    {
+      pattern: /^(rounded|font|leading|tracking|line-clamp)-/,
+      variants: ["sm", "md", "lg"],
+    },
+    {
+      pattern:
+        /^((border|text|ring|shadow)(-(t|b|l|r|x|y|0|2|4|8|solid|dashed|dotted|none))?)$/,
+      variants: ["sm", "md", "lg"],
+    },
+    /*
+    {
+      pattern:
+        /^(block|inline|inline-block|hidden|visible|invisible|relative|absolute|fixed|sticky)/,
+      variants: ["sm", "md", "lg"],
+    },
+    */
+  ],
   content: ["./src/**/*.{js,ts,jsx,tsx}", "./.storybook/**/*.{js,ts,jsx,tsx}"],
   darkMode: ["class", "class"],
   theme: {
     extend: {
       colors: {
-        border: "hsl(var(--border))",
+        border: "hsl(var(--bc))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
@@ -70,7 +124,7 @@ export default {
         lg: "var(--shadow-lg)",
       },
       borderColor: {
-        DEFAULT: "hsl(var(--border))",
+        DEFAULT: "hsl(var(--bc))",
       },
     },
   },

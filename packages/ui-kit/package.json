@@ -1,6 +1,6 @@
 {
   "name": "@etherisc/ui-kit",
-  "version": "0.7.1",
+  "version": "0.7.6",
   "type": "module",
   "license": "Apache-2.0",
   "main": "./dist/index.cjs",

@@ -248,13 +248,13 @@ export const DataTablePagination = <TData = unknown,>({
             }
             break;
           case "PageUp":
-            if (config.enableFastNavigation && currentPage > 5) {
+            if (canPreviousPage) {
               event.preventDefault();
               handleFastPrevious();
             }
             break;
           case "PageDown":
-            if (config.enableFastNavigation && currentPage <= pageCount - 5) {
+            if (canNextPage) {
               event.preventDefault();
               handleFastNext();
             }
@@ -262,24 +262,26 @@ export const DataTablePagination = <TData = unknown,>({
         }
       };
 
-      // Add event listener to document for global shortcuts
-      document.addEventListener("keydown", handleKeyDown);
+      // Add event listener to the container
+      const container = containerRef.current || document;
+      container.addEventListener("keydown", handleKeyDown as EventListener);
 
       return () => {
-        document.removeEventListener("keydown", handleKeyDown);
+        container.removeEventListener(
+          "keydown",
+          handleKeyDown as EventListener,
+        );
       };
     },
     [
       enableKeyboardShortcuts,
       loading,
+      config.enableJumpToPage,
+      jumpToPage,
+      pageCount,
+      table,
       canPreviousPage,
       canNextPage,
-      currentPage,
-      pageCount,
-      config.enableFastNavigation,
-      config.enableJumpToPage,
-      table,
-      jumpToPage,
       handleFastPrevious,
       handleFastNext,
     ],
@@ -289,7 +291,7 @@ export const DataTablePagination = <TData = unknown,>({
     <div
       ref={containerRef}
       className={cn(
-        "flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between",
+        "flex flex-col items-center justify-between gap-4 sm:flex-row sm:items-stretch",
         className,
       )}
     >
