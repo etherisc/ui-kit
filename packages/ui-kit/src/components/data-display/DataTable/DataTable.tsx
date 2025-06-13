@@ -340,60 +340,58 @@ export const DataTable = React.memo(
       ));
     }, [currentRows, memoizedColumns.length]);
 
-    // Memoize header groups to prevent unnecessary re-renders
-    const headerGroups = useMemo(() => {
-      return table.getHeaderGroups().map((headerGroup) => (
-        <tr key={headerGroup.id}>
-          {headerGroup.headers.map((header) => (
-            <th
-              key={header.id}
-              style={{
-                width: header.getSize(),
-                position: "relative",
-              }}
-              className="h-12 px-4 text-left align-middle font-medium text-foreground"
-            >
-              {header.isPlaceholder ? null : (
-                <div
-                  className={cn(
-                    "flex items-center gap-2",
-                    header.column.getCanSort() && "cursor-pointer select-none",
-                  )}
-                  onClick={header.column.getToggleSortingHandler()}
-                >
-                  {flexRender(
-                    header.column.columnDef.header,
-                    header.getContext(),
-                  )}
-                  {header.column.getCanSort() && (
-                    <>
-                      {{
-                        asc: <ChevronUp className="h-4 w-4" />,
-                        desc: <ChevronDown className="h-4 w-4" />,
-                      }[header.column.getIsSorted() as string] ?? (
-                        <ChevronsUpDown className="h-4 w-4 opacity-50" />
-                      )}
-                    </>
-                  )}
-                </div>
-              )}
-              {enableResizing && header.column.getCanResize() && (
-                <div
-                  onMouseDown={header.getResizeHandler()}
-                  onTouchStart={header.getResizeHandler()}
-                  className={cn(
-                    "absolute right-0 top-0 h-full w-2 cursor-col-resize select-none",
-                    "bg-muted-foreground/20 hover:bg-primary/70 active:bg-primary transition-colors",
-                    header.column.getIsResizing() && "bg-primary",
-                  )}
-                  style={{ userSelect: "none" }}
-                />
-              )}
-            </th>
-          ))}
-        </tr>
-      ));
-    }, [table.getHeaderGroups(), enableResizing]);
+    // Generate header groups (not memoized to ensure sorting indicators update)
+    const headerGroups = table.getHeaderGroups().map((headerGroup) => (
+      <tr key={headerGroup.id}>
+        {headerGroup.headers.map((header) => (
+          <th
+            key={header.id}
+            style={{
+              width: header.getSize(),
+              position: "relative",
+            }}
+            className="h-12 px-4 text-left align-middle font-medium text-foreground"
+          >
+            {header.isPlaceholder ? null : (
+              <div
+                className={cn(
+                  "flex items-center gap-2",
+                  header.column.getCanSort() && "cursor-pointer select-none",
+                )}
+                onClick={header.column.getToggleSortingHandler()}
+              >
+                {flexRender(
+                  header.column.columnDef.header,
+                  header.getContext(),
+                )}
+                {header.column.getCanSort() && (
+                  <>
+                    {{
+                      asc: <ChevronUp className="h-4 w-4" />,
+                      desc: <ChevronDown className="h-4 w-4" />,
+                    }[header.column.getIsSorted() as string] ?? (
+                      <ChevronsUpDown className="h-4 w-4 opacity-50" />
+                    )}
+                  </>
+                )}
+              </div>
+            )}
+            {enableResizing && header.column.getCanResize() && (
+              <div
+                onMouseDown={header.getResizeHandler()}
+                onTouchStart={header.getResizeHandler()}
+                className={cn(
+                  "absolute right-0 top-0 h-full w-2 cursor-col-resize select-none",
+                  "bg-muted-foreground/20 hover:bg-primary/70 active:bg-primary transition-colors",
+                  header.column.getIsResizing() && "bg-primary",
+                )}
+                style={{ userSelect: "none" }}
+              />
+            )}
+          </th>
+        ))}
+      </tr>
+    ));
 
     return (
       <div key={tableKey} className="w-full flex flex-col gap-4">
