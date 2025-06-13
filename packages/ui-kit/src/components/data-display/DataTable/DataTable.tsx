@@ -383,10 +383,8 @@ export const DataTable = React.memo(
                   onTouchStart={header.getResizeHandler()}
                   className={cn(
                     "absolute right-0 top-0 h-full w-1 cursor-col-resize select-none",
-                    "hover:bg-primary/50 active:bg-primary",
-                    header.column.getIsResizing()
-                      ? "bg-primary"
-                      : "bg-border hover:bg-border-foreground",
+                    "bg-border hover:bg-primary/70 active:bg-primary transition-colors",
+                    header.column.getIsResizing() && "bg-primary",
                   )}
                   style={{ userSelect: "none" }}
                 />

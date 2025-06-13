@@ -24,37 +24,61 @@ function generateMockData(count: number): Person[] {
   }));
 }
 
-// Define columns
+// Define columns with different alignments and sorting configurations
 const columns: ColumnDef<Person, unknown>[] = [
   {
     accessorKey: "id",
     header: "ID",
     size: 80,
+    enableSorting: true,
+    meta: {
+      className: "text-right", // Right-aligned numbers
+    },
   },
   {
     accessorKey: "firstName",
     header: "First Name",
     size: 150,
+    enableSorting: true,
+    meta: {
+      className: "text-left", // Left-aligned text (default)
+    },
   },
   {
     accessorKey: "lastName",
     header: "Last Name",
     size: 150,
+    enableSorting: true,
+    meta: {
+      className: "text-left", // Left-aligned text (default)
+    },
   },
   {
     accessorKey: "age",
     header: "Age",
     size: 80,
+    enableSorting: true,
+    meta: {
+      className: "text-right", // Right-aligned numbers
+    },
   },
   {
     accessorKey: "email",
     header: "Email",
     size: 250,
+    enableSorting: true,
+    meta: {
+      className: "text-left", // Left-aligned text (default)
+    },
   },
   {
     accessorKey: "status",
     header: "Status",
     size: 120,
+    enableSorting: false, // Not sortable
+    meta: {
+      className: "text-center", // Center-aligned status badges
+    },
     cell: ({ row }) => {
       const status = row.getValue("status") as string;
       return (
