@@ -382,8 +382,8 @@ export const DataTable = React.memo(
                   onMouseDown={header.getResizeHandler()}
                   onTouchStart={header.getResizeHandler()}
                   className={cn(
-                    "absolute right-0 top-0 h-full w-1 cursor-col-resize select-none",
-                    "bg-border hover:bg-primary/70 active:bg-primary transition-colors",
+                    "absolute right-0 top-0 h-full w-2 cursor-col-resize select-none",
+                    "bg-muted-foreground/20 hover:bg-primary/70 active:bg-primary transition-colors",
                     header.column.getIsResizing() && "bg-primary",
                   )}
                   style={{ userSelect: "none" }}
@@ -393,7 +393,7 @@ export const DataTable = React.memo(
           ))}
         </tr>
       ));
-    }, [table, enableResizing]);
+    }, [table, enableResizing, sorting, columnSizing]);
 
     return (
       <div key={tableKey} className="w-full flex flex-col gap-4">
