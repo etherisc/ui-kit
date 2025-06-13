@@ -27,6 +27,11 @@ export interface PaginationConfig {
   enableJumpToPage?: boolean;
 }
 
+// Extended meta interface for column definitions
+interface ColumnMeta {
+  className?: string;
+}
+
 export interface DataTableProps<TData extends object, TValue = unknown> {
   /**
    * The data to display in the table
@@ -155,6 +160,7 @@ export const DataTable = React.memo(
     enableKeyboardShortcuts = true,
   }: DataTableProps<TData, TValue>) => {
     const [sorting, setSorting] = useState<SortingState>([]);
+    const [columnSizing, setColumnSizing] = useState({});
 
     // Memoize columns to prevent re-renders when parent re-renders
     const memoizedColumns = useMemo(() => columns, [columns]);
@@ -273,10 +279,14 @@ export const DataTable = React.memo(
       // State management (used for controlled state)
       state: {
         sorting,
+        columnSizing,
         ...(isControlledPagination && smartPaginationConfig !== false
           ? { pagination: paginationState }
           : {}),
       },
+
+      // Column sizing callbacks
+      onColumnSizingChange: setColumnSizing,
 
       // Callbacks
       ...(isControlledPagination && smartPaginationConfig !== false
@@ -316,7 +326,13 @@ export const DataTable = React.memo(
           className="border-b transition-colors hover:bg-muted/50"
         >
           {row.getVisibleCells().map((cell) => (
-            <td key={cell.id} className="p-4">
+            <td
+              key={cell.id}
+              className={cn(
+                "p-4",
+                (cell.column.columnDef.meta as ColumnMeta)?.className,
+              )}
+            >
               {flexRender(cell.column.columnDef.cell, cell.getContext())}
             </td>
           ))}
@@ -366,9 +382,13 @@ export const DataTable = React.memo(
                   onMouseDown={header.getResizeHandler()}
                   onTouchStart={header.getResizeHandler()}
                   className={cn(
-                    "absolute right-0 top-0 h-full w-1 cursor-col-resize",
-                    header.column.getIsResizing() ? "bg-primary" : "bg-border",
+                    "absolute right-0 top-0 h-full w-1 cursor-col-resize select-none",
+                    "hover:bg-primary/50 active:bg-primary",
+                    header.column.getIsResizing()
+                      ? "bg-primary"
+                      : "bg-border hover:bg-border-foreground",
                   )}
+                  style={{ userSelect: "none" }}
                 />
               )}
             </th>
