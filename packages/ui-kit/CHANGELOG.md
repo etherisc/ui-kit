@@ -1,5 +1,15 @@
 # @etherisc/ui-kit
 
+## 0.7.8
+
+### Patch Changes
+
+- Fix critical CSS source map corruption in v0.7.7 that caused build failures
+
+  - Rebuild package with clean source map generation to fix JSON corruption
+  - Resolves PostCSS/Vite build failures caused by malformed source map JSON
+  - Critical hotfix for production environments unable to build with v0.7.7
+
 ## 0.7.7
 
 ### Patch Changes

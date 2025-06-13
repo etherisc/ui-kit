@@ -134,6 +134,12 @@ A pragmatic breakdown into **four one‑week sprints** plus a preparatory **Spri
 
 **BF.3 Details**: Major refactor replacing custom AppShell implementations with proper UI-Kit components (AppShellBreadcrumbs, AppShellSidebar, AppShellTopBar). Fixed infinite loop causing test hangs, corrected import paths, added enhanced functionality while maintaining backward compatibility. See [PR #58](https://github.com/etherisc/ui-kit/pull/58) for full details.
 
+| #    | Task                                                                      | DoD                                                                                           | Status   |
+| ---- | ------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | -------- |
+| BF.4 | **Issues #70-72**: Fix DataTable UI issues - sorting, resizing, alignment | Sorting indicators work, column resizing functional, number alignment correct; all tests pass | ✓ **PR** |
+
+**BF.4 Details**: Fixed three critical DataTable UI issues: missing sorting indicators (#70), non-functional column resizing (#71), and broken number column alignment (#72). Replaced custom SVG icons with lucide-react for consistency. Enhanced DataTable stories with comprehensive alignment examples. Released as v0.7.7. See [PR #73](https://github.com/etherisc/ui-kit/pull/73) for full details.
+
 ---
 
 ## Task 57 - Comprehensive Pagination Architecture ✅
