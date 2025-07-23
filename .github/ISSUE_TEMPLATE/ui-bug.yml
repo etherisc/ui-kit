@@ -1,0 +1,69 @@
+name: 🐛 UI Bug Report
+description: Report a visual or interaction issue in the user interface
+title: "[UI Bug]: <short description>"
+labels: [bug, ui]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a UI issue! Please fill out the following to help us understand and fix the problem quickly.
+
+  - type: input
+    id: summary
+    attributes:
+      label: Short Summary
+      description: What is the UI bug in one sentence?
+      placeholder: e.g. "Button text overflows on mobile view"
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: How can we reproduce the bug?
+      placeholder: |
+        1. Go to '...'
+        2. Click on '...'
+        3. Observe the issue
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What should have happened instead?
+      placeholder: e.g. "The button text should wrap or scale correctly on small screens"
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Behavior
+      description: What actually happened?
+      placeholder: e.g. "Text overflows and breaks layout"
+    validations:
+      required: true
+
+  - type: input
+    id: browser
+    attributes:
+      label: Browser & Device
+      description: Include browser, OS, and device info if relevant
+      placeholder: e.g. "Chrome 125 on macOS, iPhone 14 iOS 17"
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: Drag and drop screenshots or screen recordings here (optional)
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Additional Notes
+      description: Any other context or notes?
