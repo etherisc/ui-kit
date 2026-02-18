@@ -110,6 +110,15 @@ jobs:
             $TIER_ARG \
             ${{ inputs.mode }}
 
+      - name: Write job summary
+        if: always()
+        run: |
+          if [ -f .compliance/summary.md ]; then
+            cat .compliance/summary.md >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "No compliance summary generated." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
       - name: Commit updated ledger
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
         run: |
