@@ -1,0 +1,21 @@
+# Compliance configuration for ui-kit (React component library)
+#
+# Entity source: auto-detected from sibling saas-architecture/,
+#   or set COMPLIANCE_ENTITY_SOURCE env var for CI.
+
+# UI library — only platform and devops rules apply.
+# No infrastructure or business logic in UI components.
+domains: [PFM, DVO]
+
+ignore_paths:
+  - "dist/**"
+  - "node_modules/**"
+  - "**/*.test.ts"
+  - "**/*.test.tsx"
+  - "**/*.spec.ts"
+  - "**/*.stories.tsx"
+  - "coverage/**"
+  - "docs/**"
+  - ".github/**"
+  - ".storybook/**"
+  - ".devcontainer/**"
