@@ -60,8 +60,8 @@ export function ThemeToggle({
       className={cn(
         "rounded-full p-2 flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-primary",
         isDarkMode
-          ? "text-primary-content bg-primary"
-          : "text-base-content bg-base-200",
+          ? "text-primary-foreground bg-primary"
+          : "text-foreground bg-muted",
         sizeClasses[size],
         className,
       )}

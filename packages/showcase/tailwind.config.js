@@ -1,25 +1,12 @@
-import daisyui from "daisyui";
 import tailwindcssAnimate from "tailwindcss-animate";
 
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   safelist: [
-    // Ensure DaisyUI component classes are always generated
-    // DaisyUI + component-specific blocks
-    {
-      pattern:
-        /^(btn|input|card|modal|drawer|navbar)(-(primary|secondary|accent|neutral|body|title|actions|box|backdrop|content|side))?$/,
-    },
-    // Base and utility background/text/border classes
-    {
-      pattern:
-        /^(bg|text|border)-(base-\d{3}|primary|secondary|accent|neutral)$/,
-    },
     {
       pattern: /^text-(primary|secondary|accent)-foreground$/,
     },
-    // responsive classes
     {
       pattern:
         /^(flex|inline-flex|grid|col-span|row-span|gap[xy]?|place-(items|content))-/,
@@ -50,15 +37,8 @@ export default {
         /^((border|text|ring|shadow)(-(t|b|l|r|x|y|0|2|4|8|solid|dashed|dotted|none))?)$/,
       variants: ["sm", "md", "lg"],
     },
-    /*
-    {
-      pattern:
-        /^(block|inline|inline-block|hidden|visible|invisible|relative|absolute|fixed|sticky)/,
-      variants: ["sm", "md", "lg"],
-    },
-    */
   ],
-  darkMode: ["class", "class"],
+  darkMode: ["class"],
   theme: {
     extend: {
       fontFamily: {
@@ -74,7 +54,6 @@ export default {
         primary: {
           DEFAULT: "var(--primary)",
           foreground: "var(--primary-foreground)",
-          hover: "var(--color-primary-hover)",
         },
         secondary: {
           DEFAULT: "var(--secondary)",
@@ -99,17 +78,23 @@ export default {
         success: {
           DEFAULT: "var(--success)",
           foreground: "var(--success-foreground)",
-          light: "var(--color-success-light)",
         },
         warning: {
           DEFAULT: "var(--warning)",
           foreground: "var(--warning-foreground)",
         },
-        danger: {
-          DEFAULT: "var(--color-danger)",
-          light: "var(--color-danger-light)",
+        error: {
+          DEFAULT: "var(--error)",
+          foreground: "var(--error-foreground)",
         },
-        // Nexadash color palette
+        info: {
+          DEFAULT: "var(--info)",
+          foreground: "var(--info-foreground)",
+        },
+        muted: {
+          DEFAULT: "var(--muted)",
+          foreground: "var(--muted-foreground)",
+        },
         gray: {
           DEFAULT: "var(--color-gray)",
           100: "var(--color-gray-100)",
@@ -139,15 +124,5 @@ export default {
       },
     },
   },
-  plugins: [daisyui, tailwindcssAnimate],
-  daisyui: {
-    themes: ["light", "dark"],
-    darkTheme: "dark",
-    base: true,
-    styled: true,
-    utils: true,
-    prefix: "",
-    logs: false,
-    themeRoot: ":root",
-  },
+  plugins: [tailwindcssAnimate],
 };

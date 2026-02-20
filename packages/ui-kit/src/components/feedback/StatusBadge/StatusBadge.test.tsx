@@ -13,48 +13,48 @@ describe("StatusBadge", () => {
     render(<StatusBadge>Default</StatusBadge>);
 
     const badge = screen.getByText("Default");
-    expect(badge).toHaveClass("bg-[hsl(var(--neutral))]");
-    expect(badge).toHaveClass("text-[hsl(var(--neutral-content))]");
+    expect(badge).toHaveClass("bg-secondary");
+    expect(badge).toHaveClass("text-secondary-foreground");
   });
 
   it("should apply correct variant styling for success", () => {
     render(<StatusBadge variant="success">Success</StatusBadge>);
 
     const badge = screen.getByText("Success");
-    expect(badge).toHaveClass("bg-[hsl(var(--success))]");
-    expect(badge).toHaveClass("text-[hsl(var(--success-content))]");
+    expect(badge).toHaveClass("bg-success");
+    expect(badge).toHaveClass("text-success-foreground");
   });
 
   it("should apply correct variant styling for error", () => {
     render(<StatusBadge variant="error">Error</StatusBadge>);
 
     const badge = screen.getByText("Error");
-    expect(badge).toHaveClass("bg-[hsl(var(--error))]");
-    expect(badge).toHaveClass("text-[hsl(var(--error-content))]");
+    expect(badge).toHaveClass("bg-error");
+    expect(badge).toHaveClass("text-error-foreground");
   });
 
   it("should apply correct variant styling for warning", () => {
     render(<StatusBadge variant="warning">Warning</StatusBadge>);
 
     const badge = screen.getByText("Warning");
-    expect(badge).toHaveClass("bg-[hsl(var(--warning))]");
-    expect(badge).toHaveClass("text-[hsl(var(--warning-content))]");
+    expect(badge).toHaveClass("bg-warning");
+    expect(badge).toHaveClass("text-warning-foreground");
   });
 
   it("should apply correct variant styling for info", () => {
     render(<StatusBadge variant="info">Info</StatusBadge>);
 
     const badge = screen.getByText("Info");
-    expect(badge).toHaveClass("bg-[hsl(var(--info))]");
-    expect(badge).toHaveClass("text-[hsl(var(--info-content))]");
+    expect(badge).toHaveClass("bg-info");
+    expect(badge).toHaveClass("text-info-foreground");
   });
 
   it("should apply correct variant styling for pending", () => {
     render(<StatusBadge variant="pending">Pending</StatusBadge>);
 
     const badge = screen.getByText("Pending");
-    expect(badge).toHaveClass("bg-[hsl(var(--base-300))]");
-    expect(badge).toHaveClass("text-[hsl(var(--base-content))]");
+    expect(badge).toHaveClass("bg-muted");
+    expect(badge).toHaveClass("text-muted-foreground");
   });
 
   it("should apply base styling classes", () => {

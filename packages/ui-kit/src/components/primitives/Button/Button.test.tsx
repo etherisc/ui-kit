@@ -14,7 +14,7 @@ describe("Button", () => {
   it("applies intent classes", () => {
     render(<Button intent="primary">Primary</Button>);
     const button = screen.getByRole("button");
-    // assuming DaisyUI tailwind tokens compiled; check for generic class existence
+    // check for generic Tailwind class existence
     expect(button).toHaveClass("transition-colors");
   });
 

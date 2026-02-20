@@ -1,58 +1,15 @@
 /*
- * =============================================================================
- * GLOBALS.CSS - Tailwind Foundation & Final Fallbacks
- * =============================================================================
- * 
- * PURPOSE:
- * This file sets up Tailwind CSS foundation and provides hardcoded fallback 
- * values as the ultimate safety net when theme.css dynamic mappings fail.
- * 
- * CSS CASCADE POSITION:
- * 1. ⬇️  Imports theme.css FIRST (dynamic DaisyUI → Shadcn mappings)
- * 2. ✅ THEN applies Tailwind @base layer (hardcoded fallbacks override dynamic)
- * 3. ⬇️  Then @components and @utilities layers
- * 
- * IMPORT ORDER CRITICAL:
- * @import "../theme/theme.css";  ← MUST BE FIRST!
- * @tailwind base;                ← Overwrites with static fallbacks
- * 
- * WHAT THIS FILE DOES:
- * - Sets up Tailwind CSS (@tailwind base, components, utilities)
- * - Provides hardcoded CSS variable fallbacks in @layer base
- * - Applies base styles to HTML elements (*, body)
- * - Defines utility overrides for placeholders, etc.
- * - Serves as final safety net when dynamic theming fails
- * 
- * WHAT THIS FILE SHOULD NOT CONTAIN:
- * ❌ DaisyUI variable mappings (those go in theme.css)
- * ❌ Dynamic fallbacks with var() functions
- * ❌ Theme switching logic (.dark overrides)
- * ❌ Component-specific styles (those go in component files)
- * 
- * VARIABLE HIERARCHY:
- * 1. 🌈 DaisyUI variables (--p, --b1) - when available
- * 2. 🌉 theme.css mappings with fallbacks - hsl(var(--b2, 0 0% 90%))
- * 3. 🔒 globals.css @layer base - hardcoded values (THIS FILE)
- * 
- * FALLBACK STRATEGY:
- * - Use hardcoded HSL values: --border: 0 0% 89.8%
- * - NO var() functions here - these are final fallbacks
- * - Values should match theme.css fallbacks for consistency
- * - Light/dark mode handled by same variable names in different selectors
- * 
- * CONFLICT PREVENTION:
- * 🚨 NEVER change the @import order - theme.css MUST come first
- * 🚨 NEVER use dynamic fallbacks - use hardcoded values only
- * 🚨 NEVER remove @layer base - required for proper CSS cascade
- * ✅ Only define variables that theme.css also defines
- * ✅ Values here are STATIC SAFETY NET, theme.css is DYNAMIC BRIDGE
- * ✅ Test by temporarily disabling theme.css import
- * 
- * =============================================================================
+ * globals.css — Single source of truth for all design tokens and Tailwind setup.
+ *
+ * Base: Shadcn Slate palette
+ * Override: --primary set to Tailwind blue-500 (#3b82f6)
+ * Status tokens: Tailwind -600 scale (light), -500 scale (dark)
+ *
+ * CSS variables use raw HSL channels (e.g. "222.2 84% 4.9%").
+ * tailwind.config.js wraps them: primary: "hsl(var(--primary))".
+ *
+ * :root = light mode, .dark = dark mode (class on <html>).
  */
-
-/* Import theme variables */
-@import "../theme/theme.css";
 
 @tailwind base;
 @tailwind components;
@@ -60,57 +17,146 @@
 
 @layer base {
   :root {
+    /* Backgrounds & text */
     --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
+    --foreground: 222.2 84% 4.9%;
+
+    /* Card / popover surfaces */
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
+    --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 40%;
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    /* Brand primary (blue-500) */
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary */
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    /* Muted */
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    /* Accent */
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    /* Destructive (Slate standard) */
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border-color: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 0% 3.9%;
+    --destructive-foreground: 210 40% 98%;
+
+    /* Status: success (green-600 / #16a34a) */
+    --success: 142.1 76.2% 36.3%;
+    --success-foreground: 0 0% 100%;
+
+    /* Status: warning (yellow-600 / #ca8a04) */
+    --warning: 40.6 96.1% 40.4%;
+    --warning-foreground: 0 0% 100%;
+
+    /* Status: error (red-600 / #dc2626) */
+    --error: 0 72.2% 50.6%;
+    --error-foreground: 0 0% 100%;
+
+    /* Status: info (blue-500, same as primary) */
+    --info: 217.2 91.2% 59.8%;
+    --info-foreground: 0 0% 100%;
+
+    /* Borders, inputs, focus ring */
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 217.2 91.2% 59.8%;
+
+    /* Chart palette */
     --chart-1: 12 76% 61%;
     --chart-2: 173 58% 39%;
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
+
+    /* Geometry */
     --radius: 0.5rem;
+
+    /* Shadows */
+    --shadow-color: 220 3% 15%;
+    --shadow-strength: 1%;
+    --shadow-sm: 0 1px 2px 0
+      hsl(var(--shadow-color) / calc(var(--shadow-strength) + 9%));
+    --shadow:
+      0 1px 3px 0 hsl(var(--shadow-color) / calc(var(--shadow-strength) + 10%)),
+      0 1px 2px -1px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 9%));
+    --shadow-md:
+      0 4px 6px -1px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 9%)),
+      0 2px 4px -2px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 9%));
+    --shadow-lg:
+      0 10px 15px -3px
+        hsl(var(--shadow-color) / calc(var(--shadow-strength) + 8%)),
+      0 4px 6px -4px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 8%));
   }
+
   .dark {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 70%;
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
+    /* Backgrounds & text (Slate dark) */
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    /* Card / popover surfaces */
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    /* Brand primary (blue-400 for dark bg contrast) */
+    --primary: 213.1 93.9% 67.8%;
+    --primary-foreground: 222.2 84% 4.9%;
+
+    /* Secondary */
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    /* Muted */
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    /* Accent */
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    /* Destructive */
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border-color: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
+    --destructive-foreground: 210 40% 98%;
+
+    /* Status: success (green-500) */
+    --success: 142.1 70.6% 45.3%;
+    --success-foreground: 0 0% 100%;
+
+    /* Status: warning (yellow-500) */
+    --warning: 47.9 95.8% 53.1%;
+    --warning-foreground: 0 0% 0%;
+
+    /* Status: error (red-500) */
+    --error: 0 84.2% 60.2%;
+    --error-foreground: 0 0% 100%;
+
+    /* Status: info (blue-400, same as dark primary) */
+    --info: 213.1 93.9% 67.8%;
+    --info-foreground: 0 0% 100%;
+
+    /* Borders, inputs, focus ring */
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 48%;
+
+    /* Chart palette (dark mode variants) */
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+
+    /* Shadows — stronger for dark mode */
+    --shadow-color: 220 40% 2%;
+    --shadow-strength: 4%;
   }
 }
 
@@ -124,7 +170,6 @@
 }
 
 @layer utilities {
-  /* Override Tailwind's hardcoded placeholder colors with DaisyUI theme variables */
   input::placeholder,
   textarea::placeholder,
   input::-moz-placeholder,

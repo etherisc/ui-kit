@@ -3,9 +3,9 @@ description: Component implementation
 globs: 
 alwaysApply: false
 ---
-# Implementation Instructions – UI‑Kit Components
+# Implementation Instructions – UI-Kit Components
 
-These rules are **mandatory** for every developer or AI agent implementing components, layouts, hooks or utilities inside the `ui-kit` package.  They guarantee a coherent, theme‑friendly codebase and align with the chapters in *planning.md* and the DoD in *project\_plan.md*.
+These rules are **mandatory** for every developer or AI agent implementing components, layouts, hooks or utilities inside the `ui-kit` package.
 
 ---
 
@@ -14,16 +14,18 @@ These rules are **mandatory** for every developer or AI agent implementing compo
 ```
 ui-kit/src/
   components/
-    primitives/      # unconstrained building blocks (Button, Input…)
+    primitives/      # building blocks (Button, Input…)
     form/
     data-display/
     feedback/
     navigation/
+    overlay/         # Modal, ConfirmModal, Drawer
 
   layout/            # page shells & navigation wrappers
   hooks/             # non-UI hooks (useDebounce, useBreakpoint…)
   providers/         # React context providers (ThemeProvider…)
-  theme/             # CSS variables, Tailwind preset, DaisyUI patch
+  styles/            # globals.css (CSS variables, Tailwind base)
+  theme/             # TOKENS.md, theme utilities
   utils/             # helpers (cn, useToast,…)
 ```
 
@@ -32,7 +34,7 @@ ui-kit/src/
 
   * `index.ts` (re-export)
   * `<Component>.tsx`
-  * `<Component>.stories.mdx`
+  * `<Component>.stories.tsx` (or `.mdx`)
   * `<Component>.test.tsx`
   * optional `types.ts` or sub-components.
 
@@ -40,47 +42,33 @@ ui-kit/src/
 
 ## 2  Styling & theme contract
 
-### 2.1  DaisyUI token bridge
+### 2.1  CSS variables (Shadcn-native)
 
-`ui-kit/src/theme/theme.css` defines:
+All design tokens are defined in `styles/globals.css` using Shadcn conventions:
+- `:root` block for light mode (raw HSL channels, e.g. `--primary: 222 47% 31%`)
+- `.dark` block for dark mode
+- Tailwind config wraps them with `hsl()` (e.g. `primary: "hsl(var(--primary))"`)
 
-```css
-:root {
-  /* DaisyUI HSL tokens → Shadcn variables */
-  --primary:      hsl(var(--p));   /* primary */
-  --background:   hsl(var(--b1));  /* base-100 */
-  --foreground:   hsl(var(--bc));  /* base-content */
-  --border:       hsl(var(--b2));  /* base-200 */
-}
-.dark {
-  --primary:    hsl(var(--pf));
-  --background: hsl(var(--n));
-  --foreground: hsl(var(--nc));
-  --border:     hsl(var(--b3));
-}
-```
+Standard tokens: `--background`, `--foreground`, `--primary`, `--secondary`, `--accent`, `--destructive`, `--muted`, `--card`, `--popover`, `--border-color`, `--input`, `--ring`.
+
+Status tokens: `--success`, `--warning`, `--error`, `--info` (each with `-foreground` counterpart).
 
 ### 2.2  Tailwind usage rules
 
 * Use **utility classes** only inside `ui-kit`. Never emit Tailwind classes from public API.
 * Prefer semantic wrapper props over styling props.
-  Example:
-
-  ```tsx
-  <Button intent="danger" size="sm" />
-  ```
-* Use `clsx` + `tailwind-merge` helper from `ui-kit/utils/classMerge.ts` to compose class strings.
+* Use `cn()` helper (clsx + tailwind-merge) to compose class strings.
+* Use Tailwind color utilities that reference CSS vars: `bg-primary`, `text-foreground`, `border-border`, etc.
 
 ### 2.3  No inline colours
 
-* Never hard‑code colours like `bg-red-500`; always reference `bg-[hsl(var(--primary))]` or DaisyUI utility (`btn-error`).
+* Never hard-code colours like `bg-red-500`; always use semantic tokens (`bg-primary`, `bg-destructive`, `bg-success`, etc.).
 
 ---
 
 ## 3  Component pattern (wrapper around Shadcn)
 
 ```tsx
-// src/components/primitives/Button/Button.tsx
 import { Button as ShadButton } from '@/components/ui/button';
 import { cn } from '@/utils/cn';
 
@@ -95,8 +83,8 @@ export function Button({ intent = 'default', size = 'md', className, ...rest }: 
       {...rest}
       className={cn(
         'transition-colors',
-        intent === 'primary' && 'bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] hover:brightness-110',
-        intent === 'danger' && 'bg-error text-error-content',
+        intent === 'primary' && 'bg-primary text-primary-foreground hover:brightness-110',
+        intent === 'danger' && 'bg-destructive text-destructive-foreground',
         size === 'sm' && 'px-2 py-1 text-sm',
         className,
       )}
@@ -110,45 +98,14 @@ export function Button({ intent = 'default', size = 'md', className, ...rest }: 
 
 ---
 
-## 4  Storybook MDX template
-
-```mdx
-import { Button } from '@/components/primitives/Button';
-
-# Button
-
-Basic usage of `Button`.
-
-<Button intent="primary">Primary</Button>
-
-<Canvas>
-  <Story name="Variants" args={{ intent: 'default' }}>
-    {({ intent }) => <Button intent={intent}>Button</Button>}
-  </Story>
-</Canvas>
-
-<ArgsTable of={Button} />
-```
+## 4  Storybook stories
 
 * Each story **must** include a Canvas demo and an ArgsTable.
 * Add `parameters = { a11y: { disable: false } }` if you need to tweak axe rules.
 
 ---
 
-## 5  Unit + a11y tests
-
-```tsx
-// src/core/Button/Button.test.tsx
-import { render, screen } from '@testing-library/react';
-import { Button } from './Button';
-
-describe('Button', () => {
-  it('renders with text', () => {
-    render(<Button>Foo</Button>);
-    expect(screen.getByRole('button', { name: 'Foo' })).toBeInTheDocument();
-  });
-});
-```
+## 5  Unit + a11y tests
 
 * All tests go in `__tests__` or `<Component>.test.tsx`.
 * Coverage target per sprint (see roadmap).
@@ -166,18 +123,16 @@ describe('Button', () => {
 
 ## 7  Layouts
 
-Layout components extend `MainLayout` via props: `collapsed`, `fixed`, `dense`.
-
-* Use CSS grid: `grid-cols-[200px_1fr]` for default, `grid-cols-[1fr]` when collapsed.
+* Use CSS grid for sidebar layouts.
 * TopBar height fixed at `h-14`.
-* Breadcrumb slot uses `<slot name="breadcrumb" />` pattern for flexibility.
+* Breadcrumb slot pattern for flexibility.
 
 ---
 
-## 8  Theme tokens & design‑token docs
+## 8  Theme tokens & design-token docs
 
 * Update `theme/TOKENS.md` whenever adding a new CSS var.
-* Run CI step `tokens-check` (script provided in Sprint 1.5) – it fails if variable doc missing.
+* Run CI step `tokens-check` – it fails if variable doc missing.
 
 ---
 
@@ -193,11 +148,9 @@ Layout components extend `MainLayout` via props: `collapsed`, `fixed`, `dense`.
 ### Checklist for new component PRs
 
 1. Component & wrapper written under correct folder.
-2. Tailwind classes refer to CSS vars / DaisyUI tokens.
-3. Storybook MDX with ArgsTable.
-4. Vitest unit test + axe‑core pass.
+2. Tailwind classes use semantic CSS variable tokens (no hardcoded colours).
+3. Storybook story with ArgsTable.
+4. Vitest unit test + axe-core pass.
 5. Added export to `index.ts`.
 6. Changeset file committed.
 7. PR passes lint, test, build in CI.
-
-> PR reviewers should tick all checklist items before merge.

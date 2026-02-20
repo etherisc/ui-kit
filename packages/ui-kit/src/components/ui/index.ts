@@ -29,3 +29,6 @@ export * from "./ScrollArea/ScrollArea";
 export * from "./Sidebar/Sidebar";
 export * from "./Typography/Typography";
 export * from "./Sonner/Sonner";
+export * from "./drawer";
+export * from "./resizable";
+export * from "./carousel";

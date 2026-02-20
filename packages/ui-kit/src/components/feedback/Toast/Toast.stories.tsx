@@ -135,7 +135,7 @@ function InteractiveToastDemo() {
                 <button
                     type="button"
                     onClick={() => addToast('success', 'Success!', 'Operation completed successfully')}
-                    className="btn btn-success"
+                    className="px-4 py-2 rounded-md text-sm font-medium bg-success text-success-foreground"
                     aria-label="Add a success toast notification"
                 >
                     Add Success Toast
@@ -143,7 +143,7 @@ function InteractiveToastDemo() {
                 <button
                     type="button"
                     onClick={() => addToast('error', 'Error!', 'Something went wrong')}
-                    className="btn btn-error"
+                    className="px-4 py-2 rounded-md text-sm font-medium bg-error text-error-foreground"
                     aria-label="Add an error toast notification"
                 >
                     Add Error Toast
@@ -151,7 +151,7 @@ function InteractiveToastDemo() {
                 <button
                     type="button"
                     onClick={() => addToast('warning', 'Warning!', 'Please be careful')}
-                    className="btn btn-warning"
+                    className="px-4 py-2 rounded-md text-sm font-medium bg-warning text-warning-foreground"
                     aria-label="Add a warning toast notification"
                 >
                     Add Warning Toast
@@ -159,7 +159,7 @@ function InteractiveToastDemo() {
                 <button
                     type="button"
                     onClick={() => addToast('info', 'Info', 'Here is some information')}
-                    className="btn btn-info"
+                    className="px-4 py-2 rounded-md text-sm font-medium bg-info text-info-foreground"
                     aria-label="Add an info toast notification"
                 >
                     Add Info Toast

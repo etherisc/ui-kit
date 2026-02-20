@@ -9,7 +9,7 @@ function App() {
       <h1>Minimal Showcase Test</h1>
       <p>If you see this, the basic React app works.</p>
       <p>CSS should be loading from index.css</p>
-      <button className="btn btn-primary">DaisyUI Button Test</button>
+      <button className="px-4 py-2 rounded-md text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90">Button Test</button>
     </div>
   );
 }

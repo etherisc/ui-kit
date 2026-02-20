@@ -3,9 +3,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Force DaisyUI component generation - ensure these classes are available */
-/* .btn .btn-primary .btn-secondary .card .input .modal .navbar .drawer */
-
 /* Nexadash-inspired design tokens */
 :root {
   /* Typography */

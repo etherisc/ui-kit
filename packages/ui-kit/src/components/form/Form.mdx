@@ -44,7 +44,7 @@ export function LoginForm() {
         required 
         placeholder="Enter your password"
       />
-      <button type="submit" className="btn btn-primary">
+      <button type="submit" className="px-4 py-2 rounded-md text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90">
         Sign In
       </button>
     </Form>
@@ -81,7 +81,7 @@ The `FormGroup` component is used to group a form field with its label, error me
   description="We'll never share your email with anyone else."
   required
 >
-  <input type="email" id="email" className="input input-bordered w-full" />
+  <input type="email" id="email" className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm" />
 </FormGroup>
 ```
 
@@ -136,14 +136,14 @@ function FormActions() {
       <button 
         type="button" 
         onClick={() => reset()} 
-        className="btn btn-outline"
+        className="px-4 py-2 rounded-md text-sm font-medium border border-input bg-background hover:bg-accent hover:text-accent-foreground"
         disabled={!formState.isDirty}
       >
         Reset
       </button>
       <button 
         type="submit" 
-        className="btn btn-primary"
+        className="px-4 py-2 rounded-md text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90"
         disabled={formState.isSubmitting}
       >
         {formState.isSubmitting ? 'Submitting...' : 'Submit'}

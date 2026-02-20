@@ -25,18 +25,12 @@ export function StatusBadge({
     <span
       className={cn(
         "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium",
-        variant === "success" &&
-          "bg-[hsl(var(--success))] text-[hsl(var(--success-content))]",
-        variant === "error" &&
-          "bg-[hsl(var(--error))] text-[hsl(var(--error-content))]",
-        variant === "warning" &&
-          "bg-[hsl(var(--warning))] text-[hsl(var(--warning-content))]",
-        variant === "info" &&
-          "bg-[hsl(var(--info))] text-[hsl(var(--info-content))]",
-        variant === "pending" &&
-          "bg-[hsl(var(--base-300))] text-[hsl(var(--base-content))]",
-        variant === "neutral" &&
-          "bg-[hsl(var(--neutral))] text-[hsl(var(--neutral-content))]",
+        variant === "success" && "bg-success text-success-foreground",
+        variant === "error" && "bg-error text-error-foreground",
+        variant === "warning" && "bg-warning text-warning-foreground",
+        variant === "info" && "bg-info text-info-foreground",
+        variant === "pending" && "bg-muted text-muted-foreground",
+        variant === "neutral" && "bg-secondary text-secondary-foreground",
         className,
       )}
       {...props}
