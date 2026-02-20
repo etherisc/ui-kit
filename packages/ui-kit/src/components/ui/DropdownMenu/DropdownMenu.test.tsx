@@ -140,7 +140,7 @@ describe("DropdownMenuContent", () => {
 
     const content = screen.getByTestId("content");
     expect(content).toHaveClass("z-50");
-    expect(content).toHaveClass("min-w-[8rem]");
+    expect(content).toHaveClass("min-w-32");
     expect(content).toHaveClass("rounded-md");
     expect(content).toHaveClass("border");
   });
@@ -187,8 +187,8 @@ describe("DropdownMenuItem", () => {
     );
 
     const item = screen.getByTestId("item");
-    expect(item).toHaveClass("data-[disabled]:pointer-events-none");
-    expect(item).toHaveClass("data-[disabled]:opacity-50");
+    expect(item).toHaveClass("data-disabled:pointer-events-none");
+    expect(item).toHaveClass("data-disabled:opacity-50");
   });
 
   it("supports inset styling", () => {

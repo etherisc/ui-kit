@@ -105,7 +105,7 @@ export const CustomColors: Story = {
         <label className="text-sm font-medium">Success</label>
         <Progress
           value={80}
-          className="[&>[role=progressbar]]:bg-green-500"
+          className="*:[[role=progressbar]]:bg-green-500"
           aria-label="Success progress: 80%"
         />
       </div>
@@ -113,7 +113,7 @@ export const CustomColors: Story = {
         <label className="text-sm font-medium">Warning</label>
         <Progress
           value={60}
-          className="[&>[role=progressbar]]:bg-yellow-500"
+          className="*:[[role=progressbar]]:bg-yellow-500"
           aria-label="Warning progress: 60%"
         />
       </div>
@@ -121,7 +121,7 @@ export const CustomColors: Story = {
         <label className="text-sm font-medium">Danger</label>
         <Progress
           value={30}
-          className="[&>[role=progressbar]]:bg-red-500"
+          className="*:[[role=progressbar]]:bg-red-500"
           aria-label="Danger progress: 30%"
         />
       </div>

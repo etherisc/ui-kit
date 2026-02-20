@@ -48,7 +48,7 @@ export function ThemeProvider({
     }, [syncWithSystemOnMount, syncWithSystemPreference]);
 
     return (
-        <div className={isDarkMode ? 'dark' : 'light'} data-theme={isDarkMode ? 'dark' : 'light'}>
+        <div className={isDarkMode ? 'dark' : ''}>
             {children}
         </div>
     );

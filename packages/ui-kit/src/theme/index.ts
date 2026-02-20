@@ -1,5 +1,3 @@
-import './theme.css';
-
 // Theme toggle utility
 export const toggleTheme = () => {
     const isDark = document.documentElement.classList.contains('dark');

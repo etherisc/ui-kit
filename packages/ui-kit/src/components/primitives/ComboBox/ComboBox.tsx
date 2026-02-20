@@ -146,7 +146,7 @@ const ComboBox = React.forwardRef<HTMLButtonElement, ComboBoxProps>(
           </PopoverTrigger>
 
           <PopoverContent
-            className="w-[--radix-popover-trigger-width] p-0"
+            className="w-(--radix-popover-trigger-width) p-0"
             align="start"
           >
             <Command>

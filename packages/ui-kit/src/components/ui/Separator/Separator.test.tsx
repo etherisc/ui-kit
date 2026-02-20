@@ -18,14 +18,14 @@ describe("Separator", () => {
     render(<Separator data-testid="separator" />);
     const separator = screen.getByTestId("separator");
     expect(separator).toHaveAttribute("data-orientation", "horizontal");
-    expect(separator).toHaveClass("h-[1px]", "w-full");
+    expect(separator).toHaveClass("h-px", "w-full");
   });
 
   it("renders vertical orientation", () => {
     render(<Separator orientation="vertical" data-testid="separator" />);
     const separator = screen.getByTestId("separator");
     expect(separator).toHaveAttribute("data-orientation", "vertical");
-    expect(separator).toHaveClass("h-full", "w-[1px]");
+    expect(separator).toHaveClass("h-full", "w-px");
   });
 
   it("is decorative by default", () => {

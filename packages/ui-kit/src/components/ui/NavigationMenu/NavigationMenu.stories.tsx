@@ -54,7 +54,7 @@ export const Default: Story = {
               <li className="row-span-3">
                 <NavigationMenuLink asChild>
                   <a
-                    className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                    className="flex h-full w-full select-none flex-col justify-end rounded-md bg-linear-to-b from-muted/50 to-muted p-6 no-underline outline-hidden focus:shadow-md"
                     href="/"
                   >
                     <Home className="h-6 w-6" />
@@ -69,7 +69,7 @@ export const Default: Story = {
               <li>
                 <NavigationMenuLink asChild>
                   <a
-                    className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                    className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-hidden transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                     href="/docs"
                   >
                     <div className="flex items-center text-sm font-medium leading-none">
@@ -85,7 +85,7 @@ export const Default: Story = {
               <li>
                 <NavigationMenuLink asChild>
                   <a
-                    className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                    className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-hidden transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                     href="/installation"
                   >
                     <div className="flex items-center text-sm font-medium leading-none">
@@ -108,7 +108,7 @@ export const Default: Story = {
               <li>
                 <NavigationMenuLink asChild>
                   <a
-                    className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                    className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-hidden transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                     href="/docs/components/button"
                   >
                     <div className="text-sm font-medium leading-none">
@@ -123,7 +123,7 @@ export const Default: Story = {
               <li>
                 <NavigationMenuLink asChild>
                   <a
-                    className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                    className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-hidden transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                     href="/docs/components/card"
                   >
                     <div className="text-sm font-medium leading-none">Card</div>
@@ -136,7 +136,7 @@ export const Default: Story = {
               <li>
                 <NavigationMenuLink asChild>
                   <a
-                    className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                    className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-hidden transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                     href="/docs/components/dialog"
                   >
                     <div className="text-sm font-medium leading-none">
@@ -151,7 +151,7 @@ export const Default: Story = {
               <li>
                 <NavigationMenuLink asChild>
                   <a
-                    className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                    className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-hidden transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                     href="/docs/components/form"
                   >
                     <div className="text-sm font-medium leading-none">Form</div>
@@ -240,7 +240,7 @@ export const WithDropdowns: Story = {
               <li>
                 <NavigationMenuLink asChild>
                   <a
-                    className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                    className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-hidden transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                     href="/shop/clothing"
                   >
                     <div className="text-sm font-medium leading-none">
@@ -255,7 +255,7 @@ export const WithDropdowns: Story = {
               <li>
                 <NavigationMenuLink asChild>
                   <a
-                    className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                    className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-hidden transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                     href="/shop/accessories"
                   >
                     <div className="text-sm font-medium leading-none">
@@ -270,7 +270,7 @@ export const WithDropdowns: Story = {
               <li>
                 <NavigationMenuLink asChild>
                   <a
-                    className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                    className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-hidden transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                     href="/shop/electronics"
                   >
                     <div className="text-sm font-medium leading-none">
@@ -285,7 +285,7 @@ export const WithDropdowns: Story = {
               <li>
                 <NavigationMenuLink asChild>
                   <a
-                    className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                    className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-hidden transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                     href="/shop/sale"
                   >
                     <div className="flex items-center text-sm font-medium leading-none">
@@ -311,7 +311,7 @@ export const WithDropdowns: Story = {
               <li>
                 <NavigationMenuLink asChild>
                   <a
-                    className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                    className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-hidden transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                     href="/tutorials"
                   >
                     <div className="text-sm font-medium leading-none">
@@ -326,7 +326,7 @@ export const WithDropdowns: Story = {
               <li>
                 <NavigationMenuLink asChild>
                   <a
-                    className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                    className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-hidden transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                     href="/blog"
                   >
                     <div className="text-sm font-medium leading-none">Blog</div>
@@ -339,7 +339,7 @@ export const WithDropdowns: Story = {
               <li>
                 <NavigationMenuLink asChild>
                   <a
-                    className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                    className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-hidden transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                     href="/webinars"
                   >
                     <div className="flex items-center text-sm font-medium leading-none">
@@ -425,7 +425,7 @@ const ListItem = React.forwardRef<
       <NavigationMenuLink asChild>
         <a
           ref={ref}
-          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-hidden transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
           {...props}
         >
           <div className="flex items-center text-sm font-medium leading-none">
@@ -453,7 +453,7 @@ export const WithCustomListItems: Story = {
               <li className="row-span-3">
                 <NavigationMenuLink asChild>
                   <a
-                    className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                    className="flex h-full w-full select-none flex-col justify-end rounded-md bg-linear-to-b from-muted/50 to-muted p-6 no-underline outline-hidden focus:shadow-md"
                     href="/"
                   >
                     <Heart className="h-6 w-6" />

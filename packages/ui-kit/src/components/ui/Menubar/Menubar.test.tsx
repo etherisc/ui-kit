@@ -178,7 +178,7 @@ describe("MenubarItem", () => {
     await userEvent.click(trigger);
 
     const item = screen.getByTestId("item");
-    expect(item.className).toContain("data-[disabled]:pointer-events-none");
+    expect(item.className).toContain("data-disabled:pointer-events-none");
   });
 
   it("supports inset styling", async () => {

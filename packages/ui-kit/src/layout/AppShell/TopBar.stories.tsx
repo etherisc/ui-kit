@@ -41,10 +41,10 @@ const LogoExample = () => (
 // Example Nav Items
 const NavItems = () => (
     <div className="flex items-center gap-4">
-        <Button intent="ghost">Dashboard</Button>
-        <Button intent="ghost">Policies</Button>
-        <Button intent="ghost">Claims</Button>
-        <Button intent="ghost">Reports</Button>
+        <Button variant="ghost">Dashboard</Button>
+        <Button variant="ghost">Policies</Button>
+        <Button variant="ghost">Claims</Button>
+        <Button variant="ghost">Reports</Button>
     </div>
 );
 

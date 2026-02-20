@@ -69,17 +69,24 @@ export interface UpdateCustomerInput {
 // Pagination types
 export interface PaginationOptions {
   page: number;
-  limit: number;
-  sortBy?: string;
-  sortOrder?: 'asc' | 'desc';
+  pageSize: number;
+  sort?: string;
+  order?: 'asc' | 'desc';
 }
 
 export interface PaginatedResult<T> {
   data: T[];
   total: number;
   page: number;
-  limit: number;
+  pageSize: number;
   totalPages: number;
+}
+
+// Standard API response envelope
+export interface ApiResponse<T> {
+  success: true;
+  data: T;
+  correlationId: string;
 }
 
 // Authentication types

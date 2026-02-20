@@ -15,27 +15,13 @@ const meta: Meta<typeof Button> = {
       control: { type: "select" },
       options: [
         "default",
-        "primary",
-        "secondary",
+        "destructive",
         "outline",
+        "secondary",
         "ghost",
         "link",
-        "danger",
       ],
-      description: "The visual style of the button (recommended)",
-    },
-    intent: {
-      control: { type: "select" },
-      options: [
-        "default",
-        "primary",
-        "secondary",
-        "outline",
-        "ghost",
-        "link",
-        "danger",
-      ],
-      description: "Deprecated: Use variant instead. Will be removed in v0.5.0",
+      description: "The visual style of the button",
     },
     size: {
       control: { type: "select" },
@@ -59,24 +45,38 @@ export const Default: Story = {
   },
 };
 
-export const Primary: Story = {
-  args: {
-    intent: "primary",
-    children: "Primary Button",
-  },
-};
-
 export const Secondary: Story = {
   args: {
-    intent: "secondary",
+    variant: "secondary",
     children: "Secondary Button",
   },
 };
 
-export const Danger: Story = {
+export const Destructive: Story = {
   args: {
-    intent: "danger",
-    children: "Danger Button",
+    variant: "destructive",
+    children: "Destructive Button",
+  },
+};
+
+export const Outline: Story = {
+  args: {
+    variant: "outline",
+    children: "Outline Button",
+  },
+};
+
+export const Ghost: Story = {
+  args: {
+    variant: "ghost",
+    children: "Ghost Button",
+  },
+};
+
+export const Link: Story = {
+  args: {
+    variant: "link",
+    children: "Link Button",
   },
 };
 
@@ -94,10 +94,9 @@ export const Disabled: Story = {
   },
 };
 
-// i18n Examples
 const I18nButtonExample = ({ translationKey }: { translationKey: string }) => {
   const { t } = useTranslation();
-  return <Button intent="primary">{t(translationKey)}</Button>;
+  return <Button variant="default">{t(translationKey)}</Button>;
 };
 
 export const I18nSubmit: Story = {
@@ -143,50 +142,6 @@ export const I18nLogin: Story = {
       description: {
         story:
           'Button with internationalized "Login" text. Switch locale in toolbar to see German translation.',
-      },
-    },
-  },
-};
-
-// New variant examples (recommended approach)
-export const VariantPrimary: Story = {
-  args: {
-    variant: "primary",
-    children: "Primary Button (variant)",
-  },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Primary button using the new variant prop (recommended over intent).",
-      },
-    },
-  },
-};
-
-export const VariantSecondary: Story = {
-  args: {
-    variant: "secondary",
-    children: "Secondary Button (variant)",
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: "Secondary button using the new variant prop.",
-      },
-    },
-  },
-};
-
-export const VariantDanger: Story = {
-  args: {
-    variant: "danger",
-    children: "Danger Button (variant)",
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: "Danger button using the new variant prop.",
       },
     },
   },

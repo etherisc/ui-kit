@@ -85,7 +85,7 @@ export function DashboardPage() {
   // Logo for the top bar
   const logo = (
     <div className="flex items-center gap-3">
-      <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center shadow-lg">
+      <div className="w-10 h-10 bg-linear-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center shadow-lg">
         <span className="text-white font-bold text-lg">E</span>
       </div>
       <div className="hidden sm:block">
@@ -146,7 +146,7 @@ export function DashboardPage() {
           </div>
           <button
             onClick={handleLogout}
-            className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1"
+            className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:ring-offset-1"
           >
             <LogOutIcon className="h-4 w-4" />
             Sign Out
@@ -213,7 +213,7 @@ export function DashboardPage() {
                 {stats.map((stat, index) => (
                   <div
                     key={stat.label}
-                    className={`space-y-4 px-4 py-6 sm:px-[18px] sm:py-6 ${index === 1 ? "bg-gradient-to-b from-success/5 to-success/0" : ""}`}
+                    className={`space-y-4 px-4 py-6 sm:px-[18px] sm:py-6 ${index === 1 ? "bg-linear-to-b from-success/5 to-success/0" : ""}`}
                   >
                     <div className={`p-2 rounded-lg w-fit ${stat.bgColor}`}>
                       <div className={stat.iconColor}>{stat.icon}</div>
@@ -263,7 +263,7 @@ export function DashboardPage() {
                 </div>
                 <div className="space-y-4">
                   <div className="flex items-start gap-4 p-4 bg-success-light rounded-lg">
-                    <div className="w-2 h-2 bg-success rounded-full mt-2 flex-shrink-0"></div>
+                    <div className="w-2 h-2 bg-success rounded-full mt-2 shrink-0"></div>
                     <div className="flex-1">
                       <p className="text-sm font-medium text-black">
                         New customer registration
@@ -277,7 +277,7 @@ export function DashboardPage() {
                     </div>
                   </div>
                   <div className="flex items-start gap-4 p-4 bg-light-blue rounded-lg">
-                    <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+                    <div className="w-2 h-2 bg-primary rounded-full mt-2 shrink-0"></div>
                     <div className="flex-1">
                       <p className="text-sm font-medium text-black">
                         Policy renewal processed
@@ -291,7 +291,7 @@ export function DashboardPage() {
                     </div>
                   </div>
                   <div className="flex items-start gap-4 p-4 bg-light-orange rounded-lg">
-                    <div className="w-2 h-2 bg-warning rounded-full mt-2 flex-shrink-0"></div>
+                    <div className="w-2 h-2 bg-warning rounded-full mt-2 shrink-0"></div>
                     <div className="flex-1">
                       <p className="text-sm font-medium text-black">
                         Claim requires attention

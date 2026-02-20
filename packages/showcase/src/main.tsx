@@ -14,8 +14,8 @@ import { EnhancedAppShellTestPage } from "./pages/EnhancedAppShellTestPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 
-// Set DaisyUI theme on HTML element
-document.documentElement.setAttribute("data-theme", "light");
+// Ensure light mode by default (dark mode toggled via .dark class)
+document.documentElement.classList.remove("dark");
 
 const router = createBrowserRouter([
   {

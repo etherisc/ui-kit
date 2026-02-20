@@ -213,69 +213,7 @@ const enhancedToast = {
   dismiss,
   dismissAll,
 
-  // Advanced methods
   message: toast,
-
-  // Backwards compatibility aliases
-  default: toast,
-};
-
-// Hook for backwards compatibility with existing useToast
-export const useSonnerToast = () => {
-  return {
-    toast: (options: {
-      title: string;
-      description?: string;
-      variant?: SonnerVariant;
-      duration?: number;
-    }) => {
-      const message = options.description
-        ? `${options.title}\n${options.description}`
-        : options.title;
-      return toast(message, {
-        variant: options.variant,
-        duration: options.duration,
-      });
-    },
-    success: (
-      title: string,
-      description?: string,
-      options?: { duration?: number },
-    ) => {
-      const message = description ? `${title}\n${description}` : title;
-      return success(message, options);
-    },
-    error: (
-      title: string,
-      description?: string,
-      options?: { duration?: number },
-    ) => {
-      const message = description ? `${title}\n${description}` : title;
-      return error(message, options);
-    },
-    warning: (
-      title: string,
-      description?: string,
-      options?: { duration?: number },
-    ) => {
-      const message = description ? `${title}\n${description}` : title;
-      return warning(message, options);
-    },
-    info: (
-      title: string,
-      description?: string,
-      options?: { duration?: number },
-    ) => {
-      const message = description ? `${title}\n${description}` : title;
-      return info(message, options);
-    },
-    remove: dismiss,
-    update: () => {
-      console.warn(
-        "Sonner does not support updating toasts. Use dismiss and create a new toast instead.",
-      );
-    },
-  };
 };
 
 export {

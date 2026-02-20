@@ -1,14 +1,16 @@
 ---
-description: 
+description: Tailwind and Shadcn styling conventions for the ui-kit
 globs: 
 alwaysApply: true
 ---
-# Cursor Rule File – Tailwind, Shadcn, DaisyUI
+# Cursor Rule File – Tailwind & Shadcn Styling
 
 - Tailwind classes **only inside ui-kit**; no classes in consuming apps.
 - Always use shadcn ui components with the shadcn CLI (npx shadcn@latest <command>)
 - Never override Shadcn component CSS directly; extend via wrapper props.
-- Colours/spacings via CSS vars mapped to DaisyUI tokens.
-- Use `@apply` sparingly inside `theme.css`, never in JSX.
-- Dark-mode via `class="dark"`; avoid media mode.
+- Colours and spacings via CSS variables defined in `globals.css` (`:root` and `.dark` selectors).
+- Status colours use semantic tokens: `--success`, `--warning`, `--error`, `--info` (with `-foreground` counterparts).
+- Use `@apply` sparingly inside `globals.css`, never in JSX.
+- Dark mode via `class="dark"` on `<html>`; avoid media-query mode.
 - No custom global CSS unless a new token/utility is required.
+- No DaisyUI classes or tokens — the project uses Shadcn-native theming only.

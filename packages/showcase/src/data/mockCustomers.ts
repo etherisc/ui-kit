@@ -50,17 +50,21 @@ export const mockCustomers = generateMockCustomers();
 
 // Mock queries interface to match the database queries
 export const MockCustomerQueries = {
-  async getCustomers(options: { page: number; limit: number }) {
-    const { page, limit } = options;
-    const offset = (page - 1) * limit;
-    const paginatedCustomers = mockCustomers.slice(offset, offset + limit);
+  async getCustomers(options: { page: number; pageSize: number }) {
+    const { page, pageSize } = options;
+    const offset = (page - 1) * pageSize;
+    const paginatedCustomers = mockCustomers.slice(offset, offset + pageSize);
     
     return {
-      customers: paginatedCustomers,
-      total: mockCustomers.length,
-      page,
-      limit,
-      totalPages: Math.ceil(mockCustomers.length / limit),
+      success: true as const,
+      data: {
+        customers: paginatedCustomers,
+        total: mockCustomers.length,
+        page,
+        pageSize,
+        totalPages: Math.ceil(mockCustomers.length / pageSize),
+      },
+      correlationId: crypto.randomUUID(),
     };
   },
 

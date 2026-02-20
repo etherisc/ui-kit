@@ -1,52 +1,24 @@
 import * as React from "react";
 import { XIcon } from "lucide-react";
-import { type Toast as ToastType } from "../../../providers/ToastProvider/ToastProvider";
+import { cn } from "../../../lib/utils";
+import type { Toast as ToastType } from "../../../providers/ToastProvider/ToastProvider";
 
 export interface ToastProps extends React.HTMLAttributes<HTMLDivElement> {
   toast: ToastType;
   onClose?: () => void;
 }
 
+const variantClasses: Record<string, string> = {
+  success: "bg-green-50 text-green-800 border-green-200 dark:bg-green-950 dark:text-green-200 dark:border-green-800",
+  error: "bg-red-50 text-red-800 border-red-200 dark:bg-red-950 dark:text-red-200 dark:border-red-800",
+  warning: "bg-yellow-50 text-yellow-800 border-yellow-200 dark:bg-yellow-950 dark:text-yellow-200 dark:border-yellow-800",
+  info: "bg-blue-50 text-blue-800 border-blue-200 dark:bg-blue-950 dark:text-blue-200 dark:border-blue-800",
+};
+
+const defaultVariantClass = "bg-muted text-foreground border-border";
+
 export function Toast({ toast, onClose, className, ...props }: ToastProps) {
   const { title, description, variant = "info" } = toast;
-
-  // Color scheme based on variant
-  const getColorScheme = (variant: string) => {
-    switch (variant) {
-      case "success":
-        return {
-          backgroundColor: "#dcfce7", // green-100
-          color: "#166534", // green-800
-          borderColor: "#bbf7d0", // green-200
-        };
-      case "error":
-        return {
-          backgroundColor: "#fee2e2", // red-100
-          color: "#991b1b", // red-800
-          borderColor: "#fecaca", // red-200
-        };
-      case "warning":
-        return {
-          backgroundColor: "#fef3c7", // yellow-100
-          color: "#92400e", // yellow-800
-          borderColor: "#fde68a", // yellow-200
-        };
-      case "info":
-        return {
-          backgroundColor: "#dbeafe", // blue-100
-          color: "#1e3a8a", // blue-800
-          borderColor: "#bfdbfe", // blue-200
-        };
-      default:
-        return {
-          backgroundColor: "#f3f4f6", // gray-100
-          color: "#1f2937", // gray-800
-          borderColor: "#d1d5db", // gray-300
-        };
-    }
-  };
-
-  const colorScheme = getColorScheme(variant);
 
   const handleClose = React.useCallback(() => {
     onClose?.();
@@ -58,77 +30,29 @@ export function Toast({ toast, onClose, className, ...props }: ToastProps) {
       role="alert"
       aria-live="assertive"
       aria-atomic="true"
-      className={className}
-      style={{
-        position: "relative",
-        backgroundColor: colorScheme.backgroundColor,
-        color: colorScheme.color,
-        border: `1px solid ${colorScheme.borderColor}`,
-        borderRadius: "8px",
-        padding: "12px",
-        minHeight: "60px",
-        fontSize: "14px",
-        boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
-        maxWidth: "384px",
-        width: "100%",
-      }}
+      className={cn(
+        "relative w-full max-w-sm rounded-lg border p-3 text-sm shadow-md",
+        variantClasses[variant] ?? defaultVariantClass,
+        className,
+      )}
       {...props}
     >
-      <div
-        style={{
-          display: "flex",
-          alignItems: "flex-start",
-          justifyContent: "space-between",
-          gap: "8px",
-        }}
-      >
-        <div style={{ flex: 1 }}>
+      <div className="flex items-start justify-between gap-2">
+        <div className="flex-1">
           {title && (
-            <div style={{ fontWeight: "600", marginBottom: "4px" }}>
-              {title}
-            </div>
+            <div className="font-semibold mb-1">{title}</div>
           )}
           {description && (
-            <div
-              style={{
-                fontSize: "12px",
-                color: colorScheme.color,
-                opacity: 0.8,
-              }}
-            >
-              {description}
-            </div>
+            <div className="text-xs opacity-80">{description}</div>
           )}
         </div>
         <button
           type="button"
           onClick={handleClose}
-          style={{
-            position: "absolute",
-            right: "8px",
-            top: "8px",
-            padding: "4px",
-            borderRadius: "4px",
-            border: "none",
-            backgroundColor: "transparent",
-            cursor: "pointer",
-            pointerEvents: "auto",
-            color: colorScheme.color,
-            fontSize: "16px",
-            lineHeight: "1",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-          onMouseOver={(e) => {
-            e.currentTarget.style.backgroundColor = colorScheme.borderColor;
-          }}
-          onMouseOut={(e) => {
-            e.currentTarget.style.backgroundColor = "transparent";
-          }}
+          className="absolute right-2 top-2 rounded p-1 opacity-70 hover:opacity-100 transition-opacity"
           aria-label="Close toast"
         >
-          <XIcon style={{ width: "16px", height: "16px" }} />
+          <XIcon className="h-4 w-4" />
         </button>
       </div>
     </div>

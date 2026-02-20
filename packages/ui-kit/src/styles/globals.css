@@ -1,134 +1,209 @@
 /*
- * =============================================================================
- * GLOBALS.CSS - Tailwind Foundation & Final Fallbacks
- * =============================================================================
- * 
- * PURPOSE:
- * This file sets up Tailwind CSS foundation and provides hardcoded fallback 
- * values as the ultimate safety net when theme.css dynamic mappings fail.
- * 
- * CSS CASCADE POSITION:
- * 1. ⬇️  Imports theme.css FIRST (dynamic DaisyUI → Shadcn mappings)
- * 2. ✅ THEN applies Tailwind @base layer (hardcoded fallbacks override dynamic)
- * 3. ⬇️  Then @components and @utilities layers
- * 
- * IMPORT ORDER CRITICAL:
- * @import "../theme/theme.css";  ← MUST BE FIRST!
- * @tailwind base;                ← Overwrites with static fallbacks
- * 
- * WHAT THIS FILE DOES:
- * - Sets up Tailwind CSS (@tailwind base, components, utilities)
- * - Provides hardcoded CSS variable fallbacks in @layer base
- * - Applies base styles to HTML elements (*, body)
- * - Defines utility overrides for placeholders, etc.
- * - Serves as final safety net when dynamic theming fails
- * 
- * WHAT THIS FILE SHOULD NOT CONTAIN:
- * ❌ DaisyUI variable mappings (those go in theme.css)
- * ❌ Dynamic fallbacks with var() functions
- * ❌ Theme switching logic (.dark overrides)
- * ❌ Component-specific styles (those go in component files)
- * 
- * VARIABLE HIERARCHY:
- * 1. 🌈 DaisyUI variables (--p, --b1) - when available
- * 2. 🌉 theme.css mappings with fallbacks - hsl(var(--b2, 0 0% 90%))
- * 3. 🔒 globals.css @layer base - hardcoded values (THIS FILE)
- * 
- * FALLBACK STRATEGY:
- * - Use hardcoded HSL values: --border: 0 0% 89.8%
- * - NO var() functions here - these are final fallbacks
- * - Values should match theme.css fallbacks for consistency
- * - Light/dark mode handled by same variable names in different selectors
- * 
- * CONFLICT PREVENTION:
- * 🚨 NEVER change the @import order - theme.css MUST come first
- * 🚨 NEVER use dynamic fallbacks - use hardcoded values only
- * 🚨 NEVER remove @layer base - required for proper CSS cascade
- * ✅ Only define variables that theme.css also defines
- * ✅ Values here are STATIC SAFETY NET, theme.css is DYNAMIC BRIDGE
- * ✅ Test by temporarily disabling theme.css import
- * 
- * =============================================================================
+ * globals.css — Single source of truth for all design tokens.
+ *
+ * Tailwind v4 CSS-first configuration.
+ * Colors use hsl() in :root/.dark, mapped via @theme inline.
  */
 
-/* Import theme variables */
-@import "../theme/theme.css";
+@import "tailwindcss";
+@import "tw-animate-css";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
+/*
+  Tailwind v4 changed the default border color to currentcolor.
+  This preserves the v3 behavior for existing components.
+*/
 @layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 40%;
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border-color: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 0% 3.9%;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
-    --radius: 0.5rem;
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-border);
   }
-  .dark {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 70%;
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border-color: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
-  }
+}
+
+:root {
+  /* Backgrounds & text */
+  --background: hsl(0 0% 100%);
+  --foreground: hsl(222.2 84% 4.9%);
+
+  /* Card / popover surfaces */
+  --card: hsl(0 0% 100%);
+  --card-foreground: hsl(222.2 84% 4.9%);
+  --popover: hsl(0 0% 100%);
+  --popover-foreground: hsl(222.2 84% 4.9%);
+
+  /* Brand primary (blue-500) */
+  --primary: hsl(217.2 91.2% 59.8%);
+  --primary-foreground: hsl(0 0% 100%);
+
+  /* Secondary */
+  --secondary: hsl(210 40% 96.1%);
+  --secondary-foreground: hsl(222.2 47.4% 11.2%);
+
+  /* Muted */
+  --muted: hsl(210 40% 96.1%);
+  --muted-foreground: hsl(215.4 16.3% 46.9%);
+
+  /* Accent */
+  --accent: hsl(210 40% 96.1%);
+  --accent-foreground: hsl(222.2 47.4% 11.2%);
+
+  /* Destructive */
+  --destructive: hsl(0 84.2% 60.2%);
+  --destructive-foreground: hsl(210 40% 98%);
+
+  /* Status tokens */
+  --success: hsl(152 82% 39%);
+  --success-foreground: hsl(0 0% 100%);
+  --warning: hsl(38 92% 50%);
+  --warning-foreground: hsl(0 0% 100%);
+  --error: hsl(0 84% 60%);
+  --error-foreground: hsl(0 0% 100%);
+  --info: hsl(210 100% 52%);
+  --info-foreground: hsl(0 0% 100%);
+
+  /* Borders, inputs, focus ring */
+  --border: hsl(214.3 31.8% 91.4%);
+  --input: hsl(214.3 31.8% 91.4%);
+  --ring: hsl(217.2 91.2% 59.8%);
+
+  /* Chart palette */
+  --chart-1: hsl(12 76% 61%);
+  --chart-2: hsl(173 58% 39%);
+  --chart-3: hsl(197 37% 24%);
+  --chart-4: hsl(43 74% 66%);
+  --chart-5: hsl(27 87% 67%);
+
+  /* Geometry */
+  --radius: 0.5rem;
+
+  /* Shadows */
+  --shadow-color: 220 3% 15%;
+  --shadow-strength: 1%;
+  --shadow-sm: 0 1px 2px 0 hsl(var(--shadow-color) / calc(var(--shadow-strength) + 9%));
+  --shadow:
+    0 1px 3px 0 hsl(var(--shadow-color) / calc(var(--shadow-strength) + 10%)),
+    0 1px 2px -1px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 9%));
+  --shadow-md:
+    0 4px 6px -1px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 9%)),
+    0 2px 4px -2px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 9%));
+  --shadow-lg:
+    0 10px 15px -3px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 8%)),
+    0 4px 6px -4px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 8%));
+}
+
+.dark {
+  --background: hsl(222.2 84% 4.9%);
+  --foreground: hsl(210 40% 98%);
+
+  --card: hsl(222.2 84% 4.9%);
+  --card-foreground: hsl(210 40% 98%);
+  --popover: hsl(222.2 84% 4.9%);
+  --popover-foreground: hsl(210 40% 98%);
+
+  --primary: hsl(213.1 93.9% 67.8%);
+  --primary-foreground: hsl(222.2 84% 4.9%);
+
+  --secondary: hsl(217 30% 25%);
+  --secondary-foreground: hsl(210 40% 98%);
+
+  --muted: hsl(217.2 32.6% 17.5%);
+  --muted-foreground: hsl(215 20.2% 65.1%);
+
+  --accent: hsl(217.2 32.6% 17.5%);
+  --accent-foreground: hsl(210 40% 98%);
+
+  --destructive: hsl(0 72% 51%);
+  --destructive-foreground: hsl(0 0% 100%);
+
+  --success: hsl(152 90% 55%);
+  --success-foreground: hsl(0 0% 0%);
+  --warning: hsl(42 100% 65%);
+  --warning-foreground: hsl(0 0% 0%);
+  --error: hsl(0 100% 68%);
+  --error-foreground: hsl(0 0% 100%);
+  --info: hsl(210 100% 70%);
+  --info-foreground: hsl(0 0% 0%);
+
+  --border: hsl(215 20% 50%);
+  --input: hsl(215 20% 50%);
+  --ring: hsl(224.3 76.3% 48%);
+
+  --chart-1: hsl(220 70% 50%);
+  --chart-2: hsl(160 60% 45%);
+  --chart-3: hsl(30 80% 55%);
+  --chart-4: hsl(280 65% 60%);
+  --chart-5: hsl(340 75% 55%);
+
+  --shadow-color: 220 40% 2%;
+  --shadow-strength: 4%;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-error: var(--error);
+  --color-error-foreground: var(--error-foreground);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+
+  --shadow-sm: var(--shadow-sm);
+  --shadow: var(--shadow);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
 }
 
 @layer base {
   * {
-    @apply border-border;
+    border-color: var(--color-border);
   }
   body {
-    @apply bg-background text-foreground;
+    background-color: var(--color-background);
+    color: var(--color-foreground);
   }
 }
 
 @layer utilities {
-  /* Override Tailwind's hardcoded placeholder colors with DaisyUI theme variables */
   input::placeholder,
   textarea::placeholder,
   input::-moz-placeholder,
   textarea::-moz-placeholder {
-    color: hsl(var(--muted-foreground)) !important;
+    color: var(--color-muted-foreground) !important;
   }
 }

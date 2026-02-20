@@ -52,9 +52,9 @@ export function CustomersPage() {
         setLoading(true);
         const result = await MockCustomerQueries.getCustomers({
           page: 1,
-          limit: 100,
+          pageSize: 100,
         });
-        const dbCustomers: Customer[] = result.customers.map(
+        const dbCustomers: Customer[] = result.data.customers.map(
           (dbCustomer: DBCustomer) => ({
             id: dbCustomer.id,
             name: `${dbCustomer.first_name} ${dbCustomer.last_name}`,

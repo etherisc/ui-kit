@@ -59,7 +59,7 @@ export const TopBar: React.FC<TopBarProps> = ({
             {/* Logo section - fixed width between 220-260px */}
             {logo && (
                 <div className={cn(
-                    "flex-shrink-0",
+                    "shrink-0",
                     "w-[260px] md:w-[240px] sm:w-[220px]"
                 )}>
                     {logo}
@@ -69,7 +69,7 @@ export const TopBar: React.FC<TopBarProps> = ({
             {/* Navigation section */}
             {navigationItems && (
                 <nav
-                    className="flex-grow flex items-center justify-center"
+                    className="grow flex items-center justify-center"
                     role="navigation"
                     aria-label="Main navigation"
                 >
@@ -79,7 +79,7 @@ export const TopBar: React.FC<TopBarProps> = ({
 
             {/* User actions section */}
             {userActions && (
-                <div className="flex-shrink-0 flex items-center gap-2">
+                <div className="shrink-0 flex items-center gap-2">
                     {userActions}
                 </div>
             )}

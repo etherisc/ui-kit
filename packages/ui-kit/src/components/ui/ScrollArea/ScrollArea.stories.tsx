@@ -253,7 +253,7 @@ export const MusicPlaylist: Story = {
               key={i}
               className="flex items-center space-x-3 py-2 px-2 rounded hover:bg-muted/50 cursor-pointer"
             >
-              <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded flex items-center justify-center">
+              <div className="shrink-0 w-8 h-8 bg-linear-to-br from-purple-500 to-pink-500 rounded flex items-center justify-center">
                 <Music className="h-4 w-4 text-white" />
               </div>
               <div className="flex-1 min-w-0">
@@ -297,7 +297,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         className={cn(
           'inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium',
-          'ring-offset-background transition-colors focus-visible:outline-none',
+          'ring-offset-background transition-colors focus-visible:outline-hidden',
           'focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
           'disabled:pointer-events-none disabled:opacity-50',
           {

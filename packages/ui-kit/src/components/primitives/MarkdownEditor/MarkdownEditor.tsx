@@ -92,7 +92,7 @@ export function MarkdownEditor({
   );
 
   const editorClasses = cn(
-    "w-full min-h-[120px] p-3 bg-transparent border-none outline-none resize-none",
+    "w-full min-h-[120px] p-3 bg-transparent border-none outline-hidden resize-none",
     "placeholder:text-muted-foreground",
     "disabled:cursor-not-allowed disabled:opacity-50",
     "font-mono text-sm leading-relaxed",
@@ -123,7 +123,7 @@ export function MarkdownEditor({
           disabled={disabled}
           className={cn(
             "px-2 py-1 rounded text-xs font-medium transition-colors",
-            "hover:bg-background focus:outline-none focus:ring-1 focus:ring-ring",
+            "hover:bg-background focus:outline-hidden focus:ring-1 focus:ring-ring",
             "disabled:cursor-not-allowed",
             isPreview
               ? "bg-primary text-primary-foreground"

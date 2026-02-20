@@ -56,7 +56,7 @@ export const ErrorShell: React.FC<ErrorShellProps> = ({
     <div
       className={cn(
         "min-h-screen bg-background flex flex-col items-center justify-center p-4",
-        showPattern && "bg-gradient-to-br from-background to-muted/20",
+        showPattern && "bg-linear-to-br from-background to-muted/20",
         className,
       )}
       role="main"

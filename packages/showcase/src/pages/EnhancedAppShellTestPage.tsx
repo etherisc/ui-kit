@@ -248,7 +248,7 @@ export function EnhancedAppShellTestPage() {
   // Enhanced logo
   const enhancedLogo = (
     <div className="flex items-center gap-3">
-      <div className="w-10 h-10 bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-600 rounded-lg flex items-center justify-center shadow-lg">
+      <div className="w-10 h-10 bg-linear-to-br from-blue-600 via-purple-600 to-indigo-600 rounded-lg flex items-center justify-center shadow-lg">
         <span className="text-white font-bold text-lg">E</span>
       </div>
       <div className="hidden sm:block">
@@ -278,9 +278,9 @@ export function EnhancedAppShellTestPage() {
           {enhancedTopBar}
         </div>
 
-        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-8">
+        <div className="bg-linear-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-8">
           <div className="flex items-center gap-4 mb-6">
-            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center shadow-lg">
+            <div className="w-12 h-12 bg-linear-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center shadow-lg">
               <BarChartIcon className="h-6 w-6 text-white" />
             </div>
             <div>

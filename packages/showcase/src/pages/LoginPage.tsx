@@ -71,7 +71,7 @@ export function LoginPage() {
             <button
               type="button"
               onClick={() => navigate("/reset-password")}
-              className="text-sm text-primary hover:underline focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded"
+              className="text-sm text-primary hover:underline focus:outline-hidden focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded"
             >
               Forgot Password?
             </button>

@@ -30,24 +30,20 @@ describe("Toast", () => {
   it("should apply correct variant styling", () => {
     const { rerender } = render(<Toast toast={mockToast} />);
 
-    // Test success variant - check inline styles instead of CSS classes
     let toastElement = screen.getByRole("alert");
-    expect(toastElement).toHaveStyle({ backgroundColor: "#dcfce7" });
+    expect(toastElement).toHaveClass("bg-green-50");
 
-    // Test error variant
     rerender(<Toast toast={{ ...mockToast, variant: "error" }} />);
     toastElement = screen.getByRole("alert");
-    expect(toastElement).toHaveStyle({ backgroundColor: "#fee2e2" });
+    expect(toastElement).toHaveClass("bg-red-50");
 
-    // Test warning variant
     rerender(<Toast toast={{ ...mockToast, variant: "warning" }} />);
     toastElement = screen.getByRole("alert");
-    expect(toastElement).toHaveStyle({ backgroundColor: "#fef3c7" });
+    expect(toastElement).toHaveClass("bg-yellow-50");
 
-    // Test info variant
     rerender(<Toast toast={{ ...mockToast, variant: "info" }} />);
     toastElement = screen.getByRole("alert");
-    expect(toastElement).toHaveStyle({ backgroundColor: "#dbeafe" });
+    expect(toastElement).toHaveClass("bg-blue-50");
   });
 
   it("should call onClose when close button is clicked", () => {

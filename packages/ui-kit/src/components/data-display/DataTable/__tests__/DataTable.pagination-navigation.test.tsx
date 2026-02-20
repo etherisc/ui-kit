@@ -49,8 +49,8 @@ describe("DataTable Pagination", () => {
         <DataTable
           data={testData}
           columns={columns}
-          pageSize={10}
           pagination={{
+            pageSize: 10,
             pageSizeOptions: [10, 25, 50, 100],
             showSizeSelector: true,
           }}
@@ -71,8 +71,8 @@ describe("DataTable Pagination", () => {
         <DataTable
           data={testData}
           columns={columns}
-          pageSize={15}
           pagination={{
+            pageSize: 15,
             pageSizeOptions: [10, 25, 50, 100],
             showSizeSelector: true,
           }}
@@ -92,8 +92,8 @@ describe("DataTable Pagination", () => {
         <DataTable
           data={testData}
           columns={columns}
-          pageSize={10}
           pagination={{
+            pageSize: 10,
             pageSizeOptions: [10, 25, 50, 100],
             showSizeSelector: true,
             showPageInfo: true,
@@ -124,8 +124,8 @@ describe("DataTable Pagination", () => {
         <DataTable
           data={testData}
           columns={columns}
-          pageSize={10}
           pagination={{
+            pageSize: 10,
             showPageInfo: true,
           }}
         />,
@@ -141,8 +141,8 @@ describe("DataTable Pagination", () => {
         <DataTable
           data={testData}
           columns={columns}
-          pageSize={10}
           pagination={{
+            pageSize: 10,
             showPageInfo: true,
             showSizeSelector: true,
             pageSizeOptions: [10, 25, 50],
@@ -167,8 +167,8 @@ describe("DataTable Pagination", () => {
         <DataTable
           data={testData}
           columns={columns}
-          pageSize={10}
           pagination={{
+            pageSize: 10,
             showNavigation: true,
           }}
         />,
@@ -197,7 +197,7 @@ describe("DataTable Pagination", () => {
 
     it("should not show pagination for small datasets", () => {
       const smallData = generateTestData(10);
-      render(<DataTable data={smallData} columns={columns} pageSize={10} />);
+      render(<DataTable data={smallData} columns={columns} />);
 
       expect(screen.getAllByRole("row")).toHaveLength(11);
       expect(screen.queryByRole("navigation")).not.toBeInTheDocument();
@@ -209,8 +209,8 @@ describe("DataTable Pagination", () => {
         <DataTable
           data={singlePageData}
           columns={columns}
-          pageSize={10}
           pagination={{
+            pageSize: 10,
             showPageInfo: true,
           }}
         />,

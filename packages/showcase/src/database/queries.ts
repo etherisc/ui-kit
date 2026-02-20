@@ -20,13 +20,13 @@ export class CustomerQueries {
    * Get all customers with pagination
    */
   static async getCustomers(options: PaginationOptions): Promise<PaginatedResult<Customer>> {
-    const { page, limit, sortBy = 'id', sortOrder = 'asc' } = options;
-    const offset = (page - 1) * limit;
+    const { page, pageSize, sort = 'id', order = 'asc' } = options;
+    const offset = (page - 1) * pageSize;
 
     // Validate sort column to prevent SQL injection
     const allowedSortColumns = ['id', 'first_name', 'last_name', 'email', 'company', 'status', 'created_at'];
-    const safeSortBy = allowedSortColumns.includes(sortBy) ? sortBy : 'id';
-    const safeSortOrder = sortOrder === 'desc' ? 'DESC' : 'ASC';
+    const safeSort = allowedSortColumns.includes(sort) ? sort : 'id';
+    const safeOrder = order === 'desc' ? 'DESC' : 'ASC';
 
     // Get total count
     const countResult = await getQuery('SELECT COUNT(*) as count FROM customers');
@@ -35,16 +35,16 @@ export class CustomerQueries {
     // Get paginated data
     const data = await getAllQuery(`
       SELECT * FROM customers 
-      ORDER BY ${safeSortBy} ${safeSortOrder}
+      ORDER BY ${safeSort} ${safeOrder}
       LIMIT ? OFFSET ?
-    `, [limit, offset]) as Customer[];
+    `, [pageSize, offset]) as Customer[];
 
     return {
       data,
       total,
       page,
-      limit,
-      totalPages: Math.ceil(total / limit),
+      pageSize,
+      totalPages: Math.ceil(total / pageSize),
     };
   }
 
@@ -125,8 +125,8 @@ export class CustomerQueries {
    * Search customers by name or email
    */
   static async searchCustomers(query: string, options: PaginationOptions): Promise<PaginatedResult<Customer>> {
-    const { page, limit } = options;
-    const offset = (page - 1) * limit;
+    const { page, pageSize } = options;
+    const offset = (page - 1) * pageSize;
     const searchTerm = `%${query}%`;
 
     // Get total count
@@ -142,14 +142,14 @@ export class CustomerQueries {
       WHERE first_name LIKE ? OR last_name LIKE ? OR email LIKE ? OR company LIKE ?
       ORDER BY first_name ASC
       LIMIT ? OFFSET ?
-    `, [searchTerm, searchTerm, searchTerm, searchTerm, limit, offset]) as Customer[];
+    `, [searchTerm, searchTerm, searchTerm, searchTerm, pageSize, offset]) as Customer[];
 
     return {
       data,
       total,
       page,
-      limit,
-      totalPages: Math.ceil(total / limit),
+      pageSize,
+      totalPages: Math.ceil(total / pageSize),
     };
   }
 }

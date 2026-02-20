@@ -1,18 +1,14 @@
-@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap')
+layer(base);
+@import 'tailwindcss';
+@import 'tw-animate-css';
 
-/* Force DaisyUI component generation - ensure these classes are available */
-/* .btn .btn-primary .btn-secondary .card .input .modal .navbar .drawer */
-
-/* Nexadash-inspired design tokens */
 :root {
   /* Typography */
-  --font-plus-jakarta: "Plus Jakarta Sans", sans-serif;
+  --font-plus-jakarta: 'Plus Jakarta Sans', sans-serif;
 
-  /* Color palette inspired by nexadash */
-  --color-primary: #335cff;
+  /* Color palette */
+  --color-primary-raw: #335cff;
   --color-primary-hover: #2a4dd7;
   --color-black: #171718;
   --color-white: #ffffff;
@@ -25,64 +21,53 @@
   --color-gray-500: #b9bec6;
   --color-gray-600: #9ca3af;
   --color-gray-700: #6b7280;
-  --color-gray: #525866;
+  --color-gray-raw: #525866;
 
   /* Status colors */
-  --color-success: #22c55e;
+  --color-success-raw: #22c55e;
   --color-success-light: #dcfce7;
-  --color-warning: #eab308;
+  --color-warning-raw: #eab308;
   --color-danger: #ef4444;
   --color-danger-light: #fee2e2;
 
   /* Theme colors */
-  --color-light-theme: #f4f7ff;
-  --color-light-orange: #ffedd5;
-  --color-light-blue: #e0f2fe;
-  --color-light-purple: #f3e8ff;
+  --color-light-theme-raw: #f4f7ff;
+  --color-light-orange-raw: #ffedd5;
+  --color-light-blue-raw: #e0f2fe;
+  --color-light-purple-raw: #f3e8ff;
 
   /* Shadows */
-  --shadow-3xl:
-    0 1px 2px 0 rgba(95, 74, 46, 0.08), 0 0 0 1px rgba(227, 225, 222, 0.4);
+  --shadow-3xl: 0 1px 2px 0 rgba(95, 74, 46, 0.08), 0 0 0 1px rgba(227, 225, 222, 0.4);
   --shadow-sm: 0 1px 2px 0 rgba(113, 116, 152, 0.1);
 
-  /* Shadcn/UI variables mapped to nexadash tokens */
-  --primary: var(--color-primary);
+  /* Shadcn semantic tokens */
+  --primary: var(--color-primary-raw);
   --primary-foreground: var(--color-white);
-
   --secondary: var(--color-gray-200);
-  --secondary-foreground: var(--color-gray);
-
-  --accent: var(--color-light-theme);
-  --accent-foreground: var(--color-primary);
-
+  --secondary-foreground: var(--color-gray-raw);
+  --muted: var(--color-gray-200);
+  --muted-foreground: var(--color-gray-raw);
+  --accent: var(--color-light-theme-raw);
+  --accent-foreground: var(--color-primary-raw);
   --destructive: var(--color-danger);
   --destructive-foreground: var(--color-white);
-
-  /* UI elements */
   --background: var(--color-white);
   --foreground: var(--color-black);
   --card: var(--color-white);
   --card-foreground: var(--color-black);
   --popover: var(--color-white);
   --popover-foreground: var(--color-black);
-
-  /* Borders and inputs */
   --border: var(--color-gray-300);
   --input: var(--color-gray-300);
-  --ring: var(--color-primary);
-
-  /* Status colors for UI */
-  --success: var(--color-success);
+  --ring: var(--color-primary-raw);
+  --success: var(--color-success-raw);
   --success-foreground: var(--color-white);
-  --warning: var(--color-warning);
+  --warning: var(--color-warning-raw);
   --warning-foreground: var(--color-white);
-
-  /* Radius */
   --radius: 0.5rem;
 }
 
 .dark {
-  /* Dark mode adjustments */
   --background: var(--color-black);
   --foreground: var(--color-white);
   --card: #1a1a1b;
@@ -93,41 +78,95 @@
   --input: #2a2a2b;
 }
 
-@layer base {
-  * {
-    @apply border-border;
-  }
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-gray: var(--color-gray-raw);
+  --color-light-theme: var(--color-light-theme-raw);
+  --color-light-orange: var(--color-light-orange-raw);
+  --color-light-blue: var(--color-light-blue-raw);
+  --color-light-purple: var(--color-light-purple-raw);
+  --font-family-sans: var(--font-plus-jakarta);
+  --font-family-plus-jakarta: var(--font-plus-jakarta);
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+  --shadow-sm: var(--shadow-sm);
+  --shadow-3xl: var(--shadow-3xl);
+}
 
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-border);
+  }
   body {
-    @apply bg-background text-foreground;
+    background-color: var(--color-background);
+    color: var(--color-foreground);
     font-family: var(--font-plus-jakarta);
   }
-
   button {
-    @apply cursor-pointer;
+    cursor: pointer;
   }
 }
 
-/* Nexadash-inspired component styles */
-@layer components {
-  .nexadash-card {
-    @apply bg-white rounded-lg;
-    box-shadow: var(--shadow-3xl);
-  }
-
-  .nexadash-button-primary {
-    @apply bg-primary text-white hover:bg-[#2A4DD7] px-4 py-2 rounded-lg font-medium text-sm transition-colors duration-300;
-  }
-
-  .nexadash-button-outline {
-    @apply ring-1 ring-inset ring-primary bg-white text-primary hover:bg-light-theme px-4 py-2 rounded-lg font-medium text-sm transition-colors duration-300;
-  }
-
-  .nexadash-sidebar-nav {
-    @apply text-gray flex items-center gap-2.5 px-5 py-2.5 text-sm font-medium leading-tight transition hover:text-black;
-  }
-
-  .nexadash-sidebar-nav.active {
-    @apply !text-black bg-light-theme;
-  }
+@utility nexadash-card {
+  background-color: white;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-3xl);
+}
+@utility nexadash-button-primary {
+  background-color: var(--color-primary);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-lg);
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: color 0.3s, background-color 0.3s;
+}
+@utility nexadash-button-outline {
+  outline: 1px solid var(--color-primary);
+  outline-offset: -1px;
+  background-color: white;
+  color: var(--color-primary);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-lg);
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: color 0.3s, background-color 0.3s;
+}
+@utility nexadash-sidebar-nav {
+  color: var(--color-gray);
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.625rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.25;
+  transition: all 0.15s;
 }

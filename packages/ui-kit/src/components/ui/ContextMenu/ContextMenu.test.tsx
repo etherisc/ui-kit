@@ -88,7 +88,7 @@ describe("ContextMenuContent", () => {
 
     const content = screen.getByTestId("content");
     expect(content.className).toContain("z-50");
-    expect(content.className).toContain("min-w-[8rem]");
+    expect(content.className).toContain("min-w-32");
   });
 
   it("supports custom className", () => {
@@ -143,7 +143,7 @@ describe("ContextMenuItem", () => {
     fireEvent.contextMenu(trigger);
 
     const item = screen.getByTestId("item");
-    expect(item.className).toContain("data-[disabled]:pointer-events-none");
+    expect(item.className).toContain("data-disabled:pointer-events-none");
   });
 
   it("supports inset styling", () => {

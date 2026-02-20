@@ -56,7 +56,7 @@ function ExampleFormComponent() {
     };
 
     return (
-        <div className="w-full max-w-3xl mx-auto p-6 border rounded-lg bg-base-100 shadow-sm">
+        <div className="w-full max-w-3xl mx-auto p-6 border rounded-lg bg-card shadow-sm">
             <h2 className="text-2xl font-bold mb-6">Registration Form</h2>
             <Form form={form} onSubmit={handleSubmit} className="space-y-6">
                 <FormGrid columns={2} gap="md">
@@ -116,7 +116,7 @@ function ExampleFormComponent() {
                 <div className="flex justify-end">
                     <button
                         type="submit"
-                        className="btn btn-primary"
+                        className="px-4 py-2 rounded-md text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90"
                     >
                         Submit
                     </button>
@@ -124,7 +124,7 @@ function ExampleFormComponent() {
             </Form>
 
             {submittedData && (
-                <div className="mt-8 p-4 border rounded bg-base-200">
+                <div className="mt-8 p-4 border rounded bg-muted">
                     <h3 className="text-lg font-semibold mb-2">Submitted Data:</h3>
                     <pre className="text-sm overflow-auto">
                         {JSON.stringify(submittedData, null, 2)}

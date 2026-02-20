@@ -1,3 +1,8 @@
+---
+description: State management patterns for the ui-kit and consuming apps
+globs: 
+alwaysApply: true
+---
 # Cursor Rule File – State Management
 
 - **Local UI state:** `useState`, `useReducer` only; no derived data in state.
