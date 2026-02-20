@@ -54,13 +54,13 @@
   --destructive-foreground: hsl(210 40% 98%);
 
   /* Status tokens */
-  --success: hsl(142.1 76.2% 36.3%);
+  --success: hsl(152 82% 39%);
   --success-foreground: hsl(0 0% 100%);
-  --warning: hsl(40.6 96.1% 40.4%);
+  --warning: hsl(38 92% 50%);
   --warning-foreground: hsl(0 0% 100%);
-  --error: hsl(0 72.2% 50.6%);
+  --error: hsl(0 84% 60%);
   --error-foreground: hsl(0 0% 100%);
-  --info: hsl(217.2 91.2% 59.8%);
+  --info: hsl(210 100% 52%);
   --info-foreground: hsl(0 0% 100%);
 
   /* Borders, inputs, focus ring */
@@ -105,7 +105,7 @@
   --primary: hsl(213.1 93.9% 67.8%);
   --primary-foreground: hsl(222.2 84% 4.9%);
 
-  --secondary: hsl(217.2 32.6% 17.5%);
+  --secondary: hsl(217 30% 25%);
   --secondary-foreground: hsl(210 40% 98%);
 
   --muted: hsl(217.2 32.6% 17.5%);
@@ -114,20 +114,20 @@
   --accent: hsl(217.2 32.6% 17.5%);
   --accent-foreground: hsl(210 40% 98%);
 
-  --destructive: hsl(0 62.8% 30.6%);
-  --destructive-foreground: hsl(210 40% 98%);
+  --destructive: hsl(0 72% 51%);
+  --destructive-foreground: hsl(0 0% 100%);
 
-  --success: hsl(142.1 70.6% 45.3%);
-  --success-foreground: hsl(0 0% 100%);
-  --warning: hsl(47.9 95.8% 53.1%);
+  --success: hsl(152 90% 55%);
+  --success-foreground: hsl(0 0% 0%);
+  --warning: hsl(42 100% 65%);
   --warning-foreground: hsl(0 0% 0%);
-  --error: hsl(0 84.2% 60.2%);
+  --error: hsl(0 100% 68%);
   --error-foreground: hsl(0 0% 100%);
-  --info: hsl(213.1 93.9% 67.8%);
-  --info-foreground: hsl(0 0% 100%);
+  --info: hsl(210 100% 70%);
+  --info-foreground: hsl(0 0% 0%);
 
-  --border: hsl(217.2 32.6% 17.5%);
-  --input: hsl(217.2 32.6% 17.5%);
+  --border: hsl(215 20% 50%);
+  --input: hsl(215 20% 50%);
   --ring: hsl(224.3 76.3% 48%);
 
   --chart-1: hsl(220 70% 50%);
