@@ -161,7 +161,7 @@ const StructuredNavigation: React.FC<{ items: NavigationItem[] }> = ({
                       <div className="row-span-3">
                         <NavigationMenuLink asChild>
                           <a
-                            className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                            className="flex h-full w-full select-none flex-col justify-end rounded-md bg-linear-to-b from-muted/50 to-muted p-6 no-underline outline-hidden focus:shadow-md"
                             href={item.href}
                           >
                             {item.icon && (
@@ -179,7 +179,7 @@ const StructuredNavigation: React.FC<{ items: NavigationItem[] }> = ({
                             key={child.id}
                             href={child.href}
                             className={cn(
-                              "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+                              "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-hidden transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
                               child.disabled &&
                                 "opacity-50 pointer-events-none",
                             )}
@@ -328,7 +328,7 @@ export const AppShellTopBar: React.FC<AppShellTopBarProps> = ({
       {/* Logo section - fixed width between 220-260px */}
       {logo && (
         <div
-          className={cn("flex-shrink-0", "w-[260px] md:w-[240px] sm:w-[220px]")}
+          className={cn("shrink-0", "w-[260px] md:w-[240px] sm:w-[220px]")}
         >
           {logo}
         </div>
@@ -337,7 +337,7 @@ export const AppShellTopBar: React.FC<AppShellTopBarProps> = ({
       {/* Navigation section */}
       {navigationItems && (
         <nav
-          className="flex-grow flex items-center justify-center"
+          className="grow flex items-center justify-center"
           role="navigation"
           aria-label="Main navigation"
         >
@@ -351,7 +351,7 @@ export const AppShellTopBar: React.FC<AppShellTopBarProps> = ({
 
       {/* User actions section */}
       {userActions && (
-        <div className="flex-shrink-0 flex items-center gap-2">
+        <div className="shrink-0 flex items-center gap-2">
           {isStructuredUserActions ? (
             <StructuredUserActions items={userActions as UserActionItem[]} />
           ) : (

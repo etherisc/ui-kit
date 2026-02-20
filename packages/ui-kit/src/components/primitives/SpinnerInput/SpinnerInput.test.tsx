@@ -139,7 +139,7 @@ describe("SpinnerInput", () => {
     expect(handleChange).toHaveBeenCalledWith(25);
   });
 
-  it("formats value with precision on blur", async () => {
+  it("formats value with precision on blur-sm", async () => {
     const user = userEvent.setup();
     const handleChange = vi.fn();
     render(<SpinnerInput value={10.5} precision={2} onChange={handleChange} />);
@@ -202,7 +202,7 @@ describe("SpinnerInput", () => {
     expect(handleChange).toHaveBeenCalledWith(0);
   });
 
-  it("clamps values to min/max range on blur", async () => {
+  it("clamps values to min/max range on blur-sm", async () => {
     const user = userEvent.setup();
     const handleChange = vi.fn();
     render(

@@ -158,7 +158,7 @@ const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
         {/* Mobile overlay */}
         {isMobile && isOpen && overlay && (
           <div
-            className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm"
+            className="fixed inset-0 z-40 bg-black/50 backdrop-blur-xs"
             onClick={handleOverlayClick}
           />
         )}
@@ -333,7 +333,7 @@ const SidebarNavItem = React.forwardRef<HTMLDivElement, SidebarNavItemProps>(
         className={cn(
           "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors",
           "hover:bg-accent hover:text-accent-foreground",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+          "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring",
           isActive && "bg-accent text-accent-foreground",
           disabled && "opacity-50 pointer-events-none",
           isCollapsed && "justify-center px-2",
@@ -342,7 +342,7 @@ const SidebarNavItem = React.forwardRef<HTMLDivElement, SidebarNavItemProps>(
         {...props}
       >
         {icon && (
-          <span className={cn("flex-shrink-0", isCollapsed && "mx-auto")}>
+          <span className={cn("shrink-0", isCollapsed && "mx-auto")}>
             {icon}
           </span>
         )}

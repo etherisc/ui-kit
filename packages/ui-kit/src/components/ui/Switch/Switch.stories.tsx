@@ -201,7 +201,7 @@ export const CustomSizes: Story = {
   render: () => (
     <div className="space-y-4">
       <div className="flex items-center space-x-2">
-        <Switch className="h-4 w-8 [&>span]:h-3 [&>span]:w-3 [&>span]:data-[state=checked]:translate-x-4" />
+        <Switch className="h-4 w-8 [&>span]:h-3 [&>span]:w-3 data-[state=checked]:[&>span]:translate-x-4" />
         <label className="text-sm">Small switch</label>
       </div>
 
@@ -211,7 +211,7 @@ export const CustomSizes: Story = {
       </div>
 
       <div className="flex items-center space-x-2">
-        <Switch className="h-7 w-14 [&>span]:h-6 [&>span]:w-6 [&>span]:data-[state=checked]:translate-x-7" />
+        <Switch className="h-7 w-14 [&>span]:h-6 [&>span]:w-6 data-[state=checked]:[&>span]:translate-x-7" />
         <label className="text-sm">Large switch</label>
       </div>
     </div>

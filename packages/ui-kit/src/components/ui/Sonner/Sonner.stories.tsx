@@ -21,7 +21,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "Enhanced toast notification system powered by Sonner. Provides better UX with smooth animations, rich content support, and improved accessibility. Maintains backwards compatibility with existing toast APIs.",
+          "Toast notification system powered by Sonner. Provides smooth animations, rich content support, and improved accessibility.",
       },
     },
   },
@@ -352,26 +352,27 @@ export const StackedToasts: Story = {
   ),
 };
 
-export const BackwardsCompatibility: Story = {
+export const ConvenienceMethods: Story = {
   render: () => {
-    // This would normally use the existing useToast hook pattern
-    const showLegacyToast = (type: string) => {
+    const showToast = (type: string) => {
       switch (type) {
         case "success":
-          success("Legacy Success", {
-            description: "Using new Sonner backend",
+          success("Operation Successful", {
+            description: "Your changes have been saved",
           });
           break;
         case "error":
-          error("Legacy Error", { description: "Using new Sonner backend" });
+          error("Something went wrong", {
+            description: "Please try again later",
+          });
           break;
         case "warning":
-          warning("Legacy Warning", {
-            description: "Using new Sonner backend",
+          warning("Warning", {
+            description: "This action cannot be undone",
           });
           break;
         case "info":
-          info("Legacy Info", { description: "Using new Sonner backend" });
+          info("Info", { description: "New updates are available" });
           break;
       }
     };
@@ -380,24 +381,21 @@ export const BackwardsCompatibility: Story = {
       <div className="space-y-4">
         <Sonner />
         <div className="space-y-2">
-          <div className="text-sm font-medium">Legacy API Compatibility:</div>
+          <div className="text-sm font-medium">Convenience Methods:</div>
           <div className="grid grid-cols-2 gap-2">
-            <Button onClick={() => showLegacyToast("success")} size="sm">
-              Legacy Success
+            <Button onClick={() => showToast("success")} size="sm">
+              Success
             </Button>
-            <Button onClick={() => showLegacyToast("error")} size="sm">
-              Legacy Error
+            <Button onClick={() => showToast("error")} size="sm">
+              Error
             </Button>
-            <Button onClick={() => showLegacyToast("warning")} size="sm">
-              Legacy Warning
+            <Button onClick={() => showToast("warning")} size="sm">
+              Warning
             </Button>
-            <Button onClick={() => showLegacyToast("info")} size="sm">
-              Legacy Info
+            <Button onClick={() => showToast("info")} size="sm">
+              Info
             </Button>
           </div>
-          <p className="text-sm text-muted-foreground">
-            Existing toast APIs continue to work with enhanced Sonner backend.
-          </p>
         </div>
       </div>
     );

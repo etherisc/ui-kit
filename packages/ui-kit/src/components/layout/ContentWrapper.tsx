@@ -80,7 +80,7 @@ export const ContentWrapper: React.FC<ContentWrapperProps> = ({
             {/* Main content */}
             <div
                 className={cn(
-                    "flex-grow overflow-auto",
+                    "grow overflow-auto",
                     fixed && "container--960 max-w-[960px] mx-auto px-6 py-6",
                     !fixed && "p-6",
                     contentClassName

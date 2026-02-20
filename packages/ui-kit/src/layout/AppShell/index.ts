@@ -18,16 +18,6 @@ export type {
   BreadcrumbItemData,
 } from "./AppShellBreadcrumbs";
 
-// Legacy components (for backward compatibility)
-export { TopBar } from "./TopBar";
-export type { TopBarProps } from "./TopBar";
-
-export { SideNav } from "./SideNav";
-export type { SideNavProps, NavItem } from "./SideNav";
-
-export { Breadcrumbs } from "./Breadcrumbs";
-export type { BreadcrumbsProps, BreadcrumbItem } from "./Breadcrumbs";
-
 export { ContentWrapper } from "./ContentWrapper";
 export type { ContentWrapperProps } from "./ContentWrapper";
 

@@ -104,7 +104,7 @@ export const DataDenseLayout: React.FC<DataDenseLayoutProps> = ({
         {sidebar && (
           <aside
             className={cn(
-              "bg-card text-card-foreground flex-shrink-0 transition-all duration-200 ease-in-out",
+              "bg-card text-card-foreground shrink-0 transition-all duration-200 ease-in-out",
               showBorders && "border-r",
             )}
             style={{ width: currentLeftWidth }}
@@ -171,7 +171,7 @@ export const DataDenseLayout: React.FC<DataDenseLayoutProps> = ({
         {rightSidebar && (
           <aside
             className={cn(
-              "bg-card text-card-foreground flex-shrink-0 transition-all duration-200 ease-in-out",
+              "bg-card text-card-foreground shrink-0 transition-all duration-200 ease-in-out",
               showBorders && "border-l",
             )}
             style={{ width: currentRightWidth }}

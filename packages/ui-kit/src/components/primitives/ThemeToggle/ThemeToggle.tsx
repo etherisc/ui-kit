@@ -58,7 +58,7 @@ export function ThemeToggle({
       type="button"
       onClick={handleToggle}
       className={cn(
-        "rounded-full p-2 flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-primary",
+        "rounded-full p-2 flex items-center justify-center focus:outline-hidden focus-visible:ring-2 focus-visible:ring-primary",
         isDarkMode
           ? "text-primary-foreground bg-primary"
           : "text-foreground bg-muted",

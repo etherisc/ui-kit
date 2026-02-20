@@ -234,7 +234,7 @@ const WithRadioGroupComponent = () => {
 
   return (
     <ContextMenu>
-      <ContextMenuTrigger className="flex h-[150px] w-[300px] items-center justify-center rounded-lg border bg-gradient-to-r from-blue-50 to-purple-50">
+      <ContextMenuTrigger className="flex h-[150px] w-[300px] items-center justify-center rounded-lg border bg-linear-to-r from-blue-50 to-purple-50">
         <div className="text-center">
           <Settings className="h-6 w-6 mx-auto mb-2" />
           <span className="text-sm">Sort Options Context Menu</span>
@@ -263,7 +263,7 @@ export const WithRadioGroup: Story = {
 export const WithSubmenus: Story = {
   render: () => (
     <ContextMenu>
-      <ContextMenuTrigger className="flex h-[180px] w-[350px] items-center justify-center rounded-lg border bg-gradient-to-br from-green-50 to-blue-50">
+      <ContextMenuTrigger className="flex h-[180px] w-[350px] items-center justify-center rounded-lg border bg-linear-to-br from-green-50 to-blue-50">
         <div className="text-center">
           <Share2 className="h-6 w-6 mx-auto mb-2" />
           <span className="text-sm">Media Context Menu with Submenus</span>
@@ -431,7 +431,7 @@ export const ImageGallery: Story = {
     <div className="grid grid-cols-2 gap-4">
       {[1, 2, 3, 4].map((i) => (
         <ContextMenu key={i}>
-          <ContextMenuTrigger className="flex h-[120px] w-[150px] items-center justify-center rounded-lg border bg-gradient-to-br from-purple-100 to-pink-100">
+          <ContextMenuTrigger className="flex h-[120px] w-[150px] items-center justify-center rounded-lg border bg-linear-to-br from-purple-100 to-pink-100">
             <div className="text-center">
               <Image className="h-8 w-8 mx-auto mb-2 text-purple-600" />
               <span className="text-xs text-muted-foreground">Image {i}</span>

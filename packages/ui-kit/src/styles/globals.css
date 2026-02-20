@@ -1,171 +1,201 @@
 /*
- * globals.css — Single source of truth for all design tokens and Tailwind setup.
+ * globals.css — Single source of truth for all design tokens.
  *
- * Base: Shadcn Slate palette
- * Override: --primary set to Tailwind blue-500 (#3b82f6)
- * Status tokens: Tailwind -600 scale (light), -500 scale (dark)
- *
- * CSS variables use raw HSL channels (e.g. "222.2 84% 4.9%").
- * tailwind.config.js wraps them: primary: "hsl(var(--primary))".
- *
- * :root = light mode, .dark = dark mode (class on <html>).
+ * Tailwind v4 CSS-first configuration.
+ * Colors use hsl() in :root/.dark, mapped via @theme inline.
  */
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@import "tw-animate-css";
 
+/*
+  Tailwind v4 changed the default border color to currentcolor.
+  This preserves the v3 behavior for existing components.
+*/
 @layer base {
-  :root {
-    /* Backgrounds & text */
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-
-    /* Card / popover surfaces */
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-
-    /* Brand primary (blue-500) */
-    --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 0 0% 100%;
-
-    /* Secondary */
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-
-    /* Muted */
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    /* Accent */
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    /* Destructive (Slate standard) */
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    /* Status: success (green-600 / #16a34a) */
-    --success: 142.1 76.2% 36.3%;
-    --success-foreground: 0 0% 100%;
-
-    /* Status: warning (yellow-600 / #ca8a04) */
-    --warning: 40.6 96.1% 40.4%;
-    --warning-foreground: 0 0% 100%;
-
-    /* Status: error (red-600 / #dc2626) */
-    --error: 0 72.2% 50.6%;
-    --error-foreground: 0 0% 100%;
-
-    /* Status: info (blue-500, same as primary) */
-    --info: 217.2 91.2% 59.8%;
-    --info-foreground: 0 0% 100%;
-
-    /* Borders, inputs, focus ring */
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 217.2 91.2% 59.8%;
-
-    /* Chart palette */
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
-
-    /* Geometry */
-    --radius: 0.5rem;
-
-    /* Shadows */
-    --shadow-color: 220 3% 15%;
-    --shadow-strength: 1%;
-    --shadow-sm: 0 1px 2px 0
-      hsl(var(--shadow-color) / calc(var(--shadow-strength) + 9%));
-    --shadow:
-      0 1px 3px 0 hsl(var(--shadow-color) / calc(var(--shadow-strength) + 10%)),
-      0 1px 2px -1px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 9%));
-    --shadow-md:
-      0 4px 6px -1px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 9%)),
-      0 2px 4px -2px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 9%));
-    --shadow-lg:
-      0 10px 15px -3px
-        hsl(var(--shadow-color) / calc(var(--shadow-strength) + 8%)),
-      0 4px 6px -4px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 8%));
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-border);
   }
+}
 
-  .dark {
-    /* Backgrounds & text (Slate dark) */
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+:root {
+  /* Backgrounds & text */
+  --background: hsl(0 0% 100%);
+  --foreground: hsl(222.2 84% 4.9%);
 
-    /* Card / popover surfaces */
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+  /* Card / popover surfaces */
+  --card: hsl(0 0% 100%);
+  --card-foreground: hsl(222.2 84% 4.9%);
+  --popover: hsl(0 0% 100%);
+  --popover-foreground: hsl(222.2 84% 4.9%);
 
-    /* Brand primary (blue-400 for dark bg contrast) */
-    --primary: 213.1 93.9% 67.8%;
-    --primary-foreground: 222.2 84% 4.9%;
+  /* Brand primary (blue-500) */
+  --primary: hsl(217.2 91.2% 59.8%);
+  --primary-foreground: hsl(0 0% 100%);
 
-    /* Secondary */
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+  /* Secondary */
+  --secondary: hsl(210 40% 96.1%);
+  --secondary-foreground: hsl(222.2 47.4% 11.2%);
 
-    /* Muted */
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+  /* Muted */
+  --muted: hsl(210 40% 96.1%);
+  --muted-foreground: hsl(215.4 16.3% 46.9%);
 
-    /* Accent */
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+  /* Accent */
+  --accent: hsl(210 40% 96.1%);
+  --accent-foreground: hsl(222.2 47.4% 11.2%);
 
-    /* Destructive */
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+  /* Destructive */
+  --destructive: hsl(0 84.2% 60.2%);
+  --destructive-foreground: hsl(210 40% 98%);
 
-    /* Status: success (green-500) */
-    --success: 142.1 70.6% 45.3%;
-    --success-foreground: 0 0% 100%;
+  /* Status tokens */
+  --success: hsl(142.1 76.2% 36.3%);
+  --success-foreground: hsl(0 0% 100%);
+  --warning: hsl(40.6 96.1% 40.4%);
+  --warning-foreground: hsl(0 0% 100%);
+  --error: hsl(0 72.2% 50.6%);
+  --error-foreground: hsl(0 0% 100%);
+  --info: hsl(217.2 91.2% 59.8%);
+  --info-foreground: hsl(0 0% 100%);
 
-    /* Status: warning (yellow-500) */
-    --warning: 47.9 95.8% 53.1%;
-    --warning-foreground: 0 0% 0%;
+  /* Borders, inputs, focus ring */
+  --border: hsl(214.3 31.8% 91.4%);
+  --input: hsl(214.3 31.8% 91.4%);
+  --ring: hsl(217.2 91.2% 59.8%);
 
-    /* Status: error (red-500) */
-    --error: 0 84.2% 60.2%;
-    --error-foreground: 0 0% 100%;
+  /* Chart palette */
+  --chart-1: hsl(12 76% 61%);
+  --chart-2: hsl(173 58% 39%);
+  --chart-3: hsl(197 37% 24%);
+  --chart-4: hsl(43 74% 66%);
+  --chart-5: hsl(27 87% 67%);
 
-    /* Status: info (blue-400, same as dark primary) */
-    --info: 213.1 93.9% 67.8%;
-    --info-foreground: 0 0% 100%;
+  /* Geometry */
+  --radius: 0.5rem;
 
-    /* Borders, inputs, focus ring */
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 224.3 76.3% 48%;
+  /* Shadows */
+  --shadow-color: 220 3% 15%;
+  --shadow-strength: 1%;
+  --shadow-sm: 0 1px 2px 0 hsl(var(--shadow-color) / calc(var(--shadow-strength) + 9%));
+  --shadow:
+    0 1px 3px 0 hsl(var(--shadow-color) / calc(var(--shadow-strength) + 10%)),
+    0 1px 2px -1px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 9%));
+  --shadow-md:
+    0 4px 6px -1px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 9%)),
+    0 2px 4px -2px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 9%));
+  --shadow-lg:
+    0 10px 15px -3px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 8%)),
+    0 4px 6px -4px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 8%));
+}
 
-    /* Chart palette (dark mode variants) */
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
+.dark {
+  --background: hsl(222.2 84% 4.9%);
+  --foreground: hsl(210 40% 98%);
 
-    /* Shadows — stronger for dark mode */
-    --shadow-color: 220 40% 2%;
-    --shadow-strength: 4%;
-  }
+  --card: hsl(222.2 84% 4.9%);
+  --card-foreground: hsl(210 40% 98%);
+  --popover: hsl(222.2 84% 4.9%);
+  --popover-foreground: hsl(210 40% 98%);
+
+  --primary: hsl(213.1 93.9% 67.8%);
+  --primary-foreground: hsl(222.2 84% 4.9%);
+
+  --secondary: hsl(217.2 32.6% 17.5%);
+  --secondary-foreground: hsl(210 40% 98%);
+
+  --muted: hsl(217.2 32.6% 17.5%);
+  --muted-foreground: hsl(215 20.2% 65.1%);
+
+  --accent: hsl(217.2 32.6% 17.5%);
+  --accent-foreground: hsl(210 40% 98%);
+
+  --destructive: hsl(0 62.8% 30.6%);
+  --destructive-foreground: hsl(210 40% 98%);
+
+  --success: hsl(142.1 70.6% 45.3%);
+  --success-foreground: hsl(0 0% 100%);
+  --warning: hsl(47.9 95.8% 53.1%);
+  --warning-foreground: hsl(0 0% 0%);
+  --error: hsl(0 84.2% 60.2%);
+  --error-foreground: hsl(0 0% 100%);
+  --info: hsl(213.1 93.9% 67.8%);
+  --info-foreground: hsl(0 0% 100%);
+
+  --border: hsl(217.2 32.6% 17.5%);
+  --input: hsl(217.2 32.6% 17.5%);
+  --ring: hsl(224.3 76.3% 48%);
+
+  --chart-1: hsl(220 70% 50%);
+  --chart-2: hsl(160 60% 45%);
+  --chart-3: hsl(30 80% 55%);
+  --chart-4: hsl(280 65% 60%);
+  --chart-5: hsl(340 75% 55%);
+
+  --shadow-color: 220 40% 2%;
+  --shadow-strength: 4%;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-error: var(--error);
+  --color-error-foreground: var(--error-foreground);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+
+  --shadow-sm: var(--shadow-sm);
+  --shadow: var(--shadow);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
 }
 
 @layer base {
   * {
-    @apply border-border;
+    border-color: var(--color-border);
   }
   body {
-    @apply bg-background text-foreground;
+    background-color: var(--color-background);
+    color: var(--color-foreground);
   }
 }
 
@@ -174,6 +204,6 @@
   textarea::placeholder,
   input::-moz-placeholder,
   textarea::-moz-placeholder {
-    color: hsl(var(--muted-foreground)) !important;
+    color: var(--color-muted-foreground) !important;
   }
 }

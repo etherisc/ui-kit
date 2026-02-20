@@ -33,8 +33,8 @@ export const Error404: Story = {
         logo: <CustomLogo />,
         actions: (
             <>
-                <Button intent="ghost">Contact Support</Button>
-                <Button intent="primary">Back to Home</Button>
+                <Button variant="ghost">Contact Support</Button>
+                <Button variant="default">Back to Home</Button>
             </>
         ),
     },
@@ -48,8 +48,8 @@ export const Error500: Story = {
         logo: <CustomLogo />,
         actions: (
             <>
-                <Button intent="ghost">Reload Page</Button>
-                <Button intent="primary">Back to Home</Button>
+                <Button variant="ghost">Reload Page</Button>
+                <Button variant="default">Back to Home</Button>
             </>
         ),
     },
@@ -62,7 +62,7 @@ export const Success: Story = {
         image: <CheckCircleIcon className="h-16 w-16 text-success" aria-hidden="true" />,
         logo: <CustomLogo />,
         actions: (
-            <Button intent="primary">Continue</Button>
+            <Button variant="default">Continue</Button>
         ),
     },
 };
@@ -91,7 +91,7 @@ export const WithCustomContent: Story = {
             </section>
         ),
         actions: (
-            <Button intent="primary">Subscribe to Updates</Button>
+            <Button variant="default">Subscribe to Updates</Button>
         ),
     },
 }; 

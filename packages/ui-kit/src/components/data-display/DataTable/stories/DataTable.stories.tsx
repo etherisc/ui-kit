@@ -184,15 +184,6 @@ This component passes all axe-core accessibility tests and includes:
   argTypes: {
     data: { control: "object" },
     columns: { control: "object" },
-    pageSize: {
-      control: { type: "number", min: 5, max: 50, step: 5 },
-      description:
-        "Number of rows to display per page (deprecated - use pagination.pageSize)",
-      table: {
-        type: { summary: "number" },
-        defaultValue: { summary: "10" },
-      },
-    },
     enableResizing: {
       control: "boolean",
       description: "Allow columns to be resized",
@@ -252,7 +243,7 @@ export const Default = {
   args: {
     data: generateMockData(50),
     columns,
-    pageSize: 10,
+    pagination: { pageSize: 10 },
     enableResizing: true,
     enableSorting: true,
   },
@@ -262,7 +253,6 @@ export const SmallTable = {
   args: {
     data: generateMockData(5),
     columns,
-    pageSize: 10,
     enableResizing: true,
     enableSorting: true,
   },
@@ -272,7 +262,7 @@ export const LargeTable = {
   args: {
     data: generateMockData(200),
     columns,
-    pageSize: 15,
+    pagination: { pageSize: 15 },
     enableResizing: true,
     enableSorting: true,
   },
@@ -282,7 +272,7 @@ export const WithoutSorting = {
   args: {
     data: generateMockData(50),
     columns,
-    pageSize: 10,
+    pagination: { pageSize: 10 },
     enableResizing: true,
     enableSorting: false,
   },
@@ -292,7 +282,7 @@ export const WithoutResizing = {
   args: {
     data: generateMockData(50),
     columns,
-    pageSize: 10,
+    pagination: { pageSize: 10 },
     enableResizing: false,
     enableSorting: true,
   },

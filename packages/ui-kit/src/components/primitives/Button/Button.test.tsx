@@ -11,10 +11,9 @@ describe("Button", () => {
     ).toBeInTheDocument();
   });
 
-  it("applies intent classes", () => {
-    render(<Button intent="primary">Primary</Button>);
+  it("applies variant classes", () => {
+    render(<Button variant="destructive">Destructive</Button>);
     const button = screen.getByRole("button");
-    // check for generic Tailwind class existence
     expect(button).toHaveClass("transition-colors");
   });
 
@@ -30,32 +29,27 @@ describe("Button", () => {
     expect(button).toBeDisabled();
   });
 
-  it("applies variant classes", () => {
-    render(<Button variant="primary">Primary with variant</Button>);
+  it("renders outline variant", () => {
+    render(<Button variant="outline">Outline</Button>);
     const button = screen.getByRole("button");
     expect(button).toHaveClass("transition-colors");
   });
 
-  it("prefers variant over intent when both are provided", () => {
-    render(
-      <Button variant="secondary" intent="primary">
-        Test
-      </Button>,
-    );
-    const button = screen.getByRole("button");
-    expect(button).toBeInTheDocument();
-    // Should use variant="secondary", not intent="primary"
-  });
-
-  it("falls back to intent when variant is not provided (backward compatibility)", () => {
-    render(<Button intent="danger">Danger with intent</Button>);
-    const button = screen.getByRole("button");
-    expect(button).toHaveClass("transition-colors");
-  });
-
-  it("uses default when neither variant nor intent is provided", () => {
+  it("uses default when no variant is provided", () => {
     render(<Button>Default button</Button>);
     const button = screen.getByRole("button");
     expect(button).toHaveClass("transition-colors");
+  });
+
+  it("renders ghost variant", () => {
+    render(<Button variant="ghost">Ghost</Button>);
+    const button = screen.getByRole("button");
+    expect(button).toBeInTheDocument();
+  });
+
+  it("renders link variant", () => {
+    render(<Button variant="link">Link</Button>);
+    const button = screen.getByRole("button");
+    expect(button).toBeInTheDocument();
   });
 });

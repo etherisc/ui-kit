@@ -111,7 +111,7 @@ export const NavItem: React.FC<NavItemProps> = ({
         </span>
       )}
 
-      {!isCollapsed && <span className="flex-grow truncate">{label}</span>}
+      {!isCollapsed && <span className="grow truncate">{label}</span>}
 
       {hasChildren && !isCollapsed && (
         <span

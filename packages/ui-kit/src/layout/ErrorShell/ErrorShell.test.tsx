@@ -88,7 +88,7 @@ describe("ErrorShell", () => {
 
     const container = screen.getByRole("main");
     expect(container).toHaveClass(
-      "bg-gradient-to-br",
+      "bg-linear-to-br",
       "from-background",
       "to-muted/20",
     );

@@ -108,7 +108,7 @@ const SliderInput = React.forwardRef<
           className={cn(
             sizeClasses[size],
             error &&
-              "[&_[role=slider]]:border-destructive [&_[role=slider]]:focus-visible:ring-destructive",
+              "**:[[role=slider]]:border-destructive focus-visible:**:[[role=slider]]:ring-destructive",
             sliderClassName,
           )}
           thumbProps={{

@@ -58,7 +58,7 @@ export function DataTableToolbar<TData>({
               placeholder={filterPlaceholder}
               value={filterValue}
               onChange={(e) => handleFilterChange(e.target.value)}
-              className="flex h-9 w-full rounded-md border border-input bg-background pl-8 pr-8 py-1 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+              className="flex h-9 w-full rounded-md border border-input bg-background pl-8 pr-8 py-1 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-hidden focus-visible:ring-1 focus-visible:ring-ring"
             />
             {filterValue && (
               <button

@@ -215,7 +215,7 @@ export const SideNav: React.FC<SideNavProps> = ({
                     className={cn(
                         "flex items-center justify-center h-10 w-10",
                         "rounded-full text-foreground hover:bg-accent hover:text-accent-foreground",
-                        "focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
+                        "focus:outline-hidden focus:ring-2 focus:ring-ring focus:ring-offset-2",
                         "transition-colors"
                     )}
                     onClick={handleCollapseToggle}
@@ -229,7 +229,7 @@ export const SideNav: React.FC<SideNavProps> = ({
 
             {/* Navigation items */}
             <nav
-                className="flex-grow overflow-y-auto px-3"
+                className="grow overflow-y-auto px-3"
                 aria-label="Sidebar navigation"
             >
                 <h2 className="sr-only">Sidebar navigation</h2>

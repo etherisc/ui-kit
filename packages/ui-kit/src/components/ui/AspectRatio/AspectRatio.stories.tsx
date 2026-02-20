@@ -171,7 +171,7 @@ export const CommonRatios = {
         <h3 className="text-lg font-semibold mb-2">16:9 (Widescreen)</h3>
         <AspectRatio
           ratio={16 / 9}
-          className="bg-gradient-to-r from-blue-500 to-purple-600 rounded-md"
+          className="bg-linear-to-r from-blue-500 to-purple-600 rounded-md"
         >
           <div className="flex h-full w-full items-center justify-center text-white font-semibold">
             16:9 Aspect Ratio
@@ -183,7 +183,7 @@ export const CommonRatios = {
         <h3 className="text-lg font-semibold mb-2">4:3 (Traditional)</h3>
         <AspectRatio
           ratio={4 / 3}
-          className="bg-gradient-to-r from-green-500 to-teal-600 rounded-md"
+          className="bg-linear-to-r from-green-500 to-teal-600 rounded-md"
         >
           <div className="flex h-full w-full items-center justify-center text-white font-semibold">
             4:3 Aspect Ratio
@@ -196,7 +196,7 @@ export const CommonRatios = {
         <div className="w-1/2">
           <AspectRatio
             ratio={1}
-            className="bg-gradient-to-r from-orange-500 to-red-600 rounded-md"
+            className="bg-linear-to-r from-orange-500 to-red-600 rounded-md"
           >
             <div className="flex h-full w-full items-center justify-center text-white font-semibold">
               1:1 Aspect Ratio
@@ -209,7 +209,7 @@ export const CommonRatios = {
         <h3 className="text-lg font-semibold mb-2">21:9 (Ultra-wide)</h3>
         <AspectRatio
           ratio={21 / 9}
-          className="bg-gradient-to-r from-purple-500 to-pink-600 rounded-md"
+          className="bg-linear-to-r from-purple-500 to-pink-600 rounded-md"
         >
           <div className="flex h-full w-full items-center justify-center text-white font-semibold">
             21:9 Aspect Ratio
@@ -222,7 +222,7 @@ export const CommonRatios = {
         <div className="w-1/3">
           <AspectRatio
             ratio={9 / 16}
-            className="bg-gradient-to-r from-indigo-500 to-blue-600 rounded-md"
+            className="bg-linear-to-r from-indigo-500 to-blue-600 rounded-md"
           >
             <div className="flex h-full w-full items-center justify-center text-white font-semibold text-center">
               9:16 Aspect Ratio

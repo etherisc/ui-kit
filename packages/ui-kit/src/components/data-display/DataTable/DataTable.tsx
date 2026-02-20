@@ -43,9 +43,6 @@ export interface DataTableProps<TData extends object, TValue = unknown> {
   columns: ColumnDef<TData, TValue>[];
   className?: string;
 
-  /** @deprecated Use pagination.pageSize instead */
-  pageSize?: number;
-
   /** @default true */
   enableResizing?: boolean;
   /** @default 'onChange' */
@@ -104,7 +101,6 @@ export const DataTable = React.memo(
     data,
     columns,
     className,
-    pageSize = 10,
     enableResizing = true,
     columnResizeMode = "onChange",
     enableSorting = true,
@@ -149,10 +145,12 @@ export const DataTable = React.memo(
     const memoizedColumns = useMemo(() => columns, [columns]);
 
     // Smart pagination defaults
+    const DEFAULT_PAGE_SIZE = 10;
+
     const smartPaginationConfig = useMemo((): PaginationConfig | false => {
       if (pagination === false) return false;
       if (pagination) {
-        const configPageSize = pagination.pageSize ?? pageSize;
+        const configPageSize = pagination.pageSize ?? DEFAULT_PAGE_SIZE;
         const defaultOptions = [10, 25, 50, 100];
         const options = pagination.pageSizeOptions ?? defaultOptions;
         const uniqueOptions = [...new Set([...options, configPageSize])];
@@ -162,12 +160,10 @@ export const DataTable = React.memo(
 
       if (data.length <= 15) return false;
 
-      const defaultOptions = [10, 25, 50, 100];
-      const uniqueOptions = [...new Set([...defaultOptions, pageSize])];
-      const pageSizeOptions = uniqueOptions.sort((a, b) => a - b);
+      const pageSizeOptions = [10, 25, 50, 100];
 
       return {
-        pageSize,
+        pageSize: DEFAULT_PAGE_SIZE,
         showSizeSelector: true,
         showPageInfo: true,
         showNavigation: true,
@@ -175,7 +171,7 @@ export const DataTable = React.memo(
         enableFastNavigation: data.length > 100,
         enableJumpToPage: data.length > 200,
       };
-    }, [pagination, data.length, pageSize]);
+    }, [pagination, data.length]);
 
     const isControlledPagination = !!state?.pagination;
 
@@ -189,10 +185,10 @@ export const DataTable = React.memo(
             (smartPaginationConfig !== false
               ? smartPaginationConfig.pageSize
               : undefined) ??
-            pageSize,
+            DEFAULT_PAGE_SIZE,
         },
       }),
-      [initialState, pageSize, smartPaginationConfig],
+      [initialState, smartPaginationConfig],
     );
 
     const configPageSize =
@@ -200,9 +196,9 @@ export const DataTable = React.memo(
 
     const tableKey = useMemo(() => {
       if (isControlledPagination) return "controlled";
-      const keyPageSize = configPageSize ?? pageSize;
+      const keyPageSize = configPageSize ?? DEFAULT_PAGE_SIZE;
       return `uncontrolled-${keyPageSize}`;
-    }, [isControlledPagination, configPageSize, pageSize]);
+    }, [isControlledPagination, configPageSize]);
 
     const paginationState = isControlledPagination
       ? state.pagination

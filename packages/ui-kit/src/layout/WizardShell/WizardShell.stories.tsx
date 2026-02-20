@@ -165,8 +165,8 @@ const AddressFormContent = () => (
 // Actions for step 2 (Address)
 const StepActions = () => (
     <>
-        <Button intent="ghost">Back</Button>
-        <Button intent="primary">Continue</Button>
+        <Button variant="ghost">Back</Button>
+        <Button variant="default">Continue</Button>
     </>
 );
 

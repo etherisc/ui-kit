@@ -78,7 +78,7 @@ export const UserProfile: Story = {
         <HoverCardTrigger asChild>
           <Button variant="link" className="p-0">
             <div className="flex items-center space-x-2">
-              <div className="h-8 w-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center text-white text-sm font-medium">
+              <div className="h-8 w-8 rounded-full bg-linear-to-r from-blue-500 to-purple-500 flex items-center justify-center text-white text-sm font-medium">
                 JD
               </div>
               <span>John Doe</span>
@@ -87,7 +87,7 @@ export const UserProfile: Story = {
         </HoverCardTrigger>
         <HoverCardContent className="w-80">
           <div className="flex justify-between space-x-4">
-            <div className="h-16 w-16 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center text-white text-xl font-medium">
+            <div className="h-16 w-16 rounded-full bg-linear-to-r from-blue-500 to-purple-500 flex items-center justify-center text-white text-xl font-medium">
               JD
             </div>
             <div className="space-y-1">
@@ -116,7 +116,7 @@ export const UserProfile: Story = {
         <HoverCardTrigger asChild>
           <Button variant="link" className="p-0">
             <div className="flex items-center space-x-2">
-              <div className="h-8 w-8 rounded-full bg-gradient-to-r from-pink-500 to-red-500 flex items-center justify-center text-white text-sm font-medium">
+              <div className="h-8 w-8 rounded-full bg-linear-to-r from-pink-500 to-red-500 flex items-center justify-center text-white text-sm font-medium">
                 AS
               </div>
               <span>Alice Smith</span>
@@ -125,7 +125,7 @@ export const UserProfile: Story = {
         </HoverCardTrigger>
         <HoverCardContent className="w-80">
           <div className="flex justify-between space-x-4">
-            <div className="h-16 w-16 rounded-full bg-gradient-to-r from-pink-500 to-red-500 flex items-center justify-center text-white text-xl font-medium">
+            <div className="h-16 w-16 rounded-full bg-linear-to-r from-pink-500 to-red-500 flex items-center justify-center text-white text-xl font-medium">
               AS
             </div>
             <div className="space-y-1">
@@ -295,7 +295,7 @@ export const SocialPost: Story = {
       <HoverCardTrigger asChild>
         <div className="cursor-pointer rounded-lg border p-4 max-w-md hover:bg-muted/50">
           <div className="flex items-start space-x-3">
-            <div className="h-10 w-10 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 flex items-center justify-center text-white font-medium">
+            <div className="h-10 w-10 rounded-full bg-linear-to-r from-purple-500 to-blue-500 flex items-center justify-center text-white font-medium">
               SM
             </div>
             <div className="flex-1">
@@ -323,7 +323,7 @@ export const SocialPost: Story = {
       </HoverCardTrigger>
       <HoverCardContent className="w-80">
         <div className="flex justify-between space-x-4">
-          <div className="h-16 w-16 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 flex items-center justify-center text-white text-xl font-medium">
+          <div className="h-16 w-16 rounded-full bg-linear-to-r from-purple-500 to-blue-500 flex items-center justify-center text-white text-xl font-medium">
             SM
           </div>
           <div className="space-y-1">

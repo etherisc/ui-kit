@@ -6,10 +6,16 @@ import { initializeTheme } from '../src/theme'
 import { I18nProvider } from '../src/providers/I18nProvider'
 import { useTranslation } from 'react-i18next'
 
-// Theme switcher
-const ThemeInitializer = ({ children }: { children: React.ReactNode }) => {
+const ThemeApplier = ({ children, theme }: { children: React.ReactNode; theme: string }) => {
     useEffect(() => {
-        // Initialize theme when component mounts
+        if (theme === 'dark') {
+            document.documentElement.classList.add('dark')
+        } else {
+            document.documentElement.classList.remove('dark')
+        }
+    }, [theme])
+
+    useEffect(() => {
         initializeTheme()
     }, [])
 
@@ -78,13 +84,13 @@ const preview: Preview = {
     decorators: [
         (Story, context) => (
             <I18nProvider>
-                <ThemeInitializer>
+                <ThemeApplier theme={context.globals.theme || 'light'}>
                     <I18nWrapper locale={context.globals.locale || 'en'}>
                         <div className="p-4">
                             <Story />
                         </div>
                     </I18nWrapper>
-                </ThemeInitializer>
+                </ThemeApplier>
             </I18nProvider>
         ),
     ],
@@ -101,14 +107,6 @@ const preview: Preview = {
                 ],
                 showName: true,
                 dynamicTitle: true,
-                onChange: (theme) => {
-                    const isDark = theme === 'dark'
-                    if (isDark) {
-                        document.documentElement.classList.add('dark')
-                    } else {
-                        document.documentElement.classList.remove('dark')
-                    }
-                }
             },
         },
         locale: {

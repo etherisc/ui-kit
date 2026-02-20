@@ -167,7 +167,7 @@ describe("CodeEditor", () => {
     });
   });
 
-  it("handles focus and blur events", async () => {
+  it("handles focus and blur-sm events", async () => {
     const handleFocus = vi.fn();
     const handleBlur = vi.fn();
     const { container } = render(

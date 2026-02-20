@@ -80,7 +80,7 @@ export function ResetPasswordPage() {
           <button
             type="button"
             onClick={handleBackToLogin}
-            className="text-sm text-primary hover:underline focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded"
+            className="text-sm text-primary hover:underline focus:outline-hidden focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded"
           >
             ← Back to Sign In
           </button>
