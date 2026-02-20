@@ -5,7 +5,7 @@
 
 # UI library — only platform and devops rules apply.
 # No infrastructure or business logic in UI components.
-domains: [PFM, DVO]
+domains: [PFM, DVO, GOV]
 
 ignore_paths:
   - "dist/**"
