@@ -205,3 +205,4 @@ jobs:
           body_path: release-notes.md
           draft: false
           prerelease: true
+        continue-on-error: true
