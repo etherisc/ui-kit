@@ -4,14 +4,20 @@ import tailwindcss from "@tailwindcss/vite";
 import dts from "vite-plugin-dts";
 import { resolve } from "path";
 
+const isStorybook = process.argv[1]?.includes("storybook");
+
 export default defineConfig({
   plugins: [
     tailwindcss(),
     react(),
-    dts({
-      rollupTypes: true,
-      tsconfigPath: "./tsconfig.json",
-    }),
+    ...(!isStorybook
+      ? [
+          dts({
+            rollupTypes: true,
+            tsconfigPath: "./tsconfig.json",
+          }),
+        ]
+      : []),
   ],
   resolve: {
     alias: {
