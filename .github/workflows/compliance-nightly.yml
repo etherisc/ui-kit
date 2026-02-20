@@ -119,23 +119,26 @@ jobs:
             echo "No compliance summary generated." >> "$GITHUB_STEP_SUMMARY"
           fi
 
-      - name: Commit updated ledger
+      - name: Commit compliance artifacts
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
         run: |
-          if git diff --quiet .compliance/ledger.json 2>/dev/null; then
-            echo "No ledger changes to commit"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f .compliance/ledger.json .compliance/report.md .compliance/badge.svg
+          if git diff --cached --quiet; then
+            echo "No compliance changes to commit"
           else
-            git config user.name "github-actions[bot]"
-            git config user.email "github-actions[bot]@users.noreply.github.com"
-            git add .compliance/ledger.json
-            git commit -m "chore: update compliance ledger [skip ci]"
+            git commit -m "chore: update compliance report [skip ci]"
             git push
           fi
 
-      - name: Upload ledger artifact
+      - name: Upload compliance artifacts
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: compliance-ledger
-          path: .compliance/ledger.json
+          name: compliance-report
+          path: |
+            .compliance/ledger.json
+            .compliance/report.md
+            .compliance/badge.svg
           retention-days: 30

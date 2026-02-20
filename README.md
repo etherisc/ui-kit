@@ -1,5 +1,7 @@
 # UI-Kit & Admin App
 
+[![Compliance](.compliance/badge.svg)](.compliance/report.md)
+
 React component library and showcase admin app built with modern tools:
 
 - 🎨 Shadcn UI + DaisyUI + Tailwind
