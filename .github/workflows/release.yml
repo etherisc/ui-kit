@@ -35,7 +35,8 @@ jobs:
         with:
           node-version: 20
           cache: "pnpm"
-          registry-url: "https://registry.npmjs.org"
+          registry-url: "https://npm.pkg.github.com"
+          scope: "@etherisc"
 
       - name: Install dependencies
         run: pnpm install
@@ -105,7 +106,7 @@ jobs:
           echo "Updated package.json for npm publishing:"
           cat package.json | jq '.name, .version, .private, .repository'
 
-      - name: Publish to npm
+      - name: Publish to GitHub Packages
         run: |
           cd packages/ui-kit
           npm publish --access=public
@@ -114,7 +115,7 @@ jobs:
           mv package.json.backup package.json
           echo "Restored original package.json"
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -183,7 +184,7 @@ jobs:
           \`\`\`
 
           ### 🔗 Links
-          - **npm Package**: [npmjs.com](https://www.npmjs.com/package/@etherisc/ui-kit)
+          - **Package**: [GitHub Packages](https://github.com/${{ github.repository }}/pkgs/npm/ui-kit)
           - **Demo**: [Storybook](${PAGE_URL})
           - **Source**: [GitHub](https://github.com/${{ github.repository }})
           - **Build**: \`${BUILD_HASH}\`
