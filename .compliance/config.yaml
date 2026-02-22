@@ -5,6 +5,7 @@
 
 # UI library — only platform and devops rules apply.
 # No infrastructure or business logic in UI components.
+component_id: COMP-PFM-008
 domains: [PFM, DVO, GOV]
 
 ignore_paths:
@@ -20,18 +21,20 @@ ignore_paths:
   - ".storybook/**"
   - ".devcontainer/**"
 
-# Suppress database-related rules for the showcase app.
-# The showcase uses a minimal SQLite DB for demo/testing purposes only;
-# it is not a production system and does not require tenant isolation,
-# role separation, or MFA enforcement.
-suppressions:
-  - rule: CON-DVO-002
-    paths:
-      - "packages/showcase/src/database/**"
-      - "packages/showcase/src/types/**"
-    reason: "Showcase DB is for testing/demo only, not a production system"
-  - rule: CON-PFM-001
-    paths:
-      - "packages/showcase/src/database/**"
-      - "packages/showcase/src/types/**"
-    reason: "Showcase DB is for testing/demo only, no tenant isolation needed"
+suppress:
+  - entity: CON-DVO-002
+    file: "packages/showcase/**"
+    reason: "Showcase is a demo app, not a production system"
+  - entity: CON-PFM-001
+    file: "packages/showcase/**"
+    reason: "Showcase is a demo app, no tenant isolation needed"
+  - entity: CON-PFM-009
+    file: "packages/showcase/**"
+    reason: "Showcase is a demo app, API conventions not required"
+  - entity: CON-PFM-010
+    file: "packages/showcase/**"
+    reason: "Showcase is a demo app, third-party approval not required"
+
+overrides:
+  CON-GOV-005:
+    allowlist_ref: templates/allowlists/react-ui-packages.yaml
