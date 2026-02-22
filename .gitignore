@@ -1,14 +1,17 @@
 # Dependencies
 node_modules
+node_modules/
 .pnpm-store
 
 # Build outputs
 dist
+dist/
 build
 storybook-static
 
 # Environment
 .env
+.env.local
 .env.*
 !.env.example
 

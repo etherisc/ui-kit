@@ -21,6 +21,9 @@ ignore_paths:
   - ".storybook/**"
   - ".devcontainer/**"
 
+exclude:
+  - CON-PFM-010  # redundant with CON-GOV-005 allowlist
+
 suppress:
   - entity: CON-DVO-002
     file: "packages/showcase/**"
@@ -31,9 +34,6 @@ suppress:
   - entity: CON-PFM-009
     file: "packages/showcase/**"
     reason: "Showcase is a demo app, API conventions not required"
-  - entity: CON-PFM-010
-    file: "packages/showcase/**"
-    reason: "Showcase is a demo app, third-party approval not required"
 
 overrides:
   CON-GOV-005:
