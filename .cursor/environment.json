@@ -1,3 +1,3 @@
 {
-  "install": "pnpm install"
+  "install": "echo '//npm.pkg.github.com/:_authToken=${GH_TOKEN}' >> .npmrc && pnpm install"
 }
