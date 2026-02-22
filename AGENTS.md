@@ -53,6 +53,30 @@ These rules apply to the entire repository unless a subdirectory defines its own
 - Configure imports via the `@` alias in `vite.config.ts` and avoid deep relative
   paths. Keep `index.html` minimal and let Vite inject scripts.
 
+## Compliance System
+
+This repo is governed by the Etherisc SaaS architecture system.
+
+- Compliance report: `.compliance/report.md`
+- Configuration: `.compliance/config.yaml`
+- Entity source: `github.com/etherisc-saas/saas-architecture/entities/`
+
+### Fix Guidelines
+
+- Read `.compliance/report.md` before making changes
+- Each finding has a rule ID (e.g. `CON-GOV-005`), evidence, and suggestion
+- Follow the suggestion unless you have a better approach -- explain why
+- Never suppress a finding without explicit user approval
+- Never weaken a constraint to make a finding pass
+- Run `pnpm lint`, `pnpm test`, and `pnpm build` before committing
+
+### Architecture References
+
+- Component ID: `COMP-PFM-008`
+- Repo archetype: `ui-monorepo`
+- Active domains: PFM, DVO, GOV
+- Key constraints: CON-GOV-005 (dependency allowlist), CON-DVO-001 (toolchain)
+
 ## Documentation
 
 - The `docs/` folder contains the planning documents for the project. Keep these
