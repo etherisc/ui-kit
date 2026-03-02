@@ -2,8 +2,8 @@
   "schema_version": 1,
   "repo": "ui-kit",
   "component_id": "COMP-PFM-008",
-  "baseline_commit": "86d97b8286d8",
-  "last_full_scan": "2026-03-01T03:41:03+00:00",
+  "baseline_commit": "f51054278ddc",
+  "last_full_scan": "2026-03-02T03:37:13+00:00",
   "results": [
     {
       "entity_id": "CON-DVO-001",
