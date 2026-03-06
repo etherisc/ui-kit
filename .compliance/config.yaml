@@ -24,6 +24,11 @@ ignore_paths:
 
 exclude:
   - CON-PFM-010  # redundant with CON-GOV-005 allowlist
+  - CON-GOV-001  # node-ts single app structure — ui-kit is a monorepo
+  - CON-GOV-008  # platform-sdk monorepo structure — not applicable
+  - CON-GOV-013  # architecture repo structure — only saas-architecture
+  - CON-GOV-014  # app monorepo structure — ui-kit is a library monorepo
+  - CON-GOV-017  # uses node-ts-app structure template — wrong archetype
 
 suppress:
   - entity: CON-DVO-002

@@ -2,13 +2,11 @@
 
 [![Compliance](.compliance/badge.svg)](.compliance/report.md)
 
-React component library and showcase admin app built with modern tools:
+## Overview
 
-- 🎨 Shadcn UI + DaisyUI + Tailwind
-- 📊 TanStack Table
-- 🔄 Zustand + TanStack Query + React Hook Form
-- 🏗️ Vite + TypeScript + pnpm
-- 📚 Storybook + Vitest + Playwright
+Bare-metal React component library (`@etherisc/ui-kit`) providing 60+ UI primitives for the Etherisc SaaS platform. Built on Radix UI and Tailwind CSS v4, it serves as Layer 1 in the three-layer frontend architecture (ADR-0016). Domain apps consume it indirectly via `@etherisc-saas/design`.
+
+Key technologies: Radix UI, Tailwind CSS v4, TanStack Table, React Hook Form + Zod, Storybook, Vitest, Playwright.
 
 ## Installation
 
@@ -65,7 +63,7 @@ function App() {
 
 For complete documentation and examples, visit our [Storybook](https://etherisc.github.io/ui-kit/).
 
-## Development Setup
+## Development
 
 ### For Contributors (Developing the UI Kit)
 
@@ -141,3 +139,19 @@ For bug reports and feature requests, please use our [GitHub Issues](https://git
 ### Code of Conduct
 
 This project follows a [Code of Conduct](CONTRIBUTING.md#code-of-conduct) to ensure a welcoming environment for all contributors.
+
+## Architecture
+
+The ui-kit is a pnpm monorepo with three packages:
+
+- `packages/ui-kit` — the published component library (`@etherisc/ui-kit`)
+- `packages/showcase` — demo/admin application for visual testing
+- `packages/eslint-plugin-ui-kit-rules` — custom ESLint rules for component quality
+
+In the platform's three-layer architecture, ui-kit is Layer 1 (bare-metal atoms). It is consumed exclusively by `@etherisc-saas/design` (Layer 2, in `platform-sdk/packages/design`). Domain apps (Layer 3) never import from ui-kit directly.
+
+## Related Repos
+
+- [`platform-sdk`](https://github.com/etherisc-saas/platform-sdk) — contains `@etherisc-saas/design` which wraps ui-kit
+- [`platform-app`](https://github.com/etherisc-saas/platform-app) — primary domain app consuming the design package
+- [`saas-architecture`](https://github.com/etherisc-saas/saas-architecture) — architectural governance and compliance rules
