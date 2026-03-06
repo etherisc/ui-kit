@@ -29,120 +29,15 @@ permissions:
   contents: write
   issues: write
 
-env:
-  PYTHON_VERSION: '3.12'
-  MAX_COST: '5.0'
-
 jobs:
   compliance:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Checkout saas-architecture (compliance scripts & entities)
-        uses: actions/checkout@v4
-        with:
-          repository: etherisc-saas/saas-architecture
-          ref: develop
-          path: .saas-architecture
-          token: ${{ secrets.SAAS_ARCH_TOKEN }}
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: ${{ env.PYTHON_VERSION }}
-
-      - name: Install dependencies
-        run: pip install pyyaml jsonschema
-
-      - name: Restore compliance cache
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/compliance-checker
-          key: compliance-cache-${{ hashFiles('.compliance/config.yaml') }}-${{ github.run_number }}
-          restore-keys: compliance-cache-
-
-      - name: Run compliance check (PR - diff, static+structural only)
-        if: github.event_name == 'pull_request'
-        env:
-          COMPLIANCE_ENTITY_SOURCE: ${{ github.workspace }}/.saas-architecture/entities
-          PYTHONPATH: ${{ github.workspace }}/.saas-architecture
-          PYTHONUNBUFFERED: '1'
-        run: |
-          python -m scripts.compliance.check \
-            --target-dir "${{ github.workspace }}" \
-            --tier structural \
-            diff --base-ref "origin/${{ github.base_ref }}"
-
-      - name: Run compliance check (nightly baseline)
-        if: github.event_name == 'schedule'
-        env:
-          COMPLIANCE_ENTITY_SOURCE: ${{ github.workspace }}/.saas-architecture/entities
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          PYTHONPATH: ${{ github.workspace }}/.saas-architecture
-          PYTHONUNBUFFERED: '1'
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          python -m scripts.compliance.check \
-            --target-dir "${{ github.workspace }}" \
-            --llm-provider anthropic \
-            --max-cost "${{ env.MAX_COST }}" \
-            --create-issues \
-            baseline
-
-      - name: Run compliance check (manual)
-        if: github.event_name == 'workflow_dispatch'
-        env:
-          COMPLIANCE_ENTITY_SOURCE: ${{ github.workspace }}/.saas-architecture/entities
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          PYTHONPATH: ${{ github.workspace }}/.saas-architecture
-          PYTHONUNBUFFERED: '1'
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          TIER_ARG=""
-          if [ -n "${{ inputs.tier }}" ]; then
-            TIER_ARG="--tier ${{ inputs.tier }}"
-          fi
-          python -m scripts.compliance.check \
-            --target-dir "${{ github.workspace }}" \
-            --llm-provider anthropic \
-            --max-cost "${{ env.MAX_COST }}" \
-            --create-issues \
-            $TIER_ARG \
-            ${{ inputs.mode }}
-
-      - name: Write job summary
-        if: always()
-        run: |
-          if [ -f .compliance/summary.md ]; then
-            cat .compliance/summary.md >> "$GITHUB_STEP_SUMMARY"
-          else
-            echo "No compliance summary generated." >> "$GITHUB_STEP_SUMMARY"
-          fi
-
-      - name: Commit compliance artifacts
-        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -f .compliance/ledger.json .compliance/report.md .compliance/badge.svg
-          if git diff --cached --quiet; then
-            echo "No compliance changes to commit"
-          else
-            git commit -m "chore: update compliance report [skip ci]"
-            git push
-          fi
-
-      - name: Upload compliance artifacts
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: compliance-report
-          path: |
-            .compliance/ledger.json
-            .compliance/report.md
-            .compliance/badge.svg
-          retention-days: 30
+    uses: etherisc-saas/saas-architecture/.github/workflows/compliance-reusable.yml@develop
+    with:
+      event_name: ${{ github.event_name }}
+      pr_base_ref: ${{ github.base_ref || 'develop' }}
+      mode: ${{ inputs.mode || 'baseline' }}
+      tier: ${{ inputs.tier || '' }}
+      self_hosted_entities: 'false'
+    secrets:
+      SAAS_ARCH_TOKEN: ${{ secrets.SAAS_ARCH_TOKEN }}
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
